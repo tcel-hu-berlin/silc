@@ -67,23 +67,23 @@
             <div class="inner" >
                 <h1>Energieänderungen, Geschwindigkeiten und Gleichgewichte von Reaktionen</h1>
                 <h2>Simulation D: Chemisches Gleichgewicht </h2>
-                <p>Hier geht es um das Erreichen von Gleichgewicht für zwei verschiedenen Arten chemischer Reaktionen. </p>
+                <p>Hier kann der Verlauf von zwei Reaktionen beobachtet und die Anzahl der beteiligten Molekülen bzw. Ionen gezählt werden.</p>
                 <h3>Überblick der Simulationen:</h3>
                     <ul>
                         <li>
-                            Eine Animation (links) zeigt eine Darstellung jeder Reaktionen auf Partikelebene. 
+                            Eine Animation (links) zeigt je eine Darstellung der beiden Reaktionen auf Partikelebene.
                         </li>
                         <li>
-                            Ein begleitendes Diagram verfolgt die Konzentration der Partikel im Laufe der Zeit. 
+                            Ein begleitendes Diagramm verfolgt die Konzentration der Partikel in Abhängigkeit von der Zeit.
                         </li>
                         <li>
-                            Sie können die Animationen jederzeit anhalten bzw. fortsetzen, indem Sie darauf tippen.
+                            Die Animationen können jederzeit mit einer Berührung angehalten bzw. fortgesetzt werden.
                         </li> 
                         <li>
-                            Wenn eine Animation gestoppt ist, können Sie auf Bereiche des Diagramms nebenan tippen, um genaue Werte abzulesen,
+                            Wenn eine Animation gestoppt ist, können die genauen Werte im Diagramm durch Berühren abgelesen werden.
                         </li>
                     </ul>
-                    <h3>Beachte:</h3>
+                    <h3>Zu Beachten:</h3>
                     <ul>
                         <li>
                             Jedes Teilchen in den Animationen kann als 1 μmol von Teilchen betrachtet werden.
@@ -92,12 +92,10 @@
                 <h3 style="padding-top: 0">Reaktion 1: Schwefelwasserstoff und Zyanid</h3>
                 <img src="../images/reachingEquilibrium_D1.png" style="width: 30%; min-width:200px"
                     alt = "H2S und CN- reagieren und produzieren HS- und HCN">
-                <p>Tippe auf die Animation unten, um sie zu starten.</p>
                 <iframe scrolling="no" id="simulationD1" src="../assets/glowscript/equilAcidBase.html" style="width: 100%; height:200px"></iframe>
                 <h3>Reaktion 2: Löslichkeit von Silberchlorid</h3>
                 <img src="../images/reachingEquilibrium_D2.png" style="width: 30%; min-width:200px"
                     alt = "AgCl produziert Ag+ und Cl-">
-                <p>Tippe auf die Animation unten, um sie zu starten.</p>
                 <iframe scrolling="no" id="simulationD2" src="../assets/glowscript/equilSolubility.html" style="width: 100%; height:200px"></iframe>
             </div>
         </div>
@@ -199,7 +197,10 @@
             setTimeout(function(){
                 legend2 = iFrame2.contentWindow.legend[0]
                 legend2.style.opacity=0
+                span = iFrame2.contentWindow.document.getElementById('9')
+                span.innerHTML="     "
                 }, 1000)
+
         }
     </script>
 </body>
