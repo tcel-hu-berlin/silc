@@ -167,7 +167,7 @@ svg.append("rect")
     .attr("width", legx2-legx1)
     .style("fill", "white")
     .style("stroke", "black")
-svg.selectAll("mydots")
+svg.selectAll(null)
     .data(keys)
     .enter()
     .append("circle")
@@ -213,7 +213,7 @@ svg.selectAll("mydots")
 
 
 // Add one dot in the legend for each name.
-svg.selectAll("mylabels")
+svg.selectAll(null)
     .data(keys)
     .enter()
     .append("text")
