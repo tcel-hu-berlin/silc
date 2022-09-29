@@ -74,14 +74,15 @@
                     <li>
                         Berühren, halten und ziehen Sie, um Atome zu verschieben.
                     </li>
-                    <li>
-                        Tippen Sie auf eine Bindung, oder tippen Sie nacheinander auf zwei Atome, um eine Bindung zu brechen (<span style="color:#5469b7; font-size:1.2em">✄</span>). 
-                    </li>
+                    
                     <li>
                         Tippen Sie nacheinander auf zwei Atome, um eine Einzel- (<span style="color:#5469b7">●⚊●</span>) oder Doppelbindung (<span style="color:#5469b7">●⚌●</span>) zu bilden. 
                     </li>
                     <li>
-                        Die Enthalpieänderungen werden in der Grafik unten angezeigt. Sie können auch alle Bindungen auf einmal aufbrechen (<span style="color:#5469b7">●✕●✕●</span>).
+                        Tippen Sie auf eine Bindung, oder tippen Sie nacheinander auf zwei Atome, um eine Bindung zu brechen (<span style="color:#5469b7; font-size:1.2em">✄</span>). Sie können auch alle Bindungen auf einmal aufbrechen (<span style="color:#5469b7">●✕●✕●</span>) 
+                    </li>
+                    <li>
+                        Die Enthalpieänderungen werden in der Grafik unten angezeigt.
                     </li> 
                     <li>
                         Wenn Sie auf "Zurücksetzen" klicken, wird der Pfad von Methan- und Sauerstoffmolekülen neu gestartet.
@@ -90,13 +91,16 @@
                         Wenn Sie auf "Bezugspunkt erneuern" klicken, wird der Energiewert des Systems als neuer Bezugspunkt für weitere Reaktionen auf Null gesetzt.
                     </li>
                 </ul>
-                <h3>Beachte:</h3>
+                <h3>Zu Beachten:</h3>
                 <ul>
                     <li>
                         Jedes Molekül in der Simulation entspricht 1 mol von gasformigen Molekülen.
                     </li>
                     <li>
-                        Tippen Sie auf eine Bindung, oder tippen Sie nacheinander auf zwei Atome, um eine Bindung zu brechen oder zu bilden. 
+                        Es ist sinnvoll bestimmte Reaktionen mit zwei Methanmolekülen zu beginnen, um ungebundene Atome in Zwischenstufen zu vermeiden. Dies kann im Reiter Ausgangsmaterialien gewählt werden. 
+                    </li>
+                    <li>
+                        Die Bewegung der Atome ist auf zwei Dimensionen eingeschränkt, was für echte Moleküle natürlich nicht repräsentativ ist.
                     </li>
                     
                 </ul>
@@ -191,9 +195,12 @@
             iframeB.style.height = iframeB.contentWindow.document.body.scrollHeight+'px'
             spans = iframeB.contentWindow.document.getElementsByTagName("span")
             for (let i=0; i<spans.length; i++){
-                spans[i].style="font-size: 0.8em"
+                spans[i].style="font-size: 0.9em; font-weight:600"
             select = iframeB.contentWindow.document.getElementsByTagName("select")[0]
+            select.style.display="inline-block"
             select.style.width="10em"
+            select.style.margin ="0 0 0.5em 0.5em"
+            iframeB.contentWindow.document.getElementById("graph0").style.margin = "0.5em 0 0 3em"
             }
         }
     </script>
