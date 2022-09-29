@@ -1,5 +1,5 @@
 //TODO: make size of graph responsive
-//TODO: bring cross to front
+//TODO: firefox problem
 //TODO: zoom
 //TODO:  set the dimensions and margins of the graph
 var margin = {top: 10, right: 30, bottom: 40, left: 50}
@@ -35,6 +35,14 @@ svg
     .attr("height", height)
     .attr("width", width)
     .style("fill", "white")
+
+clickRect =  svg.append("rect")
+    .attr("x",0)
+    .attr("y",0)
+    .attr("height", height)
+    .attr("width", width)
+    .style("fill", "red")
+    .style("opacity", 0)
     .on("click", function(){
         var xval = d3.mouse(this)[0]
         var yval = d3.mouse(this)[1]
@@ -104,19 +112,20 @@ svg.append("text")
 
 // cross with x and y values
 x0 = 0.05*width; y0 = 0.05*height
-svg.append("line")
+cursor = svg.append("g").attr("id", "cursor")
+cursor.append("line")
     .style("stroke", "black")
     .style("stroke-width", 1.5)
     .attr("x1", x0+10).attr("x2", x0-10)
     .attr("y1", y0).attr("y2", y0)
     .attr("id", "yCur")
-svg.append("line")
+cursor.append("line")
     .style("stroke", "black")
     .style("stroke-width", 1.5)
     .attr("x1", x0).attr("x2", x0)
     .attr("y1", y0+10).attr("y2", y0-10)
     .attr("id", "xCur")
-svg.append("text")
+cursor.append("text")
     .style("stroke", "black")
     .attr("id", "coord")
     .attr("x", x0+10).attr("y", y0+20)
@@ -124,103 +133,111 @@ svg.append("text")
     //.attr("visibility", "hidden")
 
 //Read the data
-d3.csv("../files/plotLJ1.csv", function(data) {
+data = d3.csv("../files/plotLJ1.csv", function(data) {
     // Color scale
     var keys = ["H2", "F2"]
     var color = d3.scaleOrdinal()
         .domain(keys)
-        .range(["#619CFF", "#F8766D"]);
+        .range(["#619CFF", "#F8766D"])
     var name = d3.scaleOrdinal()
         .domain(keys)
         .range(["H-H", "F-F"])
+    
+    // Add plots
+    svg.append("path")
+        .datum(data)
+        .attr("fill", "none")
+        .attr("stroke", color("H2"))
+        .attr("stroke-width", 2)
+        .attr("id", "H2_line")
+        .attr("visibility", "visible")
+        .attr("d", d3.line()
+            .x(function(d) {return x(d.r-9) })
+            .y(function(d) {console.log(d.H2, y(d.H2)); return y(d.H2) })
+            )
+    svg.append("path")
+        .datum(data)
+        .attr("fill", "none")
+        .attr("stroke", color("F2"))
+        .attr("stroke-width", 2)
+        .attr("id", "F2_line")
+        .attr("visibility", "hidden")
+        .attr("d", d3.line()
+            .x(function(d) { return x(d.r-17.8) })
+            .y(function(d) { return y(d.F2) })
+            )
 
-// Add plots
-svg.append("path")
-    .datum(data)
-    .attr("fill", "none")
-    .attr("stroke", color("H2"))
-    .attr("stroke-width", 2)
-    .attr("id", "H2_line")
-    .attr("visibility", "visible")
-    .attr("d", d3.line()
-        .x(function(d) {return x(d.r-9) })
-        .y(function(d) { return y(d.H2) })
-        )
-svg.append("path")
-    .datum(data)
-    .attr("fill", "none")
-    .attr("stroke", color("F2"))
-    .attr("stroke-width", 2)
-    .attr("id", "F2_line")
-    .attr("visibility", "hidden")
-    .attr("d", d3.line()
-        .x(function(d) { return x(d.r-17.8) })
-        .y(function(d) { return y(d.F2) })
-        )
 
-
-// Legend
-svg.append("rect")
-    .attr("x",legx1)
-    .attr("y",legy1)
-    .attr("height", legy2-legy1)
-    .attr("width", legx2-legx1)
-    .style("fill", "white")
-    .style("stroke", "black")
-svg.selectAll(null)
-    .data(keys)
-    .enter()
-    .append("circle")
-        .attr("cx", legx)
-        .attr("cy", function(d,i){ return legy + i*25}) // legy is where the first dot appears. 25 is the distance between dots
-        .attr("r", 7)
-        .attr("id", function(d, i){return keys[i]+"_dot"})
-        .style("fill", function(d, i){
-            if (keys[i] != "H2"){return "white"}else{return color("H2")}})
-        .style("stroke", function(d){ return color(d)})
-        .on("click", function(d, i){
-            lineID = "#"+keys[i]+"_line"
-            dotID = "#"+this.id
-            var active = d3.select(lineID).style("visibility")
-            if (this.id == "H2_dot"){
-                if (active == "visible"){
-                    d3.select(lineID).style("visibility", "hidden")
-                    d3.select(dotID).style("fill", "white")
-                } else {
-                    d3.select(lineID).style("visibility", "visible")
-                    d3.select(dotID).style("fill", color(d))
-                    d3.select("#coord").raise()
-            }
-            } else {
-                if (active == "visible"){
-                    d3.select(lineID).style("visibility", "hidden")
-                    d3.select(dotID).style("fill", "white")
-                } else {
-                    console.log(beansSpilled)
-                    if (beansSpilled==true || prompt("Zauberwort zur Darstellung der Fluor-Potentialkurve?") == "zeigmir") {
-                    d3.select(lineID).style("visibility", "visible")
-                    d3.select(dotID).style("fill", color(d))
-                    d3.select("#coord").raise()
-                    document.getElementById("guessFirstWarning").style.display="none"
-                    beansSpilled = true
+    // Legend
+    legend = svg.append("g").attr("id", "legend")
+    legend.append("rect")
+        .attr("x",legx1)
+        .attr("y",legy1)
+        .attr("height", legy2-legy1)
+        .attr("width", legx2-legx1)
+        .style("fill", "white")
+        .style("stroke", "black")
+    legend.selectAll("mydots")
+        .data(keys)
+        .enter()
+        .append("circle")
+            .attr("cx", legx)
+            .attr("cy", function(d,i){ return legy + i*25}) // legy is where the first dot appears. 25 is the distance between dots
+            .attr("r", 7)
+            .attr("id", function(d, i){return keys[i]+"_dot"})
+            .style("fill", function(d, i){
+                if (keys[i] != "H2"){return "white"}else{return color("H2")}})
+            .style("stroke", function(d){ return color(d)})
+            .on("click", function(d, i){
+                lineID = "#"+keys[i]+"_line"
+                dotID = "#"+this.id
+                var active = d3.select(lineID).style("visibility")
+                if (this.id == "H2_dot"){
+                    if (active == "visible"){
+                        d3.select(lineID).style("visibility", "hidden")
+                        d3.select(dotID).style("fill", "white")
                     } else {
-                        document.getElementById("guessFirstWarning").style.display="block"
-                    }
-            }
-            
-            }
-        })
+                        d3.select(lineID).style("visibility", "visible")
+                        d3.select(dotID).style("fill", color(d))
+                        d3.select("#coord").raise()
+                }
+                } else {
+                    if (active == "visible"){
+                        d3.select(lineID).style("visibility", "hidden")
+                        d3.select(dotID).style("fill", "white")
+                    } else {
+                        console.log(beansSpilled)
+                        if (beansSpilled==true || prompt("Zauberwort zur Darstellung der Fluor-Potentialkurve?") == "zeigmir") {
+                        d3.select(lineID).style("visibility", "visible")
+                        d3.select(dotID).style("fill", color(d))
+                        d3.select("#coord").raise()
+                        document.getElementById("guessFirstWarning").style.display="none"
+                        beansSpilled = true
+                        } else {
+                            document.getElementById("guessFirstWarning").style.display="block"
+                        }
+                }
+                
+                }
+            })
 
 
-// Add one dot in the legend for each name.
-svg.selectAll(null)
-    .data(keys)
-    .enter()
-    .append("text")
-        .attr("x", legx+20)
-        .attr("y", function(d,i){ return legy + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
-        .style("fill", "black")
-        .text(function(d){ return name(d)})
-        .attr("text-anchor", "left")
-        .style("alignment-baseline", "middle")
-});
+    // Add one dot in the legend for each name.
+    legend.selectAll("mylabels")
+        .data(keys)
+        .enter()
+        .append("text")
+            .attr("x", legx+20)
+            .attr("y", function(d,i){ return legy + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
+            .style("fill", "black")
+            .text(function(d){ return name(d)})
+            .attr("text-anchor", "left")
+            .style("alignment-baseline", "middle")
+
+    d3.select("#H2_line").raise()
+    cursor.raise()
+    clickRect.raise()
+    legend.raise()
+        
+ });
+
