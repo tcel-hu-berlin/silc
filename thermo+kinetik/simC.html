@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="../assets/css/main.css" />
     <noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
-    </head>
+</head>
 <body class="is-preload">
 <!-- Wrapper -->
     <div id="wrapper">
@@ -71,12 +71,13 @@
                 <h3>Überblick der Simulation:</h3>
                 <ul>
                     <li>Diese Simulation zeigt eine Menge von Teilchen, die sich innerhalb eines Kastens bewegen.</li>
-                    <li>Das begleitende Diagramm zeigt die Geschwindigkeitsverteilung der Teilchen, d.h. die Anzahl von Teilchen, die jede bestimmte Geschwindigkeit besitzen. </li>
                     <li>
-                        Die Teilchen sind gemäß ihren Geschwindigkeit gefärbt, wobei Teilchen mit höherer Geschwindigkeit röter sind und Teilchen mit niedrigerer Geschwindigkeit blauer sind. 
+                        Die Teilchen sind gemäß ihren Geschwindigkeit gefärbt, wobei die Teilchen sich im Verlauf von rot zu blau schneller oder langsamer bewegen. 
                     </li>
+                    <li>Das begleitende Diagramm zeigt die Geschwindigkeitsverteilung der Teilchen, d.h. die Anzahl von Teilchen, die jede bestimmte Geschwindigkeit besitzen. </li>
+                    <li>Die Geschwindigkeit, die der Aktivierungsenergie entspricht (Grenzgeschwindigkeit), wird im diagramm mit einem gelben Strich angezeigt.</li>
                     <li>
-                        Teilchen, deren Geschwindigkeit höher als die im Diagram definierte "Grenzgeschwindigkeit" ist, sind gelb gefärbt.
+                        Teilchen, deren Geschwindigkeit höher als die "Grenzgeschwindigkeit" ist, sind gelb gefärbt.
                     </li>
                     <li>
                         Sowohl die Temperatur als auch  die Aktivierungsenergie der Reaktion lassen sich mit dem Schieberegler einstellen. 
@@ -173,35 +174,33 @@
 <script src="../assets/js/Three49custom.js"></script>
 <script src="https://d3js.org/d3.v4.js"></script>
 <script>
-    var divC = document.getElementById("simC-cont")
     var iframeC = document.getElementById('simulationC')
     iframeC.onload = function(){            
         graphC = iframeC.contentWindow.document.getElementsByClassName('glowscript-canvas-wrapper ui-resizable')[0]
-        graphC.style.padding = "0em 3em"
+        graphC.style.padding = "0em 1em"
         sliders = iframeC.contentWindow.document.getElementsByClassName('ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all')
         for (let i = 0; i < sliders.length; i++) {
                 sliders[i].style.height="0.5em";
                 sliders[i].style.width="5em";
-                sliders[i].parentNode.style.lineHeight = "1" 
+                sliders[i].parentNode.style.lineHeight = "1.5" 
                         }
         handles = iframeC.contentWindow.document.getElementsByClassName('ui-slider-handle ui-state-default ui-corner-all')
         for (let i = 0; i < handles.length; i++) {
                 handles[i].style.height="0.8em";
                 handles[i].style.width="0.8em"
                 handles[i].style.top="-0.15em"
-                sliders[i].style.padding = "0"    
+                sliders[i].style.padding = "0"
+                // sliders[i].style.margin = "2em 2em"   
                 }
-        // sliders[0].style.height = "0.7em"; sliders[0].style.width = "5em"
-        // sliders.forEach( function(element){element.style.width="2em"})
+        let textfontsize="0.85em"
         t_temp = iframeC.contentWindow.document.getElementById('1')
-        t_temp.style.fontSize = "0.8em"
+        t_temp.style = "font-size:"+textfontsize
         t_ea = iframeC.contentWindow.document.getElementById('2')
-        t_ea.style.fontSize = "0.8em"
+        t_ea.style = "font-size:"+textfontsize
         t_vel = iframeC.contentWindow.document.getElementById('3')
-        t_vel.style.fontSize = "0.8em"
-        t_vel.style.float = "right"
+        t_vel.style = "font-size:"+textfontsize
+        t_vel.style.display = "inline"
         iframeC.style.height = iframeC.contentWindow.document.body.scrollHeight+'px'
-        divC.style.display = "none"
     }
 </script>
 </body>
