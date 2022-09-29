@@ -2669,6 +2669,7 @@ button.addRemoveButon:hover{
 
 				.tiles article > .image img {
 					display: block;
+					width: 100%;
 				}
 
 				.tiles article > .image:before {
