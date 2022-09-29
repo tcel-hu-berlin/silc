@@ -151,7 +151,7 @@ input, select, textarea {
 
 		a:hover {
 			border-bottom-color: transparent;
-			color: #f2849e !important;
+			color: #84cff2 !important;
 		}
 	
 	toggle {
@@ -167,7 +167,7 @@ input, select, textarea {
 
 		toggle:hover {
 			border-bottom-color: transparent;
-			color: #f2849e !important;
+			color: #84cff2 !important;
 		}
 
 	strong, b {
@@ -1883,8 +1883,8 @@ input, select, textarea {
 			}
 
 			.icon.style2:hover {
-				color: #f2849e;
-				border-color: #f2849e;
+				color: #84cff2;
+				border-color: #84cff2;
 			}
 
 			.icon.style2:active {
@@ -2194,8 +2194,8 @@ input, select, textarea {
 		input[type="tel"]:focus,
 		select:focus,
 		textarea:focus {
-			border-bottom-color: #f2849e;
-			box-shadow: inset 0 -1px 0 0 #f2849e;
+			border-bottom-color: #84cff2;
+			box-shadow: inset 0 -1px 0 0 #84cff2;
 		}
 
 	select {
@@ -2299,8 +2299,8 @@ input, select, textarea {
 
 		input[type="checkbox"]:focus + label:before,
 		input[type="radio"]:focus + label:before {
-			border-color: #f2849e;
-			box-shadow: 0 0 0 1px #f2849e;
+			border-color: #84cff2;
+			box-shadow: 0 0 0 1px #84cff2;
 		}
 
 input[type="checkbox"] + label:before {
@@ -2519,8 +2519,8 @@ input[type="checkbox"] + label:before {
 		input[type="button"]:hover,
 		button:hover,
 		.button:hover {
-			color: #f2849e;
-			box-shadow: inset 0 0 0 2px #f2849e;
+			color: #84cff2;
+			box-shadow: inset 0 0 0 2px #84cff2;
 		} */
 
 		input[type="submit"]:active,
@@ -2562,7 +2562,7 @@ input[type="checkbox"] + label:before {
 			input[type="button"].primary:hover,
 			button.primary:hover,
 			.button.primary:hover {
-				background-color: #f2849e;
+				background-color: #84cff2;
 			}
 
 			input[type="submit"].primary:active,
@@ -2624,7 +2624,7 @@ button.addRemoveButon:hover{
 		-ms-flex-wrap: wrap;
 		flex-wrap: wrap;
 		position: relative;
-		padding: 0 0 1em ;
+		padding: 0 0 ;
 		margin: 0;
 	}
 
@@ -2759,11 +2759,28 @@ button.addRemoveButon:hover{
 					color: rgb(255,255,255);
 				}
 
+				.tiles article.styleSimActive > a h2 {
+					color: #585858;
+				}
+
+				.tiles article.styleSimActive > a {
+					pointer-events: none;
+								}
+				.tiles article.styleNotReady > a {
+					pointer-events: none;
+								}
+
 				.tiles article > a p {
 					line-height: 1.2;
 				}
 
+				.tiles article.styleSimActive > a p {
+					color: #585858;
+				}
 				
+				.tiles article.styleSimActive > .image {
+					opacity: 0;
+				}
 
 				.tiles article > a .content {
 					-moz-transition: max-height 0.5s ease, opacity 0.5s ease;
@@ -2793,11 +2810,11 @@ button.addRemoveButon:hover{
 					background-color: rgb(100, 155, 208); /* HU-Berlin blue, lighter */
 					}
 			.tiles article.styleSimActive > .image:before {
-					background-color: rgb(0, 55, 108); /* HU-Berlin blue */
+					background-color: rgb(255, 255, 255); /* HU-Berlin blue */
 					}
 		
 			.tiles article.style1 > .image:before {
-				background-color: #f2849e;
+				background-color: #84cff2;
 			}
 
 			.tiles article.style2 > .image:before {
