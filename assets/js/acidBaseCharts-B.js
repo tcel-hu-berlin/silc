@@ -31,6 +31,8 @@ var baseAdded=false
 var addingBaseNow=false
 var logScaleOn = true
 
+var max_HA = 1.000, max_A =  1.000
+
 var keys = ["HA", "A", "H3O", "OH", "pH"]
 var color = d3.scaleOrdinal()
     .domain(keys)
@@ -383,6 +385,15 @@ playButton.on("click", function(){
         playButton.text("Resume")
         
     } else {
+        if (inputHA.value > max_HA){
+            inputHA.value=max_HA.toFixed(3)
+        } else {inputHA.value=(+inputHA.value).toFixed(3)}
+        updateHA(+inputHA.value*conc_unit)
+        if (inputA.value > max_A){
+            inputA.value=max_A.toFixed(3)
+        } else {inputA.value = (+inputA.value).toFixed(3)}
+        updateA((+inputA.value)*conc_unit)
+
         if (playButton.text()=="Restart" || playButton.text()=="Run"){
             if (playButton.text()=="Restart"){
                 toggleCursor()
@@ -414,12 +425,14 @@ logScaleButton.on("click", function(){
     else {makeYScaleLog()}
 })
 
-d3.select("#cHA-value").on("input", function(){
-    updateHA(this.value*conc_unit)
-})
-d3.select("#cA-value").on("input", function(){
-    updateA(this.value*conc_unit)
-})
+// d3.select("#cHA-value").on("input", function(){
+//     if (this.value > max_HA){this.value=max_HA.toFixed(3)}
+//     updateHA(this.value*conc_unit)
+// })
+// d3.select("#cA-value").on("input", function(){
+//     if (this.value > max_A){this.value=max_A.toFixed(3)}
+//     updateA(this.value*conc_unit)
+// })
 
 function toggleCursor(){
     if(curVis=="visible"){

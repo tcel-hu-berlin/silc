@@ -18,7 +18,7 @@ var HAi = +(inputHA.value)*conc_unit, Ai=+(inputA.value)*conc_unit
 var H3Oi = 1e-7, OHi = 1e-7
 var F = HAi + Ai
 var HAOld = HAi, AOld=Ai, H3OOld = H3Oi, OHOld = OHi
-var tOld=0, dt=1e-4;
+var tOld=0, dt=5e-5;
 var HANew, ANew, tNew, H3ONew, OHNew
 const Kw = 1e-14
 const Ka = 1.8e-5
@@ -27,10 +27,11 @@ var kF = 0.5, kR = kF/Ka
 // var kFb = kF*Kb/Ka, kRb = kFb/Kb
 var kFb = 0, kRb = 0
 var xy = [{"t":tOld, "cHA":HAOld, "cA": AOld, "cH3O":H3OOld, "cOH":OHOld}]
-var addedBaseAmt = 10e-3 // in moles/L
+var addedBaseAmt = 25e-3 // in moles/L
 var baseAdded=false
 var addingBaseNow=false
 var logScaleOn = true
+var max_HA = 1.000, max_A =  1.000
 
 var keys = ["HA", "A", "H3O", "OH", "pH"]
 var color = d3.scaleOrdinal()
@@ -385,6 +386,15 @@ playButton.on("click", function(){
         playButton.text("Resume")
         
     } else {
+        if (inputHA.value > max_HA){
+            inputHA.value=max_HA.toFixed(3)
+        } else {inputHA.value=(+inputHA.value).toFixed(3)}
+        updateHA(+inputHA.value*conc_unit)
+        if (inputA.value > max_A){
+            inputA.value=max_A.toFixed(3)
+        } else {inputA.value = (+inputA.value).toFixed(3)}
+        updateA((+inputA.value)*conc_unit)
+
         if (playButton.text()=="Restart" || playButton.text()=="Run"){
             if (playButton.text()=="Restart"){
                 toggleCursor()
@@ -431,12 +441,12 @@ logScaleButton.on("click", function(){
     else {makeYScaleLog()}
 })
 
-d3.select("#cHA-value").on("input", function(){
-    updateHA(this.value*conc_unit)
-})
-d3.select("#cA-value").on("input", function(){
-    updateA(this.value*conc_unit)
-})
+// d3.select("#cHA-value").on("input", function(){
+//     updateHA(this.value*conc_unit)
+// })
+// d3.select("#cA-value").on("input", function(){
+//     updateA(this.value*conc_unit)
+// })
 
 function toggleCursor(){
     if(curVis=="visible"){

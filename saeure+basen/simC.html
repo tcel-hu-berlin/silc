@@ -62,36 +62,38 @@
             <div class="inner">
                 <a href="index.html" ><h1>Säuren, Basen und Puffer</h1></a>
                 <h2>Simulation C</h2>
-                <p>Hier kann man wieder eine Lösung aus einer gewünschten Menge von HA und A<sup>-</sup> herstellen. In der hergestellten Lösung kann dann eine kleine Menge von NaOH hinzugefügt werden.</p>
+                <p>Hier wird wieder eine Lösung aus einer gewünschten Menge von Säure (HA) und konjugierter Base (A<sup>-</sup>) hergestellt. In der hergestellten Lösung kann dann eine kleine Menge von Natriumhydroxid (NaOH) hinzugefügt werden.</p>
                 <h3>Überblick der Simulation:</h3>
                 <ul>
                     <li>
-                        Wähle die Ausgangskonzentrationen der Säure ([HA]<sub>i</sub>) und der Base ([A<sup>-</sup>]<sub>i</sub>).
+                        Die Ausgangskonzentrationen der Säure ([HA]<sub>i</sub>) und der Base ([A<sup>-</sup>]<sub>i</sub>) können gewählt werden.
                     </li>
                     <li>
-                        Klicke auf <span style="color:rgb(56, 81, 222)">Run</span>, um mit der Erstellung der Lösung zu beginnen.
+                        Durch ein Tippen auf <span style="color:rgb(56, 81, 222)">Run</span> wird mit der Erstellung der Lösung begonnen.
                     </li>
                     <li>
-                        Wenn die Lösung ein Gleichgewicht erreicht, klicke auf <span style="color:rgb(56, 81, 222);">+BASE</span>, um 10 mL von 1M NaOH hinzuzufügen. 
+                        Wenn die Lösung ein Gleichgewicht erreicht, wird mit einem Tippen auf <b><span style="color:#5469b7;">+BASE</span></b> 5 mL von 5M NaOH hinzugefügt. 
                     </li>
                 </ul>
-                <h3>Beachte:</h3>
+                <h3>Zu Beachten:</h3>
                 <ul>
                     <li>
                         Die Konzentrationen von HA und A<sup>-</sup> lassen sich zwischen 0-1 M einstellen. <br><b style="color:brown">Das ist ein anderes Konzentrationsbereich als bei Simulation B!</b>
-                    </li>       
+                    </li>
+                    <li><b>Bitte beachten Sie, dass dieses Programm Punkte (nicht Kommas) als Dezimaltrennzeichen verwendet!</b>!</li>       
                     <li>
                         Das Volumen der Lösung kann als 1 L angenommen werden.</b>
                     </li>                  
                 </ul>
-                <p style="margin-bottom: 0.5em"><button id="play-button">Run</button>
+                <p style="margin-bottom: 0.5em"><button class="interfaceButton" id="play-button">Run</button>
                     &nbsp &nbsp &nbsp [HA] <sub>i</sub> =
                     <input type="number" min="0" max="1" step="0.050" value="0.100" id="cHA-value">
                     M &nbsp &nbsp &nbsp  [A<sup>-</sup>] <sub>i</sub> = 
                     <input type="number" min="0" max="1" step="0.05" value="0.000" id="cA-value">
-                    M &nbsp &nbsp &nbsp &nbsp <span style="font-weight:600">log. Skala</span> <input type="checkbox" id="logScaleCB" name="logScaleCB" checked><label for="logScaleCB"></label>
+                    M &nbsp &nbsp &nbsp &nbsp <span style="font-weight:600">log. Skala</span> 
+                    <input type="checkbox" id="logScaleCB" name="logScaleCB" checked><label for="logScaleCB"></label>
                 </p>
-                <p><button id="addBase-button" disabled>+ Base</button>
+                <p><button class="interfaceButton" id="addBase-button" disabled>+ Base</button>
                     <span id="addBase-block" style="font-weight:700; color: rgb(0, 127.5, 204); display:none"> &nbsp &nbsp ← Füge 10 mL 1M NaOH hinzu!</span></p>
                 <svg class="interactiveGraph" id="simulationC-svg" width="800" height="500"></svg>
             </div>
@@ -101,17 +103,6 @@
         <div id="simnav">
             <div class="inner">
                 <section class="tiles">
-                    <article class="stylePDF">
-                        <span class="image">
-                            <img src="../images/pic01.jpg" alt="" />
-                        </span>
-                        <a href="#">
-                            <h2>PDF</h2>
-                            <div class="content">
-                                <p>Aufgaben dieser Aktivität</p>
-                            </div>
-                        </a>
-                    </article>
                     <article class="styleSim">
                         <span class="image">
                             <img src="../images/pic02.jpg" alt="" />
@@ -152,7 +143,7 @@
         <!-- Footer -->
         <footer id="footer">
             <div class="inner">
-                <p>&copy; Tiemann Lab @ HU-Berlin | Design-Vorlage: <a href="http://html5up.net">HTML5 UP</a>| Icons: <a href="https://icons.getbootstrap.com/">Bootstrap.</a></p>
+                <p>&copy; Tiemann Lab @ HU-Berlin | Design-Vorlage: <a href="http://html5up.net">HTML5 UP</a></p>
             </div>
         </footer>
     </div>

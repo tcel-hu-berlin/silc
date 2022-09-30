@@ -2255,7 +2255,8 @@ input, select, textarea {
 			font-weight: 300;
 			padding-left: 2.55em;
 			padding-right: 0.75em;
-			position: relative;
+			position: absolute ;
+			
 		}
 
 			input[type="checkbox"] + label:before,
@@ -2598,6 +2599,11 @@ input[type="checkbox"] + label:before {
 	height: 2em; 
 	padding:0 0.5em 0 1em; 
 	line-height: 2em;
+}
+
+button.interfaceButton {
+	box-shadow: inset 0 0 0 2px rgb(84, 105, 183);
+	color: #5469b7;
 }
 .simulationInterface > p {
 	color:#5469b7;
@@ -3204,14 +3210,16 @@ button.addRemoveButon:hover{
 		max-width: 80%;
 		height: 100%;
 		-webkit-overflow-scrolling: touch;
-		background: #cee8db;
+		background: #f6f6f6;;
+		border-left: solid 0.5px rgba(88, 88, 88, 0.2);
+		box-shadow: rgba(100, 100, 111, 0.4) 0px 0 15px 0px;
 		font-size: 1em;
 		color: #303030;
 		cursor: default;
 		visibility: hidden;
 		z-index: 10002;
 	}
-
+	
 		#menu > .inner {
 			-moz-transition: opacity 0.45s ease;
 			-webkit-transition: opacity 0.45s ease;

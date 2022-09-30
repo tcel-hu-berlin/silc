@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="../assets/css/main.css" />
     <noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+    <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
     </head>
 <body class="is-preload">
 <!-- Wrapper -->
@@ -55,11 +56,18 @@
                 <h3>Gleichungen:</h3>
                 <ul>
                     <li>Coulombsches Gesetz: F = <em>k</em> (q<sub>1</sub>q<sub>2</sub>)/r<sup>2</sup></li>
-                    <li>Gibbs-Energie: ΔG<sup>o</sup> = ΔH<sup>o</sup> - T &middot;ΔS<sup>o</sup>=-RT&middot;ln(K<sub>eq</sub>)</li>
+                    <li>Gibbs-Energie: ΔG<sup>o</sup> = ΔH<sup>o</sup> - T &middot;ΔS<sup>o</sup>= - RT&middot;ln(K<sub>eq</sub>)</li>
                     <li>Arrhenius-Gleichung: <em>k</em> = A &middot; e<sup> - E<sub>a</sub>/RT</sup></li>
                     <li>Kinetische Energie und Geschwindigkeit: E<sub>K</sub>= ½ &middot;mv<sup>2</sup></li>
-                </ul>  
-                </div>
+                </ul> 
+            <h3><i class="far fa-lightbulb"></i> &nbsp Fakultative Hinweise </i></h3>
+            <p style="margin-bottom:0"><strong>Frage 2a-iv</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
+            <p id="hintA" style="display:none">Achten Sie hier besonders darauf, dass in keinem der Teilschritte einzelne Atome als Produkte vorkommen.</p>
+            <p style="margin-bottom:0"><strong>Frage 2e</strong><span style="float:right"><toggle class="showHide" id="showHideB">Einblenden</toggle></span></p>
+            <p id="hintB" style="display:none">Überprüfen Sie, dass Sie den richtigen "Standardzustand" von Kohlenstoff verwenden!</p>
+            <p style="margin-bottom:0"><strong>Frage 12</strong><span style="float:right"><toggle class="showHide" id="showHideC">Einblenden</toggle></span></p>
+            <p id="hintC" style="display:none">Für die Beantwortung dieser Frage wird eventuell die oben genannte Definition der Gibbs-Energie hilfreich sein.</p>
+            </div>
         </nav>
 
         <!-- Main -->
@@ -78,7 +86,7 @@
                         <span class="image">
                             <img src="../images/pic01.jpg" alt="" />
                         </span>
-                        <a href="#">
+                        <a href="../files/Activity_4_Thermodynamik und Kinetik_DE.pdf">
                             <h2>PDF</h2>
                             <div class="content">
                                 <p>Aufgaben dieser Aktivität</p>
@@ -136,7 +144,7 @@
         <!-- Footer -->
         <footer id="footer">
             <div class="inner">
-                <p>&copy; Tiemann Lab @ HU-Berlin | Design-Vorlage: <a href="http://html5up.net">HTML5 UP</a>| Icons: <a href="https://icons.getbootstrap.com/">Bootstrap.</a></p>
+                <p>&copy; Tiemann Lab @ HU-Berlin | Design-Vorlage: <a href="http://html5up.net">HTML5 UP</a></p>
             </div>
         </footer>
     </div>
@@ -149,5 +157,40 @@
     <script src="../assets/js/main.js"></script>
     <script src="../assets/js/Three49custom.js"></script>
     <script src="https://d3js.org/d3.v4.js"></script>
+    <script>
+        var showHideToggleA = document.getElementById("showHideA")
+        var hintA = document.getElementById("hintA")
+        showHideToggleA.onclick = function(){
+            if (hintA.style.display=="none"){
+                showHideToggleA.innerHTML = "Ausblenden"
+                hintA.style.display="block"
+            } else {
+                showHideToggleA.innerHTML = "Einblenden"
+                hintA.style.display="none"
+            }
+        }
+        var showHideToggleB = document.getElementById("showHideB")
+        var hintB = document.getElementById("hintB")
+        showHideToggleB.onclick = function(){
+            if (hintB.style.display=="none"){
+                showHideToggleB.innerHTML = "Ausblenden"
+                hintB.style.display="block"
+            } else {
+                showHideToggleB.innerHTML = "Einblenden"
+                hintB.style.display="none"
+            }
+        }
+        var showHideToggleC = document.getElementById("showHideC")
+        var hintC = document.getElementById("hintC")
+        showHideToggleC.onclick = function(){
+            if (hintC.style.display=="none"){
+                showHideToggleC.innerHTML = "Ausblenden"
+                hintC.style.display="block"
+            } else {
+                showHideToggleC.innerHTML = "Einblenden"
+                hintC.style.display="none"
+            }
+        }
+    </script>
 </body>
 </html>
