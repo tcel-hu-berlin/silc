@@ -24,7 +24,7 @@
     // START JAVASCRIPT
     ;(function() {;
     var ρσ_modules = {};
-    var T, running, v_thres, gg, ea_line, histo, setTemp, Atoms, p, apos, pavg, accum, theory, nhisto, vdist, win;
+    var T, running, v_thres, gg, ea_line, pavg_line, histo, setTemp, Atoms, p, apos, pavg, accum, theory, nhisto, vdist, win;
     ρσ_modules.pythonize = {};
 
     (function(){
@@ -64,7 +64,7 @@
         var display = canvas;
         var scene = canvas();
 
-        var version, print, arange, __name__, type, ρσ_ls, running, win, atoms_per_side, Natoms, deltav, T, EA, mass, v_thres, L, gray, Ratom, k, dt, d, r, KE_max, dv, animation, s, tempcontrol, temptxt, EAcontrol, EAtxt, EStxt, gg, ea_line, boxbottom, boxtop, vert1, vert2, vert3, vert4, Atoms, p, apos, pavg, aps, dL, xi, yi, zi, x, y, z, theta, phi, px, py, pz, i, nhisto;
+        var version, print, arange, __name__, type, ρσ_ls, running, win, atoms_per_side, Natoms, deltav, T, EA, mass, v_thres, L, gray, Ratom, k, dt, d, r, KE_max, dv, animation, s, tempcontrol, temptxt, EAcontrol, EAtxt, EStxt, gg, ea_line, boxbottom, boxtop, vert1, vert2, vert3, vert4, Atoms, p, apos, pavg, pavg_line, aps, dL, xi, yi, zi, x, y, z, theta, phi, px, py, pz, i, nhisto;
         version = ρσ_list_decorate([ "3.2", "glowscript" ]);
         Array.prototype['+'] = function(r) {return this.concat(r)}
         Array.prototype['*'] = function(r) {return __array_times_number(this, r)}
@@ -173,6 +173,8 @@
         apos = ρσ_list_decorate([]);
         "69";
         pavg = sqrt(2["*"](mass)["*"](1.5)["*"](k)["*"](T));
+        "70"; 
+        pavg_line = ρσ_interpolate_kwargs.call(this, gcurve);
         "71";
         aps = atoms_per_side;
         "72";
@@ -260,7 +262,7 @@
             "114";
             ea_line.remove();
             "115";
-            ea_line = ρσ_interpolate_kwargs.call(this, gvbars, [ρσ_desugar_kwargs({graph: gg, color: vector(.9, .8, .3), delta: 10})]);
+            ea_line = ρσ_interpolate_kwargs.call(this, gvbars, [ρσ_desugar_kwargs({graph: gg, color: color.orange, delta: 15})]);
             "116";
             ea_line.plot(v_thres, 100);
         };
@@ -304,6 +306,23 @@
             __argnames__ : {value: ["v1", "v2"]},
             __module__ : {value: null}
         });
+
+        "122";
+            async function plotPavg() {
+                "123";
+                "124";
+                pavg_line.visible = false;
+                "125";
+                pavg_line.remove();
+                "126";
+                pavg_line = ρσ_interpolate_kwargs.call(this, gcurve, [ρσ_desugar_kwargs({color: color.gray(0.3), width: 3})]);
+                "127";
+                pavg_line.plot(pavg["/"](mass), 0);
+                pavg_line.plot(pavg["/"](mass), Natoms["*"](deltav)["/"](400));
+            };
+            if (!plotPavg.__module__) Object.defineProperties(plotPavg, {
+                __module__ : {value: null}
+            });
 
         "130";
         async function checkCollisions() {
@@ -427,7 +446,7 @@
             "183";
             gg = ρσ_interpolate_kwargs.call(this, graph, [ρσ_desugar_kwargs({width: 0.95*win, height: 0.75*win, xmax: 3e3, align: "left", xtitle: "Geschwindigkeit (m/s)", ytitle: "Anzahl Teilchen", ymax: Natoms["*"](deltav)["/"](1e3)})]);
             "184";
-            (await plotEA(v_thres));
+            (await plotEA(v_thres)); (await plotPavg());
             "185";
             theory = ρσ_interpolate_kwargs.call(this, gcurve, [ρσ_desugar_kwargs({color: vector(.5, .5, 1)})]);
             "186";
@@ -445,10 +464,10 @@
             ρσ_Iter7 = ((typeof ρσ_Iter7[Symbol.iterator] === "function") ? (ρσ_Iter7 instanceof Map ? ρσ_Iter7.keys() : ρσ_Iter7) : Object.keys(ρσ_Iter7));
             for (var ρσ_Index7 of ρσ_Iter7) {
                 i = ρσ_Index7;
-                accum.append(ρσ_list_decorate([ deltav["*"](i["+"](.5)), 0 ]));
+                accum.append(ρσ_list_decorate([ deltav["*"](i["+"](.75)), 0 ]));
             }
             "190";
-            vdist = ρσ_interpolate_kwargs.call(this, gvbars, [ρσ_desugar_kwargs({color: color.red, delta: deltav})]);
+            vdist = ρσ_interpolate_kwargs.call(this, gvbars, [ρσ_desugar_kwargs({color: color.gray(0.6), delta: deltav})]);
             "192";
             nhisto = 0;
         };
@@ -465,7 +484,7 @@
             "198";
             while (running) {
                 "199";
-                (await rate(100));
+                (await rate(50));
                 "201";
                 var ρσ_Iter8 = range(len(accum));
                 ρσ_Iter8 = ((typeof ρσ_Iter8[Symbol.iterator] === "function") ? (ρσ_Iter8 instanceof Map ? ρσ_Iter8.keys() : ρσ_Iter8) : Object.keys(ρσ_Iter8));
