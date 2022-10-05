@@ -1,8 +1,10 @@
+<!DOCTYPE HTML>
 <html>
 <head>
+<link rel="stylesheet" href="titration.css" />
 <title>Titration Simulator</title>
 <script language="JavaScript" type="text/javascript">
-	var graph, graphCTX, liquids, liquidsCTX, stirBar, stirBarCTX; 
+	var graph, graphCTX, liquids, liquidsCTX, stirBar, stirBarCTX, width, f, fs, flw, flh, arrowToTap;
 	var acid="Choose", base="Choose", indicator="Choose"; // (Unselected at startup)
 	var strongAcid, strongBase;
 	var titrant, dropRate = 100;
@@ -65,14 +67,15 @@
 	}
 	function clearGraph(){ // Clears the graph area if it is clicked
 		graphFrame();
-		graphCTX.fillStyle = "#ffffff"; graphCTX.fillRect(51,42,299,7);	// (Remove weird black line at previous stopping point)
+		graphCTX.fillStyle = "#ffffff"; graphCTX.fillRect(51*f,42*f,299*f,7*f);	// (Remove weird black line at previous stopping point)
 	}
 	function reFill() { // Initializes a titration - replaces the solutions
+		document.getElementById("buretImg").src = "titration-tapClosed.png"
 		tapOpen = false; eqPtFound = false;
 		document.getElementById("startButton").disabled = true;
 		level = 0; titre = 0;
 		graphFrame();
-		graphCTX.fillStyle = "#ffffff"; graphCTX.fillRect(51,42,299,7); // (Remove weird black line at previous stopping point)
+		graphCTX.fillStyle = "#ffffff"; graphCTX.fillRect(51*f,42*f,299*f,7*f); // (Remove weird black line at previous stopping point)
 		startLevel = 84 + Math.random()*20 // Does not quite fill the buret to zero (randomly)
 		reading = (startLevel+level-84)/15;	 //buret in mL	
 		if (titrant == "acid") { // Calculate equivalence point titre and pH
@@ -92,7 +95,9 @@
 		showLiquids(level);
 		clearInterval(stirInterval); // Start stirring first time
 		stirInterval = setInterval(stirrer,50);
-		clearInterval(titreInterval); titreInterval = setInterval(titrationPlot,dropRate); // Allow titration	
+		clearInterval(titreInterval); titreInterval = setInterval(titrationPlot,dropRate); // Allow titration
+		arrowToTap.style.display = "block"
+		
 	}
 	function getpH() { // Calculate the pH in the flask
 		if (strongAcid & strongBase) strongAcidStrongBase();   
@@ -104,141 +109,154 @@
 	}
 	function ready() { // Check that everything has been set first time through
 		liquidsAdded = false;
-		if (acid=="Choose") document.getElementById("acidErr").innerHTML = "Acid"+errFlag;
-		if (base=="Choose") document.getElementById("baseErr").innerHTML = "Base"+errFlag;
-		if (indicator=="Choose") document.getElementById("indErr").innerHTML = "Indicator"+errFlag;
-		if (concAcid==undefined) document.getElementById("concAcidErr").innerHTML = errFlag;
-		if (concBase==undefined) document.getElementById("concBaseErr").innerHTML = errFlag;
-		if (titrant==undefined) document.getElementById("titrantErr").innerHTML = errFlag;
+		if (acid=="Choose") {document.getElementById("acidErr").innerHTML = "Acid"+errFlag};
+		if (base=="Choose") {document.getElementById("baseErr").innerHTML = "Base"+errFlag};
+		if (indicator=="Choose") {document.getElementById("indErr").innerHTML = "Indicator"+errFlag};
+		if (concAcid==undefined) {document.getElementById("concAcidErr").innerHTML = errFlag};
+		if (concBase==undefined) {document.getElementById("concBaseErr").innerHTML = errFlag};
+		if (titrant==undefined) {document.getElementById("titrantErr").innerHTML = errFlag};
 		if (acid=="Choose" || base=="Choose" || indicator=="Choose" || concAcid==undefined || concBase==undefined || titrant==undefined)
-		return false; 
+		{return false}; 
 		document.getElementById("warnings").innerHTML = 
 			'<font color="green"><blockquote>Click the button "Add solutions...", and then click on the buret tap to start, continue, or pause the titration.</blockquote></font>';
 		document.getElementById("startButton").disabled = false;
 		return true;
 	} 
+
 	function titrationPlot() {	// Main loop to display the titration progress.
-    if (!tapOpen) return;
-		showLiquids(level);		
-  	reading = (startLevel+level-84)/15;	 // Buret reading in mL					
-  	buretReading = reading.toFixed(2).toString();
-  	document.getElementById("buretReading").innerHTML = "<b>Buret Reading</b><br>"+buretReading+" mL";
-    level++; 
-  	if (reading >= 25) { // Stop titration when buret is empty!
-			clearInterval(titreInterval); tapOpen = false; showLiquids(level); 
-			document.getElementById("startButton").disabled = false; 
-			return;
-		} 
-  	prevpH = pH; prevTitre = titre;
-  	titre = level/15; 
-  	getpH();
-  	pHReading = pH.toFixed(2).toString();
-  	document.getElementById("pHReading").innerHTML = "<b>pH Reading</b><br>"+pHReading;
-		graphCTX.lineWidth = 2;
-		if (level > 1) {// plot graph points
-  		graphCTX.beginPath(); graphCTX.strokeStyle = "#ff0000";
-			graphCTX.moveTo(50+(prevTitre*12),351-(prevpH*300/14)); 
-  		graphCTX.lineTo(50+(titre*12),351-(pH*300/14)); graphCTX.stroke(); graphCTX.closePath();
-			if (titre > titreAtEqPt+0.2) drawEqPt(document.getElementById("eqpt").checked); // Shows the equivalence point if checkbox checked just after it is passed
-		}
-		if(level > 1)	{ // plot indicator colour
-			graphCTX.beginPath(); graphCTX.strokeStyle = getColour(1.0);
-			graphCTX.moveTo(50+(titre*12),42); 
-  		graphCTX.lineTo(50+(titre*12),49); graphCTX.stroke(); graphCTX.closePath();
-		}
-  }
+		if (!tapOpen) return;
+			showLiquids(level);		
+		reading = (startLevel+level-84)/15;	 // Buret reading in mL					
+		buretReading = reading.toFixed(2).toString();
+		document.getElementById("buretReading").innerHTML = "<b>Buret Reading</b><br>"+buretReading+" mL";
+		level++; 
+		if (reading >= 25) { // Stop titration when buret is empty!
+				clearInterval(titreInterval); tapOpen = false; showLiquids(level);
+				setTimeout(function(){
+					document.getElementById("buretImg").src = "titration-tapClosed.png"
+					document.getElementById("startButton").disabled = false; 
+					return;
+				}, 500)
+				
+			} 
+		prevpH = pH; prevTitre = titre;
+		titre = level/15; 
+		getpH();
+		pHReading = pH.toFixed(2).toString();
+		document.getElementById("pHReading").innerHTML = "<b>pH Reading</b><br>"+pHReading;
+			graphCTX.lineWidth = 3;
+			if (level > 1) {// plot graph points
+			graphCTX.beginPath(); graphCTX.strokeStyle = "#ff0000";
+				graphCTX.moveTo((50+prevTitre*12)*f,(351-prevpH*300/14)*f); 
+			graphCTX.lineTo((50+titre*12)*f,(351-pH*300/14)*f); graphCTX.stroke(); graphCTX.closePath();
+				if (titre > titreAtEqPt+0.2) drawEqPt(document.getElementById("eqpt").checked); // Shows the equivalence point if checkbox checked just after it is passed
+			}
+			if(level > 1)	{ // plot indicator colour
+				graphCTX.beginPath(); graphCTX.strokeStyle = getColour(1.0);
+				graphCTX.moveTo((50+titre*12)*f,42*f); 
+			graphCTX.lineTo((50+titre*12)*f,49*f); graphCTX.stroke(); graphCTX.closePath();
+			}
+	}
 	function drawEqPt(draw) { // Marks equivalence point if checkbox is set
 		if (!draw) return; // Not set!
 		if (!eqPtFound) {	// Shows the equivalence point just once just after it is passed (see function titrationPlot above)
 			graphCTX.beginPath(); 
-			graphCTX.lineWidth = 1; graphCTX.strokeStyle = "#0000ff";  
-			graphCTX.moveTo(50+(titreAtEqPt*12),51); graphCTX.lineTo(50+(titreAtEqPt)*12,351-(pHAtEqPt*300/14)); graphCTX.stroke(); 
+			graphCTX.lineWidth = 2; graphCTX.strokeStyle = "#0000ff";  
+			graphCTX.moveTo((50+titreAtEqPt*12)*f,51*f); graphCTX.lineTo((50+titreAtEqPt*12)*f,(351-pHAtEqPt*300/14*f)); graphCTX.stroke(); 
 			graphCTX.closePath();
-			graphCTX.fillStyle = "#ffffff"; graphCTX.fillRect(28+(titreAtEqPt*12),69,40,16);
-			graphCTX.fillStyle = "#0000ff"; graphCTX.font="12px Times";
-			graphCTX.fillText("Eq. Pt.",33+(titreAtEqPt*12),81);
+			graphCTX.fillStyle = "#ffffff"; graphCTX.fillRect((28+titreAtEqPt*12)*f,69*f,40*f,16*f);
+			graphCTX.fillStyle = "#0000ff"; graphCTX.font="10px Times";
+			graphCTX.fillText("Eq. Pt.",(33+titreAtEqPt*12)*f,81*f);
 			graphCTX.lineWidth = 2;  graphCTX.strokeStyle = "#ff0000";
 			eqPtFound = true;
 		}
 	}
 	function titrate(event) { // Start/stop the titration by clicking the tap
-  	var x, y,
-  	x = (event.clientX-document.getElementById("buret").getBoundingClientRect().left);
-  	y = (event.clientY-document.getElementById("buret").getBoundingClientRect().top);
-  	if((x > 75) && (x < 90) && (y > 465) && (y < 485)) { // tap clicked
-      if (!liquidsAdded) return;
-			if(!tapOpen) { // Tap not open. Open it and start titrating
-				tapOpen = true;
-				showLiquids(level);
-				clearInterval(titreInterval); titreInterval = setInterval(titrationPlot,dropRate);
-				document.getElementById("startButton").disabled = true;   	
-      }      
-    	else { // tap open. Close it and stop the titration.
-    		tapOpen = false; clearInterval(titreInterval); showLiquids(level);
-				document.getElementById("startButton").disabled = false;
-    	} 
-  	}
+		reading = (startLevel+level-84)/15
+		if (!liquidsAdded || reading > 25) {return};
+		if(!tapOpen) { // Tap not open. Open it and start titrating
+			arrowToTap.style.display = "none"
+			tapOpen = true;
+			document.getElementById("buretImg").src = "titration-tapOpen.png"
+			showLiquids(level);
+			clearInterval(titreInterval); titreInterval = setInterval(titrationPlot,dropRate);
+			["startButton", "titrantA", "titrantB", "acid", "concAcid", "base", "concBase", "indicator"].forEach(function(elementName){
+				document.getElementById(elementName).disabled = true; 
+			})
+		}      
+		else { // tap open. Close it and stop the titration.
+			document.getElementById("buretImg").src = "titration-tapClosed.png"
+			tapOpen = false; clearInterval(titreInterval); showLiquids(level);
+			["startButton", "titrantA", "titrantB", "acid", "concAcid", "base", "concBase", "indicator"].forEach(function(elementName){
+					document.getElementById(elementName).disabled = false; 
+			})
+		}
 	}
 	function graphAxes() {			//draw the graph frame 
 		 graphFrame();
 		 graphLabels();
   }
 	function graphFrame() {
-		graphCTX.beginPath(); graphCTX.fillStyle = "#ffffff"; graphCTX.fillRect(45,40,307,316); 
-		graphCTX.strokeStyle = "#000000"; graphCTX.lineWidth = 1; 
-		graphCTX.strokeRect(50,41,301,9); // Indicator colour strip
-		graphCTX.strokeRect(50,50,301,301); // Graph area
-		graphCTX.moveTo(45,50);   graphCTX.lineTo(50,50);  // x axis ticks
-		graphCTX.moveTo(45,201);  graphCTX.lineTo(50,201);
-		graphCTX.moveTo(45,351);  graphCTX.lineTo(50,351);	
-		graphCTX.moveTo(50,351);  graphCTX.lineTo(50,356); // y-axis ticks
-		graphCTX.moveTo(111,351); graphCTX.lineTo(111,356);
-		graphCTX.moveTo(171,351); graphCTX.lineTo(171,356);
-		graphCTX.moveTo(231,351); graphCTX.lineTo(231,356);
-		graphCTX.moveTo(291,351); graphCTX.lineTo(291,356);
-		graphCTX.moveTo(351,351); graphCTX.lineTo(351,356);
+		console.log(f)
+		graphCTX.beginPath(); graphCTX.fillStyle = "#ffffff"; graphCTX.fillRect(45*f,40*f,307*f,316*f); 
+		graphCTX.strokeStyle = "#000000"; graphCTX.lineWidth = 2; 
+		graphCTX.strokeRect(50*f,41*f,301*f,9*f); // Indicator colour strip
+		graphCTX.strokeRect(50*f,50*f,301*f,301*f); // Graph area
+		graphCTX.moveTo(45*f,50*f);   graphCTX.lineTo(50*f,50*f);  // x axis ticks
+		graphCTX.moveTo(45*f,201*f);  graphCTX.lineTo(50*f,201*f);
+		graphCTX.moveTo(45*f,351*f);  graphCTX.lineTo(50*f,351*f);	
+		graphCTX.moveTo(50*f,351*f);  graphCTX.lineTo(50*f,356*f); // y-axis ticks
+		graphCTX.moveTo(111*f,351*f); graphCTX.lineTo(111*f,356*f);
+		graphCTX.moveTo(171*f,351*f); graphCTX.lineTo(171*f,356*f);
+		graphCTX.moveTo(231*f,351*f); graphCTX.lineTo(231*f,356*f);
+		graphCTX.moveTo(291*f,351*f); graphCTX.lineTo(291*f,356*f);
+		graphCTX.moveTo(351*f,351*f); graphCTX.lineTo(351*f,356*f);
 		graphCTX.stroke();	
 	}
 	function graphLabels() {
-		graphCTX.font="16px Times New Roman"; graphCTX.fillStyle = "#006000"; 
-		graphCTX.fillText("Titre (volume added, mL)",100,385); //x-axis labels
-		graphCTX.fillText("0",47,370);
-		graphCTX.fillText("25",345,370);
-		graphCTX.fillText("14",27,55);  // y-axis labels
-		graphCTX.fillText("7",35,206);
-		graphCTX.fillText("0",35,356);
-		graphCTX.fillText("pH",26,150);
-		graphCTX.beginPath(); graphCTX.strokeStyle = "#006000"; graphCTX.moveTo(275,380); graphCTX.lineTo(295,380);   // x-axis arrow
-		graphCTX.moveTo(290,377); graphCTX.lineTo(295,380);
-		graphCTX.moveTo(290,383); graphCTX.lineTo(295,380);
-		graphCTX.moveTo(35,90); graphCTX.lineTo(35,110);   // y-axis arrow
-		graphCTX.moveTo(35,90); graphCTX.lineTo(32,95);
-		graphCTX.moveTo(35,90); graphCTX.lineTo(38,95);		
+		graphCTX.font="bold 28px Arial"; graphCTX.fillStyle = "#5469b7"; 
+		graphCTX.fillText("Volumen des Titrators (mL)",90*f,385*f); //x-axis labels
+		graphCTX.font="26px Arial"; graphCTX.fillStyle = "#000000"
+		graphCTX.fillText("0",47*f,370*f);
+		graphCTX.fillText("25",345*f,370*f);
+		graphCTX.fillText("14",27*f,55*f);  // y-axis labels
+		graphCTX.fillText("7",35*f,206*f);
+		graphCTX.fillText("0",35*f,356*f);
+		graphCTX.font="bold 28px Arial"; graphCTX.fillStyle = "#5469b7"
+		graphCTX.fillText("pH",9*f,150*f);
+		graphCTX.beginPath(); graphCTX.strokeStyle = "#5469b7"; graphCTX.lineWidth=2
+		graphCTX.moveTo(275*f,380*f); graphCTX.lineTo(295*f,380*f);   // x-axis arrow
+		graphCTX.moveTo(290*f,377*f); graphCTX.lineTo(295*f,380*f);
+		graphCTX.moveTo(290*f,383*f); graphCTX.lineTo(295*f,380*f);
+		graphCTX.moveTo(17*f,90*f); graphCTX.lineTo(17*f,120*f);   // y-axis arrow
+		graphCTX.moveTo(17*f,90*f); graphCTX.lineTo(14*f,95*f);
+		graphCTX.moveTo(17*f,90*f); graphCTX.lineTo(20*f,95*f);		
 		graphCTX.stroke();
 	}
 	function stirrer()  { // Draws the stirrer
 		//if (!stirring) return; // No stirring before there is a liquid in the flask!
-		stirBarCTX.clearRect(47,54,16,9);
+		stirBarCTX.clearRect(40*fs,40*fs,40*fs,40*fs);
+		// stirBarCTX.fillRect(40*fs,40*fs,40*fs,40*fs);
     stirBarCTX.lineWidth = 3; stirBarCTX.lineCap = "round"; stirBarCTX.strokeStyle = "#808080";
 		switch (stirCount) {
       case 0: {
-				stirBarCTX.beginPath(); stirBarCTX.moveTo(49,58); stirBarCTX.lineTo(61,58); stirBarCTX.stroke();  // -
+				stirBarCTX.beginPath(); stirBarCTX.moveTo(49*fs,58*fs); stirBarCTX.lineTo(61*fs,58*fs); stirBarCTX.stroke();  // -
         break;
       }
       case 1: {
-				stirBarCTX.beginPath(); stirBarCTX.moveTo(50,59); stirBarCTX.lineTo(60,57); stirBarCTX.stroke();  // \
+				stirBarCTX.beginPath(); stirBarCTX.moveTo(50*fs,59*fs); stirBarCTX.lineTo(60*fs,57*fs); stirBarCTX.stroke();  // \
         break;
       }
       case 2: {
-				stirBarCTX.beginPath(); stirBarCTX.moveTo(53,60); stirBarCTX.lineTo(59,56); stirBarCTX.stroke();  // \
+				stirBarCTX.beginPath(); stirBarCTX.moveTo(53*fs,60*fs); stirBarCTX.lineTo(59*fs,56*fs); stirBarCTX.stroke();  // \
         break;
       }
 			case 3: {
-				stirBarCTX.beginPath(); stirBarCTX.moveTo(55,60); stirBarCTX.lineTo(55,55); stirBarCTX.stroke();  // |
+				stirBarCTX.beginPath(); stirBarCTX.moveTo(55*fs,60*fs); stirBarCTX.lineTo(55*fs,55*fs); stirBarCTX.stroke();  // |
         break;
       }
       case 4: {
-				stirBarCTX.beginPath(); stirBarCTX.moveTo(53,56); stirBarCTX.lineTo(59,60); stirBarCTX.stroke();  // /
+				stirBarCTX.beginPath(); stirBarCTX.moveTo(53*fs,56*fs); stirBarCTX.lineTo(59*fs,60*fs); stirBarCTX.stroke();  // /
         break;
       }
       case 5: {
@@ -251,26 +269,26 @@
 	function showLiquids(level) {
   	var x = level/900.0 + 0.3;	//height in the flask fudge factor!
 		liquidsAdded = true;
-		liquidsCTX.fillStyle = "#ffffff"; liquidsCTX.fillRect(0,0,120,690); // Clear the liquids canvas
+		liquidsCTX.fillStyle = "#ffffff"; liquidsCTX.fillRect(0,0,120*flw,690*flh); // Clear the liquids canvas
   	liquidsCTX.fillStyle = "#f0f0f0";  // liquid in buret will be pale grey
-  	liquidsCTX.fillRect(10,startLevel+level-1,100,540-startLevel-level-1);	// Show buret contents
+  	liquidsCTX.fillRect(10*flw,(startLevel+level-1)*flh,100*flw,(540-startLevel-level-1)*flh);	// Show buret contents
   	liquidsCTX.strokeStyle = "#000000"; liquidsCTX.beginPath(); //meniscus in buret
-		liquidsCTX.arc(57,startLevel+level-9,10,0.27*Math.PI,0.73*Math.PI); liquidsCTX.stroke(); 
+		liquidsCTX.arc(57*flw,(startLevel+level-9)*flh,10*flw,0.27*Math.PI,0.73*Math.PI); liquidsCTX.stroke(); 
 		liquidsCTX.fillStyle = getColour(1.0); // bulk colour 
-		liquidsCTX.fillRect(20,630-(45.0*x),80,(45.0*x)+10); // show flask contents
+		liquidsCTX.fillRect(20*flw,(630-(45.0*x))*flh,80*flw,((45.0*x)+10)*flh); // show flask contents
     liquidsCTX.fillStyle = getColour(0.9); // surface (darker) colour	
-    liquidsCTX.beginPath(); liquidsCTX.moveTo(24+15*x,630-45*x); 
-  	liquidsCTX.bezierCurveTo(24+15*x,625-45*x,90-15*x,625-45*x,90-15*x,630-45*x);
-    liquidsCTX.bezierCurveTo(90-15*x,635-45*x,24+15*x,635-45*x,24+15*x,630-45*x); 
+    liquidsCTX.beginPath(); liquidsCTX.moveTo((24+15*x)*flw,(630-45*x)*flh); 
+  	liquidsCTX.bezierCurveTo((24+15*x)*flw,(625-45*x)*flh,(90-15*x)*flw,(625-45*x)*flh,(90-15*x)*flw,(630-45*x)*flh);
+    liquidsCTX.bezierCurveTo((90-15*x)*flw,(635-45*x)*flh,(24+15*x)*flw,(635-45*x)*flh,(24+15*x)*flw,(630-45*x)*flh); 
     liquidsCTX.stroke();liquidsCTX.fill();
 		liquidsCTX.strokeStyle = "#000000"; liquidsCTX.lineWidth = 1;
     if (tapOpen) { // Shows the drips
     	drip = Math.round(35.0*Math.random());
       if(level%2 == 0) {
-    		liquidsCTX.beginPath(); liquidsCTX.moveTo(56,550+drip); liquidsCTX.lineTo(56,555+drip); liquidsCTX.stroke();
+    		liquidsCTX.beginPath(); liquidsCTX.moveTo(56*flw,(550+drip)*flh); liquidsCTX.lineTo(56*flw,(555+drip)*flh); liquidsCTX.stroke();
     	}
       else  {
-    		liquidsCTX.beginPath(); liquidsCTX.moveTo(56,560+drip); liquidsCTX.lineTo(56,565+drip); liquidsCTX.stroke();
+    		liquidsCTX.beginPath(); liquidsCTX.moveTo(56*flw,(560+drip)*flh); liquidsCTX.lineTo((56)*flw,(565+drip)*flh); liquidsCTX.stroke();
     	}
 		}
 	}
@@ -280,9 +298,9 @@
     var b, c, x, y;
     if (titrant == "acid") {
       volAcid = titre/1000;
-      volBase = 0.025;
+      volBase = 0.020;
     } else {
-      volAcid = 0.025;
+      volAcid = 0.020;
       volBase = titre/1000;
     }
     totVol = volBase + volAcid;     // Stoichiometric calc.
@@ -299,7 +317,7 @@
       pH = 14.0 + Math.log(x - concAcidNow)/Math.LN10;
     }
   }
-  function weakAcidStrongBase()  { // Weak acid - strong base case
+  function weakAcidStrongBase()  { // Weak acid - strong base cased
     var volAcid, volBase, totVol;
     var roots = [];
     var concAcidNow, concConjBase;
@@ -307,9 +325,9 @@
     var cubic;
     if (titrant == "acid") {
       volAcid = titre/1000;
-      volBase = 0.025;
+      volBase = 0.020;
     } else {
-      volAcid = 0.025;
+      volAcid = 0.020;
       volBase = titre/1000;
     }
     totVol = volAcid + volBase;
@@ -346,9 +364,9 @@
     var cubic;
     if (titrant == "acid") {
       volAcid = titre/1000;
-      volBase = 0.025;
+      volBase = 0.020;
     }  else {
-      volAcid = 0.025;
+      volAcid = 0.020;
       volBase = titre/1000;
     }
     totVol = volAcid + volBase;
@@ -379,9 +397,7 @@
 
   function weakAcidWeakBase(){  // Weak acid - weak base case not handled
 		document.getElementById("startButton").disabled = true;
-    document.getElementById("warnings").innerHTML = "<font color='red'>A weak acid - weak base combination is "+
-    	"not usually done in the lab. Please make another choice.<br>"+
-    		"<br>(The app would have to solve a very ugly polynomial (quartic?) to handle this case!)</font>";
+    document.getElementById("warnings").innerHTML = "<font color='brown'>Eine Titration zwischen einer schwachen Säure und einer schwachen Base wird normalerweise nicht im Labor durchgeführt. Bitte wählen Sie eine andere Kombination.";
 	}
 
   function setAcidity() { // Picks the appropriate pKa and base type.
@@ -613,77 +629,96 @@
 	}
 	window.onload = function() { // Initializations
 		stirBar = document.getElementById("stirBar"); stirBarCTX = stirBar.getContext("2d");
+		stirBar.width = stirBar.offsetWidth
+		stirBar.height = stirBar.offsetWidth
 		stirBarCTX.fillStyle = "#ffffff"; stirBarCTX.lineWidth = 2; stirBarCTX.strokeStyle = "#000000";
-		liquids = document.getElementById("liquids"); liquidsCTX = liquids.getContext("2d"); 
-		graph = document.getElementById("graph"); graphCTX = graph.getContext("2d");
+		liquids = document.getElementById("liquids"); liquidsCTX = liquids.getContext("2d");
+		lw = liquids.offsetWidth; lh = liquids.offsetHeight
+		liquids.width = lw; liquids.height = lh
+		flw = lw/120; flh = lh/690
+		graphContainer = document.getElementById("graphContainer")
+		width = graphContainer.offsetWidth*2
+		f=width/400
+		fs = stirBar.width/120
+		graph = document.getElementById("graph"); graphCTX = graph.getContext("2d")
+		graph.width=width
+		graph.height=width
 		graphAxes();
 		stirCount = 0; counter2 = 100;
-		stirBarCTX.beginPath(); stirBarCTX.moveTo(50,57); stirBarCTX.lineTo(60,59); stirBarCTX.stroke();  // / Initial stopped stirrer
+		stirBarCTX.beginPath(); stirBarCTX.moveTo(50*fs,57*fs); stirBarCTX.lineTo(60*fs,59*fs); stirBarCTX.stroke();  // / Initial stopped stirrer
 		stirInterval = setInterval(stirrer,50); //Prepare stirrer loop
+		// stirBarCTX.fillStyle="#999911"; stirBarCTX.fillRect(40*fs,40*fs,40*fs,40*fs);
 		clearInterval(stirInterval);
-		ready();
-		document.getElementById("warnings").innerHTML = "<font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* One or more required parameters have not been set.</font>";
+		getAcid(); getConcAcid(); getBase(); getConcBase(); getIndicator(); getTitrantB(); getDropRate()
+		ready()
+		arrowToTap = document.getElementById("arrowToTap")
+		// document.getElementById("warnings").innerHTML = "<font color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* One or more required parameters have not been set.</font>";
+		
+	
 	}
 </script>
 
 </head>
 <body>
-<div style="position:absolute; top:10px; left:10px; border:2px solid #0000ff; width:790px; height:710px;">
-	<div style="position:absolute; top:0px; left:130px; width:400px; border:0px solid #ff0000;">
-		<center><font style="color:#A52A2A;" size="5.5"><b><br />Titration Simulator</b></font></center>
-	</div>
+<div style="position:absolute; top:0; left:0; border:0 solid #ff7b00; width:99%; aspect-ratio:calc(790/710)">
 	<!-- Apparatus area -->
-	<div style="position:absolute; top:0px; left:0px; z-index:0;">
-		<canvas id="liquids" width="120" height="690" style="border:0px solid #ff0000;"></canvas>
+	<div style="position:absolute; top:0; left:0; width:15%; height:97%; z-index:0;">
+		<canvas id="liquids" style="width: 100%; height: 100%; border:0 solid #ff0000;"></canvas>
 	</div>
-	<div style="position:absolute; top:570px; left:0px; z-index:1;">
-		<canvas id="stirBar" width="120" height="120" style="border:0px solid #0000ff;"></canvas>
+	<div style="position:absolute; top:80%; left:0; width: 15.1%; aspect-ratio: 1;z-index:1;">
+		<canvas id="stirBar" style="width: 100%; height: 100%; border:0 solid #08a858;"></canvas>
 	</div>
-	<div onclick="titrate(event)" id="buret" style="position:absolute; top:10px; left:3px; z-index:2;">
-		<img src="titration-new.gif" width="112" height="670" border="0">
+	<div style="position:absolute; top:1.4%; left:0.38%; width: 14.2%; z-index:2; border: 0 solid #1c99cf">
+		<img id="buretImg" src="titration-tapClosed.png" style="width: 100%; aspect-ratio: calc(112/670); z-index:1"/>
+		<div onclick="titrate(event)" id="buretTap" style="position:absolute; top:67.6%; left:27%; width: 52%; height:4.7%; border: 0px solid #0000ff"></div>
 	</div>
+	<div id="arrowToTap" class="fade-in" style="position:absolute; top:65.8%; left: 11.8%; width: 5%; height: 4.7%; border: 0px solid #1c99cf; z-index:6; display:none">
+		<img src="blueLeftArrow.svg" style="height: 100%;" alt="turn on the burette tap" />
+	</div>W
 	
 	<!-- Titration graph area -->
-	<div style="position:absolute; top:70px; left:140px; width:400px height:70px; border:0px solid #ff0000;">
+	<div style="position:absolute; top:1.5%; left:16%; width:47%; aspect-ratio:5.714; border:0 solid #ff0000;">
 	<center>
-		<table border="0" width="380" cellpadding="5"><tr>
+		<table border="0" width="95%" cellpadding="5%"><tr>
 			<td width="50%"><center><p id="buretReading"><b>Buret Reading</b><br>-- mL</p></center></td>
 			<td width="50%"><center><p id="pHReading"><b>pH in Flask</b><br>--</p></center></td>
 		</tr></table></center>
 	</div>
 	<!-- Titration graph area -->	
-	<div style="position:absolute; top:135px; left:130px; width:400px; border: 1px solid #ff0000;">
-		<canvas id="graph" onclick="clearGraph()" width="400" height="400" 
-				style="background-color:white;"></canvas>
+	<div id="graphContainer" style="position:absolute; top:12.01%; left:16%; width:47%; 
+	aspect-ratio: 1.0; border: 0 solid #000000;">
+		<canvas id="graph" onclick=null style="width:100%; height: 100%; background-color:rgba(255,255,255,0);"></canvas>
 	</div>
 	<!-- Settings area -->
-	<div style="position:absolute; top:150px; left:540px; width:240px; border:0px solid #ff0000;">
+	<div style="position:absolute; top:1.5%; left:64%; width:35%; border:0 solid #ff0000;">
 		<center>
 		<p><b><span id="acidErr">Acid</span></b><br>
   		<select id="acid" onchange="getAcid()">
-				<option disabled selected value="Choose">Choose acid</option>
-  			<option value="Hydrochloric acid">Hydrochloric acid</option>
+			<option disabled value="Choose">Choose acid</option>
+  			<option selected value="Hydrochloric acid">Hydrochloric acid</option>
   			<option value="Acetic acid">Acetic acid</option>
   			<option value="Chlorous acid">Chlorous acid</option>
   			<option value="Hypochlorous acid">Hypochlorous acid</option>
   			<option value="Hydrocyanic acid">Hydrocyanic acid</option>				
   		</select><br>
-		<input type="text" id="concAcid" value="--" oninput="getConcAcid()" style="width:40; text-align:center;" > M<span id="concAcidErr"></span></p>		
+		<input type="text" id="concAcid" value="1.0" oninput="getConcAcid()" 
+		style="width:10%; text-align:center;" > M<span id="concAcidErr"></span></p>		
 		<p><b><span id="baseErr">Base</span></b><br>
 			<select id="base" onchange="getBase()">
-  			<option disabled selected value="Choose">Choose base</option>
-				<option value="Sodium hydroxide">Sodium hydroxide</option>
+				<option disabled value="Choose">Choose base</option>
+				<option selected value="Sodium hydroxide">Sodium hydroxide</option>
  				<option value="Ammonia">Ammonia</option>
 	 			<option value="Methylamine">Methylamine</option>
 	 			<option value="Ethylamine">Ethylamine</option>
 	 			<option value="Aniline">Aniline</option>
 				<option value="Pyridine">Pyridine</option>				
 			</select><br>
-			<input type="text" id="concBase" value="--" oninput="getConcBase()" style="width:40; text-align:center;"> M<span id="concBaseErr"></span></p>
+			<input type="text" id="concBase" value="1.0" oninput="getConcBase()" 
+			style="width:10%; text-align:center;"> M<span id="concBaseErr"></span></p>
 			<p><b><span id="indErr">Indicator</span></b><br>
 			<select id="indicator" onchange="getIndicator()">
-  			<option disabled selected value="Choose">Choose indicator</option>
-				<option value="Phenolphthalein">Phenolphthalein (8.0 - 10.0)</option>
+  			<option disabled value="Choose">Choose indicator</option>
+				<option selected value="Phenolphthalein">Phenolphthalein (8.0 - 10.0)</option>
  				<option value="Methyl orange">Methyl orange (3.3 - 4.5)</option>
 	 			<option value="Bromothymol blue">Bromothymol blue (6.0 - 7.5)</option>
 				<option value="Crystal violet">Crystal violet (0.0 - 1.8)</option>
@@ -693,22 +728,18 @@
 			<p><b>Buret contains:</b><span id="titrantErr"></span><br>
 			<input type="radio" name="titrant" id="titrantA" value="acid" onchange="getTitrantA()"> Acid
 			&nbsp;<input type="radio" name="titrant" id="titrantB" value="base" onchange="getTitrantB()"> Base</p>
-			<p><b>Show the equivalence point&nbsp;&nbsp;</b><input type="checkbox" name="eqpt" id="eqpt"></p>
-			<p><b>Drop Rate</b></p>
-			<small>Slow</small>&nbsp;&nbsp;<input type="range" id="dropRate" min="1" max="3" value="2" step="0.1" onchange="getDropRate()" style="width:150;">&nbsp;&nbsp;<small>Fast</small><br><br>
+			<!-- <p><b>Show the equivalence point&nbsp;&nbsp;</b><input type="checkbox" name="eqpt" id="eqpt"></p> -->
+			<p style="margin-bottom: 0"><b>Drop Rate</b></p>
+			<p style="margin-top: 0; vertical-align: middle">Slow &nbsp;&nbsp;<input type="range" id="dropRate" min="1" max="3" value="2.4" step="0.1" onchange="getDropRate()" style="width:150;">&nbsp;&nbsp;Fast</p><br>
 			<input type="button" id="startButton" value="Add solutions to the buret and flask" onclick="reFill()" disabled />
 			</center>
 	</div>
 	<!-- Messages area -->
-	<div style="position:absolute; top:550; left:130; width:400px; border:0px solid #ff0000;">
+	<div style="position:absolute; top:72%; width: 47%; left:16.4%; border:0px solid #ff0000;">
 		<p id="warnings"></p><p id="warnings2"></p>
 	</div>
-	<!-- Copyright area area -->
-	<div style="position:absolute; top:680; right:10; border:0px solid #ff0000;">
-		&copy; Peter H. Bird, 2018
-	</div>
 </div>	
-<!-- Operating instructions area -->
+<!-- Operating instructions area
 <div style="position:absolute; top:10px; left:810px; border:2px solid #00ff00; width:500px; padding:0px 20px;">
 <h3>Notes</h3>
 <ul>
@@ -721,6 +752,6 @@
 <li>Click in the graph area to clear it. (Changing any of the parameters will clear it anyway.)</li>
 </ul> 
 <p>Note: The method used to calculate the pH and generate the curves is the same as that in the text, though the full the quadratic solution is always used, that is, the "usual approximation" is not applied. However, the contribution to [H<sup>+</sup>] from the auto-ionization of water is ignored (as it is in the text). For very dilute solutions and/or very weak acids or bases, this leads to a discontinuity in the curve near the equivalence point which would not be seen in a real experimental plot.</p>
-</div>
+</div> -->
 </body>
 </html>
