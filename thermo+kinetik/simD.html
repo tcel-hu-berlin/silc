@@ -61,12 +61,18 @@
                     <li>Kinetische Energie und Geschwindigkeit: E<sub>K</sub>= ½ &middot;mv<sup>2</sup></li>
                 </ul>  
                 <h3><i class="far fa-lightbulb"></i> &nbsp Fakultative Hinweise </i></h3>
-                <p style="margin-bottom:0"><strong>Frage 2a-iv</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
+                <p style="margin-bottom:0"><strong>Frage 2a-iii</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
                 <p id="hintA" style="display:none">Achten Sie hier besonders darauf, dass in keinem der Teilschritte einzelne Atome als Produkte vorkommen.</p>
-                <p style="margin-bottom:0"><strong>Frage 2e</strong><span style="float:right"><toggle class="showHide" id="showHideB">Einblenden</toggle></span></p>
-                <p id="hintB" style="display:none">Überprüfen Sie, dass Sie den richtigen "Standardzustand" von Kohlenstoff verwenden!</p>
-                <p style="margin-bottom:0"><strong>Frage 12</strong><span style="float:right"><toggle class="showHide" id="showHideC">Einblenden</toggle></span></p>
-                <p id="hintC" style="display:none">Für die Beantwortung dieser Frage wird eventuell die oben genannte Definition der Gibbs-Energie hilfreich sein.</p>
+                <p style="margin-bottom:0"><strong>Frage 2c</strong><span style="float:right"><toggle class="showHide" id="showHideB">Einblenden</toggle></span></p>
+                <p id="hintB" style="display:none">Vergleichen Sie den Aggregatzustand der Moleküle in der Simulation mit ihrem Aggregatzustand in einer realen Verbrennungsreaktion.</p>
+                <p style="margin-bottom:0"><strong>Frage 2f</strong><span style="float:right"><toggle class="showHide" id="showHideC">Einblenden</toggle></span></p>
+                <p id="hintC" style="display:none">Ihre Antwort bei 2a-ii könnte hier hilfreich sein. Überprüfen Sie jedoch, dass Sie den richtigen "Standardzustand" von Kohlenstoff verwenden und, dass die Reaktion in die richtige Richtung läuft!</p>
+                <p style="margin-bottom:0"><strong>Frage 9b</strong><span style="float:right"><toggle class="showHide" id="showHideD">Einblenden</toggle></span></p>
+                <p id="hintD" style="display:none">Beachten Sie, dass ein Gleichgewicht sowohl eine Hin- als auch eine Rückreaktion umfassen muss!</p>
+                <p style="margin-bottom:0"><strong>Frage 9d</strong><span style="float:right"><toggle class="showHide" id="showHideE">Einblenden</toggle></span></p>
+                <p id="hintE" style="display:none">Verwenden Sie ein Periodensystem, um die molare Masse von AgCl zu bestimmen.</p>
+                <p style="margin-bottom:0"><strong>Frage 12</strong><span style="float:right"><toggle class="showHide" id="showHideF">Einblenden</toggle></span></p>
+                <p id="hintF" style="display:none">Für die Beantwortung dieser Frage wird eventuell die oben genannte Definition der Gibbs-Energie hilfreich sein.</p>
             </div>
         </nav>
 
@@ -201,39 +207,20 @@
         }
     </script>
     <script>
-        var showHideToggleA = document.getElementById("showHideA")
-        var hintA = document.getElementById("hintA")
-        showHideToggleA.onclick = function(){
-            if (hintA.style.display=="none"){
-                showHideToggleA.innerHTML = "Ausblenden"
-                hintA.style.display="block"
-            } else {
-                showHideToggleA.innerHTML = "Einblenden"
-                hintA.style.display="none"
+        // Setting up hint toggles
+        var letters = ["A", "B", "C", "D", "E", "F"]
+        letters.forEach( function(x){
+            document.getElementById("showHide"+x).onclick = function(){
+                hint = document.getElementById("hint"+x)
+                if (hint.style.display=="none"){
+                    this.innerHTML = "Ausblenden"
+                    hint.style.display="block"
+                } else {
+                    this.innerHTML = "Einblenden"
+                    hint.style.display="none"
+                }
             }
-        }
-        var showHideToggleB = document.getElementById("showHideB")
-        var hintB = document.getElementById("hintB")
-        showHideToggleB.onclick = function(){
-            if (hintB.style.display=="none"){
-                showHideToggleB.innerHTML = "Ausblenden"
-                hintB.style.display="block"
-            } else {
-                showHideToggleB.innerHTML = "Einblenden"
-                hintB.style.display="none"
-            }
-        }
-        var showHideToggleC = document.getElementById("showHideC")
-        var hintC = document.getElementById("hintC")
-        showHideToggleC.onclick = function(){
-            if (hintC.style.display=="none"){
-                showHideToggleC.innerHTML = "Ausblenden"
-                hintC.style.display="block"
-            } else {
-                showHideToggleC.innerHTML = "Einblenden"
-                hintC.style.display="none"
-            }
-        }
+        })
     </script>
 </body>
 </html>
