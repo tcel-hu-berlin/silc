@@ -24,7 +24,7 @@
 	function getAcid() {
 		clearInterval(titreInterval);
 		acid = document.getElementById("acid").value; setAcidity();	// Set acid and its Ka
-		document.getElementById("acidErr").innerHTML = "Acid"; ready();
+		document.getElementById("acidErr").innerHTML = "Säure"; ready();
 	}
 	function getBase() { 
 		clearInterval(titreInterval);
@@ -34,7 +34,7 @@
 	function getIndicator() {
 		clearInterval(titreInterval);
 		indicator = document.getElementById("indicator").value; setIndicator(indicator); // Set indicator and its parameters
-		document.getElementById("indErr").innerHTML = "Indicator"; ready();
+		document.getElementById("indErr").innerHTML = "Indikator"; ready();
 	}
 	function getConcAcid() {  // Get acid concenration
 		clearInterval(titreInterval);
@@ -73,6 +73,8 @@
 		document.getElementById("buretImg").src = "titration-tapClosed.png"
 		tapOpen = false; eqPtFound = false;
 		document.getElementById("startButton").disabled = true;
+		document.getElementById("warnings").innerHTML = 
+			'<font color="#5469b7">Klicke auf den Bürettenhahn, um ihn aufzudrehen.</font>';
 		level = 0; titre = 0;
 		graphFrame();
 		graphCTX.fillStyle = "#ffffff"; graphCTX.fillRect(51*f,42*f,299*f,7*f); // (Remove weird black line at previous stopping point)
@@ -109,16 +111,14 @@
 	}
 	function ready() { // Check that everything has been set first time through
 		liquidsAdded = false;
-		if (acid=="Choose") {document.getElementById("acidErr").innerHTML = "Acid"+errFlag};
+		if (acid=="Choose") {document.getElementById("acidErr").innerHTML = "Säure"+errFlag};
 		if (base=="Choose") {document.getElementById("baseErr").innerHTML = "Base"+errFlag};
-		if (indicator=="Choose") {document.getElementById("indErr").innerHTML = "Indicator"+errFlag};
+		if (indicator=="Choose") {document.getElementById("indErr").innerHTML = "Indikator"+errFlag};
 		if (concAcid==undefined) {document.getElementById("concAcidErr").innerHTML = errFlag};
 		if (concBase==undefined) {document.getElementById("concBaseErr").innerHTML = errFlag};
 		if (titrant==undefined) {document.getElementById("titrantErr").innerHTML = errFlag};
 		if (acid=="Choose" || base=="Choose" || indicator=="Choose" || concAcid==undefined || concBase==undefined || titrant==undefined)
 		{return false}; 
-		document.getElementById("warnings").innerHTML = 
-			'<font color="green"><blockquote>Click the button "Add solutions...", and then click on the buret tap to start, continue, or pause the titration.</blockquote></font>';
 		document.getElementById("startButton").disabled = false;
 		return true;
 	} 
@@ -176,6 +176,7 @@
 		if (!liquidsAdded || reading > 25) {return};
 		if(!tapOpen) { // Tap not open. Open it and start titrating
 			arrowToTap.style.display = "none"
+			document.getElementById("warnings").innerHTML = '';
 			tapOpen = true;
 			document.getElementById("buretImg").src = "titration-tapOpen.png"
 			showLiquids(level);
@@ -197,7 +198,6 @@
 		 graphLabels();
   }
 	function graphFrame() {
-		console.log(f)
 		graphCTX.beginPath(); graphCTX.fillStyle = "#ffffff"; graphCTX.fillRect(45*f,40*f,307*f,316*f); 
 		graphCTX.strokeStyle = "#000000"; graphCTX.lineWidth = 2; 
 		graphCTX.strokeRect(50*f,41*f,301*f,9*f); // Indicator colour strip
@@ -260,7 +260,7 @@
         break;
       }
       case 5: {
-				stirBarCTX.beginPath(); stirBarCTX.moveTo(50,57); stirBarCTX.lineTo(60,59); stirBarCTX.stroke();  // /
+				stirBarCTX.beginPath(); stirBarCTX.moveTo(50*fs,57*fs); stirBarCTX.lineTo(60*fs,59*fs); stirBarCTX.stroke();  // /
         break;
       }
 		}
@@ -674,14 +674,14 @@
 	</div>
 	<div id="arrowToTap" class="fade-in" style="position:absolute; top:65.8%; left: 11.8%; width: 5%; height: 4.7%; border: 0px solid #1c99cf; z-index:6; display:none">
 		<img src="blueLeftArrow.svg" style="height: 100%;" alt="turn on the burette tap" />
-	</div>W
+	</div>
 	
 	<!-- Titration graph area -->
 	<div style="position:absolute; top:1.5%; left:16%; width:47%; aspect-ratio:5.714; border:0 solid #ff0000;">
 	<center>
 		<table border="0" width="95%" cellpadding="5%"><tr>
-			<td width="50%"><center><p id="buretReading"><b>Buret Reading</b><br>-- mL</p></center></td>
-			<td width="50%"><center><p id="pHReading"><b>pH in Flask</b><br>--</p></center></td>
+			<td width="50%"><center><p style="font-size: 1.2em" id="buretReading"><b>Bürette zeigt an:</b><br>-- mL</p></center></td>
+			<td width="50%"><center><p style="font-size: 1.2em" id="pHReading"><b>pH im Kolben:</b><br>--</p></center></td>
 		</tr></table></center>
 	</div>
 	<!-- Titration graph area -->	
@@ -692,51 +692,51 @@
 	<!-- Settings area -->
 	<div style="position:absolute; top:1.5%; left:64%; width:35%; border:0 solid #ff0000;">
 		<center>
-		<p><b><span id="acidErr">Acid</span></b><br>
+		<p><b><span id="acidErr">Säure</span></b><br>
   		<select id="acid" onchange="getAcid()">
-			<option disabled value="Choose">Choose acid</option>
-  			<option selected value="Hydrochloric acid">Hydrochloric acid</option>
-  			<option value="Acetic acid">Acetic acid</option>
-  			<option value="Chlorous acid">Chlorous acid</option>
-  			<option value="Hypochlorous acid">Hypochlorous acid</option>
-  			<option value="Hydrocyanic acid">Hydrocyanic acid</option>				
+			<option disabled value="Choose">Säure wählen...</option>
+  			<option selected value="Hydrochloric acid">Salzsäure</option>
+  			<option value="Acetic acid">Essigsäure</option>
+  			<option value="Chlorous acid">Chlorige Säure</option>
+  			<option value="Hypochlorous acid">Hypohlorige Säure</option>
+  			<option value="Hydrocyanic acid">Cyanwasserstoff</option>				
   		</select><br>
 		<input type="text" id="concAcid" value="1.0" oninput="getConcAcid()" 
 		style="width:10%; text-align:center;" > M<span id="concAcidErr"></span></p>		
 		<p><b><span id="baseErr">Base</span></b><br>
 			<select id="base" onchange="getBase()">
-				<option disabled value="Choose">Choose base</option>
-				<option selected value="Sodium hydroxide">Sodium hydroxide</option>
- 				<option value="Ammonia">Ammonia</option>
-	 			<option value="Methylamine">Methylamine</option>
-	 			<option value="Ethylamine">Ethylamine</option>
-	 			<option value="Aniline">Aniline</option>
-				<option value="Pyridine">Pyridine</option>				
+				<option disabled value="Choose">Base wählen...</option>
+				<option selected value="Sodium hydroxide">Natronlauge</option>
+ 				<option value="Ammonia">Ammoniak</option>
+	 			<option value="Methylamine">Methylamin</option>
+	 			<option value="Ethylamine">Ethylamin</option>
+	 			<option value="Aniline">Anilin</option>
+				<option value="Pyridine">Pyridin</option>				
 			</select><br>
 			<input type="text" id="concBase" value="1.0" oninput="getConcBase()" 
 			style="width:10%; text-align:center;"> M<span id="concBaseErr"></span></p>
-			<p><b><span id="indErr">Indicator</span></b><br>
-			<select id="indicator" onchange="getIndicator()">
-  			<option disabled value="Choose">Choose indicator</option>
-				<option selected value="Phenolphthalein">Phenolphthalein (8.0 - 10.0)</option>
- 				<option value="Methyl orange">Methyl orange (3.3 - 4.5)</option>
-	 			<option value="Bromothymol blue">Bromothymol blue (6.0 - 7.5)</option>
-				<option value="Crystal violet">Crystal violet (0.0 - 1.8)</option>
-	 			<option value="Alizarin yellow">Alizarin yellow (10.0 - 12.0)</option>
-	 			<option value="Erichrome black T">Erichrome black T (5.0 - 6.5)</option>				
-			</select><br>		 
-			<p><b>Buret contains:</b><span id="titrantErr"></span><br>
-			<input type="radio" name="titrant" id="titrantA" value="acid" onchange="getTitrantA()"> Acid
+			<p><b>Bürette enthält...:</b><span id="titrantErr"></span><br>
+			<input type="radio" name="titrant" id="titrantA" value="acid" onchange="getTitrantA()"> Säure
 			&nbsp;<input type="radio" name="titrant" id="titrantB" value="base" onchange="getTitrantB()"> Base</p>
+			<p><b><span id="indErr">Indikator</span></b><br>
+			<select id="indicator" onchange="getIndicator()">
+  			<option disabled value="Choose">Indikator wählen...</option>
+				<option selected value="Phenolphthalein">Phenolphthalein (8.0 - 10.0)</option>
+ 				<option value="Methyl orange">Methylorange (3.3 - 4.5)</option>
+	 			<option value="Bromothymol blue">Bromothymolblau (6.0 - 7.5)</option>
+				<option value="Crystal violet">Kristallviolet (0.0 - 1.8)</option>
+	 			<option value="Alizarin yellow">Alizaringelb (10.0 - 12.0)</option>
+	 			<option value="Erichrome black T">Eriochromschwartz T (5.0 - 6.5)</option>				
+			</select><br>		 
 			<!-- <p><b>Show the equivalence point&nbsp;&nbsp;</b><input type="checkbox" name="eqpt" id="eqpt"></p> -->
-			<p style="margin-bottom: 0"><b>Drop Rate</b></p>
-			<p style="margin-top: 0; vertical-align: middle">Slow &nbsp;&nbsp;<input type="range" id="dropRate" min="1" max="3" value="2.4" step="0.1" onchange="getDropRate()" style="width:150;">&nbsp;&nbsp;Fast</p><br>
-			<input type="button" id="startButton" value="Add solutions to the buret and flask" onclick="reFill()" disabled />
+			<p style="margin-bottom: 0"><b>Tropfgeschwindigkeit:</b></p>
+			<p style="margin-top: 0; vertical-align: middle">langsam &nbsp;&nbsp;<input type="range" id="dropRate" min="1" max="3" value="2.4" step="0.1" onchange="getDropRate()" style="width:150;">&nbsp;&nbsp;schnell</p><br>
+			<input type="button" id="startButton" value="Bürette & Kolben füllen" onclick="reFill()" disabled />
 			</center>
 	</div>
 	<!-- Messages area -->
-	<div style="position:absolute; top:72%; width: 47%; left:16.4%; border:0px solid #ff0000;">
-		<p id="warnings"></p><p id="warnings2"></p>
+	<div style="position:absolute; top:66.5%; width: 42%; left:18%; border:0px solid #ff0000; z-index:8">
+		<p style="margin-top: 0" id="warnings"></p><p id="warnings2"></p>
 	</div>
 </div>	
 <!-- Operating instructions area
