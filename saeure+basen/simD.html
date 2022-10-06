@@ -2,8 +2,6 @@
 <!--
 	Made using the template Phantom by HTML5 UP
 	html5up.net | @ajlkn
-    TODO: adjust iFrame height for small screens
-    TODO: double check numbers...?
 -->
 <html>
 <head>
@@ -13,10 +11,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="../assets/css/main.css" />
     <noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
-</head>
+    </head>
 <body class="is-preload">
 <!-- Wrapper -->
     <div id="wrapper">
+
         <!-- Header -->
         <header id="header">
             <div class="inner">
@@ -62,28 +61,28 @@
         <div id="main">
             <div class="inner">
                 <a href="index.html" ><h1>Säuren, Basen und Puffer</h1></a>
-                <h2>Simulation A: Säuredissoziation auf molekularer Ebene </h2>
-                <h3>Überblick der Simulation:</h3>
-                    <ul>
-                        <li>
-                            Diese Simulation zeigt eine vereinfachte Darstellung der Moleküle in einer Lösung, während eine schwache Säure HA in Wasser dissoziiert.
-                        </li>
-                        <li>
-                            Die Konzentrationen der Säure HA, ihrer konjugierten Base A<sup>-</sup> und der Hydronium-Ionen (H<sub>3</sub>O<sup>+</sup>) ändern sich im Laufe der Zeit. Diese Entwicklung wird schrittweise im begleitenden Diagramm dargestellt.
-                        </li>
-                        <li>
-                            Die Animation kann jederzeit mit einer Berührung angehalten und fortgesetzt werden.
-                        </li> 
-                        <li>
-                            Wenn eine Animation gestoppt ist, können die genauen Werte im Diagramm durch Berühren abgelesen werden.
-                        </li>
-                    </ul>
-                <h3>Zu Beachten:</h3>
-                <ul>
-                    <li>Jedes Teilchen in der Animation kann als 1 μmol von Teilchen betrachtet werden.</li>
-                    <li>Das Volumen der Lösung kann als 1 L angenommen werden.</li>
+                <h2>Simulation D: Modellierung einer Titration</h2>
+                <p>Mit dieser Simulation lässt sich die Veränderung des pH-Wertes während einer Säure-Base-Titration beobachten. Verschiedene Kombinationen von Säuren und Basen simuliert werden. Für die Titration stehen mehrere starke und schwache Säuren und Basen sowie Indikatoren zur Auswahl. Die Simulation wurde ursprunglich von Prof. Dr. Peter Bird (Concordia University) entwickelt.</p>
+                <h3>Überblick:</h3>
+                <ul style="margin-bottom: 0">
+                    <li>
+                        Die Identitäten und Konzentrationen einer Säure und einer Base können über die Dropdown-Menüs ausgewählt werden.
+                    </li>
+                    <li>
+                        Die Rolle des Titrators kann entweder die Säure oder die Base übernehmen. Dies kann über den Radiobutton <b style="color:#5469b7">Bürette enthält...</b> eingestellt werden.
+                    </li>
+                    <li>
+                        Unter dem Reiter <b style="color:#5469b7">Indikator</b> lässt sich ein Indikator für die Titration wählen. Der pH-Bereich des Indikators ist auch angegeben.
+                    </li>
+                    <li>
+                        Nach Bestätigung der Auswahl (mit der Taste <b style="color:#5469b7">Bürette & Kolben füllen</b>) kann die Titration durch "Drehen" des Bürettenhahns gestartet oder angehalten werden.
+                    </li>
                 </ul>
-                <iframe scrolling="no" id="simulationA" src="../assets/glowscript/acidBaseSimA.html" style="width: 100%; height:200px"></iframe>
+                <iframe scrolling="no" id="titrationSim" src="../assets/titration/titration-DE.html" 
+                        style="width: 100%; aspect-ratio: 1.2"></iframe>
+                <p style="font-size:1em; color:rgb(26, 14, 255); margin-bottom:0; margin-left:0.5em">
+                    &copy Simulation von <a href="http://faculty.concordia.ca/bird/" target="_blank">Peter Bird</a>, verändert und übersetzt. | <a href=" http://faculty.concordia.ca/bird/javascript/titration/titration-js.html" target="_blank">Original-Simulation</a>
+                </p> 
             </div>
         </div>
         
@@ -91,11 +90,11 @@
         <div id="simnav">
             <div class="inner">
                 <section class="tiles">
-                    <article class="styleSimActive">
+                    <article class="styleSim">
                         <span class="image">
                             <img src="../images/pic02.jpg" alt="" />
                         </span>
-                        <a href="simA.html">
+                        <a href="../saeure+basen/simA.html">
                             <h2>Simulation A</h2>
                             <div class="content">
                                 <p>Säuredissoziation auf molekularer Ebene</p>
@@ -106,7 +105,7 @@
                         <span class="image">
                             <img src="../images/pic02.jpg" alt="" />
                         </span>
-                        <a href="simB.html">
+                        <a href="../saeure+basen/simB.html">
                             <h2>Simulation B</h2>
                             <div class="content">
                                 <p>Vorhersage von Säure-Basen-Gleichgewichten</p>
@@ -117,14 +116,14 @@
                         <span class="image">
                             <img src="../images/pic02.jpg" alt="" />
                         </span>
-                        <a href="simC.html">
+                        <a href="../saeure+basen/simC.html">
                             <h2>Simulation C</h2>
                             <div class="content">
                                 <p>Erstellung eines Puffers</p>
                             </div>
                         </a>
                     </article>
-                    <article class="styleSim">
+                    <article class="styleSimActive">
                         <span class="image">
                             <img src="../images/pic02.jpg" alt="" />
                         </span>
@@ -147,7 +146,7 @@
         </footer>
     </div>
 
-    <!-- Scripts -->
+<!-- Scripts -->
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/browser.min.js"></script>
     <script src="../assets/js/breakpoints.min.js"></script>
@@ -155,16 +154,5 @@
     <script src="../assets/js/main.js"></script>
     <script src="../assets/js/Three49custom.js"></script>
     <script src="https://d3js.org/d3.v4.js"></script>
-    <script>
-        iFrame = document.getElementById("simulationA")
-        iFrame.onload = function(){
-            window_width = iFrame.contentWindow.window_width
-            iFrame.style.height = window_width/2.1+'px'
-            setTimeout(function(){
-                legend = iFrame.contentWindow.legend[0]
-                legend.style.opacity=0
-                }, 1000)
-        }
-    </script>
 </body>
 </html>
