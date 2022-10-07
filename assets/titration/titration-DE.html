@@ -28,8 +28,22 @@
 	}
 	function getBase() { 
 		clearInterval(titreInterval);
-		base = document.getElementById("base").value; setBasicity(); // Set base and its Kb
+		base = document.getElementById("base").value
+		setBasicity(); // Set base and its Kb
 		document.getElementById("baseErr").innerHTML = "Base"; ready();
+		if (base == "MysteryBase"){
+			document.getElementById("concBase").value="0.75"
+			getConcBase()
+			document.getElementById("concBase").value="??"
+			document.getElementById("concBase").disabled= true
+		} else {
+			// resetting conc to 1 if previous exp. was MysteryBase
+			if (document.getElementById("concBase").value=="??"){
+				document.getElementById("concBase").value="1.0"
+				document.getElementById("concBase").disabled= false
+				getConcBase()
+			}
+		}
 	}
 	function getIndicator() {
 		clearInterval(titreInterval);
@@ -99,6 +113,7 @@
 		stirInterval = setInterval(stirrer,50);
 		clearInterval(titreInterval); titreInterval = setInterval(titrationPlot,dropRate); // Allow titration
 		arrowToTap.style.display = "block"
+	if (!strongAcid && !strongBase){console.log("oh no"); arrowToTap.style.display = "none"}
 		
 	}
 	function getpH() { // Calculate the pH in the flask
@@ -106,6 +121,7 @@
     if (!strongAcid & strongBase) weakAcidStrongBase();
     if (strongAcid & !strongBase) strongAcidWeakBase();
 		if (!strongAcid & !strongBase) {
+			arrowToTap.style.display = "none"
 			weakAcidWeakBase(); tapOpen = false; showLiquids(level); clearInterval(titreInterval); // Not handled! Will give an error message! 
 		}
 	}
@@ -133,9 +149,14 @@
 		if (reading >= 25) { // Stop titration when buret is empty!
 				clearInterval(titreInterval); tapOpen = false; showLiquids(level);
 				setTimeout(function(){
-					document.getElementById("buretImg").src = "titration-tapClosed.png"
-					document.getElementById("startButton").disabled = false; 
+					document.getElementById("buretImg").src = "titration-tapClosed.png";
+					["startButton", "titrantA", "titrantB", "acid", "concAcid", "base", "concBase", "indicator"].forEach(function(elementName){
+					document.getElementById(elementName).disabled = false; 
 					return;
+					})
+					if (document.getElementById("base").value == "MysteryBase"){
+						document.getElementById("concBase").disabled= true
+					}
 				}, 500)
 				
 			} 
@@ -143,13 +164,16 @@
 		titre = level/15; 
 		getpH();
 		pHReading = pH.toFixed(2).toString();
-		document.getElementById("pHReading").innerHTML = "<b>pH Reading</b><br>"+pHReading;
+		document.getElementById("pHReading").innerHTML = "<b>pH im Kolben:</b><br>"+pHReading;
 			graphCTX.lineWidth = 3;
 			if (level > 1) {// plot graph points
 			graphCTX.beginPath(); graphCTX.strokeStyle = "#ff0000";
 				graphCTX.moveTo((50+prevTitre*12)*f,(351-prevpH*300/14)*f); 
 			graphCTX.lineTo((50+titre*12)*f,(351-pH*300/14)*f); graphCTX.stroke(); graphCTX.closePath();
-				if (titre > titreAtEqPt+0.2) drawEqPt(document.getElementById("eqpt").checked); // Shows the equivalence point if checkbox checked just after it is passed
+				if (titre > titreAtEqPt-0.05 && titre < titreAtEqPt+0.05) {
+					console.log(titre, buretReading, pHReading)
+					// drawEqPt(document.getElementById("eqpt").checked); // Shows the equivalence point if checkbox checked just after it is passed
+				}
 			}
 			if(level > 1)	{ // plot indicator colour
 				graphCTX.beginPath(); graphCTX.strokeStyle = getColour(1.0);
@@ -202,10 +226,22 @@
 		graphCTX.strokeStyle = "#000000"; graphCTX.lineWidth = 2; 
 		graphCTX.strokeRect(50*f,41*f,301*f,9*f); // Indicator colour strip
 		graphCTX.strokeRect(50*f,50*f,301*f,301*f); // Graph area
-		graphCTX.moveTo(45*f,50*f);   graphCTX.lineTo(50*f,50*f);  // x axis ticks
+		graphCTX.moveTo(45*f,50*f);   graphCTX.lineTo(50*f,50*f);  // y axis ticks
+		graphCTX.moveTo(45*f,71.571*f);  graphCTX.lineTo(50*f,71.571*f);
+		graphCTX.moveTo(45*f,93.142*f);  graphCTX.lineTo(50*f,93.142*f);
+		graphCTX.moveTo(45*f,114.714*f);  graphCTX.lineTo(50*f,114.714*f);
+		graphCTX.moveTo(45*f,136.286*f);  graphCTX.lineTo(50*f,136.286*f);
+		graphCTX.moveTo(45*f,157.857*f);  graphCTX.lineTo(50*f,157.857*f);
+		graphCTX.moveTo(45*f,179.429*f);  graphCTX.lineTo(50*f,179.429*f);
 		graphCTX.moveTo(45*f,201*f);  graphCTX.lineTo(50*f,201*f);
+		graphCTX.moveTo(45*f,222.57*f);  graphCTX.lineTo(50*f,222.57*f);
+		graphCTX.moveTo(45*f,244.143*f);  graphCTX.lineTo(50*f,244.143*f);
+		graphCTX.moveTo(45*f,265.714*f);  graphCTX.lineTo(50*f,265.714*f);
+		graphCTX.moveTo(45*f,287.286*f);  graphCTX.lineTo(50*f,287.286*f);
+		graphCTX.moveTo(45*f,308.857*f);  graphCTX.lineTo(50*f,308.857*f);
+		graphCTX.moveTo(45*f,330.428*f);  graphCTX.lineTo(50*f,330.428*f);
 		graphCTX.moveTo(45*f,351*f);  graphCTX.lineTo(50*f,351*f);	
-		graphCTX.moveTo(50*f,351*f);  graphCTX.lineTo(50*f,356*f); // y-axis ticks
+		graphCTX.moveTo(50*f,351*f);  graphCTX.lineTo(50*f,356*f); // x-axis ticks
 		graphCTX.moveTo(111*f,351*f); graphCTX.lineTo(111*f,356*f);
 		graphCTX.moveTo(171*f,351*f); graphCTX.lineTo(171*f,356*f);
 		graphCTX.moveTo(231*f,351*f); graphCTX.lineTo(231*f,356*f);
@@ -215,7 +251,7 @@
 	}
 	function graphLabels() {
 		graphCTX.font="bold 28px Arial"; graphCTX.fillStyle = "#5469b7"; 
-		graphCTX.fillText("V (Titrator) (mL)",90*f,385*f); //x-axis labels
+		graphCTX.fillText("V (Titriermittel) / mL",90*f,385*f); //x-axis labels
 		graphCTX.font="26px Arial"; graphCTX.fillStyle = "#000000"
 		graphCTX.fillText("0",47*f,370*f);
 		graphCTX.fillText("25",345*f,370*f);
@@ -397,6 +433,7 @@
 
   function weakAcidWeakBase(){  // Weak acid - weak base case not handled
 		document.getElementById("startButton").disabled = true;
+		arrowToTap.style.display = "none"
     document.getElementById("warnings").innerHTML = "<font color='brown'>Eine Titration zwischen einer schwachen Säure und einer schwachen Base wird normalerweise nicht im Labor durchgeführt. Bitte wählen Sie eine andere Kombination.";
 	}
 
@@ -450,9 +487,15 @@
         strongBase = false;
         break;
       }
-      case "Methylamine":
+      case "MysteryBase":
       {
         Kb = 4.38e-4;
+        strongBase = false;
+        break;
+      }
+	  case "Cyanide":
+      {
+        Kb = 2.5e-5;
         strongBase = false;
         break;
       }
@@ -687,8 +730,11 @@
 	<!-- Titration graph area -->	
 	<div id="graphContainer" style="position:absolute; top:12.01%; left:16%; width:47%; 
 	aspect-ratio: 1.0; border: 0 solid #000000;">
+	<!-- <div id="cursorArea" style="position:absolute; left: 12.5%; top: 12.5%; width: 75.25%; height: 75.25%; border: 2px solid #ff0000; z-index:15"></div> -->
 		<canvas id="graph" onclick=null style="width:100%; height: 100%; background-color:rgba(255,255,255,0);"></canvas>
+		
 	</div>
+	
 	<!-- Settings area -->
 	<div style="position:absolute; top:1.5%; left:64%; width:35%; border:0 solid #ff0000;">
 		<center>
@@ -708,16 +754,20 @@
 				<option disabled value="Choose">Base wählen...</option>
 				<option selected value="Sodium hydroxide">Natronlauge</option>
  				<option value="Ammonia">Ammoniak</option>
-	 			<option value="Methylamine">Methylamin</option>
+				 <!-- <option value="Cyanide">Cyanid-Ion</option> -->
 	 			<option value="Ethylamine">Ethylamin</option>
-	 			<option value="Aniline">Anilin</option>
-				<option value="Pyridine">Pyridin</option>				
+	 			<!-- <option value="Aniline">Anilin</option> -->
+				<option value="Pyridine">Pyridin</option>
+				<option value="MysteryBase">MYSTERY-BASE!</option>				
 			</select><br>
 			<input type="text" id="concBase" value="1.0" oninput="getConcBase()" 
 			style="width:10%; text-align:center;"> M<span id="concBaseErr"></span></p>
 			<p><b>Bürette enthält...:</b><span id="titrantErr"></span><br>
 			<input type="radio" name="titrant" id="titrantA" value="acid" onchange="getTitrantA()"> Säure
 			&nbsp;<input type="radio" name="titrant" id="titrantB" value="base" onchange="getTitrantB()"> Base</p>
+			<p style="margin-bottom:0"><b>Anfangsvolumen</b></p>
+			<p style="margin-top:0; margin-bottom:0">...in der Burette: 25 mL</p>
+			<p style="margin-top:0">...der Probelösung: 20 mL</p>
 			<p><b><span id="indErr">Indikator</span></b><br>
 			<select id="indicator" onchange="getIndicator()">
   			<option disabled value="Choose">Indikator wählen...</option>
