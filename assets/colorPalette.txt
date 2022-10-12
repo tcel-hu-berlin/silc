@@ -1,3 +1,4 @@
 hover: #84cff2
 buttons for simulation controls: #5469b7
 light gray for footer and help: #f6f6f6
+dark gray text color: #585858

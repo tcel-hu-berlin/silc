@@ -2233,13 +2233,12 @@ input, select, textarea {
 
 	input[type="checkbox"],
 	input[type="radio"] {
-		-moz-appearance: none;
-		-webkit-appearance: none;
-		-ms-appearance: none;
-		appearance: none;
-		display: block;
-		float: left;
-		margin-right: -2em;
+		-moz-appearance: auto;
+		-webkit-appearance: auto;
+		-ms-appearance: auto;
+		appearance: auto;
+		display: inline-block;
+		margin-left: 1.5em;
 		opacity: 1;
 		width: 1em;
 		z-index: -1;

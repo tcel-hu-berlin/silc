@@ -65,6 +65,10 @@
             <div class="inner">
                 <a href="index.html"><h1>Test</h1></a>
 				<h2>Absorptions- und Emissionsspektra</h2>
+                <p style="margin-bottom:0"><b>max. Wellenlänge: </b></p>
+                <p style="margin-bottom:0"><input type="radio" name="maxW" id="max200" value="150nm" onchange="drawSpectra(150)"> 150 nm
+			&nbsp;<input type="radio" name="maxW" id="max1000" value="1200nm" onchange="drawSpectra(1200)" checked> 1200 nm
+            &nbsp;<input type="radio" name="maxW" id="max2000" value="2000nm" onchange="drawSpectra(2000)"> 2000 nm</p>
                 <div style="width: 85%" id="absEmSpectra"></div>
             </div>
         </div>
