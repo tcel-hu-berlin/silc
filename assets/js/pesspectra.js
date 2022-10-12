@@ -57,7 +57,7 @@ clickRect= svg.append("rect")
             d3.select("#yCur").attr("y1", yval).attr("y2", yval)
             d3.select("#yCur").attr("x1", xval-10).attr("x2", xval+10)
             curX = x.invert(xval); curY = y.invert(yval)
-            d3.select("#coord").text("("+curX.toFixed(1) + ", "+curY.toFixed(1)+")")
+            d3.select("#coord").text("IE: "+curX.toFixed(1) + " eV  | Intensität: "+curY.toFixed(1))
             d3.select("#coord").attr("visibility", "visible")
             
             if(xval<width/2){
