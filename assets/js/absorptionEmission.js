@@ -167,7 +167,7 @@ function drawSpectra(xlim){
     absLines = svg.append("g")
     emLines = svg.append("g")
     seriesNames = svg.append("g")
-    data = d3.csv("files/hLines.csv", function(data) {
+    data = d3.csv("../../files/hLines.csv", function(data) {
         // Color scale
         var keys = ["Lyman", "Balmer", "Paschen"]
         var bounds = [[90, 123], [369, 657], [849, 1877]]
