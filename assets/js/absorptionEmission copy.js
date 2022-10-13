@@ -2,10 +2,21 @@
 
 
 var divWidth = document.getElementById("absEmSpectra").offsetWidth
-var divHeight = divWidth * 3.5/7
-var margin = {top: 10, right: 0, bottom: 40, left: 10}
+var divHeight = divWidth * 3/7
+var margin = {top: 10, right: 10, bottom: 40, left: 20}
 var width = divWidth - margin.left - margin.right
 var height = divHeight - margin.top - margin.bottom;
+
+var beansSpilled = false
+
+//info for legend
+var legx = width*0.93
+var legy = height*0.04
+var legx1 = legx-17
+var legx2 = width*1.05
+var legy1 = 0
+var legy2 = 0.16*height
+
 
 // append the svg object to the body of the page
 var svg = d3.select("#absEmSpectra")
@@ -34,55 +45,50 @@ svg.append("text")
 .attr("y", +t[1])
 .attr("x", 0)
 .text(t[0])
-.style("font-size", "1.1em")
-// .style("font-weight", "600")
+.style("font-size", "1.6em")
+.style("font-weight", "600")
 .style("fill", "#585858")
 })
 //X axis label
-// svg.append("text")
-// .attr("text-anchor", "end")
-// .attr("x", width/2 + margin.left)
-// .attr("y", height*0.4 + margin.top + 22)
-// .style("font-size", "0.8em")
-// .text("Wellenlänge (nm)");  
 svg.append("text")
 .attr("text-anchor", "end")
 .attr("x", width/2 + margin.left)
-.attr("y", height + margin.top + 22)
-.style("font-size", "0.8em")
+.attr("y", height*0.4 + margin.top + 25)
+.text("Wellenlänge (nm)");  
+svg.append("text")
+.attr("text-anchor", "end")
+.attr("x", width/2 + margin.left)
+.attr("y", height + margin.top + 25)
 .text("Wellenlänge (nm)");  
 
 var x, xAxis, y, yEm, texts, tickValues, defs, line, wavelengthSpan, minWavelength, gradient, colorPos, gradient, lineGradient, absSpectrum, emSpectrum, absLines, emLines, annotations, defs, seriesNames
-var tickListTop, tickListBottom
+
 function drawSpectra(xlim){
     svg.selectAll("defs").remove()
-    svg.selectAll("g").remove()
-    // svg.selectAll("g").attr("visibility", "hidden").exit().remove()
+    svg.selectAll("g").attr("visibility", "hidden").exit().remove()
     //Add X axis
     x = d3.scaleLinear()
     .range([margin.left, margin.left+width])
     .domain([80, xlim])
 
-    // if (xlim == 150){
-    //     tickValues = [50, 100, 150, 200, 250]
-    // } else {
-    //     tickValues = [100, 200, 300, 400, 500, 600,  700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900]
-    // }
+    if (xlim < 300){
+        tickValues = [50, 100, 150, 200, 250]
+    } else {
+        tickValues = [100, 200, 300, 400, 500, 600,  700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900]
+    }
     xAxis = d3.axisBottom(x)
     .tickFormat(v => `${v.toFixed(0)}`)
     
     // xAxis.tickValues(tickValues)
 
     svg.append("g")
-    .attr("id", "topAxis")
     .attr("transform", "translate(0," + height/2.5 + ")")
     .call(xAxis)
-    .select(".domain").remove()
+    // .select(".domain").remove()
     svg.append("g")
-    .attr("id", "bottomAxis")
     .attr("transform", "translate(0," + height + ")")
     .call(xAxis)
-    .select(".domain").remove()
+    // .select(".domain").remove()
 
 
     // Add Y scale
@@ -161,7 +167,7 @@ function drawSpectra(xlim){
     absLines = svg.append("g")
     emLines = svg.append("g")
     seriesNames = svg.append("g")
-    data = d3.csv("../files/hLines.csv", function(data) {
+    data = d3.csv("files/hLines.csv", function(data) {
         // Color scale
         var keys = ["Lyman", "Balmer", "Paschen"]
         var bounds = [[90, 123], [369, 657], [849, 1877]]
@@ -197,18 +203,17 @@ function drawSpectra(xlim){
 
             // brackets highlighting lines
             bracket = []
-            bracket.push({"x": bounds[i][0]*0.98, "y":0.69})
-            bracket.push({"x": bounds[i][0]*0.98, "y":0.76})
-            bracket.push({"x": bounds[i][1]*1.02, "y":0.76})
-            bracket.push({"x": bounds[i][1]*1.02, "y":0.69})
+            bracket.push({"x": bounds[i][0]*0.98, "y":0.68})
+            bracket.push({"x": bounds[i][0]*0.98, "y":0.75})
+            bracket.push({"x": bounds[i][1]*1.02, "y":0.75})
+            bracket.push({"x": bounds[i][1]*1.02, "y":0.68})
             seriesNames.append("path")
                 .attr("d", line(bracket))
                 .style("stroke", "white")
-                .style("fill", "none")
 
             seriesNames.append("text")
-                .attr("x", x(bounds[i][0]*0.9))
-                .attr("y", yEm(0.81))
+                .attr("x", x(bounds[i][0]*0.98))
+                .attr("y", yEm(0.78))
                 .attr("text-anchor", "left")
                 .text(ser)
                 .style("fill", 'white')
@@ -218,9 +223,9 @@ function drawSpectra(xlim){
             // Arrow to show continuation of Paschen series
             if (xlim == 1200){
                 arrow = []
-                arrow.push({"x": xlim*0.989, "y":0.79})
-                arrow.push({"x": xlim*0.999, "y":0.76})
-                arrow.push({"x": xlim*0.989, "y":0.73})
+                arrow.push({"x": xlim*0.975, "y":0.78})
+                arrow.push({"x": xlim*0.985, "y":0.75})
+                arrow.push({"x": xlim*0.975, "y":0.72})
                 seriesNames.append("path")
                     .attr("d", line(arrow))
                     .style("stroke", "white")
@@ -236,7 +241,7 @@ function drawSpectra(xlim){
                         .attr("y", y(0.72))
                         .attr("text-anchor", "middle")
                         .style("fill", d[2])
-                        .style("font-size", "1.1em")
+                        .style("font-size", "1.5em")
                         .style("font-weight", "600")
                         .style('opacity', 0.6)   
                     })
@@ -265,14 +270,7 @@ function drawSpectra(xlim){
                 .style("font-weight", 500)
                 .style("fill", "#f6f6f6")
             })
-
-        tickListTop = svg.select("#topAxis").selectAll(".tick")._groups[0]
-        tickListBottom = svg.select("#bottomAxis").selectAll(".tick")._groups[0]
-        tickListTop[tickListTop.length-1].remove()
-        tickListBottom[tickListBottom.length-1].remove()
         })
-    
-    
     }
 
-drawSpectra(2000)
+drawSpectra(1200)

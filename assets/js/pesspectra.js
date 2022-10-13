@@ -1,47 +1,47 @@
 //TODO: make size of graph responsive
 //TODO: zoom
 
-var margin = {top: 10, right: 30, bottom: 40, left: 50}
+var marginP = {top: 10, right: 30, bottom: 40, left: 50}
 var graphDiv = document.getElementById("simulationA")
 
-var width = graphDiv.clientWidth - margin.left - margin.right
-// var height = graphDiv.clientHeight - margin.top - margin.bottom;
-var height = width*0.6
+var widthP = graphDiv.clientWidth - marginP.left - marginP.right
+// var height = graphDiv.clientHeight - marginP.top - marginP.bottom;
+var heightP = widthP*0.6
 
 //info for legend
-var legx = width*0.93
-var legy = height*0.24
+var legx = widthP*0.93
+var legy = heightP*0.24
 var legx1 = legx-17
-var legx2 = margin.left+width-20
-var legy1 = legy-0.04*height
-var legy2 = height*0.91
+var legx2 = marginP.left+widthP-20
+var legy1 = legy-0.04*heightP
+var legy2 = heightP*0.91
 
 // append the svg object to the body of the page
-var svg = d3.select("#simulationA")
+var svgP = d3.select("#simulationA")
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("width", widthP + marginP.left + marginP.right)
+    .attr("height", heightP + marginP.top + marginP.bottom)
     .append("g")
     .attr("transform",
-        "translate(" + margin.left + "," + margin.top + ")")
+        "translate(" + marginP.left + "," + marginP.top + ")")
     
 
 // Add the background
-svg
+svgP
     .append("rect")
     .attr("x",0)
     .attr("y",0)
-    .attr("height", height)
-    .attr("width", width)
+    .attr("height", heightP)
+    .attr("width", widthP)
     .style("fill", "white")
     
 
 // for clicking
-clickRect= svg.append("rect")
+clickRect= svgP.append("rect")
     .attr("x",0)
         .attr("y",0)
-        .attr("height", height)
-        .attr("width", width)
+        .attr("height", heightP)
+        .attr("width", widthP)
         .attr("fill", "red") 
         .attr("opacity", 0)
         .on("click", function(){
@@ -60,61 +60,61 @@ clickRect= svg.append("rect")
             d3.select("#coord").text("IE: "+curX.toFixed(1) + " eV  | Intensität: "+curY.toFixed(1))
             d3.select("#coord").attr("visibility", "visible")
             
-            if(xval<width/2){
+            if(xval<widthP/2){
                 d3.select("#coord")
                     .attr("x", xval+10)
                     .attr("text-anchor", "start")}
                 else{d3.select("#coord")
                                 .attr("x", xval-10)
                                 .attr("text-anchor", "end")}
-            if(y<height/2){
+            if(y<heightP/2){
                 d3.select("#coord").attr("y", yval+20)}
                 else{d3.select("#coord").attr("y", yval-10)}
             // }
         })
 
 //Add X axis
-var x = d3.scaleLog()
+var xP = d3.scaleLog()
     .domain([40000, 0.9])
-    .range([ 0, width ])
-var xAxis = d3.axisBottom(x)
+    .range([ 0, widthP ])
+var xAxisP = d3.axisBottom(xP)
     .tickValues([1, 10, 100, 1000, 10000])
     .tickFormat((d, i) => ['1', '10', '100', '1000', '10000'][i])
-svg.append("g")
-    .attr("transform", "translate(0," + height + ")")
-    .call(xAxis)
+svgP.append("g")
+    .attr("transform", "translate(0," + heightP + ")")
+    .call(xAxisP)
     .select(".domain").remove()
 
 // Add Y axis
-var y = d3.scaleLinear()
+var yP = d3.scaleLinear()
         .domain([-0.05, 11.5])
-        .range([ height, 0])
+        .range([ heightP, 0])
         //.nice()
-svg.append("g")
-    .call(d3.axisLeft(y).tickSize(-width*1.3).ticks(7))
+svgP.append("g")
+    .call(d3.axisLeft(yP).tickSize(-widthP*1.3).ticks(7))
     .select(".domain").remove()
 
 // Customization
-svg.selectAll(".tick line").attr("stroke", "lightgray")
+svgP.selectAll(".tick line").attr("stroke", "lightgray")
 
 // Add X axis label:
-svg.append("text")
+svgP.append("text")
     .attr("text-anchor", "end")
-    .attr("x", width/2 + margin.left)
-    .attr("y", height + margin.top + 25)
+    .attr("x", widthP/2 + marginP.left)
+    .attr("y", heightP + marginP.top + 25)
     .text("Ionisierungsenergie (eV)");
 
 // Y axis label:
-svg.append("text")
+svgP.append("text")
     .attr("text-anchor", "end")
     .attr("transform", "rotate(-90)")
-    .attr("y", -margin.left + 20)
-    .attr("x", -margin.top - height/2 + 20)
+    .attr("y", -marginP.left + 20)
+    .attr("x", -marginP.top - heightP/2 + 20)
     .text("Intensität")
 
 // Cursor-cross with x and y values
-x0 = 0.05*width; y0 = 0.05*height
-cursor = svg.append("g").attr("id", "cursor")
+x0 = 0.05*widthP; y0 = 0.05*heightP
+cursor = svgP.append("g").attr("id", "cursor")
 cursor.append("line")
     .style("stroke", "black")
     .style("stroke-width", 1.5)
@@ -137,13 +137,13 @@ cursor.append("text")
 //Read the data
 d3.csv("../files/plotPES.csv", function(data) {
     // Color scale
-    var keys = ["H", "He", "Li", "U1", "U2", "U3", "U4", "U5"]
+    var keysP = ["H", "He", "Li", "U1", "U2", "U3", "U4", "U5"]
     var color = d3.scaleOrdinal()
-        .domain(keys)
+        .domain(keysP)
         .range(["#619CFF", "orange", "blue", "#F8766D", "#00BA38", "brown", "violet", "gray"]);
 
 // Add plots
-svg.append("path")
+svgP.append("path")
     .datum(data)
     .attr("fill", "none")
     .attr("stroke", color("H"))
@@ -151,10 +151,10 @@ svg.append("path")
     .attr("id", "H_line")
     .attr("visibility", "visible")
     .attr("d", d3.line()
-        .x(function(d) { return x(d.eV) })
-        .y(function(d) { return y(d.H) })
+        .x(function(d) { return xP(d.eV) })
+        .y(function(d) { return yP(d.H) })
         )
-svg.append("path")
+svgP.append("path")
     .datum(data)
     .attr("fill", "none")
     .attr("stroke", color("He"))
@@ -162,10 +162,10 @@ svg.append("path")
     .attr("id", "He_line")
     .attr("visibility", "hidden")
     .attr("d", d3.line()
-        .x(function(d) { return x(d.eV) })
-        .y(function(d) { return y(d.He) })
+        .x(function(d) { return xP(d.eV) })
+        .y(function(d) { return yP(d.He) })
         )
-svg.append("path")
+svgP.append("path")
     .datum(data)
     .attr("fill", "none")
     .attr("stroke", color("Li"))
@@ -173,10 +173,10 @@ svg.append("path")
     .attr("id", "Li_line")
     .attr("visibility", "hidden")
     .attr("d", d3.line()
-        .x(function(d) { return x(d.eV) })
-        .y(function(d) { return y(d.Li) })
+        .x(function(d) { return xP(d.eV) })
+        .y(function(d) { return yP(d.Li) })
         )
-svg.append("path")
+svgP.append("path")
     .datum(data)
     .attr("fill", "none")
     .attr("stroke", color("U1"))
@@ -184,10 +184,10 @@ svg.append("path")
     .attr("id", "U1_line")
     .attr("visibility", "hidden")
     .attr("d", d3.line()
-        .x(function(d) { return x(d.eV) })
-        .y(function(d) { return y(d.U1) })
+        .x(function(d) { return xP(d.eV) })
+        .y(function(d) { return yP(d.U1) })
         )
-svg.append("path")
+svgP.append("path")
     .datum(data)
     .attr("fill", "none")
     .attr("stroke", color("U2"))
@@ -195,10 +195,10 @@ svg.append("path")
     .attr("id", "U2_line")
     .attr("visibility", "hidden")
     .attr("d", d3.line()
-        .x(function(d) { return x(d.eV) })
-        .y(function(d) { return y(d.U2) })
+        .x(function(d) { return xP(d.eV) })
+        .y(function(d) { return yP(d.U2) })
         )
-svg.append("path")
+svgP.append("path")
     .datum(data)
     .attr("fill", "none")
     .attr("stroke", color("U3"))
@@ -206,10 +206,10 @@ svg.append("path")
     .attr("id", "U3_line")
     .attr("visibility", "hidden")
     .attr("d", d3.line()
-        .x(function(d) { return x(d.eV) })
-        .y(function(d) { return y(d.U3) })
+        .x(function(d) { return xP(d.eV) })
+        .y(function(d) { return yP(d.U3) })
         )
-svg.append("path")
+svgP.append("path")
     .datum(data)
     .attr("fill", "none")
     .attr("stroke", color("U4"))
@@ -217,10 +217,10 @@ svg.append("path")
     .attr("id", "U4_line")
     .attr("visibility", "hidden")
     .attr("d", d3.line()
-        .x(function(d) { return x(d.eV) })
-        .y(function(d) { return y(d.U4) })
+        .x(function(d) { return xP(d.eV) })
+        .y(function(d) { return yP(d.U4) })
         )
-svg.append("path")
+svgP.append("path")
     .datum(data)
     .attr("fill", "none")
     .attr("stroke", color("U5"))
@@ -228,12 +228,12 @@ svg.append("path")
     .attr("id", "U5_line")
     .attr("visibility", "hidden")
     .attr("d", d3.line()
-        .x(function(d) { return x(d.eV) })
-        .y(function(d) { return y(d.U5) })
+        .x(function(d) { return xP(d.eV) })
+        .y(function(d) { return yP(d.U5) })
         )
 
 // Legend
-var legend = svg.append("g")
+var legend = svgP.append("g")
     .attr("id", "legend")
 legend.append("rect")
     .attr("x",legx1)
@@ -243,18 +243,18 @@ legend.append("rect")
     .style("fill", "white")
     .style("stroke", "black")
 legend.selectAll("mydots")
-    .data(keys)
+    .data(keysP)
     .enter()
     .append("circle")
         .attr("cx", legx)
         .attr("cy", function(d,i){ return legy + i*25}) // legy is where the first dot appears. 25 is the distance between dots
         .attr("r", 7)
-        .attr("id", function(d, i){return keys[i]+"_dot"})
+        .attr("id", function(d, i){return keysP[i]+"_dot"})
         .style("fill", function(d, i){
-            if (keys[i] != "H"){return "white"}else{return color("H")}})
+            if (keysP[i] != "H"){return "white"}else{return color("H")}})
         .style("stroke", function(d){ return color(d)})
         .on("click", function(d, i){
-            lineID = "#"+keys[i]+"_line"
+            lineID = "#"+keysP[i]+"_line"
             dotID = "#"+this.id
             var active = d3.select(lineID).style("visibility")
             if (active == "visible"){
@@ -269,7 +269,7 @@ legend.selectAll("mydots")
 
 // Add one dot in the legend for each name.
 legend.selectAll("mylabels")
-    .data(keys)
+    .data(keysP)
     .enter()
     .append("text")
         .attr("x", legx+20)

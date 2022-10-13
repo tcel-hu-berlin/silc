@@ -54,8 +54,22 @@
 					<img src="../images/EM-Spektrum.svg" width="100%" />
 					<p style="font-size:0.8em">Bildnachweis: Matt, CC BY-SA 2.5, via Wikimedia Commons | <a href = "https://commons.wikimedia.org/wiki/File:EM-Spektrum.svg" target="_blank">(Originalbild anschauen)</a></p>
                     <h3><i class="far fa-lightbulb"></i> &nbsp Fakultative Hinweise </i></h3>
-                    <p style="margin-bottom:0"><strong>Frage 10</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
-                    <p id="hintA" style="display:none">Es kann sein, dass Sie an die mathematische Beziehung zwischen der Quantenzahl <em>n</em> und der Energie schon erinnern können!</p>				</div>
+                    <p style="margin-bottom:0"><strong>Frage 8</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
+                    <p id="hintA" style="display:none">Benutzen Sie u.a. die im Hilfemenü bereitgestellten Informationen, um eine Gleichung zu bestimmen.</p>
+                    <p style="margin-bottom:0"><strong>Frage 9 interaktive Spektren</strong><span style="float:right"><toggle class="showHide" id="showHideSpec">Ausblenden</toggle></span></p>
+                    <div id="hintSpec" style="display:block">
+                        <p style="margin-bottom:0">max. Wellenlänge:</p>
+                        <p style="margin-bottom:0"><input type="radio" name="maxW" id="max200" value="150nm" onchange="drawSpectra(150)" /> 150 nm
+                            &nbsp;<input type="radio" name="maxW" id="max1000" value="1200nm" onchange="drawSpectra(1200)" /> 1200 nm
+                            &nbsp;<input type="radio" name="maxW" id="max2000" value="2000nm" onchange="drawSpectra(2000)" checked /> 2000 nm</p>
+                        <div style="width: 95%" id="absEmSpectra"></div>
+                        <p></p>
+                    </div>
+                    <p style="margin-bottom:0"><strong>Frage 9c</strong><span style="float:right"><toggle class="showHide" id="showHideB">Einblenden</toggle></span></p>
+                    <p id="hintB" style="display:none">Stellen Sie sicher, dass Sie alle Linien der Paschen-Serie berücksichtigt haben!</p>
+                    <p style="margin-bottom:0"><strong>Frage 10</strong><span style="float:right"><toggle class="showHide" id="showHideC">Einblenden</toggle></span></p>
+                    <p id="hintC" style="display:none">Es kann sein, dass Sie an die mathematische Beziehung zwischen der Quantenzahl <em>n</em> und der Energie schon erinnern können!</p>
+                </div>
 			</div>
         </nav>
 
@@ -141,6 +155,13 @@
     <script src="../assets/js/Three49custom.js"></script>
     <script src="https://d3js.org/d3.v4.js"></script>
     <script>
+        function hideSpectrum(){
+            document.getElementById("hintSpec").style.display = "none"
+            document.getElementById("showHideSpec").innerHTML = "Einblenden"
+        }
+    </script> 
+    <script src="../assets/js/absorptionEmission.js" onload="hideSpectrum()"></script>
+    <script>
         // replaying the video
         document.getElementById('animationA').onclick=function(){this.paused ? this.play() : this.pause();}
         document.getElementById('animationA').addEventListener('ended',myHandler,false);
@@ -152,17 +173,20 @@
         }
     </script>
     <script>
-        var showHideToggleA = document.getElementById("showHideA")
-        var hintA = document.getElementById("hintA")
-        showHideToggleA.onclick = function(){
-            if (hintA.style.display=="none"){
-                showHideToggleA.innerHTML = "Ausblenden"
-                hintA.style.display="block"
-            } else {
-                showHideToggleA.innerHTML = "Einblenden"
-                hintA.style.display="none"
+        // Setting up hint toggles
+        var letters = ["Spec", "A", "B", "C"]
+        letters.forEach( function(x){
+            document.getElementById("showHide"+x).onclick = function(){
+                hint = document.getElementById("hint"+x)
+                if (hint.style.display=="none"){
+                    this.innerHTML = "Ausblenden"
+                    hint.style.display="block"
+                } else {
+                    this.innerHTML = "Einblenden"
+                    hint.style.display="none"
+                }
             }
-        }
+        })
     </script>
 </body>
 </html>
