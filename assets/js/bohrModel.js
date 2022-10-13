@@ -76,6 +76,17 @@ energyAxis = energyPanel.append("g")
 energyAxis.selectAll("text").style("fill", "rgb(150, 150, 150)")
 energyAxis.selectAll("path").style("stroke", "rgb(150, 150, 150)")
 
+// Energy axis label
+var eText = svg.append("text")
+.attr("text-anchor", "middle")
+.attr("x", margin+ 2*panelDimension + divider+margin*0.8)
+.attr("y", height*0.5)
+.attr("transform", "rotate(90, "+(margin+ 2*panelDimension + divider + margin*0.8)+", "+(height*0.5)+")")
+.text("Energy (eV)")
+.style("fill", "rgb(150, 150, 150)")
+.style("font-weight", "600")
+
+
 // Initializing
 function Init(){
     electrons = [{"id": 0, "orbital":"1s", "orbitalId":0, "n": 1, "l":0, "scr":0, "zEff":Z, "radius": 1, "theta": Math.PI, "energy": 1, "fCoulNuc":0}]
@@ -125,10 +136,9 @@ function Init(){
     rIndicator.innerHTML = (radius*1e10).toFixed(3)
 
     // Updating force to show valence shell
-    // let valenceElectron = electrons.filter()
     let valenceShell = electrons.filter((obj)=>obj.radius == radius)[0].orbital
     let force = getNuclearCoulombicForce(valenceShell)
-    let valenceEnergy = getTotalEnergy(electrons[Z-1])*joulesToEV
+    let valenceEnergy = getTotalEnergy(electrons.filter((obj)=>obj.orbital==valenceShell && obj.orbitalId==0)[0])*joulesToEV
     fSelectMenu.value = valenceShell
     eSelectMenu.value = valenceShell
     fIndicator.innerHTML = (force*1e9).toFixed(1)
@@ -231,10 +241,11 @@ function Init(){
                         return "visible"} else {return "hidden"}
                     })
         })
-    
-}
+    eText.raise()
+    }
 
 Init()
+
 
 // Functions
 function getAngles(number, offset=0){
@@ -287,7 +298,7 @@ function coulombicRepulsionByShell(electron, shell) {
 }
 
 function getNuclearCoulombicForce(shell) {
-    let electron = electrons.filter((obj) => obj.orbital == shell)[0]
+    let electron = electrons.filter((obj) => obj.orbital == shell && obj.orbitalId==0)[0]
     return screenedCoulombicForceNucleus(electron)
 }
 
