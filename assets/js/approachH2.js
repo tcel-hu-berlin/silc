@@ -12,6 +12,7 @@ var titleHeight = height*0.06
 
 var rSelected = 3
 var rMin = 0.1, rMax = 7, rStep=0.05
+var rDrawMin = document.getElementById("distance").min
 var rList = arange(rMin, rMax, rStep)
 var rData = [{"r":rMin}]
 for (i=1; i<rList.length; i++){
@@ -112,41 +113,80 @@ screenS1g.append("rect")
 
 
 // drawing Orbitals
-var orbitalWidth = screenMOWidth*0.05
-var MOEnergies = MOLvls(rSelected)
+var rScaleMO = d3.scaleLinear()
+    .domain([-rMax/2, rMax/2])
+    .range([screenMOx+screenMOWidth*0.2, screenMOx+screenMOWidth*0.8])
+var eScaleMO = d3.scaleLinear()
+    .domain([eScale.domain()[0], MOLvls(+rDrawMin)[1]])
+    .range([screenMOy+screenMOHeight*0.9, screenMOy+screenMOHeight*0.1])
 
-rScaleMO = d3.scaleLinear()
-            .domain([-rMax/2, rMax/2])
-            .range([screenMOx+screenMOWidth*0.2, screenMOx+screenMOWidth*0.8])
-eScaleMO = d3.scaleLinear()
-            .domain(eScale.domain())
-            .range([screenMOy+screenMOHeight*0.9, screenMOy+screenMOHeight*0.1])
-// atomic orbitals (move left-right)
-screenMO.append("line")
-        .attr("x1", rScaleMO(-rSelected/2)-orbitalWidth/2)
-        .attr("x2", rScaleMO(-rSelected/2)+orbitalWidth/2)
-        .attr("y1", eScaleMO(-13.6))
-        .attr("y2", eScaleMO(-13.6))
-        .style("stroke", "black").style("stroke-width", "0.2em")
-screenMO.append("line")
-        .attr("x1", rScaleMO(rSelected/2)-orbitalWidth/2)
-        .attr("x2", rScaleMO(rSelected/2)+orbitalWidth/2)
-        .attr("y1", eScaleMO(-13.6))
-        .attr("y2", eScaleMO(-13.6))
-        .style("stroke", "black").style("stroke-width", "0.2em")
-// molecular orbitals (move up-down)
-screenMO.append("line")
-        .attr("x1", rScaleMO(0)-orbitalWidth/2)
-        .attr("x2", rScaleMO(0)+orbitalWidth/2)
-        .attr("y1", eScaleMO(MOEnergies[0]))
-        .attr("y2", eScaleMO(MOEnergies[0]))
-        .style("stroke", "red").style("stroke-width", "0.2em")
-screenMO.append("line")
-        .attr("x1", rScaleMO(0)-orbitalWidth/2)
-        .attr("x2", rScaleMO(0)+orbitalWidth/2)
-        .attr("y1", eScaleMO(MOEnergies[1]))
-        .attr("y2", eScaleMO(MOEnergies[1]))
-        .style("stroke", "blue").style("stroke-width", "0.2em")
+function drawOrbitals(rDraw){
+    let orbitalWidth = screenMOWidth*0.05
+    let MOEnergies = MOLvls(rDraw)
+    
+    screenMO.selectAll("line").remove()
+
+    // atomic orbitals (move left-right)
+    screenMO.append("line")
+            .attr("x1", rScaleMO(-rDraw/2)-orbitalWidth/2)
+            .attr("x2", rScaleMO(-rDraw/2)+orbitalWidth/2)
+            .attr("y1", eScaleMO(-13.6))
+            .attr("y2", eScaleMO(-13.6))
+            .style("stroke", "black").style("stroke-width", "0.2em")
+    screenMO.append("line")
+            .attr("x1", rScaleMO(rDraw/2)-orbitalWidth/2)
+            .attr("x2", rScaleMO(rDraw/2)+orbitalWidth/2)
+            .attr("y1", eScaleMO(-13.6))
+            .attr("y2", eScaleMO(-13.6))
+            .style("stroke", "black").style("stroke-width", "0.2em")
+    // molecular orbitals (move up-down)
+    screenMO.append("line")
+            .attr("x1", rScaleMO(0)-orbitalWidth/2)
+            .attr("x2", rScaleMO(0)+orbitalWidth/2)
+            .attr("y1", eScaleMO(MOEnergies[0]))
+            .attr("y2", eScaleMO(MOEnergies[0]))
+            .style("stroke", "red").style("stroke-width", "0.2em")
+    screenMO.append("line")
+            .attr("x1", rScaleMO(0)-orbitalWidth/2)
+            .attr("x2", rScaleMO(0)+orbitalWidth/2)
+            .attr("y1", eScaleMO(MOEnergies[1]))
+            .attr("y2", eScaleMO(MOEnergies[1]))
+            .style("stroke", "blue").style("stroke-width", "0.2em")
+    screenMO.append("line")
+            .attr("x1", rScaleMO(0)+orbitalWidth/2)
+            .attr("x2", rScaleMO(rDraw/2)-orbitalWidth/2)
+            .attr("y1", eScaleMO(MOEnergies[1]))
+            .attr("y2", eScaleMO(-13.6))
+            .style("stroke", "black").style("stroke-width", "0.1em")
+            .style("stroke-dasharray", ("3, 3"))
+    screenMO.append("line")
+            .attr("x1", rScaleMO(-rDraw/2)+orbitalWidth/2 )
+            .attr("x2", rScaleMO(0)-orbitalWidth/2)
+            .attr("y1", eScaleMO(-13.6))
+            .attr("y2", eScaleMO(MOEnergies[1]))
+            .style("stroke", "black").style("stroke-width", "0.1em")
+            .style("stroke-dasharray", ("3, 3"))
+    screenMO.append("line")
+            .attr("x1", rScaleMO(0)+orbitalWidth/2)
+            .attr("x2", rScaleMO(rDraw/2)-orbitalWidth/2)
+            .attr("y1", eScaleMO(MOEnergies[0]))
+            .attr("y2", eScaleMO(-13.6))
+            .style("stroke", "black").style("stroke-width", "0.1em")
+            .style("stroke-dasharray", ("3, 3"))
+    screenMO.append("line")
+            .attr("x1", rScaleMO(-rDraw/2)+orbitalWidth/2 )
+            .attr("x2", rScaleMO(0)-orbitalWidth/2)
+            .attr("y1", eScaleMO(-13.6))
+            .attr("y2", eScaleMO(MOEnergies[0]))
+            .style("stroke", "black").style("stroke-width", "0.1em")
+            .style("stroke-dasharray", ("3, 3"))
+    
+}
+
+var distanceSlider = document.getElementById("distance")
+distanceSlider.oninput = function(){drawOrbitals(+distanceSlider.value); console.log(+distanceSlider.value)}
+
+drawOrbitals(rSelected)
 
 // Functions
 function MOLvls(r){
