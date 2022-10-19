@@ -10,11 +10,14 @@ var height = width*0.8
 var dividerHalfWidth = 10
 var titleHeight = height*0.06
 
-var rSelected = 3
+var distanceValue = document.getElementById('distanceValue')
+var distanceSlider = document.getElementById("distance")
+
+var rSelected = 3; distanceValue.innerHTML = rSelected.toFixed(1)
 var rMin = 0.1, rMax = 7, rStep=0.05
 var rDrawMin = document.getElementById("distance").min
 var rList = arange(rMin, rMax, rStep)
-var rData = [{"r":rMin}]
+var rData = [{"r":0}]
 for (i=1; i<rList.length; i++){
     rData.push({"r":rMin+i*rStep})
 }
@@ -51,7 +54,7 @@ var graphPEG = screenPEG.append("rect")
     .attr("width", plotWidth)
     .attr("height", plotHeight)
     .style("fill", "white")
-    .style("stroke", "#585858")
+    // .style("stroke", "#585858")
 
 // PEG Screen
 var rScale = d3.scaleLinear()
@@ -60,12 +63,39 @@ var rScale = d3.scaleLinear()
 var eScale = d3.scaleLinear()
     .domain([-17, -10])
     .range([+graphPEG.attr("y")+(+graphPEG.attr("height")), +graphPEG.attr("y")])
-screenPEG.append("g")
+var xAxisPEG = screenPEG.append("g")
     .call(d3.axisBottom(rScale))
     .attr("transform", "translate(0, "+ (+graphPEG.attr("y")+ (+graphPEG.attr("height")))+ ")")
-screenPEG.append("g")
+    .attr("color", "#585858")
+var yAxisPEG = screenPEG.append("g")
     .call(d3.axisLeft(eScale))
     .attr("transform", "translate("+ (+graphPEG.attr("x"))+ ", 0)")
+
+// Styling axes
+var axes = [xAxisPEG, yAxisPEG]
+axes.forEach(function(axis){
+    axis.selectAll("path").style("stroke", "#585858").style("stroke-width", "1")
+    axis.selectAll("line").style("stroke", "#585858").style("stroke-width", "1")
+    axis.selectAll(".tick line").style("stroke", "#585858").style("stroke-width", "1")
+    axis.selectAll("text").style("fill", "#585858").style("font-size", "0.8em")
+})
+
+// Adding indicator
+screenPEG.append("line").attr("id", "indPEG-line")
+    .attr("x1", rScale(rSelected)).attr("x2", rScale(rSelected))
+    .attr("y1", eScale(eScale.domain()[0])).attr("y2", eScale(eScale.domain()[1]))
+    .style("stroke", "#74A9D8").style("stroke-width", "0.2em")
+var lineToLabel = graphWidth*0.02
+screenPEG.append("text").attr("id", "indPEG-text")
+    .attr("x", +d3.select("#indPEG-line").attr("x1")+lineToLabel)
+    .attr("y", eScale(-16))
+    .text(`r: ${rSelected.toFixed(1)} Å`)
+    .style("fill", "#74A9D8").style("font-size", "0.8em")
+function moveCursor(r){
+    d3.select("#indPEG-line").attr("x1", rScale(r)).attr("x2", rScale(r))
+    d3.select("#indPEG-text").attr("x", +d3.select("#indPEG-line").attr("x1")+lineToLabel)
+        .text(`r: ${r.toFixed(2)} Å`)
+}
 
 dataEs1g = rData.filter((d)=>d.r <rScale.domain()[1] && MOLvls(d.r)[0] < eScale.domain()[1])
 dataEs1u = rData.filter((d)=>d.r <rScale.domain()[1] && MOLvls(d.r)[1] < eScale.domain()[1])
@@ -110,81 +140,115 @@ screenS1g.append("rect")
     .attr("height", height*0.4-dividerHalfWidth)
     .style("fill", "#585858")
     .style("stroke", "red").style("stroke-width", "0.5em")
-
+    
 
 // drawing Orbitals
-var rScaleMO = d3.scaleLinear()
-    .domain([-rMax/2, rMax/2])
-    .range([screenMOx+screenMOWidth*0.2, screenMOx+screenMOWidth*0.8])
+var rScaleMORight = d3.scaleLinear()
+    .domain([rDrawMin, rMax])
+    .range([screenMOx+screenMOWidth*0.65, screenMOx+screenMOWidth*0.9])
+var rScaleMOLeft = d3.scaleLinear()
+    .domain([rDrawMin, rMax])
+    .range([screenMOx+screenMOWidth*0.35, screenMOx+screenMOWidth*0.1])
 var eScaleMO = d3.scaleLinear()
     .domain([eScale.domain()[0], MOLvls(+rDrawMin)[1]])
     .range([screenMOy+screenMOHeight*0.9, screenMOy+screenMOHeight*0.1])
 
 function drawOrbitals(rDraw){
-    let orbitalWidth = screenMOWidth*0.05
+    let orbitalWidth = screenMOWidth*0.1
     let MOEnergies = MOLvls(rDraw)
-    
+    let orbitalToLabel = graphHeight*0.1
     screenMO.selectAll("line").remove()
+    screenMO.selectAll("text").remove()
 
     // atomic orbitals (move left-right)
-    screenMO.append("line")
-            .attr("x1", rScaleMO(-rDraw/2)-orbitalWidth/2)
-            .attr("x2", rScaleMO(-rDraw/2)+orbitalWidth/2)
+    screenMO.append("line") // left AO
+            .attr("x1", rScaleMOLeft(rDraw)-orbitalWidth/2)
+            .attr("x2", rScaleMOLeft(rDraw)+orbitalWidth/2)
             .attr("y1", eScaleMO(-13.6))
             .attr("y2", eScaleMO(-13.6))
             .style("stroke", "black").style("stroke-width", "0.2em")
-    screenMO.append("line")
-            .attr("x1", rScaleMO(rDraw/2)-orbitalWidth/2)
-            .attr("x2", rScaleMO(rDraw/2)+orbitalWidth/2)
+    screenMO.append("text")
+            .attr("x", rScaleMOLeft(rDraw))
+            .attr("y", eScaleMO(-13.6)+orbitalToLabel)
+            .attr("text-anchor", "middle")
+            .text("1s").style("font-weight", 700)
+    screenMO.append("line") // right AO
+            .attr("x1", rScaleMORight(rDraw)-orbitalWidth/2)
+            .attr("x2", rScaleMORight(rDraw)+orbitalWidth/2)
             .attr("y1", eScaleMO(-13.6))
             .attr("y2", eScaleMO(-13.6))
             .style("stroke", "black").style("stroke-width", "0.2em")
+    screenMO.append("text")
+            .attr("x", rScaleMORight(rDraw))
+            .attr("y", eScaleMO(-13.6)+orbitalToLabel)
+            .attr("text-anchor", "middle")
+            .text("1s").style("font-weight", 700)
     // molecular orbitals (move up-down)
     screenMO.append("line")
-            .attr("x1", rScaleMO(0)-orbitalWidth/2)
-            .attr("x2", rScaleMO(0)+orbitalWidth/2)
+            .attr("x1", screenMOx+screenMOWidth/2-orbitalWidth/2)
+            .attr("x2", screenMOx+screenMOWidth/2+orbitalWidth/2)
             .attr("y1", eScaleMO(MOEnergies[0]))
             .attr("y2", eScaleMO(MOEnergies[0]))
             .style("stroke", "red").style("stroke-width", "0.2em")
+            .style("opacity", 0.8)
     screenMO.append("line")
-            .attr("x1", rScaleMO(0)-orbitalWidth/2)
-            .attr("x2", rScaleMO(0)+orbitalWidth/2)
+            .attr("x1", screenMOx+screenMOWidth/2-orbitalWidth/2)
+            .attr("x2", screenMOx+screenMOWidth/2+orbitalWidth/2)
             .attr("y1", eScaleMO(MOEnergies[1]))
             .attr("y2", eScaleMO(MOEnergies[1]))
             .style("stroke", "blue").style("stroke-width", "0.2em")
-    screenMO.append("line")
-            .attr("x1", rScaleMO(0)+orbitalWidth/2)
-            .attr("x2", rScaleMO(rDraw/2)-orbitalWidth/2)
+            .style("opacity", 0.8)
+    screenMO.append("text")
+            .attr("x", screenMOx+screenMOWidth/2)
+            .attr("y", eScaleMO(MOEnergies[1])+orbitalToLabel)
+            .attr("text-anchor", "middle")
+            .text("σ*").style("font-weight", 700)
+            .style("fill", "blue").style("opacity", 0.8)
+    screenMO.append("text")
+            .attr("x", screenMOx+screenMOWidth/2)
+            .attr("y", eScaleMO(MOEnergies[0])+orbitalToLabel)
+            .attr("text-anchor", "middle")
+            .text("σ").style("font-weight", 700)
+            .style("fill", "red").style("opacity", 0.8)
+
+    // connecting lines
+    screenMO.append("line") // right to antibonding
+            .attr("x1", screenMOx+screenMOWidth/2+orbitalWidth/2)
+            .attr("x2", rScaleMORight(rDraw)-orbitalWidth/2)
             .attr("y1", eScaleMO(MOEnergies[1]))
             .attr("y2", eScaleMO(-13.6))
             .style("stroke", "black").style("stroke-width", "0.1em")
             .style("stroke-dasharray", ("3, 3"))
-    screenMO.append("line")
-            .attr("x1", rScaleMO(-rDraw/2)+orbitalWidth/2 )
-            .attr("x2", rScaleMO(0)-orbitalWidth/2)
+    screenMO.append("line") // left to antibonding
+            .attr("x1", rScaleMOLeft(rDraw)+orbitalWidth/2 )
+            .attr("x2", screenMOx+screenMOWidth/2-orbitalWidth/2)
             .attr("y1", eScaleMO(-13.6))
             .attr("y2", eScaleMO(MOEnergies[1]))
             .style("stroke", "black").style("stroke-width", "0.1em")
             .style("stroke-dasharray", ("3, 3"))
-    screenMO.append("line")
-            .attr("x1", rScaleMO(0)+orbitalWidth/2)
-            .attr("x2", rScaleMO(rDraw/2)-orbitalWidth/2)
-            .attr("y1", eScaleMO(MOEnergies[0]))
-            .attr("y2", eScaleMO(-13.6))
-            .style("stroke", "black").style("stroke-width", "0.1em")
-            .style("stroke-dasharray", ("3, 3"))
-    screenMO.append("line")
-            .attr("x1", rScaleMO(-rDraw/2)+orbitalWidth/2 )
-            .attr("x2", rScaleMO(0)-orbitalWidth/2)
+    screenMO.append("line") // left to bonding
+            .attr("x1", rScaleMOLeft(rDraw)+orbitalWidth/2)
+            .attr("x2", screenMOx+screenMOWidth/2-orbitalWidth/2)
             .attr("y1", eScaleMO(-13.6))
             .attr("y2", eScaleMO(MOEnergies[0]))
             .style("stroke", "black").style("stroke-width", "0.1em")
             .style("stroke-dasharray", ("3, 3"))
-    
+    screenMO.append("line") // right to bonding
+            .attr("x1", screenMOx+screenMOWidth/2+orbitalWidth/2)
+            .attr("x2", rScaleMORight(rDraw)-orbitalWidth/2)
+            .attr("y1", eScaleMO(MOEnergies[0]))
+            .attr("y2", eScaleMO(-13.6))
+            .style("stroke", "black").style("stroke-width", "0.1em")
+            .style("stroke-dasharray", ("3, 3"))
+
 }
 
-var distanceSlider = document.getElementById("distance")
-distanceSlider.oninput = function(){drawOrbitals(+distanceSlider.value); console.log(+distanceSlider.value)}
+
+distanceSlider.oninput = function(){
+    distanceValue.innerHTML = (+distanceSlider.value).toFixed(1)
+    drawOrbitals(+distanceSlider.value)
+    moveCursor(+distanceSlider.value)
+    }
 
 drawOrbitals(rSelected)
 
