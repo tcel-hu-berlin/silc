@@ -153,12 +153,20 @@ var eScaleMO = d3.scaleLinear()
     .domain([eScale.domain()[0], MOLvls(+rDrawMin)[1]])
     .range([screenMOy+screenMOHeight*0.9, screenMOy+screenMOHeight*0.1])
 
+
 function drawOrbitals(rDraw){
     let orbitalWidth = screenMOWidth*0.1
     let MOEnergies = MOLvls(rDraw)
     let orbitalToLabel = graphHeight*0.1
     screenMO.selectAll("line").remove()
     screenMO.selectAll("text").remove()
+
+    screenMO.append("line")
+        .attr("x1", rScaleMOLeft(rMax)-orbitalWidth/2)
+        .attr("x2", rScaleMOLeft(rMax)-orbitalWidth/2)
+        .attr("y1", eScaleMO(-16))
+        .attr("y2", eScaleMO(-2))
+        .style("stroke", "black")
 
     // atomic orbitals (move left-right)
     screenMO.append("line") // left AO
