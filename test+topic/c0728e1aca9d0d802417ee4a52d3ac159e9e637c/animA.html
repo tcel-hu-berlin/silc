@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+<!--
+	Made using the template Phantom by HTML5 UP
+	html5up.net | @ajlkn
+-->
+<html>
+<head>
+    <title>Atombau und Spektroskopie</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+    <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
+    </head>
+<body class="is-preload">
+<!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <div class="inner">
+                <span class="title">
+                    <a href="../index.html">
+                        <img src="../images/simLogo_desc.svg" alt="Simulationen für Interaktives Lernen in Chemie" style="height:8em" />
+                    </a>
+                </span>
+                <!-- Logo -->
+                <span class="logo" >
+                    <span class="symbol"><img src="../images/huberlin-logo.svg" alt="" /></span>
+                </span>
+            </div>
+            <nav>
+                <span class="helpButton">
+                    <p style="color: rgb(4, 140, 4); margin-bottom: 0; text-align: center">HILFE</p>
+                    <a href="#menu">
+                        <img id="helpIcon" src="../images/info-circle.svg" alt="Hilfe" />
+                    </a>                    
+                </span>
+            </nav>
+        </header>
+
+        <!-- Menu (help in disguise)-->
+        <nav id="menu">
+            <div class="inner">
+				<div class="inner" id="helpHints">
+					<h2>Hilfreiche Informationen</h2>
+					<h3>Konstanten:</h3>
+					<li>Planck'sches Wirkungsquantum: <em>h</em> = 6.626 &middot; 10<sup>-34</sup> J&middot;s</sup></li>
+					<li>Lichtgeschwindigkeit: <em>c</em> = 2.998 &middot; 10<sup>8</sup> m&middot;s<sup>-1</sup></li>
+					<h3>Einheiten:</h3>
+					<li>1 eV = 1.602 &middot; 10<sup>-19</sup> J</li>
+					<li>1 Hz = 1 s<sup>-1</sup></li>
+					<h3>Elektromagnetisches Spektrum</h3>
+					<img src="../images/EM-Spektrum.svg" width="100%" />
+					<p style="font-size:0.8em">Bildnachweis: Matt, CC BY-SA 2.5, via Wikimedia Commons | <a href = "https://commons.wikimedia.org/wiki/File:EM-Spektrum.svg" target="_blank">(Originalbild anschauen)</a></p>
+                    <h3><i class="far fa-lightbulb"></i> &nbsp Fakultative Hinweise </i></h3>
+                    <p style="margin-bottom:0"><strong>Frage 8</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
+                    <p id="hintA" style="display:none">Benutzen Sie u.a. die im Hilfemenü bereitgestellten Informationen, um eine Gleichung zu bestimmen.</p>
+                    <p style="margin-bottom:0"><strong>Frage 9 interaktive Spektren</strong><span style="float:right"><toggle class="showHide" id="showHideSpec">Ausblenden</toggle></span></p>
+                    <div id="hintSpec" style="display:block">
+                        <p style="margin-bottom:0">max. Wellenlänge:</p>
+                        <p style="margin-bottom:0"><input type="radio" name="maxW" id="max200" value="150nm" onchange="drawSpectra(150)" /> 150 nm
+                            &nbsp;<input type="radio" name="maxW" id="max1000" value="1200nm" onchange="drawSpectra(1200)" /> 1200 nm
+                            &nbsp;<input type="radio" name="maxW" id="max2000" value="2000nm" onchange="drawSpectra(2000)" checked /> 2000 nm</p>
+                        <div style="width: 95%" id="absEmSpectra"></div>
+                        <p></p>
+                    </div>
+                    <p style="margin-bottom:0"><strong>Frage 9c</strong><span style="float:right"><toggle class="showHide" id="showHideB">Einblenden</toggle></span></p>
+                    <p id="hintB" style="display:none">Stellen Sie sicher, dass Sie alle Linien der Paschen-Serie berücksichtigt haben!</p>
+                    <p style="margin-bottom:0"><strong>Frage 10</strong><span style="float:right"><toggle class="showHide" id="showHideC">Einblenden</toggle></span></p>
+                    <p id="hintC" style="display:none">Es kann sein, dass Sie an die mathematische Beziehung zwischen der Quantenzahl <em>n</em> und der Energie schon erinnern können!</p>
+                </div>
+			</div>
+        </nav>
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+                <a href="index.html"><h1>Atomenergieniveaus und Linienspektren</h1></a>
+				<h2>Animation A: Photoelektronenspektroskopie</h2>
+                <p>Bei der Photoelektronenspektroskopie (PES) werden mit Hilfe von UV-Licht oder Röntgenstrahlen Elektronen aus verschiedenen Energieniveaus einer Substanz entfernt. Die Entfernung eines Elektrons (Ionisierung) erfolgt, wenn die Energie des Lichts ausreicht, um das Elektron von seinem ursprünglichen Energieniveau (<em>E</em> < 0) zur Vakuumenergie (<em>E</em> = 0) anzuregen. Wenn die kinetische Energie der entfernten Elektronen gemessen wird (und die Energie des Lichts bekannt ist), dann kann die "Bindungsenergie" der verschiedenen Energieniveaus des Atoms bestimmt werden. Die Spitzen (Peaks) in einem PES-Spektrum stellen daher die verschiedenen Energieniveaus (Schalen und deren Unterschalen) einer Probe dar und enthalten Informationen sowohl über die Energie als auch die Anzahl der Elektronen in den Unterschalen.</p>
+                <video id="animationA" width="90%" autoplay="true">
+                    <source src="../images/PES_animationA.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+        
+        <!-- Simnav buttons -->
+        <div id="simnav">
+            <div class="inner">
+                <section class="tiles">
+					<article class="styleSimActive">
+                        <span class="image">
+                            <img src="../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="animA.html">
+                            <h2>Animation A</h2>
+                            <div class="content">
+                                <p>Prinzip der PES</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simA.html">
+                            <h2>Simulation A</h2>
+                            <div class="content">
+                                <p>Identifizierung von PES-Spektren</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simB.html">
+                            <h2>Simulation B</h2>
+                            <div class="content">
+                                <p>Spektrum von Wasserstoff & interaktives Diagramm</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simC.html">
+                            <h2>Simulation C</h2>
+                            <div class="content">
+                                <p>Visualisierung von Quantenzahlen</p>
+                            </div>
+                        </a>
+                    </article>
+                </section>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <div class="inner">
+                <p>&copy; Tiemann Lab @ HU-Berlin | Design-Vorlage: <a href="http://html5up.net">HTML5 UP</a></p>
+            </div>
+        </footer>
+    </div>
+
+<!-- Scripts -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/browser.min.js"></script>
+    <script src="../assets/js/breakpoints.min.js"></script>
+    <script src="../assets/js/util.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/Three49custom.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script>
+        function hideSpectrum(){
+            document.getElementById("hintSpec").style.display = "none"
+            document.getElementById("showHideSpec").innerHTML = "Einblenden"
+        }
+    </script> 
+    <script src="../assets/js/absorptionEmission.js" onload="hideSpectrum()"></script>
+    <script>
+        // replaying the video
+        document.getElementById('animationA').onclick=function(){this.paused ? this.play() : this.pause();}
+        document.getElementById('animationA').addEventListener('ended',myHandler,false);
+        function myHandler(e) {
+            console.log('ended');
+            setTimeout(function(){
+                document.getElementById('animationA').play();
+            }, 800);
+        }
+    </script>
+    <script>
+        // Setting up hint toggles
+        var letters = ["Spec", "A", "B", "C"]
+        letters.forEach( function(x){
+            document.getElementById("showHide"+x).onclick = function(){
+                hint = document.getElementById("hint"+x)
+                if (hint.style.display=="none"){
+                    this.innerHTML = "Ausblenden"
+                    hint.style.display="block"
+                } else {
+                    this.innerHTML = "Einblenden"
+                    hint.style.display="none"
+                }
+            }
+        })
+    </script>
+</body>
+</html>
