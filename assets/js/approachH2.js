@@ -1,7 +1,7 @@
 //TODO: make size of graph responsive
 //TODO: zoom
 
-var margin = {top: 10, right: 10, bottom: 15, left: 10}
+var margin = {top: 20, right: 10, bottom: 15, left: 10}
 var graphDiv = document.getElementById("approachH2")
 
 var width = graphDiv.clientWidth - margin.left - margin.right
@@ -45,6 +45,13 @@ screenMO.append("rect")
     .attr("height", screenMOHeight)
     .style("fill", "white")
     // .style("stroke", "#585858")
+svg.append("text")
+    .attr("x", screenMOx+screenMOWidth/2)
+    .attr("y", screenMOy)
+    .text("MO-Diagramm")
+    .attr("fill", "gray").style("font-weight", 600)
+    .style("alignment-baseline", "central")
+    .style("text-anchor", "middle")
 
 // Potential Energy Graph screen
 var graphLeft = margin.left+width*0.12
@@ -74,9 +81,9 @@ var xAxisPEG = screenPEG.append("g")
     .attr("color", "#585858")
 screenPEG.append("text").text("Abstand (Å)")
     .attr("x", graphLeft+graphWidth/2)
-    .attr("y", height-margin.bottom)
+    .attr("y", height)
     .attr("text-anchor", "middle")
-    .attr("alignment-baseline", "central")
+    .attr("alignment-baseline", "ideographic")
     .style("font-size", "0.7em")
 var yLabelX = graphLeft/2, yLabelY = graphTop+graphHeight/2
 screenPEG.append("text").text("Energie (eV)")
@@ -186,6 +193,7 @@ var screenS1uRect = screenS1u.append("rect").attr("id", "screen1uRect")
     .style("fill", "#585858")
     .style("stroke",  antibondingColor).style("stroke-width", "1em")
 
+// Wavefunction pictures    
 // s1g orbital screen
 var screenS1g = svg.append("g").attr("id", "screenS1g")
 var screenS1gRect = screenS1g.append("rect").attr("id", "screen1gRect")
@@ -208,6 +216,13 @@ svg.append("text").text("ψ (σ)")
     .attr("x", orbitalScreensX+orbitalScreensSide*0.1).attr("y", orbitalScreensS1gY+orbitalScreensSide*0.1)
     .style("fill", "white").style("font-size", "1.7em").style("font-style", "italic")
     .style("font-family", "serif")
+svg	.append("text")
+    .attr("x", orbitalScreensX+orbitalScreensSide/2)
+    .attr("y", screenMOy)
+    .text("MO-Wellenfunktionen")
+    .attr("fill", "gray").style("font-weight", 600)
+    .style("alignment-baseline", "central")
+    .style("text-anchor", "middle")
 
 // drawing Orbitals
 var rScaleMORight = d3.scaleLinear()
