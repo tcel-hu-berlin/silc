@@ -25,6 +25,7 @@ for (i=1; i<rList.length; i++){
 // color scheme
 bondingColor = "rgb(150, 122, 150)"
 antibondingColor = "rgb(240, 120, 0)"
+atomicColor = "rgb(40, 40, 40)"
 axisColor = "rgb(120, 120, 120)"
 
 // append the svg object to the body of the page
@@ -183,46 +184,75 @@ legend.append("text").attr("id", "es1u-label")
     .attr("x", legendHeight*0.62).attr("y", legendHeight*0.7)
     .style("alignment-baseline", "middle").style("font-size", "0.8em")
     .text("E(σ*) : "+(MOLvls(rSelected)[1]).toFixed(2)+" eV")
-// s1u orbital screen
-var screenS1u = svg.append("g").attr("id", "screenS1u")
-var screenS1uRect = screenS1u.append("rect").attr("id", "screen1uRect")
-    .attr("x", margin.left+width*0.65+dividerHalfWidth)
-    .attr("y", margin.top+titleHeight)
-    .attr("width", width*0.35-dividerHalfWidth)
-    .attr("height", width*0.35-dividerHalfWidth)
-    .style("fill", "#585858")
-    .style("stroke",  antibondingColor).style("stroke-width", "1em")
 
-// Wavefunction pictures    
-// s1g orbital screen
+
+// Wavefunction pictures
 var screenS1g = svg.append("g").attr("id", "screenS1g")
-var screenS1gRect = screenS1g.append("rect").attr("id", "screen1gRect")
-    .attr("x", margin.left+width*0.65+dividerHalfWidth)
-    .attr("y", margin.top+2*titleHeight+height*0.4+dividerHalfWidth)
-    .attr("width", width*0.35-dividerHalfWidth)
-    .attr("height", width*0.35-dividerHalfWidth)
-    .style("fill", "#585858")
-    .style("stroke", bondingColor).style("stroke-width", "1em")
-
-var orbitalScreensX = +screenS1uRect.attr("x") 
-var orbitalScreensS1uY = +screenS1uRect.attr("y")
-var orbitalScreensS1gY = +screenS1gRect.attr("y")
-var orbitalScreensSide = +screenS1uRect.attr("width")
-svg.append("text").text("ψ (σ*)")
-    .attr("x", orbitalScreensX+orbitalScreensSide*0.1).attr("y", orbitalScreensS1uY+orbitalScreensSide*0.1)
-    .style("fill", "white").style("font-size", "1.7em").style("font-style", "italic")
-    .style("font-family", "serif")
-svg.append("text").text("ψ (σ)")
-    .attr("x", orbitalScreensX+orbitalScreensSide*0.1).attr("y", orbitalScreensS1gY+orbitalScreensSide*0.1)
-    .style("fill", "white").style("font-size", "1.7em").style("font-style", "italic")
-    .style("font-family", "serif")
+var orbitalScreensX = margin.left+width*0.65+dividerHalfWidth 
+var orbitalScreensS1uY = margin.top+titleHeight
+var orbitalScreensWidth = width*0.35-dividerHalfWidth
+var orbitalScreensHeight = orbitalScreensWidth/2
+var orbitalScreensS1gY = orbitalScreensS1uY+orbitalScreensHeight+2*dividerHalfWidth
+var orbitalScreen1sX = orbitalScreensX+orbitalScreensWidth/4
+var orbitalScreen1sY = orbitalScreensS1gY+orbitalScreensHeight+3*dividerHalfWidth+titleHeight
+var strokeWidth = orbitalScreensWidth/40
+// title
 svg	.append("text")
-    .attr("x", orbitalScreensX+orbitalScreensSide/2)
+    .attr("x", orbitalScreensX+orbitalScreensWidth/2)
     .attr("y", screenMOy)
     .text("MO-Wellenfunktionen")
     .attr("fill", "gray").style("font-weight", 600)
     .style("alignment-baseline", "central")
     .style("text-anchor", "middle")
+// s1u orbital screen
+var screenS1u = svg.append("g").attr("id", "screenS1u")
+var screenS1uRect = screenS1u.append("rect").attr("id", "screen1uRect")
+    .attr("x", orbitalScreensX-strokeWidth/2)
+    .attr("y", orbitalScreensS1uY-strokeWidth/2)
+    .attr("width", orbitalScreensWidth+strokeWidth)
+    .attr("height", orbitalScreensHeight+strokeWidth)
+    .style("fill", "#585858")
+    .style("stroke",  antibondingColor).style("stroke-width", strokeWidth) 
+svg.append("text").text("ψ (σ*)")
+    .attr("x", orbitalScreensX+orbitalScreensWidth*0.05).attr("y", orbitalScreensS1uY+orbitalScreensHeight*0.2)
+    .style("fill", "white").style("font-size", "1.3em").style("font-style", "italic")
+    .style("font-family", "serif")
+
+// s1g orbital screen
+var screenS1gRect = screenS1g.append("rect").attr("id", "screen1gRect")
+    .attr("x", orbitalScreensX-strokeWidth/2)
+    .attr("y", orbitalScreensS1gY-strokeWidth/2)
+    .attr("width", orbitalScreensWidth+strokeWidth)
+    .attr("height", orbitalScreensHeight+strokeWidth)
+    .style("fill", "#585858")
+    .style("stroke", bondingColor).style("stroke-width", strokeWidth)
+svg.append("text").text("ψ (σ)")
+    .attr("x", orbitalScreensX+orbitalScreensWidth*0.05).attr("y", orbitalScreensS1gY+orbitalScreensHeight*0.2)
+    .style("fill", "white").style("font-size", "1.3em").style("font-style", "italic")
+    .style("font-family", "serif")
+// AO title
+svg	.append("text")
+.attr("x", orbitalScreensX+orbitalScreensWidth/2)
+.attr("y", orbitalScreensS1gY+orbitalScreensHeight+3*dividerHalfWidth)
+.text("AO-Wellenfunktion")
+.attr("fill", "gray").style("font-weight", 600)
+.style("alignment-baseline", "central")
+.style("text-anchor", "middle")
+// 1s orbital screen
+var screen1s = svg.append("g").attr("id", "screen1s")
+var screen1sRect = screenS1g.append("rect").attr("id", "screen1gRect")
+    .attr("x", orbitalScreen1sX-strokeWidth/2)
+    .attr("y", orbitalScreen1sY-strokeWidth/2)
+    .attr("width", orbitalScreensWidth/2+strokeWidth)
+    .attr("height", orbitalScreensHeight+strokeWidth)
+    .style("fill", "#585858")
+    .style("stroke", atomicColor).style("stroke-width", strokeWidth)
+svg.append("text").text("ψ (1s)")
+    .attr("x", orbitalScreen1sX+orbitalScreensWidth*0.05).attr("y", orbitalScreen1sY+orbitalScreensHeight*0.2)
+    .style("fill", "white").style("font-size", "1.3em").style("font-style", "italic")
+    .style("font-family", "serif")
+
+
 
 // drawing Orbitals
 var rScaleMORight = d3.scaleLinear()
@@ -264,35 +294,69 @@ svg.append("text")
     .style("font-style", "italic").style("font-weight", 700)
 
 // wavefunction graphs
-
 var xScaleS1u = d3.scaleLinear().domain([-rMax, rMax])
-    .range([+screenS1uRect.attr("x"),+screenS1uRect.attr("x")+(+screenS1uRect.attr("width"))])
-var yScaleS1u = d3.scaleLinear().domain([-rMax, rMax])
-    .range([+screenS1uRect.attr("y"),+screenS1uRect.attr("y")+(+screenS1uRect.attr("height"))])
-var xScaleS1g = d3.scaleLinear().domain([-rMax, rMax])
-    .range([+screenS1gRect.attr("x"),+screenS1gRect.attr("x")+(+screenS1gRect.attr("width"))])
-var yScaleS1g = d3.scaleLinear().domain([-rMax, rMax])
-    .range([+screenS1gRect.attr("y"),+screenS1gRect.attr("y")+(+screenS1gRect.attr("height"))])
-var resolutionX = 40, resolutionY = 30
+    .range([orbitalScreensX,orbitalScreensX+orbitalScreensWidth])
+var yScaleS1u = d3.scaleLinear().domain([-rMax/2, rMax/2])
+    .range([orbitalScreensS1uY,orbitalScreensS1uY+orbitalScreensHeight])
+var xScaleS1g = xScaleS1u
+var yScaleS1g = d3.scaleLinear().domain([-rMax/2, rMax/2])
+    .range([orbitalScreensS1gY,orbitalScreensS1gY+orbitalScreensHeight])
+var yScale1s = d3.scaleLinear().domain([-rMax/2, rMax/2])
+    .range([orbitalScreen1sY, orbitalScreen1sY+orbitalScreensHeight])
+
+var resolutionX = 50, resolutionY = 25
 var blockWidth = 2*rMax/resolutionX
-var blockHeight = 2*rMax/resolutionY
+var blockHeight = rMax/resolutionY
 var pointsXY = []
 
 var wfColor = d3.scaleLinear()
     .domain([-2*Math.sqrt(1/(4*Math.PI)), 0, 2*Math.sqrt(1/(4*Math.PI)), 4*Math.sqrt(1/(4*Math.PI))])
-    .range(["blue", "black", "red", "rgb(255, 120, 120)"]).interpolate(d3.interpolateRgb.gamma(2.2))
+    .range(["cyan", "black", "red", "rgb(255, 255, 255)"]).interpolate(d3.interpolateRgb.gamma(2.2))
 
 for (i=0; i<resolutionY; i++){
-      let y = -rMax + (i)*blockHeight
+      let y = -rMax/2 + (i)*blockHeight
       for (j=0; j<resolutionX; j++){
         let x = -rMax + (j)*blockWidth
         pointsXY.push({"x": x, "y": y})
       }
 }
 
+// CURSORS
+var cursors = svg.append("g")
+var cursorS1uX = cursors.append("line").attr("id", "curS1uX")
+    .attr("x1", xScaleS1u(0-blockWidth/2)).attr("x2", xScaleS1u(0-blockWidth/2))
+    .attr("y1", yScaleS1u.range()[0]).attr("y2", yScaleS1u.range()[1])
+var cursorS1uY = cursors.append("line").attr("id", "curS1uY")
+    .attr("x1", xScaleS1u.range()[0]).attr("x2", xScaleS1u.range()[1])
+    .attr("y1", yScaleS1u(0)).attr("y2", yScaleS1u(0))
+var cursorS1gX = cursors.append("line").attr("id", "curS1gX")
+    .attr("x1", xScaleS1g(0-blockWidth/2)).attr("x2", xScaleS1g(0-blockWidth/2))
+    .attr("y1", yScaleS1g.range()[0]).attr("y2", yScaleS1g.range()[1])
+var cursorS1gY = cursors.append("line").attr("id", "curS1gY")
+    .attr("x1", xScaleS1g.range()[0]).attr("x2", xScaleS1g.range()[1])
+    .attr("y1", yScaleS1g(0)).attr("y2", yScaleS1g(0))
+var cursor1sX = cursors.append("line").attr("id", "cur1sX")
+    .attr("x1", xScaleS1g(0-blockWidth/2)).attr("x2", xScaleS1g(0-blockWidth/2))
+    .attr("y1", yScale1s.range()[0]).attr("y2", yScale1s.range()[1])
+var cursor1sY = cursors.append("line").attr("id", "cur1sY")
+    .attr("x1", orbitalScreen1sX).attr("x2", orbitalScreen1sX+orbitalScreensWidth/2)
+    .attr("y1", yScale1s(0)).attr("y2", yScale1s(0))
+cursors.selectAll("line").style("stroke", "white").style("opacity", 0.6).style("stroke-dasharray", (4, 2))    
+
+// Readings
+var readings = svg.append("g")
+var readingS1u = readings.append("text").text("- - - -")
+    .attr("x", orbitalScreensX+orbitalScreensWidth*0.95).attr("y", orbitalScreensS1uY+orbitalScreensHeight*0.2)
+var readingS1g = readings.append("text").text("- - - -")
+.attr("x", orbitalScreensX+orbitalScreensWidth*0.95)
+.attr("y", orbitalScreensS1gY+orbitalScreensHeight*0.2)
+var reading1s = readings.append("text").text("- - - -")
+.attr("x", orbitalScreen1sX+orbitalScreensWidth*0.475).attr("y", orbitalScreen1sY+orbitalScreensHeight*0.2)
+readings.selectAll("text").attr("fill", "white").style("text-anchor", "end").style("font-size", "1.2em")
+
 screenS1u.selectAll("myPoints")
     .data(pointsXY).enter()
-    .append("rect")
+    .append("rect").attr("id", function(d, i ){return "pS1u"+i})
     .attr("x", function(d){return xScaleS1u(d.x)})
     .attr("y", function(d){return yScaleS1u(d.y)})
     .attr("width", xScaleS1u(blockWidth)-xScaleS1u(0)).attr("height", yScaleS1u(blockHeight)-yScaleS1u(0))
@@ -302,12 +366,19 @@ screenS1u.selectAll("myPoints")
         return wfColor(value)
     })
     .on("click", function(){
-        console.log(this.value)
+        screenS1u.selectAll(".selected").attr("class", "none").style("stroke", "none")
+        let point = screenS1u.select("#"+this.id)
+        point.attr("class", "selected").style("stroke", "white")
+        // d3.select("#"+this.id).style("stroke", "yellow")
+        let x = +point.attr("x")+(+point.attr("width"))/2, y= +point.attr("y")+(+point.attr("height"))/2
+        cursorS1uX.attr("x1", x).attr("x2", x)
+        cursorS1uY.attr("y1", y).attr("y2", y)
+        readingS1u.text(this.value.toFixed(3))
     })
 
 screenS1g.selectAll("myPoints")
     .data(pointsXY).enter()
-    .append("rect")
+    .append("rect").attr("id", function(d, i ){return "pS1g"+i})
     .attr("x", function(d){return xScaleS1g(d.x)})
     .attr("y", function(d){return yScaleS1g(d.y)})
     .attr("width", xScaleS1g(blockWidth)-xScaleS1g(0)).attr("height", yScaleS1g(blockHeight)-yScaleS1g(0))
@@ -317,8 +388,38 @@ screenS1g.selectAll("myPoints")
         return wfColor(value)
     })
     .on("click", function(){
-        console.log(this.value)
+        screenS1g.selectAll(".selected").attr("class", "none").style("stroke", "none")
+        let point = screenS1g.select("#"+this.id)
+        point.attr("class", "selected").style("stroke", "white")
+        // d3.select("#"+this.id).style("stroke", "yellow")
+        let x = +point.attr("x")+(+point.attr("width"))/2, y= +point.attr("y")+(+point.attr("height"))/2
+        cursorS1gX.attr("x1", x).attr("x2", x)
+        cursorS1gY.attr("y1", y).attr("y2", y)
+        readingS1g.text(this.value.toFixed(3))
     })
+
+screen1s.selectAll("myPoints")
+    .data(pointsXY.filter((obj)=>obj.x>-rMax/2 && obj.x < rMax/2-blockWidth)).enter()
+    .append("rect").attr("id", function(d, i ){return "p1s"+i})
+    .attr("x", function(d){return xScaleS1g(d.x)})
+    .attr("y", function(d){return yScale1s(d.y)})
+    .attr("width", xScaleS1g(blockWidth)-xScaleS1g(0)).attr("height", yScale1s(blockHeight)-yScale1s(0))
+    .style("fill", function(d){
+        let value = wavefunction1s([d.x, d.y], [0, 0])
+        this.value = value
+        return wfColor(value)
+    })
+    .on("click", function(){
+        screen1s.selectAll(".selected").attr("class", "none").style("stroke", "none")
+        let point = screen1s.select("#"+this.id)
+        point.attr("class", "selected").style("stroke", "white")
+        // d3.select("#"+this.id).style("stroke", "yellow")
+        let x = +point.attr("x")+(+point.attr("width"))/2, y= +point.attr("y")+(+point.attr("height"))/2
+        cursor1sX.attr("x1", x).attr("x2", x)
+        cursor1sY.attr("y1", y).attr("y2", y)
+        reading1s.text(this.value.toFixed(3))
+    })
+
 
 function drawOrbitals(rDraw){
     let MOEnergies = MOLvls(rDraw)
@@ -332,23 +433,23 @@ function drawOrbitals(rDraw){
             .attr("x2", rScaleMOLeft(rDraw)+orbitalWidth/2)
             .attr("y1", eScaleMO(-13.6))
             .attr("y2", eScaleMO(-13.6))
-            .style("stroke", "black").style("stroke-width", "0.2em")
+            .style("stroke", atomicColor).style("stroke-width", "0.2em")
     screenMO.append("text")
             .attr("x", rScaleMOLeft(rDraw))
             .attr("y", eScaleMO(-13.6)+orbitalToLabel)
             .attr("text-anchor", "middle")
-            .text("1s").style("font-weight", 700)
+            .text("1s").style("font-weight", 700).style("fill", atomicColor)
     screenMO.append("line") // right AO
             .attr("x1", rScaleMORight(rDraw)-orbitalWidth/2)
             .attr("x2", rScaleMORight(rDraw)+orbitalWidth/2)
             .attr("y1", eScaleMO(-13.6))
             .attr("y2", eScaleMO(-13.6))
-            .style("stroke", "black").style("stroke-width", "0.2em")
+            .style("stroke", atomicColor).style("stroke-width", "0.2em")
     screenMO.append("text")
             .attr("x", rScaleMORight(rDraw))
             .attr("y", eScaleMO(-13.6)+orbitalToLabel)
             .attr("text-anchor", "middle")
-            .text("1s").style("font-weight", 700)
+            .text("1s").style("font-weight", 700).style("fill", atomicColor)
     // molecular orbitals (move up-down)
     screenMO.append("line")
             .attr("x1", screenMOx+screenMOWidth/2-orbitalWidth/2)
@@ -385,42 +486,50 @@ function drawOrbitals(rDraw){
             .attr("x2", rScaleMORight(rDraw)-orbitalWidth/2)
             .attr("y1", eScaleMO(MOEnergies[1]))
             .attr("y2", eScaleMO(-13.6))
-            .style("stroke", "black").style("stroke-width", "0.1em")
+            .style("stroke", "black").style("stroke-width", "0.05em")
             .style("stroke-dasharray", ("3, 3"))
     screenMO.append("line") // left to antibonding
             .attr("x1", rScaleMOLeft(rDraw)+orbitalWidth/2 )
             .attr("x2", screenMOx+screenMOWidth/2-orbitalWidth/2)
             .attr("y1", eScaleMO(-13.6))
             .attr("y2", eScaleMO(MOEnergies[1]))
-            .style("stroke", "black").style("stroke-width", "0.1em")
+            .style("stroke", "black").style("stroke-width", "0.05em")
             .style("stroke-dasharray", ("3, 3"))
     screenMO.append("line") // left to bonding
             .attr("x1", rScaleMOLeft(rDraw)+orbitalWidth/2)
             .attr("x2", screenMOx+screenMOWidth/2-orbitalWidth/2)
             .attr("y1", eScaleMO(-13.6))
             .attr("y2", eScaleMO(MOEnergies[0]))
-            .style("stroke", "black").style("stroke-width", "0.1em")
+            .style("stroke", "black").style("stroke-width", "0.05em")
             .style("stroke-dasharray", ("3, 3"))
     screenMO.append("line") // right to bonding
             .attr("x1", screenMOx+screenMOWidth/2+orbitalWidth/2)
             .attr("x2", rScaleMORight(rDraw)-orbitalWidth/2)
             .attr("y1", eScaleMO(MOEnergies[0]))
             .attr("y2", eScaleMO(-13.6))
-            .style("stroke", "black").style("stroke-width", "0.1em")
+            .style("stroke", "black").style("stroke-width", "0.05em")
             .style("stroke-dasharray", ("3, 3"))
 
+    // modifying wavefunction graphs
     screenS1u.selectAll("rect").data(pointsXY)
         .style("fill", function(){
         let x = this.__data__.x, y = this.__data__.y
         let value = subtractWavefunctions([x,y], [-rDraw/2, 0], [rDraw/2, 0])
+        this.value = value
         return wfColor(value)
     })
+    screenS1u.selectAll(".selected").attr("class", "none").style("stroke", "none")
+    screenS1g.selectAll(".selected").attr("class", "none").style("stroke", "none")
+    readingS1u.text("- - - -"); readingS1g.text("- - - -")
     screenS1g.selectAll("rect").data(pointsXY)
     .style("fill", function(){
     let x = this.__data__.x, y = this.__data__.y
     let value = addWavefunctions([x,y], [-rDraw/2, 0], [rDraw/2, 0])
+    this.value = value
     return wfColor(value)
-})
+    })
+
+    cursors.raise()
 }
 
 distanceSlider.oninput = function(){
