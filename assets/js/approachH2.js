@@ -14,7 +14,7 @@ var distanceValue = document.getElementById('distanceValue')
 var distanceSlider = document.getElementById("distance")
 
 var rSelected = 4; distanceValue.innerHTML = rSelected.toFixed(1)
-var rMin = 0.1, rMax = 12, rStep=0.05
+var rMin = 0.0, rMax = 12, rStep=0.05
 var rDrawMin = document.getElementById("distance").min
 var rList = arange(rMin, rMax, rStep)
 var rData = [{"r":0}]
@@ -262,32 +262,32 @@ var rScaleMOLeft = d3.scaleLinear()
     .domain([rDrawMin, rMax])
     .range([screenMOx+screenMOWidth*0.35, screenMOx+screenMOWidth*0.2])
 var eScaleMO = d3.scaleLinear()
-    .domain([eScale.domain()[0], MOLvls(+rDrawMin)[1]])
+    .domain([eScale.domain()[0], MOLvls(0.9)[1]])
     .range([screenMOy+screenMOHeight*0.9, screenMOy+screenMOHeight*0.1])
 
 let orbitalWidth = screenMOWidth*0.1
 // arrow
 svg.append("line")
-    .attr("x1", rScaleMOLeft(rMax*1.3)-orbitalWidth/2)
-    .attr("x2", rScaleMOLeft(rMax*1.3)-orbitalWidth/2)
-    .attr("y1", eScaleMO(-16))
-    .attr("y2", eScaleMO(-2))
+    .attr("x1", screenMOx+0.05*screenMOWidth)
+    .attr("x2", screenMOx+0.05*screenMOWidth)
+    .attr("y1", screenMOy+0.8*screenMOHeight)
+    .attr("y2", screenMOy+0.2*screenMOHeight)
     .style("stroke", "black")
 svg.append("line")
-    .attr("x1", rScaleMOLeft(rMax*1.3)-orbitalWidth/2-orbitalWidth/10)
-    .attr("x2", rScaleMOLeft(rMax*1.3)-orbitalWidth/2)
-    .attr("y1", eScaleMO(-2.4))
-    .attr("y2", eScaleMO(-2))
+    .attr("x1", screenMOx+0.04*screenMOWidth)
+    .attr("x2", screenMOx+0.05*screenMOWidth)
+    .attr("y1", screenMOy+0.22*screenMOHeight)
+    .attr("y2", screenMOy+0.2*screenMOHeight)
     .style("stroke", "black")
 svg.append("line")
-    .attr("x1", rScaleMOLeft(rMax*1.3)-orbitalWidth/2)
-    .attr("x2", rScaleMOLeft(rMax*1.3)-orbitalWidth/2+orbitalWidth/10)
-    .attr("y1", eScaleMO(-2))
-    .attr("y2", eScaleMO(-2.4))
+    .attr("x1", screenMOx+0.05*screenMOWidth)
+    .attr("x2", screenMOx+0.06*screenMOWidth)
+    .attr("y1", screenMOy+0.2*screenMOHeight)
+    .attr("y2", screenMOy+0.22*screenMOHeight)
     .style("stroke", "black")
 svg.append("text")
-    .attr("x", rScaleMOLeft(rMax*1.3)-orbitalWidth/2)
-    .attr("y", eScaleMO(-1.5))
+    .attr("x", screenMOx+0.05*screenMOWidth)
+    .attr("y", screenMOy+0.18*screenMOHeight)
     .attr("text-anchor", "middle")
     .text("E").style("font-size", "1.3em")
     .style("fill", "black").style("opacity", 0.8)
@@ -423,6 +423,14 @@ screen1s.selectAll("myPoints")
 
 function drawOrbitals(rDraw){
     let MOEnergies = MOLvls(rDraw)
+    if (!isFinite(MOEnergies[0])){MOEnergies[0]=-1}
+    if (!isFinite(MOEnergies[1])){MOEnergies[1]=-1}
+    let S1uOpacity, S1gOpacity, arrowS1u, arrowS1g, xOffset
+    if (MOEnergies[1]>-1.1){MOEnergies[1]=-1.1; S1uOpacity=0.1; arrowS1u="↑"; xOffset = orbitalWidth/2
+    } else {S1uOpacity=0.8; arrowS1u=""; xOffset = 0}
+    if (MOEnergies[0]>-1.1){MOEnergies[0]=-1.1; S1gOpacity=0.1; arrowS1g="↑"; xOffset = orbitalWidth/2
+    } else {S1gOpacity=0.8; arrowS1g=""; xOffset = 0}
+
     let orbitalToLabel = graphHeight*0.1
     screenMO.selectAll("line").remove()
     screenMO.selectAll("text").remove()
@@ -457,26 +465,26 @@ function drawOrbitals(rDraw){
             .attr("y1", eScaleMO(MOEnergies[0]))
             .attr("y2", eScaleMO(MOEnergies[0]))
             .style("stroke", bondingColor).style("stroke-width", "0.2em")
-            .style("opacity", 0.8)
+            .style("opacity", S1gOpacity)
     screenMO.append("line")
             .attr("x1", screenMOx+screenMOWidth/2-orbitalWidth/2)
             .attr("x2", screenMOx+screenMOWidth/2+orbitalWidth/2)
             .attr("y1", eScaleMO(MOEnergies[1]))
             .attr("y2", eScaleMO(MOEnergies[1]))
             .style("stroke", antibondingColor).style("stroke-width", "0.2em")
-            .style("opacity", 0.8)
+            .style("opacity", S1uOpacity)
     screenMO.append("text")
-            .attr("x", screenMOx+screenMOWidth/2)
+            .attr("x", screenMOx+screenMOWidth/2+xOffset)
             .attr("y", eScaleMO(MOEnergies[1])+orbitalToLabel)
             .attr("text-anchor", "middle")
-            .text("σ*").style("font-weight", 700).style("font-style", "italic")
+            .text("σ*"+arrowS1u).style("font-weight", 700).style("font-style", "italic")
             .style("font-family", "serif").style("font-size", "1.2em")
             .style("fill",  antibondingColor).style("opacity", 0.8)
     screenMO.append("text")
-            .attr("x", screenMOx+screenMOWidth/2)
+            .attr("x", screenMOx+screenMOWidth/2-xOffset)
             .attr("y", eScaleMO(MOEnergies[0])+orbitalToLabel)
             .attr("text-anchor", "middle")
-            .text("σ").style("font-weight", 700).style("font-style", "italic")
+            .text("σ"+arrowS1g).style("font-weight", 700).style("font-style", "italic")
             .style("font-family", "serif").style("font-size", "1.2em")
             .style("fill", bondingColor).style("opacity", 0.8)
 
