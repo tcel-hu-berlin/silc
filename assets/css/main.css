@@ -1826,6 +1826,9 @@ input, select, textarea {
 	}
 
 /* Icon */
+	img.icon {
+		filter: invert(27%) sepia(51%) saturate(0%) hue-rotate(100deg) brightness(174%) contrast(97%);
+	}
 
 	.icon {
 		text-decoration: none;
