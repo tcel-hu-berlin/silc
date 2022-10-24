@@ -44,18 +44,34 @@
             <div class="inner">
 				<div class="inner" id="helpHints">
 					<h2>Hilfreiche Informationen</h2>
-					<h3>Konstanten:</h3>
-					<li>Planck'sches Wirkungsquantum: <em>h</em> = 6.626 &middot; 10<sup>-34</sup> J&middot;s</sup></li>
-					<li>Lichtgeschwindigkeit: <em>c</em> = 2.998 &middot; 10<sup>8</sup> m&middot;s<sup>-1</sup></li>
 					<h3>Einheiten:</h3>
-					<li>1 eV = 1.602 &middot; 10<sup>-19</sup> J</li>
-					<li>1 Hz = 1 s<sup>-1</sup></li>
-					<h3>Elektromagnetisches Spektrum</h3>
-					<img src="../images/EM-Spektrum.svg" width="100%" />
-					<p style="font-size:0.8em">Bildnachweis: Matt, CC BY-SA 2.5, via Wikimedia Commons | <a href = "https://commons.wikimedia.org/wiki/File:EM-Spektrum.svg" target="_blank">(Originalbild anschauen)</a></p>
+                    <ul>
+                        <li>1 Å = 10<sup>-10</sup> m</li>
+                    </ul>
+					<h3>Löslichkeitswerte einiger Moleküle:</h3>
+                    (in Wasser, bei Raumtemperatur)
+                    <ul>
+                        <li>Tetrafluormethan: ca. 20 mg/L</li>
+                        <li>Methanol: > 10<sup>6</sup> mg/L</li>
+                        <li>Ammoniak: 5 &middot;10<sup>5</sup> mg/L </li>
+                    </ul>
                     <h3><i class="far fa-lightbulb"></i> &nbsp Fakultative Hinweise </i></h3>
-                    <p style="margin-bottom:0"><strong>Frage 10</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
-                    <p id="hintA" style="display:none">Es kann sein, dass Sie an die mathematische Beziehung zwischen der Quantenzahl <em>n</em> und der Energie schon erinnern können!</p>				</div>
+					<p style="margin-bottom:0"><strong>Tipps zur Konstruktion von Lewis-Formeln</strong><span style="float:right"><toggle class="showHide" id="showHideLewis">Einblenden</toggle></span></p>
+					<div id="hintLewis" style="display:none">
+                        <ol>
+                            <li>Bestimmen Sie die Gesamtzahl der Valenzelektronen.</li>
+                            <li>Bestimmen Sie das Zentralatom, das in der Regel das am wenigsten elektronegative Atom ist. </li>
+                            <li>Schreiben Sie eine "Gerüststruktur" des Moleküls, in der das Zentralatom durch Einfachbindungen an die anderen Atome gebunden ist.</li>
+                            <li>Verwenden Sie je zwei Valenzelektronen, um jede Bindung in der "Gerüststruktur" zu bilden.</li>
+                            <li>Versuchen Sie, die Oktettregel für alle Atome zu erfüllen, indem Sie die restlichen Valenzelektronen als Nichtbindungselektronen und Mehrfachbindungen verteilen.</li>
+                        </ol>
+                    </div>
+                    <p style="margin-bottom:0"><strong>Frage 1a-b</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
+                    <p id="hintA" style="display:none">Die mathematische Beziehung wird vielleicht deutlicher, wenn Sie die 1s-Orbitale vollständig überlappen lassen. </p>
+                    <p style="margin-bottom:0"><strong>Frage 8</strong><span style="float:right"><toggle class="showHide" id="showHideB">Einblenden</toggle></span></p>
+                    <p id="hintB" style="display:none">Welche unbesetzte Orbitale werden für die zusätzlichen Elektronen bei Elementen wie Phosphor und Schwefel verwendet?</p>
+                    <p style="margin-bottom:0"><strong>Frage 12</strong><span style="float:right"><toggle class="showHide" id="showHideC">Einblenden</toggle></span></p>
+                    <p id="hintC" style="display:none">Eines der Moleküle weist eine Art von intermolekularer Kraft auf, die in Animationsgruppe D nicht dargestellt ist!</p>
 			</div>
         </nav>
 
@@ -147,5 +163,21 @@
     <script src="../assets/js/main.js"></script>
     <script src="../assets/js/Three49custom.js"></script>
     <script src="https://d3js.org/d3.v4.js"></script>
+    <script>
+        // Setting up hint toggles
+        var letters = ["Lewis", "A", "B", "C"]
+        letters.forEach( function(x){
+            document.getElementById("showHide"+x).onclick = function(){
+                hint = document.getElementById("hint"+x)
+                if (hint.style.display=="none"){
+                    this.innerHTML = "Ausblenden"
+                    hint.style.display="block"
+                } else {
+                    this.innerHTML = "Einblenden"
+                    hint.style.display="none"
+                }
+            }
+        })
+    </script>
 </body>
 </html>
