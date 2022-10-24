@@ -2,7 +2,7 @@
 ## Simulations for Interactive Learning in Chemistry
 
 ### Credits
-The design of this webpage was originally based on the Phantom by HTML5 UP template (info below), which has since been heavily modified. The simulations themselves were programmed by Natalia Spitha unless otherwise indicated. The activities were designed by Natalia Spitha and translated into German in consultation with Franziska Zimmer, Christian Kressman, and with a good amount of help from DeepL.com.
+The design of this webpage was originally based on the Phantom by HTML5 UP template (info below), which has since been heavily modified. The simulations themselves were programmed by Natalia Spitha unless otherwise indicated. The activities were designed by Natalia Spitha and translated into German in consultation with Franziska Zimmer, Andrea Zehl, and Christian Kressman.
 
 
 __________
