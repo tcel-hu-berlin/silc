@@ -2330,7 +2330,7 @@ input, select, textarea {
 		-webkit-appearance: auto;
 		-ms-appearance: auto;
 		appearance: auto;
-		display: inline-block;
+		display: none;
 		margin-left: 1.5em;
 		opacity: 1;
 		width: 1em;

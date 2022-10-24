@@ -11,7 +11,7 @@ logScaleButton = d3.select("#logScaleCB")
 
 var simRate=10
 var time_unit = 1e-3
-var timepoints = 500
+var timepoints = 5000
 var conc_unit = 1e-3
 var HAi = +(inputHA.value)*conc_unit, Ai=+(inputA.value)*conc_unit
 var H3Oi = 1e-7, OHi = 1e-7
@@ -22,7 +22,7 @@ var HANew, ANew, tNew, H3ONew, OHNew
 const Kw = 1e-14
 const Ka = 1.8e-5
 const Kb = Kw/Ka
-var kF = 0.5, kR = kF/Ka
+var kF = 10, kR = kF/Ka
 // var kFb = kF*Kb/Ka, kRb = kFb/Kb
 var kFb = 0, kRb = 0
 var xy = [{"t":tOld, "cHA":HAOld, "cA": AOld, "cH3O":H3OOld, "cOH":OHOld}]
@@ -30,6 +30,7 @@ var addedBaseAmt = 0 // in moles/L
 var baseAdded=false
 var addingBaseNow=false
 var logScaleOn = true
+var steadyThreshold = 0.0001
 
 var max_HA = 1.000, max_A =  1.000
 
@@ -298,6 +299,7 @@ function drawPoint() {
         H3ONew -= e; OHNew -= e
     }
 
+    let steady = checkSteady(HANew, ANew, H3ONew, OHNew, HAOld, AOld, H3OOld, OHOld)
     
     xy.push({"t": tNew, "cHA": HANew, "cA":ANew, "cH3O":H3ONew, "cOH":OHNew})
     tOld = tNew; HAOld = HANew; AOld = ANew; H3OOld=H3ONew; OHOld = OHNew
@@ -307,10 +309,9 @@ function drawPoint() {
     svg.select("#xaxis").call(x_axis)
 
     rePlot()
-
     
     // end of solution-making:
-    if (tNew >= (timepoints-1)*dt && !baseAdded){
+    if (steady == true || tNew >= (timepoints-1)*dt){
         running = false
         toggleCursor()
         clearInterval(timer)
@@ -318,15 +319,6 @@ function drawPoint() {
         inputA.disabled=false
         playButton.text("Restart")
 
-    } else {
-        if (tNew >= (3*timepoints-1)*dt && baseAdded){
-            running = false
-            toggleCursor()
-            clearInterval(timer)
-            inputHA.disabled=false
-            inputA.disabled=false
-            playButton.text("Restart")
-        }
     }
 };
 
@@ -363,7 +355,7 @@ rect.on("click", function(){
         d3.select("#yCur").attr("x1", xval-10).attr("x2", xval+10)
         curX =  xScale.invert(xval); curY = yScale.invert(yval)
         curpH = pHScale.invert(yval)
-        d3.select("#coord").text("("+curX.toFixed(2) + " ms , "+curY.toExponential(1)+" M, pH = "+curpH.toFixed(2)+")")
+        d3.select("#coord").text("("+curX.toFixed(2) + " ms , "+(curY*1e-3).toExponential(1)+" M, pH = "+curpH.toFixed(2)+")")
         if(xval<width/2){
             d3.select("#coord")
                 .attr("x", xval+10)
@@ -538,3 +530,33 @@ function rePlot(){
         return pHScale(pH)})
     )
 }
+
+function delta(Qnew, Qold){
+    if (Qold != 0){
+        let result =  Math.abs(Qnew-Qold)/Qold
+        return result
+    } else {return 100}
+    
+}
+function checkSteady(HANew, ANew, H3ONew, OHNew, HAOld, AOld, H3OOld, OHOld){
+    // check if HA changing
+    if (delta(HANew, HAOld)>steadyThreshold){
+        return false} else {
+            // check if A changing
+            if (delta(ANew, AOld)>steadyThreshold){
+                return false} else {
+                    // check if H3O changing
+                    if (delta(H3ONew, H3OOld)>steadyThreshold){
+                        return false} else {
+                            // check if OH changing
+                            if (delta(OHNew, OHOld)>steadyThreshold){
+                                return false} else {
+                                    return true
+                                }
+                        } 
+                }
+        }
+    
+}
+    
+
