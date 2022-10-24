@@ -253,7 +253,6 @@ svg.append("text").text("ψ (1s)")
     .style("font-family", "serif")
 
 
-
 // drawing Orbitals
 var rScaleMORight = d3.scaleLinear()
     .domain([rDrawMin, rMax])
@@ -360,16 +359,11 @@ screenS1u.selectAll("myPoints")
     .attr("x", function(d){return xScaleS1u(d.x)})
     .attr("y", function(d){return yScaleS1u(d.y)})
     .attr("width", xScaleS1u(blockWidth)-xScaleS1u(0)).attr("height", yScaleS1u(blockHeight)-yScaleS1u(0))
-    .style("fill", function(d){
-        let value = subtractWavefunctions([d.x, d.y], [-rSelected/2, 0], [rSelected/2, 0])
-        this.value  = value
-        return wfColor(value)
-    })
+
     .on("click", function(){
         screenS1u.selectAll(".selected").attr("class", "none").style("stroke", "none")
         let point = screenS1u.select("#"+this.id)
         point.attr("class", "selected").style("stroke", "white")
-        // d3.select("#"+this.id).style("stroke", "yellow")
         let x = +point.attr("x")+(+point.attr("width"))/2, y= +point.attr("y")+(+point.attr("height"))/2
         cursorS1uX.attr("x1", x).attr("x2", x)
         cursorS1uY.attr("y1", y).attr("y2", y)
@@ -382,11 +376,6 @@ screenS1g.selectAll("myPoints")
     .attr("x", function(d){return xScaleS1g(d.x)})
     .attr("y", function(d){return yScaleS1g(d.y)})
     .attr("width", xScaleS1g(blockWidth)-xScaleS1g(0)).attr("height", yScaleS1g(blockHeight)-yScaleS1g(0))
-    .style("fill", function(d){
-        let value = addWavefunctions([d.x, d.y], [-rSelected/2, 0], [rSelected/2, 0])
-        this.value = value
-        return wfColor(value)
-    })
     .on("click", function(){
         screenS1g.selectAll(".selected").attr("class", "none").style("stroke", "none")
         let point = screenS1g.select("#"+this.id)
@@ -405,7 +394,7 @@ screen1s.selectAll("myPoints")
     .attr("y", function(d){return yScale1s(d.y)})
     .attr("width", xScaleS1g(blockWidth)-xScaleS1g(0)).attr("height", yScale1s(blockHeight)-yScale1s(0))
     .style("fill", function(d){
-        let value = wavefunction1s([d.x, d.y], [0, 0])
+        let value = wavefunction1s([d.x+blockWidth, d.y], [0, 0])
         this.value = value
         return wfColor(value)
     })
@@ -426,14 +415,17 @@ function drawOrbitals(rDraw){
     if (!isFinite(MOEnergies[0])){MOEnergies[0]=-1}
     if (!isFinite(MOEnergies[1])){MOEnergies[1]=-1}
     let S1uOpacity, S1gOpacity, arrowS1u, arrowS1g, xOffset
-    if (MOEnergies[1]>-1.1){MOEnergies[1]=-1.1; S1uOpacity=0.1; arrowS1u="↑"; xOffset = orbitalWidth/2
+    if (MOEnergies[1]>-1.1){MOEnergies[1]=-1.1; S1uOpacity=0.2; arrowS1u="↑"; xOffset = orbitalWidth/2
     } else {S1uOpacity=0.8; arrowS1u=""; xOffset = 0}
-    if (MOEnergies[0]>-1.1){MOEnergies[0]=-1.1; S1gOpacity=0.1; arrowS1g="↑"; xOffset = orbitalWidth/2
-    } else {S1gOpacity=0.8; arrowS1g=""; xOffset = 0}
+    if (MOEnergies[0]>-1.1){MOEnergies[0]=-1.1; S1gOpacity=0.2; electronOpacity=0; arrowS1g="↑"; xOffset = orbitalWidth/2
+    } else {arrowS1g=""; xOffset = 0;
+    if (MOEnergies[0]>-13.6){S1gOpacity=0.2} else {S1gOpacity=0.8}
+    electronOpacity=S1gOpacity}
 
     let orbitalToLabel = graphHeight*0.1
     screenMO.selectAll("line").remove()
     screenMO.selectAll("text").remove()
+    screenMO.selectAll("path").remove()
 
     // atomic orbitals (move left-right)
     screenMO.append("line") // left AO
@@ -487,7 +479,22 @@ function drawOrbitals(rDraw){
             .text("σ"+arrowS1g).style("font-weight", 700).style("font-style", "italic")
             .style("font-family", "serif").style("font-size", "1.2em")
             .style("fill", bondingColor).style("opacity", 0.8)
-
+    // electron
+    screenMO.append("path")
+            .datum([{"x": screenMOx+screenMOWidth/2, "y": eScaleMO(MOEnergies[0])+orbitalWidth/6},
+                    {"x": screenMOx+screenMOWidth/2, "y": eScaleMO(MOEnergies[0])-orbitalWidth/6},
+                    {"x": screenMOx+screenMOWidth/2-orbitalWidth/10,  "y": eScaleMO(MOEnergies[0])-orbitalWidth/6+orbitalWidth/10 }])
+            .style("fill", "none").style("stroke-width", "0.15em").style("stroke", bondingColor).style("opacity", electronOpacity)
+            .attr("d", d3.line().x(function(d) { return d.x }).y(function(d) { return d.y })
+            )
+    // screenMO.append("line")
+    //         .attr("x1", screenMOx+screenMOWidth/2).attr("x2", screenMOx+screenMOWidth/2)
+    //         .attr("y1", eScaleMO(MOEnergies[0])-orbitalWidth/5).attr("y2", eScaleMO(MOEnergies[0])+orbitalWidth/5)
+    //         .style("stroke", "black").style("stroke-width", "0.15em").style("opacity", electronOpacity)
+    // screenMO.append("line")
+    //         .attr("x1", screenMOx+screenMOWidth/2-orbitalWidth/7).attr("x2", screenMOx+screenMOWidth/2)
+    //         .attr("y1", eScaleMO(MOEnergies[0])-orbitalWidth/5+orbitalWidth/7).attr("y2", eScaleMO(MOEnergies[0])-orbitalWidth/5)
+    //         .style("stroke", "black").style("stroke-width", "0.15em").style("opacity", electronOpacity)
     // connecting lines
     screenMO.append("line") // right to antibonding
             .attr("x1", screenMOx+screenMOWidth/2+orbitalWidth/2)
@@ -495,28 +502,28 @@ function drawOrbitals(rDraw){
             .attr("y1", eScaleMO(MOEnergies[1]))
             .attr("y2", eScaleMO(-13.6))
             .style("stroke", "black").style("stroke-width", "0.05em")
-            .style("stroke-dasharray", ("3, 3"))
+            .style("stroke-dasharray", ("3, 3")).style("opacity", S1uOpacity*1.1)
     screenMO.append("line") // left to antibonding
             .attr("x1", rScaleMOLeft(rDraw)+orbitalWidth/2 )
             .attr("x2", screenMOx+screenMOWidth/2-orbitalWidth/2)
             .attr("y1", eScaleMO(-13.6))
             .attr("y2", eScaleMO(MOEnergies[1]))
             .style("stroke", "black").style("stroke-width", "0.05em")
-            .style("stroke-dasharray", ("3, 3"))
+            .style("stroke-dasharray", ("3, 3")).style("opacity", S1uOpacity*1.1)
     screenMO.append("line") // left to bonding
             .attr("x1", rScaleMOLeft(rDraw)+orbitalWidth/2)
             .attr("x2", screenMOx+screenMOWidth/2-orbitalWidth/2)
             .attr("y1", eScaleMO(-13.6))
             .attr("y2", eScaleMO(MOEnergies[0]))
             .style("stroke", "black").style("stroke-width", "0.05em")
-            .style("stroke-dasharray", ("3, 3"))
+            .style("stroke-dasharray", ("3, 3")).style("opacity", S1gOpacity*1.1)
     screenMO.append("line") // right to bonding
             .attr("x1", screenMOx+screenMOWidth/2+orbitalWidth/2)
             .attr("x2", rScaleMORight(rDraw)-orbitalWidth/2)
             .attr("y1", eScaleMO(MOEnergies[0]))
             .attr("y2", eScaleMO(-13.6))
             .style("stroke", "black").style("stroke-width", "0.05em")
-            .style("stroke-dasharray", ("3, 3"))
+            .style("stroke-dasharray", ("3, 3")).style("opacity", S1gOpacity*1.1)
 
     // modifying wavefunction graphs
     screenS1u.selectAll("rect").data(pointsXY)
@@ -532,7 +539,7 @@ function drawOrbitals(rDraw){
     screenS1g.selectAll("rect").data(pointsXY)
     .style("fill", function(){
     let x = this.__data__.x, y = this.__data__.y
-    let value = addWavefunctions([x,y], [-rDraw/2, 0], [rDraw/2, 0])
+    let value = addWavefunctions([x-blockWidth,y], [-rDraw/2, 0], [rDraw/2, 0])
     this.value = value
     return wfColor(value)
     })

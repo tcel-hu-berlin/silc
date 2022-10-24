@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<!--
+	Made using the template Phantom by HTML5 UP
+	html5up.net | @ajlkn
+    TODO: adjust iframe if no ad blocker!
+-->
+<html>
+<head>
+    <title>Bindungstheorien</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+    <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
+    </head>
+<body class="is-preload">
+<!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <div class="inner">
+                <span class="title">
+                    <a href="../index.html">
+                        <img src="../images/simLogo_desc.svg" alt="Simulationen für Interaktives Lernen in Chemie" style="height:8em" />
+                    </a>
+                </span>
+                <!-- Logo -->
+                <span class="logo" >
+                    <span class="symbol"><img src="../images/huberlin-logo.svg" alt="" /></span>
+                </span>
+            </div>
+            <nav>
+                <span class="helpButton">
+                    <p style="color: rgb(4, 140, 4); margin-bottom: 0; text-align: center">HILFE</p>
+                    <a href="#menu">
+                        <img id="helpIcon" src="../images/info-circle.svg" alt="Hilfe" />
+                    </a>                    
+                </span>
+            </nav>
+        </header>
+
+        <!-- Menu (help in disguise)-->
+        <nav id="menu">
+            <div class="inner">
+				<div class="inner" id="helpHints">
+					<h2>Hilfreiche Informationen</h2>
+					<h3>Konstanten:</h3>
+					<li>Planck'sches Wirkungsquantum: <em>h</em> = 6.626 &middot; 10<sup>-34</sup> J&middot;s</sup></li>
+					<li>Lichtgeschwindigkeit: <em>c</em> = 2.998 &middot; 10<sup>8</sup> m&middot;s<sup>-1</sup></li>
+					<h3>Einheiten:</h3>
+					<li>1 eV = 1.602 &middot; 10<sup>-19</sup> J</li>
+					<li>1 Hz = 1 s<sup>-1</sup></li>
+					<h3>Elektromagnetisches Spektrum</h3>
+					<img src="../images/EM-Spektrum.svg" width="100%" />
+					<p style="font-size:0.8em">Bildnachweis: Matt, CC BY-SA 2.5, via Wikimedia Commons | <a href = "https://commons.wikimedia.org/wiki/File:EM-Spektrum.svg" target="_blank">(Originalbild anschauen)</a></p>
+                    <h3><i class="far fa-lightbulb"></i> &nbsp Fakultative Hinweise </i></h3>
+                    <p style="margin-bottom:0"><strong>Frage 10</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
+                    <p id="hintA" style="display:none">Es kann sein, dass Sie an die mathematische Beziehung zwischen der Quantenzahl <em>n</em> und der Energie schon erinnern können!</p>				</div>
+			</div>
+        </nav>
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+                <a href="index.html"><h1>Molekülorbitale und andere Bindungstheorien</h1></a>
+				<h2>Animationsgruppe D: Zwischenmoleküläre Kräfte und Löslichkeit</h2>
+                <p>Auf dieser Seite finden Sie drei kurze Animationen, die die Wechselwirkung von Wasser mit möglichen gelösten Substanzen zeigen, die unterschiedliche Arten von zwischenmolekularen Kräften aufweisen. Sie können die Videos anhalten und zurück spulen (oder sie im Vollbildmodus ansehen), um alle gewünschten Details zu sehen.</p>
+                <h3>Nachfolgend verwendete Darstellungen:</h3>
+                <p><div style="width: 70%; min-width: 300px; border: solid 0px rgb(174, 174, 174)">
+                <img src="../images/IMF_representations.png" width="100%" alt="Summary of the shapes and colors that represent the different molecules and forces between them." /></div>
+                </p>
+
+                <h3>Fall 1: große, unpolare Moleküle</h3>
+                <toggle class="showHide" id="showHideV1E">Erklärung einblenden</toggle>
+                <p id="hintV1E" style="display:block">Hier sind die große Moleküle der in Wasser eingelegten Substanz stark miteinander durch London-Kräfte angezogen. Eine mögliche schwache Anziehung durch die Wassermoleküle reicht nicht aus, um diese intermolekularen Kräfte zu unterbrechen, weshalb die Substanz nicht aufgelöst wird.</p>	
+                <p><video id="nonpolarLarge" width="50%" controls>
+                    <source src="../images/sol_bigNonpolar.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video></p>
+                <h3>Fall 2: kleine unpolare Moleküle</h3>
+                <toggle class="showHide" id="showHideV2E">Erklärung einblenden</toggle>
+                <p id="hintV2E" style="display:block">Hier gibt es zwischen den unpolaren Molekülen auch London-Kräfte, die dennoch wegen der kleineren Größe der Moleküle schwächer sind. Aufgrund der permanenten Dipol-induzierten Dipol-Anziehungskräfte zwischen den Wassermolekülen und den unpolaren Molekülen können die Wassermoleküle schließlich in die Substanz eindringen und sie auflösen.</p>	
+                <p><video id="nonpolarSmall" width="50%" controls>
+                    <source src="../images/sol_smallNonpolar.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video></p>
+                <h3>Fall 3: kleine polare Moleküle</h3>
+                <toggle class="showHide" id="showHideV3E">Erklärung einblenden</toggle>
+                <p id="hintV3E" style="display:block">In dieser Situation ermöglicht die Dipol-Dipol-Anziehung zwischen den polaren Molekülen und den Wassermolekülen (die stärkste der van-der-Waals-Kräfte), dass die polare Substanz weitgehend aufgelöst wird.</p>	
+                <p><video id="polarSmall" width="50%" controls>
+                    <source src="../images/solub_polar.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video></p>
+
+            </div>
+        </div>
+        
+        <!-- Simnav buttons -->
+        <div id="simnav">
+            <div class="inner">
+                <section class="tiles">
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simA.html">
+                            <h2>Simulation A</h2>
+                            <div class="content">
+                                <p>Zwei Wasserstoffatome</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="animB.html">
+                            <h2>Animation B</h2>
+                            <div class="content">
+                                <p>Zwei Sauerstoffatome</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simC.html">
+                            <h2>Simulation C</h2>
+                            <div class="content">
+                                <p>VSEPR-Simulation von PhET&trade;</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSimActive">
+                        <span class="image">
+                            <img src="../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="animD.html">
+                            <h2 style="letter-spacing: 0.01em">Animationsgruppe D</h2>
+                            <div class="content">
+                                <p>Zwischenmoleküläre Kräfte und Löslichkeit</p>
+                            </div>
+                        </a>
+                    </article>
+                </section>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <div class="inner">
+                <p>&copy; Tiemann Lab @ HU-Berlin | Design-Vorlage: <a href="http://html5up.net">HTML5 UP</a></p>
+            </div>
+        </footer>
+    </div>
+
+<!-- Scripts -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/browser.min.js"></script>
+    <script src="../assets/js/breakpoints.min.js"></script>
+    <script src="../assets/js/util.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/Three49custom.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script>
+        // replaying the video
+        document.getElementById('nonpolarLarge').onclick=function(){this.paused ? this.play() : this.pause();}
+        document.getElementById('nonpolarLarge').addEventListener('ended',myHandler,false);
+        function myHandler(e) {
+            console.log('ended');
+            setTimeout(function(){
+                document.getElementById('nonpolarLarge').play();
+            }, 800);
+        }
+    </script>
+    </body>
+</body>
+</html>
