@@ -2327,8 +2327,7 @@ input, select, textarea {
 		min-height: 3.75em;
 	}
 
-	input[type="checkbox"],
-	input[type="radio"] {
+	input[type="checkbox"] {
 		-moz-appearance: auto;
 		-webkit-appearance: auto;
 		-ms-appearance: auto;
@@ -2340,6 +2339,16 @@ input, select, textarea {
 		z-index: -1;
 	}
 
+	input[type="radio"] {
+		-moz-appearance: auto;
+		-webkit-appearance: auto;
+		-ms-appearance: auto;
+		appearance: auto;
+		margin-left: 1.5em;
+		opacity: 1;
+		width: 1em;
+		z-index: -1;
+	}
 		input[type="checkbox"] + label,
 		input[type="radio"] + label {
 			text-decoration: none;
