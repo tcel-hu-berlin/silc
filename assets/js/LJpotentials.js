@@ -133,7 +133,7 @@ cursor.append("text")
     //.attr("visibility", "hidden")
 
 //Read the data
-data = d3.csv("../files/plotLJ1.csv", function(data) {
+data = d3.csv("../../files/plotLJ1.csv", function(data) {
     // Color scale
     var keys = ["H2", "F2"]
     var color = d3.scaleOrdinal()

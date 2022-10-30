@@ -135,7 +135,7 @@ cursor.append("text")
     //.attr("visibility", "hidden")
 
 //Read the data
-d3.csv("../files/plotPES.csv", function(data) {
+d3.csv("../../files/plotPES.csv", function(data) {
     // Color scale
     var keysP = ["H", "He", "Li", "U1", "U2", "U3", "U4", "U5"]
     var color = d3.scaleOrdinal()
