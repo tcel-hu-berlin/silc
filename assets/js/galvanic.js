@@ -24,6 +24,7 @@ var posL = 0.40*width,
 posR = 0.60*width,
 beakerBottom = 0.6*height,
 circuitHeight = 0.15*height,
+voltageReaderHeight = 0.04*width
 bridgeTop = 0.05*height,
 bridgeDiameter = 0.025*height,
 beakerWidth = 0.15*width,
@@ -99,6 +100,15 @@ bridgePath.arcTo(posR-0.20*beakerWidth-bridgeDiameter, beakerBottom-beakerHeight
 bridgePath.arcTo(posL+0.20*beakerWidth+bridgeDiameter, beakerBottom-beakerHeight-bridgeTop+bridgeDiameter, posL+0.2*beakerWidth+bridgeDiameter, beakerBottom-beakerHeight, beakerCurve/bridgeDiameter*2)
 bridgePath.lineTo(posL+0.2*beakerWidth+bridgeDiameter, beakerBottom-0.5*beakerHeight)
 
+bridgeContentsPath = d3.path()
+bridgeContentsPath.moveTo(posL+0.20*beakerWidth, beakerBottom-0.65*beakerHeight)
+bridgeContentsPath.arcTo(posL+0.20*beakerWidth, beakerBottom-beakerHeight-bridgeTop, posL+0.5*beakerWidth, beakerBottom-beakerHeight-bridgeTop, beakerCurve)
+bridgeContentsPath.arcTo(posR-0.20*beakerWidth, beakerBottom-beakerHeight-bridgeTop, posR-0.2*beakerWidth, beakerBottom-beakerHeight, beakerCurve)
+bridgeContentsPath.lineTo(posR-0.20*beakerWidth, beakerBottom-0.65*beakerHeight)
+bridgeContentsPath.moveTo(posR-0.20*beakerWidth-bridgeDiameter, beakerBottom-0.65*beakerHeight)
+bridgeContentsPath.arcTo(posR-0.20*beakerWidth-bridgeDiameter, beakerBottom-beakerHeight-bridgeTop+bridgeDiameter, posR-0.5*beakerWidth, beakerBottom-beakerHeight-bridgeTop+bridgeDiameter, beakerCurve/bridgeDiameter*2)
+bridgeContentsPath.arcTo(posL+0.20*beakerWidth+bridgeDiameter, beakerBottom-beakerHeight-bridgeTop+bridgeDiameter, posL+0.2*beakerWidth+bridgeDiameter, beakerBottom-beakerHeight, beakerCurve/bridgeDiameter*2)
+bridgeContentsPath.lineTo(posL+0.2*beakerWidth+bridgeDiameter, beakerBottom-0.65*beakerHeight)
 
 // Loading Data
 var defaultL = 1, defaultR = 0
@@ -128,9 +138,20 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
     svg.append("g").attr("id", "saltbridge")
     d3.select("#circuit").append("path")
         .attr("id", "saltbridgeFrame")
+        .attr("d", bridgeContentsPath)
+        .style("stroke", beakerColor).style('stroke-width', "0.1em")
+        .style("fill", "rgb(220, 220,200)")
+    d3.select("#circuit").append("path")
+        .attr("id", "saltbridgeFrame")
         .attr("d", bridgePath)
         .style("stroke", beakerColor).style('stroke-width', "0.1em")
         .style("fill", "none")
+    d3.select("#circuit").append("rect")
+        .attr("id", "voltmeter")
+        .attr("x", 0.45*width).attr("y", beakerBottom-beakerHeight-circuitHeight-voltageReaderHeight/2)
+        .attr("width", 0.1*width).attr("height", voltageReaderHeight)
+        .style("fill", "white")
+        .style("stroke", "black").style("stroke-width", "0.3em")   
 
     svg.append("g").attr("id", "LS")
         .attr("transform", "translate("+ (posL-beakerWidth/2)+ ","+(beakerBottom-beakerHeight)+ ")")
