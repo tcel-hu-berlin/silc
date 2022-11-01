@@ -16,15 +16,15 @@ svg.append("rect")
     .attr("x", 0).attr("y", 0)
     .attr("width", width)
     .attr("height", height)
-    .style("fill", "rgb(250, 250, 250)")
-    // .style("stroke", "#585858")
+    .style("fill", "white")
+    .style("stroke", "blue")
 
 // Paths
 var posL = 0.40*width,
 posR = 0.60*width,
 beakerBottom = 0.6*height,
 circuitHeight = 0.15*height,
-bridgeTop = 0.06*height,
+bridgeTop = 0.05*height,
 bridgeDiameter = 0.025*height,
 beakerWidth = 0.15*width,
 beakerHeight = 0.2*height,
@@ -99,10 +99,12 @@ bridgePath.arcTo(posR-0.20*beakerWidth-bridgeDiameter, beakerBottom-beakerHeight
 bridgePath.arcTo(posL+0.20*beakerWidth+bridgeDiameter, beakerBottom-beakerHeight-bridgeTop+bridgeDiameter, posL+0.2*beakerWidth+bridgeDiameter, beakerBottom-beakerHeight, beakerCurve/bridgeDiameter*2)
 bridgePath.lineTo(posL+0.2*beakerWidth+bridgeDiameter, beakerBottom-0.5*beakerHeight)
 
+
 // Loading Data
-var defaultL = 2, defaultR = 0
+var defaultL = 1, defaultR = 0
 var leftSide, rightSide
-var redoxPairs, solutionLcolor, solutionRcolor, electrodeLcolor, electrodeRcolor, wireLcolor, wireRcolor, stripL, stripR, tubeL, tubeR
+var redoxPairs, solutionLcolor, solutionRcolor, electrodeLcolor, electrodeRcolor, stripL, stripR, tubeL, tubeR
+var changePairL, changePairR
 var rP = d3.json("../../files/redoxPairs.json", function(data){
     
     redoxPairs = data
@@ -113,7 +115,6 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
     solutionRcolor = rightSide["solutionColor"]
     electrodeLcolor = leftSide["electrodeColor"]
     electrodeRcolor = rightSide["electrodeColor"]
-    wireLcolor = electrodeLcolor; wireRcolor = electrodeRcolor
     stripL = leftSide["strip"]; stripR = rightSide["strip"]
     tubeL = leftSide["tube"]; tubeR = rightSide["tube"]
 
@@ -136,7 +137,7 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
     d3.select("#LS").append("path")
         .attr("id", "wireL")
         .attr("d", wirePath)
-        .style("stroke", beakerColor).style('stroke-width', "0.1em")
+        .style("stroke", beakerColor).style('stroke-width', "0.03em")
         .style("fill", electrodeLcolor)
     d3.select("#LS").append("path")
         .attr("id", "stripElectrodeL")
@@ -149,6 +150,7 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .attr("d", contentPath)
         .style("fill", solutionLcolor)
     d3.select("#LS").append("path")
+        .attr("transform", "scale(-1,1), translate(-"+ (beakerWidth)+ ",0)")
         .attr("id", "tubeL")
         .attr("d", tubePath)
         .style("stroke", beakerColor).style('stroke-width', "0.1em")
@@ -165,7 +167,7 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
     d3.select("#RS").append("path")
         .attr("id", "wireR")
         .attr("d", wirePath)
-        .style("stroke", beakerColor).style('stroke-width', "0.1em")
+        .style("stroke", beakerColor).style('stroke-width', "0.03em")
         .style("fill", electrodeRcolor)
     d3.select("#RS").append("path")
         .attr("id", "stripElectrodeR")
@@ -188,5 +190,39 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .attr("d", beakerPath)
         .style("stroke", beakerColor).style('stroke-width', "0.1em")
         .style("fill", "none")
+
+    document.getElementById("pairSelectorL").disabled = false
+    document.getElementById("pairSelectorR").disabled = false
+    changePairL = function(){
+        let val = document.getElementById("pairSelectorL").value
+        leftSide = redoxPairs[val]
+        solutionLcolor = leftSide["solutionColor"]
+        electrodeLcolor = leftSide["electrodeColor"]
+        stripL = leftSide["strip"]
+        tubeL = leftSide["tube"]
+
+        d3.select("#solutionL").style("fill", solutionLcolor)
+        d3.select("#stripElectrodeL").style("fill", electrodeLcolor)
+        d3.select("#stripElectrodeL").style("visibility", stripL)
+        d3.select("#tubeL").style("visibility", tubeL)
+        d3.select("#wireL").style("fill", electrodeLcolor)
+
+    }
+    changePairR = function(){
+        let val = document.getElementById("pairSelectorR").value
+        rightSide = redoxPairs[val]
+        solutionRcolor = rightSide["solutionColor"]
+        electrodeRcolor = rightSide["electrodeColor"]
+        stripR = rightSide["strip"]
+        tubeR = rightSide["tube"]
+
+        d3.select("#solutionR").style("fill", solutionRcolor)
+        d3.select("#stripElectrodeR").style("fill", electrodeRcolor)
+        d3.select("#stripElectrodeR").style("visibility", stripR)
+        d3.select("#tubeR").style("visibility", tubeR)
+        d3.select("#wireR").style("fill", electrodeRcolor)
+
+    }
+    
 })
 

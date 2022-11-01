@@ -81,7 +81,24 @@ TODO: fontsize check
                 <a href="index.html"><h1>Submikroskopische Einblicke in elektrochemische Zellen</h1></a>
 				<h2>Simulation B: Galvanische Zellen</h2>
                 <p>Text</p>
-                <div id="galvanic" style="width:100%; aspect-ratio:1.8"></div>
+                <div id="galvanic" style="width:100%; aspect-ratio:1.8">
+                <div style="position:relative; left:15%; top:45%; width:15%; display:inline-table">
+                    <p style="margin-bottom:0"><b>Linkes Redox-Paar</b></p>
+                    <select id="pairSelectorL" onchange="changePairL()" disabled>
+                        <option value=0>Kupfer</option>
+                        <option value=1 selected>Wasserstoff</option>
+                        <option value=2>Silber</option>
+                    </select>
+                </div>
+                <div style="position:relative; left:50%; top:45%; width:15%; display:inline-table">
+                    <p style="margin-bottom:0"><b>Rechtes Redox-Paar</b></p>
+                    <select id="pairSelectorR" onchange="changePairR()" disabled>
+                        <option value=0 selected>Kupfer</option>
+                        <option value=1>Wasserstoff</option>
+                        <option value=2>Silber</option>
+                    </select>
+                </div>
+            </div>
             </div>
         </div>
         
