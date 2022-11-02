@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" href="../css/main.css" />
+    <title>Galvanic Cell Simulation</title>
+</head>
+<body>
+    <div style="position:absolute; top:0; left:0; border:0 solid #ff7b00; width:100%; aspect-ratio:1.2">
+        <div style="position:absolute; left:15%; top:35%; width:20%; display:inline-table">
+            <p style="margin-bottom:0"><b>(-)-Seite: Redox-Paar</b></p>
+            <select id="pairSelectorL" onchange="changePairL()" disabled>
+                <option value=0>Cu&#178;&#8314; / Cu</option>
+                <option value=1 selected>H&#8314; / H </option>
+                <option value=2>Ag&#8314;/Ag</option>
+            </select>
+        </div>
+        <div style="position:absolute; left:50%; top:35%; width:20%; display:inline-table">
+            <p style="margin-bottom:0"><b>(+)-Seite: Redox-Paar</b></p>
+            <select id="pairSelectorR" onchange="changePairR()" disabled>
+                <option value=0 selected>Cu&#178;&#8314; / Cu</option>
+                <option value=1>H+/H</option>
+                <option value=2>Ag&#8314;/Ag</option>
+            </select>
+        </div>
+        <div id="lineNotation" style="position:absolute; left:0%; top:70%; width:100%; display:inline-table; text-align:center; visibility:hidden">
+            <p style="font-size:1.4em"><span id="outL"></span>|<span id="midL">|</span><span id="innL"></span>||
+                <span id="innR">
+                </span>|<span id="midR"> |</span><span id="outR"></span></p>
+        </div>
+        <div id="molRep" style="position:absolute; left:0%; top:72%; width:100%; text-align:center;">
+            <video id="molRepVideo" src="../../images/Cu_reduction.mp4" style="width:18%; border: solid #585858 0.3em" loop autoplay></video>
+        </div>
+    </div>
+    </div>
+
+    <script src="../js/galvanic.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script>
+        document.getElementById("molRepVideo").playbackRate = 1.4
+    </script>
+</body>
+</html>

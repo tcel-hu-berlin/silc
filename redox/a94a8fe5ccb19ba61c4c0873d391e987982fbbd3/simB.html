@@ -81,24 +81,32 @@ TODO: fontsize check
                 <a href="index.html"><h1>Submikroskopische Einblicke in elektrochemische Zellen</h1></a>
 				<h2>Simulation B: Galvanische Zellen</h2>
                 <p>Text</p>
-                <div id="galvanic" style="width:100%; aspect-ratio:1.8">
-                <div style="position:relative; left:15%; top:45%; width:15%; display:inline-table">
-                    <p style="margin-bottom:0"><b>Linkes Redox-Paar</b></p>
-                    <select id="pairSelectorL" onchange="changePairL()" disabled>
-                        <option value=0>Kupfer</option>
-                        <option value=1 selected>Wasserstoff</option>
-                        <option value=2>Silber</option>
-                    </select>
+                <div id="galvanic" style="width:100%; aspect-ratio:1.2; border: solid red 2px">
+                    <div style="position:relative; left:15%; top:35%; width:20%; display:inline-table">
+                        <p style="margin-bottom:0"><b>(-)-Seite: Redox-Paar</b></p>
+                        <select id="pairSelectorL" onchange="changePairL()" disabled>
+                            <option value=0>Cu&#178;&#8314; / Cu</option>
+                            <option value=1 selected>H&#8314; / H </option>
+                            <option value=2>Ag&#8314;/Ag</option>
+                        </select>
+                    </div>
+                    <div style="position:relative; left:50%; top:35%; width:20%; display:inline-table">
+                        <p style="margin-bottom:0"><b>(+)-Seite: Redox-Paar</b></p>
+                        <select id="pairSelectorR" onchange="changePairR()" disabled>
+                            <option value=0 selected>Cu&#178;&#8314; / Cu</option>
+                            <option value=1>H+/H</option>
+                            <option value=2>Ag&#8314;/Ag</option>
+                        </select>
+                    </div>
+                    <div id="lineNotation" style="position:relative; left:0%; top:70%; width:100%; display:inline-table; text-align:center; visibility:hidden">
+                        <p style="font-size:1.4em"><span id="outL"></span>|<span id="midL">|</span><span id="innL"></span>||
+                            <span id="innR">
+                            </span>|<span id="midR"> |</span><span id="outR"></span></p>
+                    </div>
+                    <div id="molRep" style="position:relative; left:0%; top:72%; width:100%; text-align:center;">
+                        <video id="molRepVideo" src="../../images/Cu_reduction.mp4" style="width:18%; border: solid #585858 0.3em" loop autoplay></video>
+                    </div>
                 </div>
-                <div style="position:relative; left:50%; top:45%; width:15%; display:inline-table">
-                    <p style="margin-bottom:0"><b>Rechtes Redox-Paar</b></p>
-                    <select id="pairSelectorR" onchange="changePairR()" disabled>
-                        <option value=0 selected>Kupfer</option>
-                        <option value=1>Wasserstoff</option>
-                        <option value=2>Silber</option>
-                    </select>
-                </div>
-            </div>
             </div>
         </div>
         
@@ -157,9 +165,10 @@ TODO: fontsize check
     <script src="../../assets/js/breakpoints.min.js"></script>
     <script src="../../assets/js/util.js"></script>
     <script src="../../assets/js/main.js"></script>
-    <script src="../../assets/js/Three49custom.js"></script>
     <script src="https://d3js.org/d3.v4.js"></script>
-    <script src="../../assets/js/galvanic.js"></script>
+    <!-- <script src="../../assets/js/galvanic.js"></script> -->
+    <!-- <script src="../../assets/js/echemAnimations.js"></script> -->
+
     <script>
         // Setting up hint toggles
         var letters = ["Lewis", "A", "B", "C"]

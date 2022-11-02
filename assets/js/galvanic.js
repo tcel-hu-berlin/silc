@@ -1,10 +1,17 @@
 
-var margin = {top: 20, right: 10, bottom: 15, left: 10}
+var margin = {top: 0, right: 0, bottom: 0, left: 0}
 var graphDiv = document.getElementById("galvanic")
 
 var width = graphDiv.clientWidth - margin.left - margin.right
-// var height = graphDiv.clientHeight - margin.top - margin.bottom;
-var height = width*0.8
+var height = graphDiv.clientHeight - margin.top - margin.bottom
+
+// line notation elements
+var outL = document.getElementById("outL")
+var midL = document.getElementById("midL")
+var innL = document.getElementById("innL")
+var outR = document.getElementById("outR")
+var midR = document.getElementById("midR")
+var innR = document.getElementById("innR")
 
 // append the svg object to the body of the page
 var svg = d3.select("#galvanic")
@@ -24,7 +31,7 @@ var posL = 0.40*width,
 posR = 0.60*width,
 beakerBottom = 0.6*height,
 circuitHeight = 0.15*height,
-voltageReaderHeight = 0.04*width
+voltageReaderHeight = 0.03*width
 bridgeTop = 0.05*height,
 bridgeDiameter = 0.025*height,
 beakerWidth = 0.15*width,
@@ -62,8 +69,8 @@ stripPath.closePath()
 
 tubePath = d3.path()
 tubePath.moveTo(0.42*beakerWidth, -0.1*beakerHeight)
-tubePath.arcTo(0.42*beakerWidth, 0.6*beakerHeight, 0.50*beakerWidth, 0.6*beakerHeight, tubeCurve*0.5)
-tubePath.arcTo(0.58*beakerWidth, 0.6*beakerHeight, 0.58*beakerWidth, 0.6*beakerHeight-tubeCurve, tubeCurve*0.5)
+tubePath.lineTo(0.42*beakerWidth, 0.6*beakerHeight)
+tubePath.moveTo(0.58*beakerWidth, 0.6*beakerHeight)
 tubePath.lineTo(0.58*beakerWidth, 0)
 tubePath.lineTo(0.65*beakerWidth, 0)
 tubePath.moveTo(0.65*beakerWidth, -0.06*beakerHeight)
@@ -71,22 +78,30 @@ tubePath.lineTo(0.58*beakerWidth, -0.06*beakerHeight)
 tubePath.lineTo(0.58*beakerWidth, -0.1*beakerHeight)
 tubePath.arcTo(0.58*beakerWidth, -0.1*beakerHeight-tubeCurve, 0, -0.1*beakerHeight-tubeCurve, tubeCurve)
 tubePath.arcTo(0.42*beakerWidth, -0.1*beakerHeight-tubeCurve, 0.42*beakerWidth, -0.1*beakerHeight, tubeCurve)
-tubePath.moveTo(0.46*beakerWidth, 0.56*beakerHeight)
-tubePath.lineTo(0.45*beakerWidth, 0.64*beakerHeight)
-tubePath.lineTo(0.55*beakerWidth, 0.64*beakerHeight)
-tubePath.lineTo(0.54*beakerWidth, 0.56*beakerHeight)
-tubePath.closePath()
+// tubePath.moveTo(0.46*beakerWidth, 0.56*beakerHeight)
+// tubePath.lineTo(0.45*beakerWidth, 0.64*beakerHeight)
+// tubePath.lineTo(0.55*beakerWidth, 0.64*beakerHeight)
+// tubePath.lineTo(0.54*beakerWidth, 0.56*beakerHeight)
+// tubePath.closePath()
 
 wirePath = d3.path()
 wirePath.moveTo(0.49*beakerWidth, -0.08*beakerHeight)
 wirePath.lineTo(0.49*beakerWidth, 0.5*beakerHeight)
+wirePath.lineTo(0.45*beakerWidth, 0.5*beakerHeight)
+wirePath.lineTo(0.45*beakerWidth, 0.599*beakerHeight)
+wirePath.lineTo(0.55*beakerWidth, 0.599*beakerHeight)
+wirePath.lineTo(0.55*beakerWidth, 0.5*beakerHeight)
 wirePath.lineTo(0.51*beakerWidth, 0.5*beakerHeight)
 wirePath.lineTo(0.51*beakerWidth, -0.08*beakerHeight)
 wirePath.closePath()
+wirePath.moveTo(0.49*beakerWidth, 0.5*beakerHeight)
+wirePath.lineTo(0.51*beakerWidth, 0.5*beakerHeight)
 
 circuitPath = d3.path()
 circuitPath.moveTo(posL, beakerBottom-beakerHeight)
 circuitPath.lineTo(posL, beakerBottom-beakerHeight-circuitHeight)
+circuitPath.lineTo(0.475*width, beakerBottom-beakerHeight-circuitHeight)
+circuitPath.moveTo(0.525*width, beakerBottom-beakerHeight-circuitHeight)
 circuitPath.lineTo(posR, beakerBottom-beakerHeight-circuitHeight)
 circuitPath.lineTo(posR, beakerBottom-beakerHeight)
 
@@ -113,7 +128,7 @@ bridgeContentsPath.lineTo(posL+0.2*beakerWidth+bridgeDiameter, beakerBottom-0.65
 // Loading Data
 var defaultL = 1, defaultR = 0
 var leftSide, rightSide
-var redoxPairs, solutionLcolor, solutionRcolor, electrodeLcolor, electrodeRcolor, stripL, stripR, tubeL, tubeR
+var redoxPairs, solutionLcolor, solutionRcolor, electrodeLcolor, electrodeRcolor, stripL, stripR, tubeL, tubeR, voltageReading
 var changePairL, changePairR
 var rP = d3.json("../../files/redoxPairs.json", function(data){
     
@@ -127,9 +142,17 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
     electrodeRcolor = rightSide["electrodeColor"]
     stripL = leftSide["strip"]; stripR = rightSide["strip"]
     tubeL = leftSide["tube"]; tubeR = rightSide["tube"]
+    voltageReading = rightSide["E_red"]-leftSide["E_red"]
+
 
     // Drawing objects
     svg.append("g").attr("id", "circuit")
+    d3.select("#circuit").append("rect")
+        .attr("id", "voltmeter")
+        .attr("x", 0.45*width).attr("y", beakerBottom-beakerHeight-circuitHeight-voltageReaderHeight*1.8)
+        .attr("width", 0.1*width).attr("height", voltageReaderHeight*2.25)
+        .style("fill", "rgb(255, 200,100)")
+        .style("stroke", "black").style("stroke-width", "0.1em")
     d3.select("#circuit").append("path")
         .attr("id", "circuitWire")
         .attr("d", circuitPath)
@@ -137,21 +160,46 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .style("fill", "none")
     svg.append("g").attr("id", "saltbridge")
     d3.select("#circuit").append("path")
-        .attr("id", "saltbridgeFrame")
+        .attr("id", "saltbridgeContent")
         .attr("d", bridgeContentsPath)
         .style("stroke", beakerColor).style('stroke-width', "0.1em")
-        .style("fill", "rgb(220, 220,200)")
+        .style("fill", "rgb(240, 240,220)")
     d3.select("#circuit").append("path")
         .attr("id", "saltbridgeFrame")
         .attr("d", bridgePath)
         .style("stroke", beakerColor).style('stroke-width', "0.1em")
         .style("fill", "none")
     d3.select("#circuit").append("rect")
-        .attr("id", "voltmeter")
-        .attr("x", 0.45*width).attr("y", beakerBottom-beakerHeight-circuitHeight-voltageReaderHeight/2)
-        .attr("width", 0.1*width).attr("height", voltageReaderHeight)
-        .style("fill", "white")
-        .style("stroke", "black").style("stroke-width", "0.3em")   
+        .attr("id", "voltmeterScreen")
+        .attr("x", 0.46*width).attr("y", beakerBottom-beakerHeight-circuitHeight-voltageReaderHeight*3/2)
+        .attr("width", 0.08*width).attr("height", voltageReaderHeight)
+        .style("fill", "rgb(220, 230, 220)")
+        .style("stroke", "black").style("stroke-width", "0.1em")
+    d3.select("#circuit").append("text")
+        .attr("id", "voltReading")
+        .attr("x", 0.5*width).attr("y", beakerBottom-beakerHeight-circuitHeight-voltageReaderHeight)
+        .text(d3.format("+0.2f")(voltageReading)+" V").style("font-size", voltageReaderHeight*0.55)
+        .style("text-anchor", "middle").style("alignment-baseline", "middle")
+        .style("font-weight", 600)
+    d3.select("#circuit").append("circle")
+        .attr("cx", 0.525*width).attr("cy", beakerBottom-beakerHeight-circuitHeight)
+        .attr("r", 0.005*width)
+        .style("fill", "rgb(255, 0,0)")
+        .style("stroke", beakerColor).style("stroke-width", "0.1em")
+    d3.select("#circuit").append("circle")
+        .attr("cx", 0.475*width).attr("cy", beakerBottom-beakerHeight-circuitHeight)
+        .attr("r", 0.005*width)
+        .style("fill", "rgb(20,20,20)")
+        .style("stroke", beakerColor).style("stroke-width", "0.1em")
+    d3.select("#circuit").append("text")
+        .attr("x", 0.475*width).attr("y", beakerBottom-beakerHeight-circuitHeight*0.8)
+        .style("text-anchor", "middle").style("alignment-baseline", "middle")
+        .text("–").style("font-weight", 600).style("fill", "blue")
+    d3.select("#circuit").append("text")
+        .attr("x", 0.525*width).attr("y", beakerBottom-beakerHeight-circuitHeight*0.8)
+        .style("text-anchor", "middle").style("alignment-baseline", "middle")
+        .text("+").style("font-weight", 600).style("fill", "blue")
+
 
     svg.append("g").attr("id", "LS")
         .attr("transform", "translate("+ (posL-beakerWidth/2)+ ","+(beakerBottom-beakerHeight)+ ")")
@@ -225,12 +273,18 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         electrodeLcolor = leftSide["electrodeColor"]
         stripL = leftSide["strip"]
         tubeL = leftSide["tube"]
+        voltageReading = rightSide["E_red"]-leftSide["E_red"]
+
+        outL.innerHTML = leftSide["outerPhase"]
+        midL.innerHTML = leftSide["middlePhase"]
+        innL.innerHTML = leftSide["innerPhase"]
 
         d3.select("#solutionL").style("fill", solutionLcolor)
         d3.select("#stripElectrodeL").style("fill", electrodeLcolor)
         d3.select("#stripElectrodeL").style("visibility", stripL)
         d3.select("#tubeL").style("visibility", tubeL)
         d3.select("#wireL").style("fill", electrodeLcolor)
+        d3.select("#voltReading").text(d3.format("+0.2f")(voltageReading)+" V")
 
     }
     changePairR = function(){
@@ -240,14 +294,21 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         electrodeRcolor = rightSide["electrodeColor"]
         stripR = rightSide["strip"]
         tubeR = rightSide["tube"]
+        voltageReading = rightSide["E_red"]-leftSide["E_red"]
+
+        outR.innerHTML = rightSide["outerPhase"]
+        midR.innerHTML = rightSide["middlePhase"]
+        innR.innerHTML = rightSide["innerPhase"]
 
         d3.select("#solutionR").style("fill", solutionRcolor)
         d3.select("#stripElectrodeR").style("fill", electrodeRcolor)
         d3.select("#stripElectrodeR").style("visibility", stripR)
         d3.select("#tubeR").style("visibility", tubeR)
         d3.select("#wireR").style("fill", electrodeRcolor)
-
+        d3.select("#voltReading").text(d3.format("+0.2f")(voltageReading)+" V")
     }
     
+    changePairL();changePairR()
+    document.getElementById("lineNotation").style.visibility = "visible"
 })
 

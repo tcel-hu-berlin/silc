@@ -5,7 +5,10 @@
     "electrodeColor": "rgb(180, 100, 20)",
     "strip": "visible",
     "tube": "hidden",
-    "E_standard": 0.34
+    "E_red": 0.34,
+    "outerPhase": " Cu<sub>(s)</sub> ",
+    "middlePhase": "",
+    "innerPhase": " Cu<sup>2+</sup><sub>(aq, 1 M)</sub> "
 },
 {  "id": "she",
     "name": "SHE",
@@ -14,7 +17,10 @@
     "electrodeColor": "rgb(250,250,240)",
     "strip": "hidden",
     "tube": "visible",
-    "E_standard": 0.00
+    "E_red": 0.00,
+    "outerPhase": "Pt<sub>(s)</sub> ",
+    "middlePhase": " H<sub>2</sub> <sub>(g, 1 atm)</sub>  | ",
+    "innerPhase": " H<sup>+</sup><sub>(aq, 1 M)</sub> "
 },
 
 {  "id": "ag",
@@ -24,7 +30,10 @@
     "electrodeColor": "rgb(200,200,210)",
     "strip": "visible",
     "tube": "hidden",
-    "E_standard": 0.80
+    "E_red": 0.80,
+    "outerPhase": " Ag<sub>(s)</sub> ",
+    "middlePhase": "",
+    "innerPhase": " Ag<sup>+</sup><sub>(aq, 1 M)</sub> "
 }
 
 ]
