@@ -8,7 +8,9 @@
     "E_red": 0.34,
     "outerPhase": " Cu<sub>(s)</sub> ",
     "middlePhase": "",
-    "innerPhase": " Cu<sup>2+</sup><sub>(aq, 1 M)</sub> "
+    "innerPhase": " Cu<sup>2+</sup><sub>(aq, 1 M)</sub> ",
+    "video_red": "Cu_reduction.mp4",
+    "video_oxi": "Cu_oxidation.mp4"
 },
 {  "id": "she",
     "name": "SHE",
@@ -20,7 +22,9 @@
     "E_red": 0.00,
     "outerPhase": "Pt<sub>(s)</sub> ",
     "middlePhase": " H<sub>2</sub> <sub>(g, 1 atm)</sub>  | ",
-    "innerPhase": " H<sup>+</sup><sub>(aq, 1 M)</sub> "
+    "innerPhase": " H<sup>+</sup><sub>(aq, 1 M)</sub> ",
+    "video_red": "H_reduction.mp4",
+    "video_oxi": "H_oxidation.mp4"
 },
 
 {  "id": "ag",
@@ -33,7 +37,9 @@
     "E_red": 0.80,
     "outerPhase": " Ag<sub>(s)</sub> ",
     "middlePhase": "",
-    "innerPhase": " Ag<sup>+</sup><sub>(aq, 1 M)</sub> "
+    "innerPhase": " Ag<sup>+</sup><sub>(aq, 1 M)</sub> ",
+    "video_red": "Ag_reduction.mp4",
+    "video_oxi": "Ag_oxidation.mp4"
 }
 
 ]
