@@ -13,6 +13,10 @@ var outR = document.getElementById("outR")
 var midR = document.getElementById("midR")
 var innR = document.getElementById("innR")
 
+var videoDiv = document.getElementById("molRep")
+var videoScreen = document.getElementById("molRepVideo")
+var noReaction = document.getElementById("noReaction")
+
 // append the svg object to the body of the page
 var svg = d3.select("#galvanic")
     .append("svg")
@@ -39,7 +43,8 @@ beakerHeight = 0.2*height,
 beakerCurve = 0.01*width,
 tubeCurve = 0.08*beakerWidth,
 fillHeight = 0.75*beakerHeight,
-beakerColor = "#585858"
+beakerColor = "#585858",
+magnWidth = 0.025*width, magnHeight = 0.8*magnWidth, magnTop = 0.502*height
 
 beakerPath = d3.path()
 beakerPath.moveTo(0,0)
@@ -62,15 +67,15 @@ contentPath.lineTo(0,beakerHeight-fillHeight)
 
 stripPath = d3.path()
 stripPath.moveTo(0.42*beakerWidth, -0.1*beakerHeight)
-stripPath.lineTo(0.42*beakerWidth, 0.6*beakerHeight)
-stripPath.lineTo(0.58*beakerWidth, 0.6*beakerHeight)
+stripPath.lineTo(0.42*beakerWidth, 0.65*beakerHeight)
+stripPath.lineTo(0.58*beakerWidth, 0.65*beakerHeight)
 stripPath.lineTo(0.58*beakerWidth, -0.1*beakerHeight)
 stripPath.closePath()
 
 tubePath = d3.path()
 tubePath.moveTo(0.42*beakerWidth, -0.1*beakerHeight)
-tubePath.lineTo(0.42*beakerWidth, 0.6*beakerHeight)
-tubePath.moveTo(0.58*beakerWidth, 0.6*beakerHeight)
+tubePath.lineTo(0.42*beakerWidth, 0.47*beakerHeight)
+tubePath.moveTo(0.58*beakerWidth, 0.47*beakerHeight)
 tubePath.lineTo(0.58*beakerWidth, 0)
 tubePath.lineTo(0.65*beakerWidth, 0)
 tubePath.moveTo(0.65*beakerWidth, -0.06*beakerHeight)
@@ -88,8 +93,8 @@ wirePath = d3.path()
 wirePath.moveTo(0.49*beakerWidth, -0.08*beakerHeight)
 wirePath.lineTo(0.49*beakerWidth, 0.5*beakerHeight)
 wirePath.lineTo(0.45*beakerWidth, 0.5*beakerHeight)
-wirePath.lineTo(0.45*beakerWidth, 0.599*beakerHeight)
-wirePath.lineTo(0.55*beakerWidth, 0.599*beakerHeight)
+wirePath.lineTo(0.45*beakerWidth, 0.649*beakerHeight)
+wirePath.lineTo(0.55*beakerWidth, 0.649*beakerHeight)
 wirePath.lineTo(0.55*beakerWidth, 0.5*beakerHeight)
 wirePath.lineTo(0.51*beakerWidth, 0.5*beakerHeight)
 wirePath.lineTo(0.51*beakerWidth, -0.08*beakerHeight)
@@ -124,6 +129,52 @@ bridgeContentsPath.moveTo(posR-0.20*beakerWidth-bridgeDiameter, beakerBottom-0.6
 bridgeContentsPath.arcTo(posR-0.20*beakerWidth-bridgeDiameter, beakerBottom-beakerHeight-bridgeTop+bridgeDiameter, posR-0.5*beakerWidth, beakerBottom-beakerHeight-bridgeTop+bridgeDiameter, beakerCurve/bridgeDiameter*2)
 bridgeContentsPath.arcTo(posL+0.20*beakerWidth+bridgeDiameter, beakerBottom-beakerHeight-bridgeTop+bridgeDiameter, posL+0.2*beakerWidth+bridgeDiameter, beakerBottom-beakerHeight, beakerCurve/bridgeDiameter*2)
 bridgeContentsPath.lineTo(posL+0.2*beakerWidth+bridgeDiameter, beakerBottom-0.65*beakerHeight)
+
+// magnifying functions
+var showMagnL = function(){
+    d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
+    d3.select("#magnSolL").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
+    if (Math.abs(+voltageReading) < 0.005){
+        videoScreen.src = ""
+        videoDiv.style.visibility = "visible"
+        noReaction.style.display = "block"
+        videoScreen.style.display = "none"
+    } else {
+        if (+voltageReading > 0){
+            let file = leftSide["video_oxi"]
+            videoScreen.src = "../../images/" + file
+        } else {
+            let file = leftSide["video_red"]
+            videoScreen.src = "../../images/" + file
+        }
+        videoDiv.style.visibility = "visible"
+        videoScreen.style.display = "inline-block"
+        noReaction.style.display = "none"
+    }
+}
+
+var showMagnR = function(){
+    d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
+    d3.select("#magnSolR").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
+    if (Math.abs(+voltageReading) < 0.005){
+        videoScreen.src = ""
+        videoDiv.style.visibility = "visible"
+        noReaction.style.display = "block"
+        videoScreen.style.display = "none"
+    } else {
+        if (+voltageReading > 0){
+            let file = rightSide["video_red"]
+            videoScreen.src = "../../images/" + file
+        } else {
+            let file = rightSide["video_oxi"]
+            videoScreen.src = "../../images/" + file
+        }
+        videoDiv.style.visibility = "visible"
+        videoScreen.style.display = "inline-block"
+        noReaction.style.display = "none"
+    }
+}
+
 
 // Loading Data
 var defaultL = 1, defaultR = 0
@@ -264,6 +315,24 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .style("stroke", beakerColor).style('stroke-width', "0.1em")
         .style("fill", "none")
 
+    svg.append("g").attr("id", "magnPoints")
+    d3.select("#magnPoints").append('image')
+        .attr("id", "magnSolL")
+        .attr("class", "magn")
+        .attr('xlink:href', '../../images/magnGlass.svg')
+        .attr("x", posL).attr("y", magnTop)
+        .attr('width', magnWidth)
+        .attr('height', magnWidth)
+        .on("click", showMagnL)
+    d3.select("#magnPoints").append('image')
+        .attr("id", "magnSolR")
+        .attr("class", "magn")
+        .attr('xlink:href', '../../images/magnGlass.svg')
+        .attr("x", posR).attr("y", magnTop)
+        .attr('width', magnWidth)
+        .attr('height', magnWidth)
+        .on("click", showMagnR)
+        
     document.getElementById("pairSelectorL").disabled = false
     document.getElementById("pairSelectorR").disabled = false
     changePairL = function(){
@@ -286,6 +355,7 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         d3.select("#wireL").style("fill", electrodeLcolor)
         d3.select("#voltReading").text(d3.format("+0.2f")(voltageReading)+" V")
 
+        videoDiv.style.visibility = "hidden"
     }
     changePairR = function(){
         let val = document.getElementById("pairSelectorR").value
@@ -306,6 +376,8 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         d3.select("#tubeR").style("visibility", tubeR)
         d3.select("#wireR").style("fill", electrodeRcolor)
         d3.select("#voltReading").text(d3.format("+0.2f")(voltageReading)+" V")
+
+        videoDiv.style.visibility = "hidden"
     }
     
     changePairL();changePairR()

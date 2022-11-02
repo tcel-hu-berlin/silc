@@ -2,6 +2,18 @@
 <html>
 <head>
     <link rel="stylesheet" href="../css/main.css" />
+    <style>
+        .magn {
+            opacity: 0.4;
+        }
+
+        .magn:hover{
+            opacity: 0.8;
+            filter: hue-rotate(120deg)
+        }
+
+
+    </style>
     <script src="https://d3js.org/d3.v4.js"></script>
     <title>Galvanic Cell Simulation</title>
 </head>
@@ -11,7 +23,7 @@
             <p style="margin-bottom:0"><b>(-)-Seite: Redox-Paar</b></p>
             <select id="pairSelectorL" onchange="changePairL()" disabled>
                 <option value=0>Cu&#178;&#8314; / Cu</option>
-                <option value=1 selected>H&#8314; / H </option>
+                <option value=1 selected>H&#8314; / H&#8322; </option>
                 <option value=2>Ag&#8314;/Ag</option>
             </select>
         </div>
@@ -19,7 +31,7 @@
             <p style="margin-bottom:0"><b>(+)-Seite: Redox-Paar</b></p>
             <select id="pairSelectorR" onchange="changePairR()" disabled>
                 <option value=0 selected>Cu&#178;&#8314; / Cu</option>
-                <option value=1>H+/H</option>
+                <option value=1>H+/H&#8322;</option>
                 <option value=2>Ag&#8314;/Ag</option>
             </select>
         </div>
@@ -28,8 +40,9 @@
                 <span id="innR">
                 </span>|<span id="midR"> |</span><span id="outR"></span></p>
         </div>
-        <div id="molRep" style="position:absolute; left:0%; top:70%; width:100%; text-align:center;">
-            <video id="molRepVideo" src="../../images/Cu_reduction.mp4" style="width:20%; border: solid blue 3px; border-radius:8px" loop autoplay></video>
+        <div id="molRep" style="position:absolute; left:0%; top:70%; width:100%; text-align:center; visibility: hidden">
+            <p id="noReaction" style="color: red; font-weight: 600; display:none">Keine Redox-Reaktion findet momentan statt.</p>
+            <video id="molRepVideo" src="../../images/Cu_reduction.mp4" style="width:20%; border: solid red 3px; border-radius:18px" loop autoplay></video>
         </div>
     </div>
 
