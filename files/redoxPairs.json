@@ -28,7 +28,7 @@
 },
 
 {  "id": "ag",
-    "name": "Silver",
+    "name": "Silber",
     "abbr": "Ag+/Ag",
     "solutionColor":"rgba(220, 220, 230, 0.4)",
     "electrodeColor": "rgb(200,200,210)",
@@ -40,6 +40,21 @@
     "innerPhase": " Ag<sup>+</sup><sub>(aq, 1 M)</sub> ",
     "video_red": "Ag_reduction.mp4",
     "video_oxi": "Ag_oxidation.mp4"
+},
+
+{  "id": "zn",
+    "name": "Zink",
+    "abbr": "Zn2+/Zn",
+    "solutionColor":"rgba(179, 173, 155, 0.4)",
+    "electrodeColor": "rgb(120,120,120)",
+    "strip": "visible",
+    "tube": "hidden",
+    "E_red": -0.76,
+    "outerPhase": " Zn<sub>(s)</sub> ",
+    "middlePhase": "",
+    "innerPhase": " Zn<sup>2+</sup><sub>(aq, 1 M)</sub> ",
+    "video_red": "Zn_reduction.mp4",
+    "video_oxi": "Zn_oxidation.mp4"
 }
 
 ]

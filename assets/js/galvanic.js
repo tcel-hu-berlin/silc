@@ -143,9 +143,11 @@ var showMagnL = function(){
         if (+voltageReading > 0){
             let file = leftSide["video_oxi"]
             videoScreen.src = "../../images/" + file
+            videoScreen.playbackRate = 1.1
         } else {
             let file = leftSide["video_red"]
             videoScreen.src = "../../images/" + file
+            videoScreen.playbackRate = 1.1
         }
         videoDiv.style.visibility = "visible"
         videoScreen.style.display = "inline-block"
@@ -165,9 +167,35 @@ var showMagnR = function(){
         if (+voltageReading > 0){
             let file = rightSide["video_red"]
             videoScreen.src = "../../images/" + file
+            videoScreen.playbackRate = 1.1
         } else {
             let file = rightSide["video_oxi"]
             videoScreen.src = "../../images/" + file
+            videoScreen.playbackRate = 1.1
+        }
+        videoDiv.style.visibility = "visible"
+        videoScreen.style.display = "inline-block"
+        noReaction.style.display = "none"
+    }
+}
+
+var showMagnBr = function(){
+    d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
+    d3.select("#magnSolR").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
+    if (Math.abs(+voltageReading) < 0.005){
+        videoScreen.src = ""
+        videoDiv.style.visibility = "visible"
+        noReaction.style.display = "block"
+        videoScreen.style.display = "none"
+    } else {
+        if (+voltageReading > 0){
+            let file = "salt_bridge_Kright.mp4"
+            videoScreen.src = "../../images/" + file
+            videoScreen.playbackRate = 0.7
+        } else {
+            let file = "salt_bridge_Kleft.mp4"
+            videoScreen.src = "../../images/" + file
+            videoScreen.playbackRate = 0.7
         }
         videoDiv.style.visibility = "visible"
         videoScreen.style.display = "inline-block"
@@ -332,6 +360,14 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .attr('width', magnWidth)
         .attr('height', magnWidth)
         .on("click", showMagnR)
+    d3.select("#magnPoints").append('image')
+        .attr("id", "magnSolR")
+        .attr("class", "magn")
+        .attr('xlink:href', '../../images/magnGlass.svg')
+        .attr("x", 0.5*width-magnWidth/2).attr("y", 0.35*height)
+        .attr('width', magnWidth)
+        .attr('height', magnWidth)
+        .on("click", showMagnBr)
         
     document.getElementById("pairSelectorL").disabled = false
     document.getElementById("pairSelectorR").disabled = false
