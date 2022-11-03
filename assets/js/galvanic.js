@@ -181,7 +181,7 @@ var showMagnR = function(){
 
 var showMagnBr = function(){
     d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
-    d3.select("#magnSolR").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
+    d3.select("#magnBr").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
     if (Math.abs(+voltageReading) < 0.005){
         videoScreen.src = ""
         videoDiv.style.visibility = "visible"
@@ -361,7 +361,7 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .attr('height', magnWidth)
         .on("click", showMagnR)
     d3.select("#magnPoints").append('image')
-        .attr("id", "magnSolR")
+        .attr("id", "magnBr")
         .attr("class", "magn")
         .attr('xlink:href', '../../images/magnGlass.svg')
         .attr("x", 0.5*width-magnWidth/2).attr("y", 0.35*height)
