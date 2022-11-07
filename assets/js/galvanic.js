@@ -203,6 +203,54 @@ var showMagnBr = function(){
     }
 }
 
+var showMagnCircL = function(){
+    d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
+    d3.select("#magnCircL").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
+    if (Math.abs(+voltageReading) < 0.005){
+        videoScreen.src = ""
+        videoDiv.style.visibility = "visible"
+        noReaction.style.display = "block"
+        videoScreen.style.display = "none"
+    } else {
+        if (+voltageReading > 0){
+            let file = "electronsUp.mp4"
+            videoScreen.src = "../../images/" + file
+            videoScreen.playbackRate = 0.7
+        } else {
+            let file = "electronsDown.mp4"
+            videoScreen.src = "../../images/" + file
+            videoScreen.playbackRate = 0.7
+        }
+        videoDiv.style.visibility = "visible"
+        videoScreen.style.display = "inline-block"
+        noReaction.style.display = "none"
+    }
+}
+
+var showMagnCircR = function(){
+    d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
+    d3.select("#magnCircR").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
+    if (Math.abs(+voltageReading) < 0.005){
+        videoScreen.src = ""
+        videoDiv.style.visibility = "visible"
+        noReaction.style.display = "block"
+        videoScreen.style.display = "none"
+    } else {
+        if (+voltageReading > 0){
+            let file = "electronsDown.mp4"
+            videoScreen.src = "../../images/" + file
+            videoScreen.playbackRate = 0.7
+        } else {
+            let file = "electronsUp.mp4"
+            videoScreen.src = "../../images/" + file
+            videoScreen.playbackRate = 0.7
+        }
+        videoDiv.style.visibility = "visible"
+        videoScreen.style.display = "inline-block"
+        noReaction.style.display = "none"
+    }
+}
+
 
 // Loading Data
 var defaultL = 1, defaultR = 0
@@ -368,7 +416,24 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .attr('width', magnWidth)
         .attr('height', magnWidth)
         .on("click", showMagnBr)
-        
+    d3.select("#magnPoints").append('image')
+        .attr("id", "magnCircL")
+        .attr("class", "magn")
+        .attr('xlink:href', '../../images/magnGlass.svg')
+        .attr("x", posL-magnWidth*0.4).attr("y", 0.3*height)
+        .attr('width', magnWidth)
+        .attr('height', magnWidth)
+        .on("click", showMagnCircL)
+    d3.select("#magnPoints").append('image')
+        .attr("id", "magnCircR")
+        .attr("class", "magn")
+        .attr('xlink:href', '../../images/magnGlass.svg')
+        .attr("x", posR-magnWidth*0.4).attr("y", 0.3*height)
+        .attr('width', magnWidth)
+        .attr('height', magnWidth)
+        .on("click", showMagnCircR)
+
+
     document.getElementById("pairSelectorL").disabled = false
     document.getElementById("pairSelectorR").disabled = false
     changePairL = function(){
