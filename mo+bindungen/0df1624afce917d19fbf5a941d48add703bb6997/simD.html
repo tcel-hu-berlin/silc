@@ -2,7 +2,6 @@
 <!--
 	Made using the template Phantom by HTML5 UP
 	html5up.net | @ajlkn
-    TODO: adjust iframe if no ad blocker!
 -->
 <html>
 <head>
@@ -45,6 +44,10 @@
             <div class="inner">
 				<div class="inner" id="helpHints">
 					<h2>Hilfreiche Informationen</h2>
+                    <h3>Gleichungen:</h3>
+                    <ul>
+                        <li>Bindungsordnung: BO = 1/2&middot;(n<sub>bindend</sub> - n<sub>antibindend</sub>) </li>
+                    </ul>
 					<h3>Einheiten:</h3>
                     <ul>
                         <li>1 Å = 10<sup>-10</sup> m</li>
@@ -81,36 +84,27 @@
         <div id="main">
             <div class="inner">
                 <a href="index.html"><h1>Molekülorbitale und andere Bindungstheorien</h1></a>
-				<h2>Animationsgruppe D: Zwischenmoleküläre Kräfte und Löslichkeit</h2>
-                <p>Auf dieser Seite finden Sie drei kurze Animationen, die die Wechselwirkung von Wasser mit möglichen gelösten Substanzen zeigen, die unterschiedliche Arten von zwischenmolekularen Kräften aufweisen. Sie können die Videos anhalten und zurück spulen (oder sie im Vollbildmodus ansehen), um alle gewünschten Details zu sehen.</p>
-                <h3>Nachfolgend verwendete Darstellungen:</h3>
-                <p><div style="width: 70%; min-width: 300px; border: solid 0px rgb(174, 174, 174)">
-                <img src="../../images/IMF_representations.png" width="100%" alt="Summary of the shapes and colors that represent the different molecules and forces between them." /></div>
-                </p>
-
-                <h3>Fall 1: große unpolare Moleküle</h3>
-                <video id="nonpolarLarge" width="50%" controls>
-                    <source src="../../images/sol_bigNonpolar.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <p style="margin-bottom: 0"><toggle class="showHide" id="showHideV1E">Erklärung einblenden</toggle></p>
-                <p id="hintV1E" style="display:none; margin-top:0; margin-bottom:0">Hier sind die große Moleküle der in Wasser eingelegten Substanz stark miteinander durch London-Kräfte angezogen. Eine mögliche schwache Anziehung durch die Wassermoleküle reicht nicht aus, um diese intermolekularen Kräfte zu unterbrechen, weshalb die Substanz nicht aufgelöst wird.</p>	
-                <p></p>
-                <h3>Fall 2: kleine unpolare Moleküle</h3>
-                <video id="nonpolarSmall" width="50%" controls>
-                    <source src="../../images/sol_smallNonpolar.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <p style="margin-bottom: 0"><toggle class="showHide" id="showHideV2E">Erklärung einblenden</toggle></p>
-                <p id="hintV2E" style="display:none; margin-top:0; margin-bottom:0">Hier gibt es zwischen den unpolaren Molekülen auch London-Kräfte, die dennoch wegen der kleineren Größe der Moleküle schwächer sind. Aufgrund der permanenten Dipol-induzierten Dipol-Anziehungskräfte zwischen den Wassermolekülen und den unpolaren Molekülen können die Wassermoleküle schließlich in die Substanz eindringen und sie auflösen.</p>	
-                <p></p>
-                <h3>Fall 3: kleine polare Moleküle</h3>
-                <video id="polarSmall" width="50%" controls>
-                    <source src="../../images/solub_polar.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <p style="margin-bottom: 0"><toggle class="showHide" id="showHideV3E">Erklärung einblenden</toggle></p>
-                <p id="hintV3E" style="display:none; margin-top:0; margin-bottom:0">In dieser Situation ermöglicht die Dipol-Dipol-Anziehung zwischen den polaren Molekülen und den Wassermolekülen (die stärkste der van-der-Waals-Kräfte), dass die polare Substanz weitgehend aufgelöst wird.</p>
+				<h2>Simulation C: VSEPR-Simulation von PhET&trade;</h2>
+                <p>Diese Simulation ist Teil einer umfangreichen Sammlung von Simulationen für den MINT-Unterricht, die vom PhET&trade;-Team an der Universität von Colorado entwickelt wurde. Mit dieser Simulation können Molekülgeometrien für verschiedene Bindungskonfigurationen um ein Zentralatom betrachtet werden. </p>
+                <h3>Überblick:</h3>
+                <ul>
+                    <li>
+                        Für die Aufgaben dieser Aktivität sollte hauptächlich das "Modell"-Panel verwendet werden.
+                    </li>
+                    <li>
+                        Mit Hilfe der Tafeln auf der rechten Seite können bis zu sechs Bindungen oder nichtbindete Elektronenpaare zum Zentralatom hinzugefügt werden.
+                    </li>
+                </ul>
+                <h3>Zu Beachten:</h3>
+                <ul>
+                    <li>
+                        Die Simulation kann auch auch Bindungswinkel und Namen von Geometrien anzeigen. Sie sollten jedoch vermeiden, diese Funktionen übermäßig zu nutzen, damit Sie Ihr eigenes Gedächtnis für diese Konzepte testen und weiterentwickeln können.
+                    </li>
+                </ul>
+                <div style="position: relative; padding-bottom:75%">
+                    <iframe src="https://phet.colorado.edu/sims/html/molecule-shapes/latest/molecule-shapes_de.html" style="position:absolute; width:100%; height:100%"></iframe>
+                </div>
+                <p style="font-size:1em; color:rgb(26, 14, 255); margin-bottom:0; margin-left:0.5em">&copy 2002-2021 <a href="https://phet.colorado.edu/en/simulations/molecule-shapes/about" target="_blank">PhET &trade; Interactive Simulations</a></p> 
             </div>
         </div>
         
@@ -118,6 +112,17 @@
         <div id="simnav">
             <div class="inner">
                 <section class="tiles">
+                    <article class="stylePDF">
+                        <span class="image">
+                            <img src="../../images/pic01.jpg" alt="" />
+                        </span>
+                        <a href="../../files/Activity_3_Bindungen_DE.pdf">
+                            <h2>PDF</h2>
+                            <div class="content">
+                                <p>Aufgaben dieser Aktivität</p>
+                            </div>
+                        </a>
+                    </article>
                     <article class="styleSim">
                         <span class="image">
                             <img src="../../images/pic02.jpg" alt="" />
@@ -144,10 +149,10 @@
                         <span class="image">
                             <img src="../../images/pic02.jpg" alt="" />
                         </span>
-                        <a href="simC.html">
-                            <h2>Simulation C</h2>
+                        <a href="animC.html">
+                            <h2>Animationsgruppe C</h2>
                             <div class="content">
-                                <p>VSEPR-Simulation von PhET&trade;</p>
+                                <p>Para- und Diamagnetismus</p>
                             </div>
                         </a>
                     </article>
@@ -155,8 +160,19 @@
                         <span class="image">
                             <img src="../../images/pic02.jpg" alt="" />
                         </span>
-                        <a href="animD.html">
-                            <h2 style="letter-spacing: 0.01em">Animationsgruppe D</h2>
+                        <a href="simD.html">
+                            <h2>Simulation D</h2>
+                            <div class="content">
+                                <p>VSEPR-Simulation von PhET&trade;</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="animE.html">
+                            <h2 style="letter-spacing: 0.01em">Animationsgruppe E</h2>
                             <div class="content">
                                 <p>Zwischenmoleküläre Kräfte und Löslichkeit</p>
                             </div>
@@ -197,21 +213,6 @@
                 }
             }
         })
-
-        var explanations = ["V1E", "V2E", "V3E"]
-        explanations.forEach( function(x){
-            document.getElementById("showHide"+x).onclick = function(){
-                hint = document.getElementById("hint"+x)
-                if (hint.style.display=="none"){
-                    this.innerHTML = "Erklärung ausblenden"
-                    hint.style.display="block"
-                } else {
-                    this.innerHTML = "Erklärung einblenden"
-                    hint.style.display="none"
-                }
-            }
-        })
     </script>
-    </body>
-</body>
+</body></body>
 </html>

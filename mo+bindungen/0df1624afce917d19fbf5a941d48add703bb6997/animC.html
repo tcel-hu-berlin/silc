@@ -2,6 +2,7 @@
 <!--
 	Made using the template Phantom by HTML5 UP
 	html5up.net | @ajlkn
+    TODO: adjust iframe if no ad blocker!
 -->
 <html>
 <head>
@@ -44,7 +45,11 @@
             <div class="inner">
 				<div class="inner" id="helpHints">
 					<h2>Hilfreiche Informationen</h2>
-					<h3>Einheiten:</h3>
+					<h3>Gleichungen:</h3>
+                    <ul>
+                        <li>Bindungsordnung: BO = 1/2&middot;(n<sub>bindend</sub> - n<sub>antibindend</sub>) </li>
+                    </ul>
+                    <h3>Einheiten:</h3>
                     <ul>
                         <li>1 Å = 10<sup>-10</sup> m</li>
                     </ul>
@@ -80,27 +85,21 @@
         <div id="main">
             <div class="inner">
                 <a href="index.html"><h1>Molekülorbitale und andere Bindungstheorien</h1></a>
-				<h2>Simulation C: VSEPR-Simulation von PhET&trade;</h2>
-                <p>Diese Simulation ist Teil einer umfangreichen Sammlung von Simulationen für den MINT-Unterricht, die vom PhET&trade;-Team an der Universität von Colorado entwickelt wurde. Mit dieser Simulation können Molekülgeometrien für verschiedene Bindungskonfigurationen um ein Zentralatom betrachtet werden. </p>
-                <h3>Überblick:</h3>
-                <ul>
-                    <li>
-                        Für die Aufgaben dieser Aktivität sollte hauptächlich das "Modell"-Panel verwendet werden.
-                    </li>
-                    <li>
-                        Mit Hilfe der Tafeln auf der rechten Seite können bis zu sechs Bindungen oder nichtbindete Elektronenpaare zum Zentralatom hinzugefügt werden.
-                    </li>
-                </ul>
-                <h3>Zu Beachten:</h3>
-                <ul>
-                    <li>
-                        Die Simulation kann auch auch Bindungswinkel und Namen von Geometrien anzeigen. Sie sollten jedoch vermeiden, diese Funktionen übermäßig zu nutzen, damit Sie Ihr eigenes Gedächtnis für diese Konzepte testen und weiterentwickeln können.
-                    </li>
-                </ul>
-                <div style="position: relative; padding-bottom:75%">
-                    <iframe src="https://phet.colorado.edu/sims/html/molecule-shapes/latest/molecule-shapes_de.html" style="position:absolute; width:100%; height:100%"></iframe>
-                </div>
-                <p style="font-size:1em; color:rgb(26, 14, 255); margin-bottom:0; margin-left:0.5em">&copy 2002-2021 <a href="https://phet.colorado.edu/en/simulations/molecule-shapes/about" target="_blank">PhET &trade; Interactive Simulations</a></p> 
+				<h2>Animationsgruppe C: Para- und Diamagnetismus</h2>
+                <p>Wie kann uns die MO-Theorie dabei helfen, die Reaktion von Stoffen auf einen nahe gelegenen Magneten vorherzusagen? Obwohl die Wechselwirkung zwischen Materie und elektromagnetischen Feldern ein recht komplexes Thema ist, können die beiden folgenden Animationen einen rudimentären Ansatzpunkt für das Verständnis bieten.</p>
+                <h3>Paramagnetismus</h3>
+                <p>Die Schreibweise &nbsp;<img style="height: 1em" class="icon" src="../../images/spinArrowUp.svg" />&nbsp; oder  &nbsp;<img style="height: 1em" class="icon" src="../../images/spinArrowDown.svg" />&nbsp; bezeichnet einem Elektron seinen <em>Spin</em>, der ein Indikator dafür ist, wie der Bewegungspfad des Elektrons durch ein Magnetfeld beeinflusst wird. Durch den Besitz <strong>ungepaarter Elektronen</strong> erhält das Molekül ein sogenanntes <em>magnetisches Dipolmoment</em>, was bewirkt, dass das Molekül auf äußere Magnetfelder reagiert (Paramagnetismus). Insbesondere richtet sich ein paramagnetisches Molekül bevorzugt nach dem Magnetfeld aus (die stabilste Konfiguration) und wird auch von einem Pol des Magneten angezogen.</p>
+                <video id="paramagn" width="80%" autoplay loop>
+                    <source src="../../images/paramagn.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>    
+                <h3>Diamagnetismus</h3>    
+                <p>Wenn alle Elektronen eines Moleküls <strong>gepaart</strong> sind (&nbsp;<img style="height: 1em" class="icon" src="../../images/spinArrowUp.svg" />  <img style="height: 1em" class="icon" src="../../images/spinArrowDown.svg" />&nbsp;), haben die beiden Elektronen jedes Paares gemäß dem Pauli-Prinzip entgegengesetzte Spins. Folglich wirkt ein Magnetfeld auf die Elektronen in entgegengesetzter Richtung, was jegliche Auswirkungen des Magnetfelds auf das gesamte Molekül ausgleicht (Diamagnetismus). Ein diamagnetisches Molekül weist fast keine Reaktion auf ein Magnetfeld auf, außer einer vernachlässigbaren Abstoßung gegen den Magneten.</p>
+                <video id="diamagn" width="80%" autoplay loop>
+                    <source src="../../images/diamagn.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>    
+                <p></p>
             </div>
         </div>
         
@@ -108,6 +107,17 @@
         <div id="simnav">
             <div class="inner">
                 <section class="tiles">
+                    <article class="stylePDF">
+                        <span class="image">
+                            <img src="../../images/pic01.jpg" alt="" />
+                        </span>
+                        <a href="../../files/Activity_3_Bindungen_DE.pdf">
+                            <h2>PDF</h2>
+                            <div class="content">
+                                <p>Aufgaben dieser Aktivität</p>
+                            </div>
+                        </a>
+                    </article>
                     <article class="styleSim">
                         <span class="image">
                             <img src="../../images/pic02.jpg" alt="" />
@@ -134,8 +144,19 @@
                         <span class="image">
                             <img src="../../images/pic02.jpg" alt="" />
                         </span>
-                        <a href="simC.html">
-                            <h2>Simulation C</h2>
+                        <a href="animC.html">
+                            <h2>Animationsgruppe C</h2>
+                            <div class="content">
+                                <p>Para- und Diamagnetismus</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simD.html">
+                            <h2>Simulation D</h2>
                             <div class="content">
                                 <p>VSEPR-Simulation von PhET&trade;</p>
                             </div>
@@ -145,8 +166,8 @@
                         <span class="image">
                             <img src="../../images/pic02.jpg" alt="" />
                         </span>
-                        <a href="animD.html">
-                            <h2 style="letter-spacing: 0.01em">Animationsgruppe D</h2>
+                        <a href="animE.html">
+                            <h2 style="letter-spacing: 0.01em">Animationsgruppe E</h2>
                             <div class="content">
                                 <p>Zwischenmoleküläre Kräfte und Löslichkeit</p>
                             </div>
@@ -188,5 +209,6 @@
             }
         })
     </script>
-</body></body>
+    </body>
+</body>
 </html>

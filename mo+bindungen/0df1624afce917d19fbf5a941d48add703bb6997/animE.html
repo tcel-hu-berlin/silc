@@ -1,6 +1,8 @@
 <!DOCTYPE HTML>
 <!--
-TODO: fontsize check
+	Made using the template Phantom by HTML5 UP
+	html5up.net | @ajlkn
+    TODO: adjust iframe if no ad blocker!
 -->
 <html>
 <head>
@@ -43,11 +45,11 @@ TODO: fontsize check
             <div class="inner">
 				<div class="inner" id="helpHints">
 					<h2>Hilfreiche Informationen</h2>
-                    <h3>Gleichungen:</h3>
+					<h3>Gleichungen:</h3>
                     <ul>
                         <li>Bindungsordnung: BO = 1/2&middot;(n<sub>bindend</sub> - n<sub>antibindend</sub>) </li>
                     </ul>
-					<h3>Einheiten:</h3>
+                    <h3>Einheiten:</h3>
                     <ul>
                         <li>1 Å = 10<sup>-10</sup> m</li>
                     </ul>
@@ -83,25 +85,36 @@ TODO: fontsize check
         <div id="main">
             <div class="inner">
                 <a href="index.html"><h1>Molekülorbitale und andere Bindungstheorien</h1></a>
-                <h2>Simulation A: Zwei Wasserstoffatome</h2>
-                <p>In dieser Simulation wird die Überlappung der Orbitale zwei Wasserstoff-Atomen visualisiert, die sich einander annähern. Um die Berechnung der Orbitalenergien zu vereinfachen, ist das entstehende Molekül in der Simulaltion eigentlich das Ion H<sub>2</sub><sup>+</sup>, das nur ein Elektron enthält. Das Verhalten, das Sie beobachten werden, ist jedoch qualitativ ähnlich wie bei einem neutralen H<sub>2</sub> Atom.</p>
-                <h3>Überblick:</h3>
-                <ul>
-                    <li>Der Abstand zwischen den zwei H-Atomen kann mit dem Schieberegler eingestellt werden.</li>
-                    <li>Im Molekülorbitaldiagramm (MO-Diagramm) oben lniks werden die Energien der ursprünglichen 1s-Atomorbitale sowie der entstehenden σ und σ* Molekülorbitale abgebildet.</li>
-                    <li>Die Grafik unten links fasst die Abhängigkeit der Molekülorbitalenergien vom Abstand zusammen und zeigt auch die numerischen Werte der Energie.</li>
-                    <li>Die drei Panels auf der Rechten Seite bilden die Wellenfunktionen der Molekülorbitalen σ (lila-grau, oben) und σ* (orange, Mitte), sowie des 1s-Atomorbitals (dunkelgrau, unten) räumlich ab.</li>
-                    <li>Durch Berührung innerhalb der Wellenfunktionstafeln können die genaue Werte jeder Wellenfunktion an einem bestimmten Position abgelesen werden.</li>
-                </ul>
-                <h3>Zu Beachten:</h3>
-                <ul>
-                    <li><b>Bitte beachten Sie, dass dieses Programm Punkte (nicht Kommas) als Dezimaltrennzeichen verwendet!</b></li>
-                    <li>Die Molekülorbitale im MO-Diagramm sind für einige Abstände ausgeblendet, weil das Verhalten der Orbitale dabei ungewöhnlich ist (und auch, weil solche Abstände für reale Moleküle irrelevant sind).</li>
-                    <li>Sie können die Werte der Wellenfunktionen als einheitenlos behandeln.</li>
-                </ul>
-                <p style="margin-bottom: 0"><label for="points">Abstand: &nbsp; </label><span id="distanceValue">   </span> (Å)</p>
-                <div width="40%"><input type="range" id="distance" name="distance" min="0" max="12" step="0.05"></div>
-                <div style="width: 100%" id="approachH2"></div> 
+				<h2>Animationsgruppe D: Zwischenmoleküläre Kräfte und Löslichkeit</h2>
+                <p>Auf dieser Seite finden Sie drei kurze Animationen, die die Wechselwirkung von Wasser mit möglichen gelösten Substanzen zeigen, die unterschiedliche Arten von zwischenmolekularen Kräften aufweisen. Sie können die Videos anhalten und zurück spulen (oder sie im Vollbildmodus ansehen), um alle gewünschten Details zu sehen.</p>
+                <h3>Nachfolgend verwendete Darstellungen:</h3>
+                <p><div style="width: 70%; min-width: 300px; border: solid 0px rgb(174, 174, 174)">
+                <img src="../../images/IMF_representations.png" width="100%" alt="Summary of the shapes and colors that represent the different molecules and forces between them." /></div>
+                </p>
+
+                <h3>Fall 1: große unpolare Moleküle</h3>
+                <video id="nonpolarLarge" width="50%" controls>
+                    <source src="../../images/sol_bigNonpolar.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p style="margin-bottom: 0"><toggle class="showHide" id="showHideV1E">Erklärung einblenden</toggle></p>
+                <p id="hintV1E" style="display:none; margin-top:0; margin-bottom:0">Hier sind die große Moleküle der in Wasser eingelegten Substanz stark miteinander durch London-Kräfte angezogen. Eine mögliche schwache Anziehung durch die Wassermoleküle reicht nicht aus, um diese intermolekularen Kräfte zu unterbrechen, weshalb die Substanz nicht aufgelöst wird.</p>	
+                <p></p>
+                <h3>Fall 2: kleine unpolare Moleküle</h3>
+                <video id="nonpolarSmall" width="50%" controls>
+                    <source src="../../images/sol_smallNonpolar.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p style="margin-bottom: 0"><toggle class="showHide" id="showHideV2E">Erklärung einblenden</toggle></p>
+                <p id="hintV2E" style="display:none; margin-top:0; margin-bottom:0">Hier gibt es zwischen den unpolaren Molekülen auch London-Kräfte, die dennoch wegen der kleineren Größe der Moleküle schwächer sind. Aufgrund der permanenten Dipol-induzierten Dipol-Anziehungskräfte zwischen den Wassermolekülen und den unpolaren Molekülen können die Wassermoleküle schließlich in die Substanz eindringen und sie auflösen.</p>	
+                <p></p>
+                <h3>Fall 3: kleine polare Moleküle</h3>
+                <video id="polarSmall" width="50%" controls>
+                    <source src="../../images/solub_polar.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p style="margin-bottom: 0"><toggle class="showHide" id="showHideV3E">Erklärung einblenden</toggle></p>
+                <p id="hintV3E" style="display:none; margin-top:0; margin-bottom:0">In dieser Situation ermöglicht die Dipol-Dipol-Anziehung zwischen den polaren Molekülen und den Wassermolekülen (die stärkste der van-der-Waals-Kräfte), dass die polare Substanz weitgehend aufgelöst wird.</p>
             </div>
         </div>
         
@@ -120,7 +133,7 @@ TODO: fontsize check
                             </div>
                         </a>
                     </article>
-                    <article class="styleSimActive">
+                    <article class="styleSim">
                         <span class="image">
                             <img src="../../images/pic02.jpg" alt="" />
                         </span>
@@ -164,7 +177,7 @@ TODO: fontsize check
                             </div>
                         </a>
                     </article>
-                    <article class="styleSim">
+                    <article class="styleSimActive">
                         <span class="image">
                             <img src="../../images/pic02.jpg" alt="" />
                         </span>
@@ -187,7 +200,7 @@ TODO: fontsize check
 		</footer>
     </div>
 
-    <!-- Scripts -->
+<!-- Scripts -->
     <script src="../../assets/js/jquery.min.js"></script>
     <script src="../../assets/js/browser.min.js"></script>
     <script src="../../assets/js/breakpoints.min.js"></script>
@@ -195,7 +208,6 @@ TODO: fontsize check
     <script src="../../assets/js/main.js"></script>
     <script src="../../assets/js/Three49custom.js"></script>
     <script src="https://d3js.org/d3.v4.js"></script>
-    <script src="../../assets/js/approachH2.js"></script>
     <script>
         // Setting up hint toggles
         var letters = ["Lewis", "A", "B", "C"]
@@ -211,7 +223,21 @@ TODO: fontsize check
                 }
             }
         })
+
+        var explanations = ["V1E", "V2E", "V3E"]
+        explanations.forEach( function(x){
+            document.getElementById("showHide"+x).onclick = function(){
+                hint = document.getElementById("hint"+x)
+                if (hint.style.display=="none"){
+                    this.innerHTML = "Erklärung ausblenden"
+                    hint.style.display="block"
+                } else {
+                    this.innerHTML = "Erklärung einblenden"
+                    hint.style.display="none"
+                }
+            }
+        })
     </script>
-</body>
+    </body>
 </body>
 </html>
