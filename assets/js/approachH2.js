@@ -55,9 +55,9 @@ svg.append("text")
     .style("text-anchor", "middle")
 
 // Potential Energy Graph screen
-var graphLeft = margin.left+width*0.12
+var graphLeft = margin.left+width*0.08
 var graphWidth = width*0.5-dividerHalfWidth*4
-var graphTop = margin.top + height*0.55 + dividerHalfWidth
+var graphTop = margin.top + height*0.5 + dividerHalfWidth
 var graphHeight = height*0.38-dividerHalfWidth-margin.bottom
 
 var screenPEG = svg.append("g").attr("id", "screenPEG")
@@ -82,7 +82,7 @@ var xAxisPEG = screenPEG.append("g")
     .attr("color", "#585858")
 screenPEG.append("text").text("Abstand (Å)")
     .attr("x", graphLeft+graphWidth/2)
-    .attr("y", height)
+    .attr("y", graphTop+graphHeight+graphLeft/2)
     .attr("text-anchor", "middle")
     .attr("alignment-baseline", "ideographic")
     .style("font-size", "0.7em")
