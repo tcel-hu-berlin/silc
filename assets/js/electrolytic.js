@@ -36,9 +36,7 @@ posR = 0.60*width,
 beakerBottom = 0.6*height,
 circuitHeight = 0.15*height,
 voltageReaderHeight = 0.03*width
-bridgeTop = 0.05*height,
-bridgeDiameter = 0.025*height,
-beakerWidth = 0.15*width,
+beakerWidth = 0.15*width*2.3,
 beakerHeight = 0.2*height,
 beakerCurve = 0.01*width,
 tubeCurve = 0.08*beakerWidth,
@@ -66,38 +64,21 @@ contentPath.moveTo(beakerWidth,beakerHeight-fillHeight)
 contentPath.lineTo(0,beakerHeight-fillHeight)
 
 stripPath = d3.path()
-stripPath.moveTo(0.42*beakerWidth, -0.1*beakerHeight)
-stripPath.lineTo(0.42*beakerWidth, 0.65*beakerHeight)
-stripPath.lineTo(0.58*beakerWidth, 0.65*beakerHeight)
-stripPath.lineTo(0.58*beakerWidth, -0.1*beakerHeight)
+stripPath.moveTo(0.47*beakerWidth, -0.1*beakerHeight)
+stripPath.lineTo(0.47*beakerWidth, 0.65*beakerHeight)
+stripPath.lineTo(0.53*beakerWidth, 0.65*beakerHeight)
+stripPath.lineTo(0.53*beakerWidth, -0.1*beakerHeight)
 stripPath.closePath()
 
-tubePath = d3.path()
-tubePath.moveTo(0.42*beakerWidth, -0.1*beakerHeight)
-tubePath.lineTo(0.42*beakerWidth, 0.47*beakerHeight)
-tubePath.moveTo(0.58*beakerWidth, 0.47*beakerHeight)
-tubePath.lineTo(0.58*beakerWidth, 0)
-tubePath.lineTo(0.65*beakerWidth, 0)
-tubePath.moveTo(0.65*beakerWidth, -0.06*beakerHeight)
-tubePath.lineTo(0.58*beakerWidth, -0.06*beakerHeight)
-tubePath.lineTo(0.58*beakerWidth, -0.1*beakerHeight)
-tubePath.arcTo(0.58*beakerWidth, -0.1*beakerHeight-tubeCurve, 0, -0.1*beakerHeight-tubeCurve, tubeCurve)
-tubePath.arcTo(0.42*beakerWidth, -0.1*beakerHeight-tubeCurve, 0.42*beakerWidth, -0.1*beakerHeight, tubeCurve)
-// tubePath.moveTo(0.46*beakerWidth, 0.56*beakerHeight)
-// tubePath.lineTo(0.45*beakerWidth, 0.64*beakerHeight)
-// tubePath.lineTo(0.55*beakerWidth, 0.64*beakerHeight)
-// tubePath.lineTo(0.54*beakerWidth, 0.56*beakerHeight)
-// tubePath.closePath()
-
 wirePath = d3.path()
-wirePath.moveTo(0.49*beakerWidth, -0.08*beakerHeight)
-wirePath.lineTo(0.49*beakerWidth, 0.5*beakerHeight)
-wirePath.lineTo(0.45*beakerWidth, 0.5*beakerHeight)
-wirePath.lineTo(0.45*beakerWidth, 0.649*beakerHeight)
-wirePath.lineTo(0.55*beakerWidth, 0.649*beakerHeight)
-wirePath.lineTo(0.55*beakerWidth, 0.5*beakerHeight)
-wirePath.lineTo(0.51*beakerWidth, 0.5*beakerHeight)
-wirePath.lineTo(0.51*beakerWidth, -0.08*beakerHeight)
+wirePath.moveTo(0.495*beakerWidth, -0.08*beakerHeight)
+wirePath.lineTo(0.495*beakerWidth, 0.5*beakerHeight)
+wirePath.lineTo(0.48*beakerWidth, 0.5*beakerHeight)
+wirePath.lineTo(0.48*beakerWidth, 0.649*beakerHeight)
+wirePath.lineTo(0.52*beakerWidth, 0.649*beakerHeight)
+wirePath.lineTo(0.52*beakerWidth, 0.5*beakerHeight)
+wirePath.lineTo(0.505*beakerWidth, 0.5*beakerHeight)
+wirePath.lineTo(0.505*beakerWidth, -0.08*beakerHeight)
 wirePath.closePath()
 wirePath.moveTo(0.49*beakerWidth, 0.5*beakerHeight)
 wirePath.lineTo(0.51*beakerWidth, 0.5*beakerHeight)
@@ -110,25 +91,6 @@ circuitPath.moveTo(0.525*width, beakerBottom-beakerHeight-circuitHeight)
 circuitPath.lineTo(posR, beakerBottom-beakerHeight-circuitHeight)
 circuitPath.lineTo(posR, beakerBottom-beakerHeight)
 
-bridgePath = d3.path()
-bridgePath.moveTo(posL+0.20*beakerWidth, beakerBottom-0.5*beakerHeight)
-bridgePath.arcTo(posL+0.20*beakerWidth, beakerBottom-beakerHeight-bridgeTop, posL+0.5*beakerWidth, beakerBottom-beakerHeight-bridgeTop, beakerCurve)
-bridgePath.arcTo(posR-0.20*beakerWidth, beakerBottom-beakerHeight-bridgeTop, posR-0.2*beakerWidth, beakerBottom-beakerHeight, beakerCurve)
-bridgePath.lineTo(posR-0.20*beakerWidth, beakerBottom-0.5*beakerHeight)
-bridgePath.moveTo(posR-0.20*beakerWidth-bridgeDiameter, beakerBottom-0.5*beakerHeight)
-bridgePath.arcTo(posR-0.20*beakerWidth-bridgeDiameter, beakerBottom-beakerHeight-bridgeTop+bridgeDiameter, posR-0.5*beakerWidth, beakerBottom-beakerHeight-bridgeTop+bridgeDiameter, beakerCurve/bridgeDiameter*2)
-bridgePath.arcTo(posL+0.20*beakerWidth+bridgeDiameter, beakerBottom-beakerHeight-bridgeTop+bridgeDiameter, posL+0.2*beakerWidth+bridgeDiameter, beakerBottom-beakerHeight, beakerCurve/bridgeDiameter*2)
-bridgePath.lineTo(posL+0.2*beakerWidth+bridgeDiameter, beakerBottom-0.5*beakerHeight)
-
-bridgeContentsPath = d3.path()
-bridgeContentsPath.moveTo(posL+0.20*beakerWidth, beakerBottom-0.65*beakerHeight)
-bridgeContentsPath.arcTo(posL+0.20*beakerWidth, beakerBottom-beakerHeight-bridgeTop, posL+0.5*beakerWidth, beakerBottom-beakerHeight-bridgeTop, beakerCurve)
-bridgeContentsPath.arcTo(posR-0.20*beakerWidth, beakerBottom-beakerHeight-bridgeTop, posR-0.2*beakerWidth, beakerBottom-beakerHeight, beakerCurve)
-bridgeContentsPath.lineTo(posR-0.20*beakerWidth, beakerBottom-0.65*beakerHeight)
-bridgeContentsPath.moveTo(posR-0.20*beakerWidth-bridgeDiameter, beakerBottom-0.65*beakerHeight)
-bridgeContentsPath.arcTo(posR-0.20*beakerWidth-bridgeDiameter, beakerBottom-beakerHeight-bridgeTop+bridgeDiameter, posR-0.5*beakerWidth, beakerBottom-beakerHeight-bridgeTop+bridgeDiameter, beakerCurve/bridgeDiameter*2)
-bridgeContentsPath.arcTo(posL+0.20*beakerWidth+bridgeDiameter, beakerBottom-beakerHeight-bridgeTop+bridgeDiameter, posL+0.2*beakerWidth+bridgeDiameter, beakerBottom-beakerHeight, beakerCurve/bridgeDiameter*2)
-bridgeContentsPath.lineTo(posL+0.2*beakerWidth+bridgeDiameter, beakerBottom-0.65*beakerHeight)
 
 // magnifying functions
 var showMagnL = function(){
@@ -172,30 +134,6 @@ var showMagnR = function(){
             let file = rightSide["video_oxi"]
             videoScreen.src = "../../images/" + file
             videoScreen.playbackRate = 1.1
-        }
-        videoDiv.style.visibility = "visible"
-        videoScreen.style.display = "inline-block"
-        noReaction.style.display = "none"
-    }
-}
-
-var showMagnBr = function(){
-    d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
-    d3.select("#magnBr").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
-    if (Math.abs(+voltageReading) < 0.005){
-        videoScreen.src = ""
-        videoDiv.style.visibility = "visible"
-        noReaction.style.display = "block"
-        videoScreen.style.display = "none"
-    } else {
-        if (+voltageReading > 0){
-            let file = "salt_bridge_Kright.mp4"
-            videoScreen.src = "../../images/" + file
-            videoScreen.playbackRate = 0.7
-        } else {
-            let file = "salt_bridge_Kleft.mp4"
-            videoScreen.src = "../../images/" + file
-            videoScreen.playbackRate = 0.7
         }
         videoDiv.style.visibility = "visible"
         videoScreen.style.display = "inline-block"
@@ -276,24 +214,13 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
     svg.append("g").attr("id", "circuit")
     d3.select("#circuit").append("rect")
         .attr("id", "voltmeter")
-        .attr("x", 0.45*width).attr("y", beakerBottom-beakerHeight-circuitHeight-voltageReaderHeight*1.8)
-        .attr("width", 0.1*width).attr("height", voltageReaderHeight*2.25)
-        .style("fill", "rgb(255, 200,100)")
+        .attr("x", 0.42*width).attr("y", beakerBottom-beakerHeight-circuitHeight-voltageReaderHeight*4.5)
+        .attr("width", 0.16*width).attr("height", voltageReaderHeight*4.8)
+        .style("fill", "rgb(230, 230, 230)")
         .style("stroke", "black").style("stroke-width", "0.1em")
     d3.select("#circuit").append("path")
         .attr("id", "circuitWire")
         .attr("d", circuitPath)
-        .style("stroke", beakerColor).style('stroke-width', "0.1em")
-        .style("fill", "none")
-    svg.append("g").attr("id", "saltbridge")
-    d3.select("#circuit").append("path")
-        .attr("id", "saltbridgeContent")
-        .attr("d", bridgeContentsPath)
-        .style("stroke", beakerColor).style('stroke-width', "0.1em")
-        .style("fill", "rgb(237, 217,217)")
-    d3.select("#circuit").append("path")
-        .attr("id", "saltbridgeFrame")
-        .attr("d", bridgePath)
         .style("stroke", beakerColor).style('stroke-width', "0.1em")
         .style("fill", "none")
     d3.select("#circuit").append("rect")
@@ -329,14 +256,16 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
 
 
     svg.append("g").attr("id", "LS")
-        .attr("transform", "translate("+ (posL-beakerWidth/2)+ ","+(beakerBottom-beakerHeight)+ ")")
+        .attr("transform", "translate("+ (width/2-beakerWidth/2)+ ","+(beakerBottom-beakerHeight)+ ")")
     d3.select("#LS").append("path")
         .attr("id", "wireL")
+        .attr("transform", "translate(-"+ (width/2-posL)+ ",0)")
         .attr("d", wirePath)
         .style("stroke", beakerColor).style('stroke-width', "0.03em")
         .style("fill", electrodeLcolor)
     d3.select("#LS").append("path")
         .attr("id", "stripElectrodeL")
+        .attr("transform", "translate(-"+ (width/2-posL)+ ",0)")
         .attr("d", stripPath)
         .style("opacity", 1)
         .style("fill", electrodeLcolor)
@@ -346,14 +275,7 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .attr("id", "solutionL")
         .attr("d", contentPath)
         .style("fill", solutionLcolor)
-        .style("stroke", "black").style("stroke-width", "0.02em")
-    d3.select("#LS").append("path")
-        .attr("transform", "scale(-1,1), translate(-"+ (beakerWidth)+ ",0)")
-        .attr("id", "tubeL")
-        .attr("d", tubePath)
-        .style("stroke", beakerColor).style('stroke-width', "0.1em")
-        .style("fill", "none")
-        .style("visibility", tubeL)  
+        .style("stroke", "black").style("stroke-width", "0.02em") 
     d3.select("#LS").append("path")
         .attr("id", "beakerL")
         .attr("d", beakerPath)
@@ -373,23 +295,7 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .style("opacity", 1)
         .style("fill", electrodeRcolor)
         .style("stroke", "black").style("stroke-width", "0.02em")
-        .style("visibility", stripR)  
-    d3.select("#RS").append("path")
-        .attr("id", "solutionR")
-        .attr("d", contentPath)
-        .style("fill", solutionRcolor)
-        .style("stroke", "black").style("stroke-width", "0.02em")
-    d3.select("#RS").append("path")
-        .attr("id", "tubeR")
-        .attr("d", tubePath)
-        .style("stroke", beakerColor).style('stroke-width', "0.1em")
-        .style("fill", "none")
-        .style("visibility", tubeR)  
-    d3.select("#RS").append("path")
-        .attr("id", "beakerR")
-        .attr("d", beakerPath)
-        .style("stroke", beakerColor).style('stroke-width', "0.1em")
-        .style("fill", "none")
+        .style("visibility", stripR) 
 
     svg.append("g").attr("id", "magnPoints")
     d3.select("#magnPoints").append('image')
@@ -408,14 +314,6 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .attr('width', magnWidth)
         .attr('height', magnWidth)
         .on("click", showMagnR)
-    d3.select("#magnPoints").append('image')
-        .attr("id", "magnBr")
-        .attr("class", "magn")
-        .attr('xlink:href', '../../images/magnGlass.svg')
-        .attr("x", 0.5*width-magnWidth/2).attr("y", 0.35*height)
-        .attr('width', magnWidth)
-        .attr('height', magnWidth)
-        .on("click", showMagnBr)
     d3.select("#magnPoints").append('image')
         .attr("id", "magnCircL")
         .attr("class", "magn")

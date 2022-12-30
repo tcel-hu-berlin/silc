@@ -9,6 +9,23 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="../../assets/css/main.css" />
+    <!-- <style>
+        #macroVideo {
+        zoom: calc(75%/560px);
+        -moz-transform: scale(calc(75%/560px));
+        -moz-transform-origin: 0 0;
+        -o-transform: scale(calc(75%/560px));
+        -o-transform-origin: 0 0;
+        -webkit-transform: scale(calc(75%/560px));
+        -webkit-transform-origin: 0 0;
+      }
+      @media screen and (-webkit-min-device-pixel-ratio:0) {
+        #macroVideo {
+          zoom: 1;
+        }
+      }
+
+    </style> -->
     <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
     <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
     </head>
@@ -82,8 +99,9 @@
                 <a href="index.html"><h1>Submikroskopische Einblicke in elektrochemische Zellen</h1></a>
 				<h2>Animation A: Beschichtung mit Silber</h2>
                 <p>Text</p>
-                <iframe src="https://video.tu-freiberg.de/media/embed?key=6e32e92a0e830608a047b98532cf63e0&width=560&height=315&autoplay=false&controls=true&autolightsoff=false&loop=false&chapters=false&playlist=false&related=false&responsive=false&t=0" 
-                data-src="" class="iframeLoaded" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" aria-label="media embed code"></iframe>
+                <div style="width:75%; max-width:700px; aspect-ratio: calc(560/315); border: solid 2px; overflow: hidden">
+                    <iframe src="https://video.tu-freiberg.de/media/embed?key=6e32e92a0e830608a047b98532cf63e0&autoplay=true&controls=true&autolightsoff=false&loop=false&chapters=false&playlist=false&related=false&responsive=false&t=9&muted=1 data-src="" class="iframeLoaded" width="100%" height="100%" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" aria-label="media embed code" id="macroVideo" style="visibility:visible"></iframe>
+                </div>
                 <p>Text</p>
                 <img src="../../images/animCuAg_key.png" style="width: 30%; min-width:200px"
                     alt = "Verzeichnis der Repräsentationen in der Simulation">
@@ -150,6 +168,11 @@
     <script src="../../assets/js/Three49custom.js"></script>
     <script src="https://d3js.org/d3.v4.js"></script>
     <script>
+        let macroVideo = document.getElementById("macroVideo")
+        macroVideo.onload = function(){
+            a = this.contentWindow.document.getElementById("videojsPlayer_html5_api")
+            console.log(a)
+        }
         // Setting up hint toggles
         var letters = ["Lewis", "A", "B", "C"]
         letters.forEach( function(x){
