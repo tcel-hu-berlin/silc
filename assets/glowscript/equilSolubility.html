@@ -67,7 +67,7 @@ async function __main__() {
     fontloading();
     await waitforfonts();
 
-    var version, print, arange, __name__, type, ρσ_ls, win, side, pairsCap, AC_cap, A_tot, B_tot, C_tot, P0_in, P_in, A_rad, B_rad, C_rad, H_rad, H_clr, pairDist, A_clr, B_clr, C_clr, particle_speed, time_limit, t_rand, real_time, dt, running, durSleep, pNucleate, num_clusters, Ksp, sol, partscreen, solution, PA, PB, nA, nB, nP, Cgraph, fA, fB, leg_1, leg_2, lessSolidButton, mmolSolidPresent, moreSolidButton, lessCIButton, mmolCIPresent, moreCIButton, resetButton, pauseText, replayText, pauseBgnd, dummy, A_list, B_list, C_list, P_list, latticeSpots, solid, ion_pos, vel, visible, theta, gA, i, gB, H1_theta, H1_pos, H2_theta, H2_pos, H3_theta, H3_pos, turndir, gC, nucZone, A_search, B_search, t, t_i, Q, pPrecipitate, pDissolve, g, beta, x1, y1, hitlist, ρσ_unpack, point, dir, bb, gx, gy, center, newtheta, H;
+    var version, print, arange, __name__, type, ρσ_ls, win, side, pairsCap, AC_cap, A_tot, B_tot, C_tot, P0_in, P_in, A_rad, B_rad, C_rad, H_rad, H_clr, pairDist, A_clr, B_clr, C_clr, particle_speed, time_limit, t_rand, real_time, dt, running, durSleep, pNucleate, num_clusters, Ksp, sol, partscreen, solution, PA, PB, nA, nB, nP, Cgraph, fA, fB, leg_1, leg_2, lessSolidButton, mmolSolidPresent, moreSolidButton, lessCIButton, mmolCIPresent, moreCIButton, blank, resetButton, pauseText, replayText, pauseBgnd, dummy, A_list, B_list, C_list, P_list, latticeSpots, solid, ion_pos, vel, visible, theta, gA, i, gB, H1_theta, H1_pos, H2_theta, H2_pos, H3_theta, H3_pos, turndir, gC, nucZone, A_search, B_search, t, t_i, Q, pPrecipitate, pDissolve, g, beta, x1, y1, hitlist, ρσ_unpack, point, dir, bb, gx, gy, center, newtheta, H;
     version = ρσ_list_decorate([ "3.2", "glowscript" ]);
     Array.prototype['+'] = function(r) {return this.concat(r)}
     Array.prototype['*'] = function(r) {return __array_times_number(this, r)}
@@ -159,31 +159,32 @@ async function __main__() {
     "57";
     fB = ρσ_interpolate_kwargs.call(this, gcurve, [ρσ_desugar_kwargs({graph: Cgraph, color: B_clr, interval: 10, width: 3, label: "[Cl<sup>-</sup>]"})]);
     "58";
-    // leg_1 = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "Ag<sup>+<\/sup> (silver)", pos: Cgraph.title_anchor})]);
+    // leg_1 = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "Ag<sup>+<\/sup> (silver)", pos: Cgraph.partscreen.title_anchor})]);
     "59";
-    // leg_2 = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "  Cl<sup>-</sup> (green)", pos: Cgraph.title_anchor})]);
+    // leg_2 = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "  Cl<sup>-</sup> (green)", pos: Cgraph.partscreen.title_anchor})]);
     "60";
     fA.plot(0, nA);
     "61";
     fB.plot(0, nB);
     "64";
-    ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({pos: print_anchor, text: "Volumen der Lösung: 1.00 L \n"})]);
+    ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({pos: partscreen.title_anchor, text: "Volumen der Lösung: 1.00 L \n"})]);
     "65";
-    ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({pos: print_anchor, text: "Ausgangsmenge an festem AgCl: \n"})]);
+    ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({pos: partscreen.title_anchor, text: "Ausgangsmenge an festem AgCl: \n"})]);
     "66";
-    lessSolidButton = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({pos: print_anchor, text: "<", bind: lessMmolSolid})]);
+    lessSolidButton = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({pos: partscreen.title_anchor, text: "<", bind: lessMmolSolid})]);
     "67";
-    mmolSolidPresent = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: " {:0.1f} μmol AgCl ".format(P_in["/"](2)), pos: print_anchor})]);
+    mmolSolidPresent = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: " {:0.1f} μmol AgCl ".format(P_in["/"](2)), pos: partscreen.title_anchor})]);
     "68";
-    moreSolidButton = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({pos: print_anchor, text: ">", bind: moreMmolSolid})]);
+    moreSolidButton = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({pos: partscreen.title_anchor, text: ">", bind: moreMmolSolid})]);
     "69";
-    ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({pos: print_anchor, text: "\n\n Ausgangsmenge an aufgelöstes AgNO<sub>3</sub>: \n"})]);
+    ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({pos: partscreen.title_anchor, text: "\n Ausgangsmenge an aufgelöstes AgNO<sub>3</sub>: \n"})]);
     "70";
-    lessCIButton = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({pos: print_anchor, text: "<", bind: lessMmolCI})]);
+    lessCIButton = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({pos: partscreen.title_anchor, text: "<", bind: lessMmolCI})]);
     "71";
-    mmolCIPresent = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: " {:0.1f} μmol AgNO<sub>3</sub> ".format(C_tot), pos: print_anchor})]);
+    mmolCIPresent = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: " {:0.1f} μmol AgNO<sub>3</sub> ".format(C_tot), pos: partscreen.title_anchor})]);
     "72";
-    moreCIButton = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({pos: print_anchor, text: ">", bind: moreMmolCI})]);
+    moreCIButton = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({pos: partscreen.title_anchor, text: ">", bind: moreMmolCI})]);
+    blank = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({pos: partscreen.title_anchor, text: "\n "})]);
     "73";
     "74";
     resetButton = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({text: "Zurücksetzen", bind: Reset, pos:Cgraph.title_anchor})]);
