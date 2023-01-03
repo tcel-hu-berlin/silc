@@ -1,7 +1,0 @@
-// svg.append("g").attr("id", "molecularRep")
-// d3.select("#molecularRep").append("div")
-//         .attr("id", "molRep")
-//         .style("position", "relative")
-//         .style("left", 0.38*width).style("top", 0.72*height)
-//         .style("width", 0.24*width).style("height", 0.18*width)
-//         .style("background-color", "rgb(255, 200,100)")

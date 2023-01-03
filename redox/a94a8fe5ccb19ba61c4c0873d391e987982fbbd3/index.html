@@ -45,8 +45,9 @@
 				<div class="inner" id="helpHints">
 					<h2>Hilfreiche Informationen</h2>
                     <h3><i class="far fa-lightbulb"></i> &nbsp Fakultative Hinweise </i></h3>
-                    <p style="margin-bottom:0"><strong>Frage 1a-b</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
-                    <p id="hintA" style="display:none">Die mathematische Beziehung wird vielleicht deutlicher, wenn Sie die 1s-Orbitale vollständig überlappen lassen. </p>
+                    <p style="margin-bottom:0"><strong>Frage 1a-b</strong><span style="float:right"><toggle class="showHide" id="showHideES">Einblenden</toggle></span></p>
+                    <div id="hintES" style="display:none">
+                    <iframe style="width: 100%; aspect-ratio: 1.4" src="../../assets/echem/eChemSeries.html"></iframe></div>
 			</div>
         </nav>
 
@@ -128,7 +129,7 @@
     <script src="https://d3js.org/d3.v4.js"></script>
     <script>
         // Setting up hint toggles
-        var letters = ["A"]
+        var letters = ["ES"]
         letters.forEach( function(x){
             document.getElementById("showHide"+x).onclick = function(){
                 hint = document.getElementById("hint"+x)

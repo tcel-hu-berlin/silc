@@ -12,35 +12,60 @@
             filter: hue-rotate(120deg)
         }
 
+        @font-face{
+        font-family:'digital-clock-font';
+        src: url('../../assets/webfonts/digital-7.mono.ttf');
+}
+        .digitalScreen {
+            border: solid rgb(66, 77, 66)  2px;
+            background: rgb(196, 216, 196);
+            border-radius: 5px;
+            font-size:2em;
+            font-family: "digital-clock-font";
+            padding: 0.1em 0.6em;
+            margin-left: 0.3em;
+            margin-right: 0.3em;
+        }
+
+        .bigText {
+            font-size: 1.5em
+        }
 
     </style>
     <script src="https://d3js.org/d3.v4.js"></script>
     <title>Electrolytic Cell Simulation</title>
 </head>
 <body>
-    <div id="galvanic" style="position:absolute; top:0; left:0; border:0 solid #ff7b00; width:100%; aspect-ratio:1.2">
-        <div style="position:absolute; left:15%; top:25%; width:20%; display:inline-table">
-            <p style="margin-bottom:0"><b>Anode: Redox-Paar</b></p>
+    <div id="electrolytic" style="position:absolute; top:0; left:0; border:0 solid #ff7b00; width:100%; aspect-ratio:1.2">
+        <div style="position:absolute; left:15%; top:30%; width:20%; display:inline-table; text-align: right">
+            <p style="margin-bottom:0"><b>Cathode:</b></p>
             <select id="pairSelectorL" onchange="changePairL()" disabled>
-                <option value=0 selected>Cu&#178;&#8314; / Cu</option>
-                <option value=1>H&#8314; / H&#8322; </option>
+                <option value=0>Cu&#178;&#8314; / Cu</option>
+                <option value=1 selected>H&#8314; / H&#8322; </option>
                 <option value=2>Ag&#8314;/Ag</option>
                 <option value=3>Zn&#178;&#8314;/Zn</option>
             </select>
         </div>
-        <div style="position:absolute; left:65%; top:25%; width:20%; display:inline-table">
-            <p style="margin-bottom:0"><b>(+)-Seite: Redox-Paar</b></p>
+        <div style="position:absolute; left:65%; top:11%; height: 8%; width:25%; text-align:center; vertical-align:middle">
+            <span class="bigText">Zeit:</span>
+            <span class="digitalScreen" id="timerScreen"><span id="minutesInd">00</span>.<span id="secondsInd">00</span></span>
+            <span class="bigText">Min.</span>
+        </div>
+        <div style="position:absolute; left:65%; top:20%; width:25%; display:inline-table; text-align:center">
+            <button id="startButton" style="background: #5469b7; color: white">Start</button><span>&nbsp &nbsp &nbsp</span>
+            <button id="stopButton" style="background: #5469b7; color: white" disabled>Stop</button>
+        </div>
+        <div style="position:absolute; left:65%; top:30%; width:20%; display:inline-table">
+            <p style="margin-bottom:0"><b>Anode:</b></p>
             <select id="pairSelectorR" onchange="changePairR()" disabled>
                 <option value=0>Cu&#178;&#8314; / Cu</option>
-                <option value=1>H+/H&#8322;</option>
+                <option value=1  selected>H+/H&#8322;</option>
                 <option value=2>Ag&#8314;/Ag</option>
-                <option value=3 selected>Zn&#178;&#8314;/Zn</option>
+                <option value=3>Zn&#178;&#8314;/Zn</option>
             </select>
         </div>
-        <div id="lineNotation" style="position:absolute; left:0%; top:62%; width:100%; display:inline-table; text-align:center; visibility:hidden">
-            <p style="font-size:1.4em"><span id="outL"></span>|<span id="midL">|</span><span id="innL"></span>||
-                <span id="innR">
-                </span>|<span id="midR"> |</span><span id="outR"></span></p>
+        <div id="solutionDesc" style="position:absolute; left:0%; top:62%; width:100%; display:inline-table; text-align:center">
+            <p><b>Elektrolytlösung:</b> H<sub>2</sub>SO<sub>4</sub>, 1 M</p>
         </div>
         <div id="molRep" style="position:absolute; left:0%; top:70%; width:100%; text-align:center; visibility: hidden">
             <p id="noReaction" style="color: red; font-weight: 600; display:none">Keine Netto-Redoxreaktion findet momentan statt.</p>
