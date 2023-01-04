@@ -1,21 +1,9 @@
 
+// Background
 var margin = {top: 0, right: 0, bottom: 0, left: 0}
 var graphDiv = document.getElementById("electrolytic")
-
 var width = graphDiv.clientWidth - margin.left - margin.right
 var height = graphDiv.clientHeight - margin.top - margin.bottom
-
-var videoDiv = document.getElementById("molRep")
-var videoScreen = document.getElementById("molRepVideo")
-var noReaction = document.getElementById("noReaction")
-var minutesInd = document.getElementById("minutesInd")
-var secondsInd = document.getElementById("secondsInd")
-
-var startButton = d3.select("#startButton")
-var stopButton = d3.select("#stopButton")
-
-var secondsPassed = 0
-
 // append the svg object to the body of the page
 var svg = d3.select("#electrolytic")
     .append("svg")
@@ -28,6 +16,29 @@ svg.append("rect")
     .attr("height", height)
     .style("fill", "white")
     .style("stroke", "blue")
+
+// document element selections
+var videoDiv = document.getElementById("molRep")
+var videoScreen = document.getElementById("molRepVideo")
+var noReaction = document.getElementById("noReaction")
+var minutesInd = document.getElementById("minutesInd")
+var secondsInd = document.getElementById("secondsInd")
+var voltInd = document.getElementById("voltInd")
+var ampInd = document.getElementById("ampInd")
+
+// d3.js element selections
+var startButton = d3.select("#startButton")
+var stopButton = d3.select("#stopButton")
+var resetTimeButton = d3.select("#resetTimeButton")
+var upV = d3.select("#upV"), downV = d3.select("#downV"), upA = d3.select("#upA"), downA = d3.select("#downA")
+
+// variables that are changed throughout simulation
+var voltage = +voltInd.innerHTML
+var current = +ampInd.innerHTML
+console.log({voltage}, {current})
+var timer
+var secondsPassed = 0
+var minV = -2, maxV = 2, minA = 0.5, maxA=5
 
 // Paths
 var posL = 0.40*width,
@@ -83,7 +94,7 @@ wirePath.moveTo(0.49*beakerWidth, 0.5*beakerHeight)
 wirePath.lineTo(0.51*beakerWidth, 0.5*beakerHeight)
 
 voltageReaderHeight = 0.03*width
-voltmeterTop = 0.05*height; voltmeterLeft = 0.05*width; voltmeterWidth = 0.24*width; voltmeterHeight = 0.8 * voltmeterWidth
+voltmeterTop = 0.025*height; voltmeterLeft = 0.025*width; voltmeterWidth = 0.28*width; voltmeterHeight = 0.22*width
 redHeight = voltmeterTop+0.43*voltmeterHeight; blueHeight = voltmeterTop+0.57*voltmeterHeight; 
 
 circuitPath = d3.path()
@@ -93,6 +104,7 @@ circuitPath.lineTo(voltmeterLeft+voltmeterWidth, blueHeight)
 circuitPath.moveTo(voltmeterLeft+voltmeterWidth, redHeight)
 circuitPath.lineTo(posR, redHeight)
 circuitPath.lineTo(posR, beakerBottom-beakerHeight)
+
 
 // magnifying functions
 var showMagnL = function(){
@@ -191,6 +203,44 @@ var showMagnCircR = function(){
     }
 }
 
+// Button functions
+var raiseV = function(){
+    downV.attr("disabled", null)
+    voltage += 0.05
+    let sign = "+"
+    if (voltage<0){sign="-"}
+    voltInd.innerHTML = sign+Math.abs(voltage).toFixed(3)
+    if (voltage >= maxV){
+        upV.attr("disabled", true)
+    }
+}
+var dropV = function(){
+    upV.attr("disabled", null)
+    voltage -= 0.05
+    let sign = "+"
+    if (voltage<0){sign="-"}
+    voltInd.innerHTML = sign+Math.abs(voltage).toFixed(3)
+    if (voltage <= minV){
+        downV.attr("disabled", true)
+    }
+}
+var raiseA = function(){
+    downA.attr("disabled", null)
+    current += 0.5
+    ampInd.innerHTML = current.toFixed(3)
+    if (current >= maxA){
+        upA.attr("disabled", true)
+    }
+}
+var dropA = function(){
+    upA.attr("disabled", null)
+    current -= 0.5
+    ampInd.innerHTML = current.toFixed(3)
+    if (current <= minA){
+        downA.attr("disabled", true)
+    }
+}
+
 var closeSwitch = function(){
     d3.select("#switchImg").attr("xlink:href", "../../images/switchClosedVert.png")
     d3.select("#switchImg").attr("status","closed")
@@ -207,15 +257,18 @@ var toggleSwitch = function(){
     if (st == "open"){closeSwitch()} else {openSwitch()}
 }
 
-var advanceTimerOnce = function(){
-    secondsPassed += 1
-    let secondsPassedStr = (secondsPassed%60).toString()
-    let minutesPassedStr = Math.trunc(secondsPassed/60).toString()
+var writeTime = function(tsec){
+    let secondsPassedStr = (tsec%60).toString()
+    let minutesPassedStr = Math.trunc(tsec/60).toString()
     secondsInd.innerHTML = String(secondsPassedStr).padStart(2, "0")
     minutesInd.innerHTML = String(minutesPassedStr).padStart(2, "0")
 }
+var advanceTimerOnce = function(){
+    secondsPassed += 1
+    writeTime(secondsPassed)
+}
 
-var timer
+
 
 // Loading Data
 var defaultL = 1, defaultR = 0
@@ -240,7 +293,7 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
     svg.append("g").attr("id", "circuit")
     d3.select("#circuit").append("rect")
         .attr("id", "voltmeter")
-        .attr("x", 0.05*width).attr("y", 0.05*height)
+        .attr("x", voltmeterLeft).attr("y", voltmeterTop)
         .attr("width", voltmeterWidth).attr("height", voltmeterHeight)
         .style("fill", "rgb(230, 230, 230)")
         .style("stroke", "black").style("stroke-width", "0.1em")
@@ -251,15 +304,25 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .style("fill", "none")
     // red and blue outputs of power supply
     d3.select("#circuit").append("circle")
-        .attr("cx", 0.05*width+0.95*voltmeterWidth).attr("cy", redHeight)
+        .attr("cx", voltmeterLeft+voltmeterWidth-0.012*width).attr("cy", redHeight)
         .attr("r", 0.005*width)
         .style("fill", "rgb(255, 0,0)")
         .style("stroke", beakerColor).style("stroke-width", "0.1em")
     d3.select("#circuit").append("circle")
-        .attr("cx", 0.05*width+0.95*voltmeterWidth).attr("cy", blueHeight)
+        .attr("cx", voltmeterLeft+voltmeterWidth-0.012*width).attr("cy", blueHeight)
         .attr("r", 0.005*width)
         .style("fill", "rgb(0,0,255)")
         .style("stroke", beakerColor).style("stroke-width", "0.1em")
+     // plus and minus signs
+     d3.select("#circuit").append("text")
+        .attr("x", voltmeterLeft+voltmeterWidth-0.027*width).attr("y", redHeight)
+        .style("text-anchor", "middle").style("alignment-baseline", "middle")
+        .text("+").style("font-weight", 600).style("fill", "black")
+    d3.select("#circuit").append("text")
+        .attr("x", voltmeterLeft+voltmeterWidth-0.027*width).attr("y", blueHeight)
+        .style("text-anchor", "middle").style("alignment-baseline", "middle")
+        .text("–").style("font-weight", 600).style("fill", "black")   
+    
     //switch
     svg.append("g").attr("id", "switch")
     var imgWidth =  0.032*width; var imgHeight = imgWidth*345/242
@@ -273,15 +336,7 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
     .attr("xlink:href", "../../images/switchOpenVert.png")
     .on("click", toggleSwitch)
 
-    // plus and minus signs
-    d3.select("#circuit").append("text")
-        .attr("x", 0.05*width+0.88*voltmeterWidth).attr("y", redHeight)
-        .style("text-anchor", "middle").style("alignment-baseline", "middle")
-        .text("+").style("font-weight", 600).style("fill", "black")
-    d3.select("#circuit").append("text")
-    .attr("x", 0.05*width+0.88*voltmeterWidth).attr("y", blueHeight)
-        .style("text-anchor", "middle").style("alignment-baseline", "middle")
-        .text("–").style("font-weight", 600).style("fill", "black")
+
 
     svg.append("g").attr("id", "LS")
         .attr("transform", "translate("+ (width/2-beakerWidth/2)+ ","+(beakerBottom-beakerHeight)+ ")")
@@ -399,6 +454,8 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
     changePairL();changePairR()
 })
 
+
+// assigning each button their function
 startButton.on("click", function(){
     stopButton.attr("disabled", null)
     startButton.attr("disabled", true)
@@ -416,4 +473,16 @@ stopButton.on("click", function(){
     startButton.attr("disabled", null)
     openSwitch()
     clearInterval(timer)
+    resetTimeButton.attr("disabled", null)
     })
+
+resetTimeButton.on("click", function(){
+    secondsPassed = 0
+    writeTime(secondsPassed)
+    resetTimeButton.attr("disabled", true)
+})
+
+upV.on("click", raiseV)
+downV.on("click", dropV)
+upA.on("click", raiseA)
+downA.on("click", dropA)

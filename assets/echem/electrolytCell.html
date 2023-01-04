@@ -25,18 +25,53 @@
             padding: 0.1em 0.6em;
             margin-left: 0.3em;
             margin-right: 0.3em;
+            text-align: right;
         }
 
         .bigText {
             font-size: 1.5em
         }
 
+        .upButton, .downButton {
+            
+            color: rgb(0, 0, 0); 
+            width:100%;
+            padding: 0;
+            font-size: 0.5em;
+            text-align: center;
+        }
+
+        .upButton {
+            background: #ffee6c
+        }
+
+        .downButton {
+            background: #ffffff; 
+        }
     </style>
     <script src="https://d3js.org/d3.v4.js"></script>
     <title>Electrolytic Cell Simulation</title>
 </head>
 <body>
     <div id="electrolytic" style="position:absolute; top:0; left:0; border:0 solid #ff7b00; width:100%; aspect-ratio:1.2">
+        <!--  voltmeter controls and screens -->
+        <div style="position:absolute; left:2.5%; top: 2.5%; height: 8%; width:18%; text-align:center; vertical-align:middle">
+            <p style="margin-bottom:0; font-weight:600; font-size: 1.2em">Spannung (V)</p>
+            <span class="digitalScreen" id="voltageScreen"><span id="voltInd">+0.500</span></span>
+        </div>
+        <div style="position:absolute; left:2.5%; top:16%; height: 8%; width:18%; text-align:center; vertical-align:middle">
+            <p style="margin-bottom:0; font-weight:600; font-size: 1.2em">Stromstärke (A)</p>
+            <span class="digitalScreen" id="voltageScreen"><span id="ampInd">+1.000</span>
+        </div>
+        <div style="position:absolute; left:20%; top:5.8%; width:3%; display:inline-table; text-align:center">
+            <button id="upV" class="upButton">&#9650;</button>
+            <button id="downV" class="downButton">&#9660;</button>
+        </div>
+        <div style="position:absolute; left:20%; top:19.3%; width:3%; display:inline-table; text-align:center">
+            <button id="upA" class="upButton">&#9650;</button>
+            <button id="downA" class="downButton">&#9660;</button>
+        </div>
+
         <div style="position:absolute; left:15%; top:30%; width:20%; display:inline-table; text-align: right">
             <p style="margin-bottom:0"><b>Cathode:</b></p>
             <select id="pairSelectorL" onchange="changePairL()" disabled>
@@ -48,12 +83,13 @@
         </div>
         <div style="position:absolute; left:65%; top:11%; height: 8%; width:25%; text-align:center; vertical-align:middle">
             <span class="bigText">Zeit:</span>
-            <span class="digitalScreen" id="timerScreen"><span id="minutesInd">00</span>.<span id="secondsInd">00</span></span>
+            <span class="digitalScreen" id="timerScreen"><span id="minutesInd">00</span>:<span id="secondsInd">00</span></span>
             <span class="bigText">Min.</span>
         </div>
-        <div style="position:absolute; left:65%; top:20%; width:25%; display:inline-table; text-align:center">
-            <button id="startButton" style="background: #5469b7; color: white">Start</button><span>&nbsp &nbsp &nbsp</span>
-            <button id="stopButton" style="background: #5469b7; color: white" disabled>Stop</button>
+        <div style="position:absolute; left:65%; top:20%; width:30%; display:inline-table; text-align:center">
+            <button id="startButton" style="background: #5469b7; color: white">Start</button><span>&nbsp; &nbsp</span>
+            <button id="stopButton" style="background: #5469b7; color: white" disabled>Stop</button><span>&nbsp; &nbsp;</span>
+            <button id="resetTimeButton" style="background: #5469b7; color: white" disabled>&#8634;</button>
         </div>
         <div style="position:absolute; left:65%; top:30%; width:20%; display:inline-table">
             <p style="margin-bottom:0"><b>Anode:</b></p>
