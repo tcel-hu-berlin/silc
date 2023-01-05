@@ -15,7 +15,7 @@ svg.append("rect")
     .attr("width", width)
     .attr("height", height)
     .style("fill", "white")
-    .style("stroke", "blue")
+    // .style("stroke", "blue")
 
 // document element selections
 var videoDiv = document.getElementById("molRep")
@@ -94,7 +94,7 @@ wirePath.moveTo(0.49*beakerWidth, 0.5*beakerHeight)
 wirePath.lineTo(0.51*beakerWidth, 0.5*beakerHeight)
 
 voltageReaderHeight = 0.03*width
-voltmeterTop = 0.025*height; voltmeterLeft = 0.025*width; voltmeterWidth = 0.28*width; voltmeterHeight = 0.22*width
+voltmeterTop = 0.025*height; voltmeterLeft = 0.025*width; voltmeterWidth = 0.28*width; voltmeterHeight = 0.25*width
 redHeight = voltmeterTop+0.43*voltmeterHeight; blueHeight = voltmeterTop+0.57*voltmeterHeight; 
 
 circuitPath = d3.path()
@@ -334,8 +334,6 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
     .attr('height', imgHeight)
     .attr('status', "open")
     .attr("xlink:href", "../../images/switchOpenVert.png")
-    .on("click", toggleSwitch)
-
 
 
     svg.append("g").attr("id", "LS")
@@ -415,7 +413,8 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .on("click", showMagnCircR)
 
     changePairL = function(){
-        let val = document.getElementById("pairSelectorL").value
+        let system = document.getElementById("systemSelector").value
+        val = redoxPairs[system]["ls"]
         leftSide = redoxPairs[val]
         solutionLcolor = leftSide["solutionColor"]
         electrodeLcolor = leftSide["electrodeColor"]
