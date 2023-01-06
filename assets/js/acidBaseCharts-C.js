@@ -33,7 +33,6 @@ var addingBaseNow=false
 var logScaleOn = true
 var max_HA = 1.000, max_A =  1.000
 var steadyThreshold = 0.0001
-
 var keys = ["HA", "A", "H3O", "OH", "pH"]
 var color = d3.scaleOrdinal()
     .domain(keys)
@@ -44,18 +43,19 @@ var properName = d3.scaleOrdinal()
 
 svg.append("rect")
     .attr("x",margin)
-        .attr("y",topmargin)
-        .attr("height", height-margin-topmargin)
-        .attr("width", width-2*margin)
-        .attr("fill", "white")        
+    .attr("y",topmargin)
+    .attr("height", height-margin-topmargin)
+    .attr("width", width-2*margin)
+    .attr("fill", "white")        
 
 rect = svg.append("rect")
+    .attr("id", "clickRect")
     .attr("x",margin)
-        .attr("y",topmargin)
-        .attr("height", height-margin-topmargin)
-        .attr("width", width-2*margin)
-        .attr("fill", "red") 
-        .attr("opacity", 0)
+    .attr("y",topmargin)
+    .attr("height", height-margin-topmargin)
+    .attr("width", width-2*margin)
+    .attr("fill", "red") 
+    .attr("opacity", 0)
 
 var xScale = d3.scaleLinear()
     .domain([0, dt/time_unit])
@@ -355,27 +355,47 @@ cursor.append("text")
     .attr("x", x0+10).attr("y", y0-10)
     .text("Tippe irgendwo, um X und Y anzuzeigen")
 
+const MoveCursor = function(m){
+    var xval = d3.mouse(m)[0]
+    var yval = d3.mouse(m)[1]
+    d3.select("#xCur").attr("x1", xval).attr("x2", xval).style("visibility", "visible")
+    d3.select("#xCur").attr("y1", yval-10).attr("y2", yval+10)
+    d3.select("#yCur").attr("y1", yval).attr("y2", yval).style("visibility", "visible")
+    d3.select("#yCur").attr("x1", xval-10).attr("x2", xval+10)
+    curX =  xScale.invert(xval); curY = yScale.invert(yval)
+    curpH = pHScale.invert(yval)
+    d3.select("#coord").text("("+curX.toFixed(2) + " ms , "+curY.toExponential(1)+" M, pH = "+curpH.toFixed(2)+")").style("visibility", "visible")
+    if(xval<width/2){
+        d3.select("#coord")
+            .attr("x", xval+10)
+            .attr("text-anchor", "start")}
+        else{d3.select("#coord")
+                        .attr("x", xval-10)
+                        .attr("text-anchor", "end")}
+    if(yval<height/2){
+        d3.select("#coord").attr("y", yval+20)}
+        else{d3.select("#coord").attr("y", yval-10)} 
+}
+
 rect.on("click", function(){
     if (curVis == "visible"){
-        var xval = d3.mouse(this)[0]
-        var yval = d3.mouse(this)[1]
-        d3.select("#xCur").attr("x1", xval).attr("x2", xval)
-        d3.select("#xCur").attr("y1", yval-10).attr("y2", yval+10)
-        d3.select("#yCur").attr("y1", yval).attr("y2", yval)
-        d3.select("#yCur").attr("x1", xval-10).attr("x2", xval+10)
-        curX =  xScale.invert(xval); curY = yScale.invert(yval)
-        curpH = pHScale.invert(yval)
-        d3.select("#coord").text("("+curX.toFixed(2) + " ms , "+curY.toExponential(1)+" M, pH = "+curpH.toFixed(2)+")")
-        if(xval<width/2){
-            d3.select("#coord")
-                .attr("x", xval+10)
-                .attr("text-anchor", "start")}
-            else{d3.select("#coord")
-                            .attr("x", xval-10)
-                            .attr("text-anchor", "end")}
-        if(yval<height/2){
-            d3.select("#coord").attr("y", yval+20)}
-            else{d3.select("#coord").attr("y", yval-10)} 
+        MoveCursor(this)
+    } 
+})
+rect.on("touchmove", function(){
+    let x = d3.mouse(this)[0], y = d3.mouse(this)[1]
+    let xbounds = xScale.range(), ybounds = yScale.range()
+    if (curVis == "visible" && (x-xbounds[0])*(x-xbounds[1])<0 && (y-ybounds[0])*(y-ybounds[1])<0){
+        MoveCursor(this)
+    } else {
+        d3.select("#xCur").style("visibility", "hidden")
+        d3.select("#yCur").style("visibility", "hidden")
+        d3.select("#coord").style("visibility", "hidden")
+    }
+})
+rect.on("mousemove", function(){
+    if (curVis == "visible"){
+        MoveCursor(this)
     } 
 })
 

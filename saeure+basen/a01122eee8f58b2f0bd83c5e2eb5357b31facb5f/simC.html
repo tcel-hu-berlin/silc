@@ -228,5 +228,16 @@
             }
         })
     </script>
+    <script>
+        const disableScroll = function(e){
+            e.preventDefault()
+        }
+        const enableScroll = function(e){
+            e.preventDefault()
+        }
+        const d = document.getElementById("clickRect")
+            d.addEventListener("touchstart", disableScroll)
+            d.addEventListener("touchend", enableScroll)
+    </script>    
 </body>
 </html>
