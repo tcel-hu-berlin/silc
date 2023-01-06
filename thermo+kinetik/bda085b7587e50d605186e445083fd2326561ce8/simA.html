@@ -64,7 +64,7 @@
             <p style="margin-bottom:0"><strong>Vorbereitungsfrage 1b</strong><span style="float:right"><toggle class="showHide" id="showHideG">Einblenden</toggle></span></p>
             <p id="hintG" style="display:none">Der erste Hauptsatz der Thermodynamik (Prinzip der Energieerhaltung) besagt, dass die innere Energie bei jedem Vorgang in einem abgeschlossenen System konstant bleibt.</p>
             <p style="margin-bottom:0"><strong>Frage 2a-iii</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
-            <p id="hintA" style="display:none">Achten Sie hier besonders darauf, dass in keinem der Teilschritte einzelne Atome als Produkte vorkommen.</p>
+            <p id="hintA" style="display:none">Achten Sie hier besonders darauf, dass in keinem der Teilschritte einzelne O- oder H-Atome als Produkte vorkommen.</p>
             <p style="margin-bottom:0"><strong>Frage 2c</strong><span style="float:right"><toggle class="showHide" id="showHideB">Einblenden</toggle></span></p>
             <p id="hintB" style="display:none">Vergleichen Sie den Aggregatzustand der Moleküle in der Simulation mit ihrem Aggregatzustand in einer realen Verbrennungsreaktion.</p>
             <p style="margin-bottom:0"><strong>Frage 2e</strong><span style="float:right"><toggle class="showHide" id="showHideC">Einblenden</toggle></span></p>
@@ -187,6 +187,16 @@
                 }
             }
         })
+    </script>
+    <script>
+        const disableScroll = function(e){
+            e.preventDefault()
+        }
+        const enableScroll = function(e){
+            e.preventDefault()
+        }
+        document.getElementById("svgGraph").addEventListener("touchstart", disableScroll)
+        document.getElementById("svgGraph").addEventListener("touchend", enableScroll)
     </script>
 </body>
 </html>

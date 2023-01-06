@@ -12,7 +12,7 @@ var beansSpilled = false
 var legx = width*0.93
 var legy = height*0.04
 var legx1 = legx-17
-var legx2 = width*1.05
+var legx2 = width*1.06
 var legy1 = 0
 var legy2 = 0.16*height
 
@@ -20,12 +20,13 @@ var legy2 = 0.16*height
 // append the svg object to the body of the page
 var svg = d3.select("#simulationA")
     .append("svg")
+    .attr("id", "svgGraph")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform",
         "translate(" + margin.left + "," + margin.top + ")")
-    
+
 
 // Add the grey background that makes ggplot2 famous
 svg
@@ -46,32 +47,14 @@ clickRect =  svg.append("rect")
     .on("click", function(){
         var xval = d3.mouse(this)[0]
         var yval = d3.mouse(this)[1]
-        xwithinbox = xval>legx1 && xval<legx2
-        ywithinbox = yval>legy1 && yval<legy2
-        withinbox = xwithinbox && ywithinbox
-        console.log(withinbox)
-        if (!withinbox){
-            d3.select("#xCur").attr("x1", xval).attr("x2", xval)
-            d3.select("#xCur").attr("y1", yval-10).attr("y2", yval+10)
-            d3.select("#yCur").attr("y1", yval).attr("y2", yval)
-            d3.select("#yCur").attr("x1", xval-10).attr("x2", xval+10)
-            curX = x.invert(xval); curY = y.invert(yval)
-            d3.select("#coord").text("("+curX.toFixed(1) + ", "+curY.toFixed(1)+")")
-            d3.select("#coord").attr("visibility", "visible")
-            
-            if(xval<width/2){
-                d3.select("#coord")
-                    .attr("x", xval+10)
-                    .attr("text-anchor", "start")}
-                else{d3.select("#coord")
-                                .attr("x", xval-10)
-                                .attr("text-anchor", "end")}
-            if(y<height/2){
-                d3.select("#coord").attr("y", yval+20)}
-                else{d3.select("#coord").attr("y", yval-10)}
-        }
-        
+        MoveCursor(xval, yval)
     })
+    .on("touchmove", function(){
+        var xval = d3.mouse(this)[0]
+        var yval = d3.mouse(this)[1]
+        MoveCursor(xval, yval)
+    })
+
 //Add X axis
 var x = d3.scaleLinear()
     .domain([30, 300])
@@ -132,6 +115,27 @@ cursor.append("text")
     .text("Tippe irgendwo, um X und Y anzuzeigen")
     //.attr("visibility", "hidden")
 
+const MoveCursor = function(xval, yval){
+    d3.select("#xCur").attr("x1", xval).attr("x2", xval)
+    d3.select("#xCur").attr("y1", yval-10).attr("y2", yval+10)
+    d3.select("#yCur").attr("y1", yval).attr("y2", yval)
+    d3.select("#yCur").attr("x1", xval-10).attr("x2", xval+10)
+    curX = x.invert(xval); curY = y.invert(yval)
+    d3.select("#coord").text("("+curX.toFixed(1) + ", "+curY.toFixed(1)+")")
+    d3.select("#coord").attr("visibility", "visible")
+    
+    if(xval<width/2){
+        d3.select("#coord")
+            .attr("x", xval+10)
+            .attr("text-anchor", "start")}
+        else{d3.select("#coord")
+                        .attr("x", xval-10)
+                        .attr("text-anchor", "end")}
+    if(y<height/2){
+        d3.select("#coord").attr("y", yval+20)}
+        else{d3.select("#coord").attr("y", yval-10)}    
+}
+
 //Read the data
 data = d3.csv("../../files/plotLJ1.csv", function(data) {
     // Color scale
@@ -153,7 +157,7 @@ data = d3.csv("../../files/plotLJ1.csv", function(data) {
         .attr("visibility", "visible")
         .attr("d", d3.line()
             .x(function(d) {return x(d.r-9) })
-            .y(function(d) {console.log(d.H2, y(d.H2)); return y(d.H2) })
+            .y(function(d) {return y(d.H2) })
             )
     svg.append("path")
         .datum(data)

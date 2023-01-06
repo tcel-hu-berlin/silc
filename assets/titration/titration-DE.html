@@ -732,9 +732,8 @@
 	aspect-ratio: 1.0; border: 0 solid #000000;">
 	<!-- <div id="cursorArea" style="position:absolute; left: 12.5%; top: 12.5%; width: 75.25%; height: 75.25%; border: 2px solid #ff0000; z-index:15"></div> -->
 		<canvas id="graph" onclick=null style="width:100%; height: 100%; background-color:rgba(255,255,255,0);"></canvas>
-		
 	</div>
-	
+	<div id="titrationSimulation" style="position:absolute; top:0; left:0; border:0 solid #ff7b00; width:99%; aspect-ratio:calc(790/710)"></div>
 	<!-- Settings area -->
 	<div style="position:absolute; top:1.5%; left:64%; width:35%; border:0 solid #ff0000;">
 		<center>
@@ -788,6 +787,7 @@
 	<div style="position:absolute; top:66.5%; width: 42%; left:18%; border:0px solid #ff0000; z-index:8">
 		<p style="margin-top: 0" id="warnings"></p><p id="warnings2"></p>
 	</div>
+	
 </div>	
 <!-- Operating instructions area
 <div style="position:absolute; top:10px; left:810px; border:2px solid #00ff00; width:500px; padding:0px 20px;">
@@ -803,5 +803,71 @@
 </ul> 
 <p>Note: The method used to calculate the pH and generate the curves is the same as that in the text, though the full the quadratic solution is always used, that is, the "usual approximation" is not applied. However, the contribution to [H<sup>+</sup>] from the auto-ionization of water is ignored (as it is in the text). For very dilute solutions and/or very weak acids or bases, this leads to a discontinuity in the curve near the equivalence point which would not be seen in a real experimental plot.</p>
 </div> -->
+<script src="https://d3js.org/d3.v4.js"></script>
+<script>
+	var svg = d3.select("#titrationSimulation")
+	.append("svg")
+	.attr("id", "titrationSVG")
+	.attr("width", "100%")
+    .attr("height", "100%")
+
+	gr = document.getElementById("graphContainer")
+	let cx = gr.offsetLeft, cy = gr.offsetTop, cwidth = gr.offsetWidth, cheight = gr.offsetHeight
+	mf = 1/400
+	let gx = cx+50*mf*cwidth, gy = cy+mf*49*cheight
+	let gwidth = cwidth*301*mf, gheight = cheight*297*mf
+	var volumeScale = d3.scaleLinear()
+    	.domain([0, 25])
+    	.range([gx, gx+gwidth])
+	var pHScale = d3.scaleLinear()
+    	.domain([14, 0])
+    	.range([gy, gy+gheight])
+	let xCur = svg.append("line").attr("id", "xCur")
+	.attr("x1", volumeScale(10)).attr("x2", volumeScale(10)).attr("y1", pHScale(14)).attr("y2", pHScale(0))
+	.style("stroke", "blue").style("stroke-dasharray", "4,4").style("visibility", "hidden")
+	let yCur = svg.append("line").attr("id", "yCur")
+	.attr("x1", volumeScale(0)).attr("x2", volumeScale(25)).attr("y1", pHScale(7)).attr("y2", pHScale(7))
+	.style("stroke", "blue").style("stroke-dasharray", "4,4").style("visibility", "hidden")
+	let curText = svg.append("text").attr("id", "coord")
+	.attr("x", gx+0.02*gwidth).attr("y", gy+0.05*gheight).text("0, 0")
+	.style("fill", "blue").attr("text-anchor", "left").style("visibility", "hidden")
+
+	const MoveCursor = function(){
+		var xval = d3.mouse(this)[0]
+        var yval = d3.mouse(this)[1]
+		let volumeValue = volumeScale.invert(xval), pHValue = pHScale.invert(yval)
+		xCur.attr("x1", xval).attr("x2", xval)
+		yCur.attr("y1", yval).attr("y2", yval)
+		// limits
+		let tol=0.005
+		let xll = gx+tol*gwidth, xlr = gx+(1-tol)*gwidth, ylt = gy+tol*gheight, ylb = gy+(1-tol)*gheight
+		if (xval>=xlr || xval <= xll || yval >= ylb || yval <= ylt){
+			xCur.style("visibility", "hidden")
+			yCur.style("visibility", "hidden")
+			curText.style("visibility", "hidden")
+		} else {
+			xCur.style("visibility", "visible")
+			yCur.style("visibility", "visible")
+			curText.style("visibility", "visible")
+			}
+		if(volumeValue<12.5){
+        	d3.select("#coord")
+            .attr("x", xval+10)
+            .attr("text-anchor", "start")}
+        else{d3.select("#coord")
+                        .attr("x", xval-10)
+                        .attr("text-anchor", "end")}
+    	if(pHValue > 7){
+			d3.select("#coord").attr("y", yval+20)}
+			else{d3.select("#coord").attr("y", yval-10)}    
+		curText.text("V: "+ volumeValue.toFixed(2) +" mL, pH: "+ pHValue.toFixed(1) )
+		
+	}
+
+	let clickRect = svg.append("rect").attr("id", "clickRect")
+	.attr("x", gx).attr("y", gy).attr("width", gwidth).attr("height", gheight).style("fill", "gray").style("opacity", 0)
+	.on("click", MoveCursor).on("touchmove", MoveCursor).on("mousemove", MoveCursor)
+
+</script>
 </body>
 </html>
