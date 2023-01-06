@@ -95,7 +95,7 @@
                   <p style="margin-bottom:0"><strong>Frage 8a</strong><span style="float:right"><toggle class="showHide" id="showHideD">Einblenden</toggle></span></p>
                   <p id="hintD" style="display:none">Behandeln Sie das Problem einfach wie eine Lösung einer schwachen Säure. </p>
                   <p style="margin-bottom:0"><strong>Frage 8c</strong><span style="float:right"><toggle class="showHide" id="showHideE">Einblenden</toggle></span></p>
-                  <p id="hintE" style="display:none">Bei der Berechnung des pH-Werts am Äquivalenzpunkt kann das System als Lösung einer schwachen Base behandelt werden, wobei pK<sub>B</sub> bekannt ist. Achten Sie auf die Änderung des gesamten Volumens der Lösung.</p>
+                  <p id="hintE" style="display:none">Bei der Berechnung des pH-Werts am Äquivalenzpunkt kann das System als Lösung einer schwachen Base behandelt werden, wobei pK<sub>b</sub> bekannt ist. Achten Sie auf die Änderung des gesamten Volumens der Lösung.</p>
                   <p style="margin-bottom:0"><strong>Frage 9b</strong><span style="float:right"><toggle class="showHide" id="showHideF">Einblenden</toggle></span></p>
                   <p id="hintF" style="display:none">Überlegen Sie sorgfältig, wie ein pK<sub>b</sub>-Wert in einer Titrationskurve dargestellt wird.</p>
               </div>
@@ -209,21 +209,21 @@
                 }, 1000)
         }
     </script>
-        <script>
-            // Setting up hint toggles
-            var letters = ["Titr", "ICE", "A", "B", "C", "D", "E", "F"]
-            letters.forEach( function(x){
-                document.getElementById("showHide"+x).onclick = function(){
-                    hint = document.getElementById("hint"+x)
-                    if (hint.style.display=="none"){
-                        this.innerHTML = "Ausblenden"
-                        hint.style.display="block"
-                    } else {
-                        this.innerHTML = "Einblenden"
-                        hint.style.display="none"
-                    }
+    <script>
+        // Setting up hint toggles
+        var letters = ["Titr", "ICE", "A", "B", "C", "D", "E", "F"]
+        letters.forEach( function(x){
+            document.getElementById("showHide"+x).onclick = function(){
+                hint = document.getElementById("hint"+x)
+                if (hint.style.display=="none"){
+                    this.innerHTML = "Ausblenden"
+                    hint.style.display="block"
+                } else {
+                    this.innerHTML = "Einblenden"
+                    hint.style.display="none"
                 }
-            })
-        </script>
+            }
+        })
+    </script>
 </body>
 </html>
