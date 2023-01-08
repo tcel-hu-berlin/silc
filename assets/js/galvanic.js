@@ -253,15 +253,16 @@ var showMagnCircR = function(){
 
 
 // Loading Data
-var defaultL = 1, defaultR = 0
+var defaultL = "cuII", defaultR = "ag"
 var leftSide, rightSide
 var redoxPairs, solutionLcolor, solutionRcolor, electrodeLcolor, electrodeRcolor, stripL, stripR, tubeL, tubeR, voltageReading
 var changePairL, changePairR
 var rP = d3.json("../../files/redoxPairs.json", function(data){
     
-    redoxPairs = data
+    redoxPairs = data["halfCells"]
     leftSide = redoxPairs[defaultL]
     rightSide = redoxPairs[defaultR]
+    console.log({leftSide, rightSide})
     console.log(leftSide, rightSide)
     solutionLcolor = leftSide["solutionColor"]
     solutionRcolor = rightSide["solutionColor"]

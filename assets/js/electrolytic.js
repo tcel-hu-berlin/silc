@@ -25,6 +25,8 @@ var minutesInd = document.getElementById("minutesInd")
 var secondsInd = document.getElementById("secondsInd")
 var voltInd = document.getElementById("voltInd")
 var ampInd = document.getElementById("ampInd")
+var cathDesc = document.getElementById("cathDesc")
+var anDesc = document.getElementById("anDesc")
 
 // d3.js element selections
 var startButton = d3.select("#startButton")
@@ -49,7 +51,6 @@ circuitHeight = 0.15*height,
 beakerWidth = 0.15*width*2.3,
 beakerHeight = 0.2*height,
 beakerCurve = 0.01*width,
-tubeCurve = 0.08*beakerWidth,
 fillHeight = 0.75*beakerHeight,
 beakerColor = "#585858",
 magnWidth = 0.025*width, magnHeight = 0.8*magnWidth, magnTop = 0.502*height
@@ -73,28 +74,31 @@ contentPath.lineTo(beakerWidth,beakerHeight-fillHeight)
 contentPath.moveTo(beakerWidth,beakerHeight-fillHeight)
 contentPath.lineTo(0,beakerHeight-fillHeight)
 
+var stripWidth = 0.06*beakerWidth, stripHeight=0.75*beakerHeight
 stripPath = d3.path()
-stripPath.moveTo(0.47*beakerWidth, -0.1*beakerHeight)
-stripPath.lineTo(0.47*beakerWidth, 0.65*beakerHeight)
-stripPath.lineTo(0.53*beakerWidth, 0.65*beakerHeight)
-stripPath.lineTo(0.53*beakerWidth, -0.1*beakerHeight)
+stripPath.moveTo(-stripWidth/2, 0)
+stripPath.lineTo(-stripWidth/2, stripHeight)
+stripPath.lineTo(+stripWidth/2, stripHeight)
+stripPath.lineTo(+stripWidth/2, 0)
 stripPath.closePath()
 
+var wireNW = 0.01*beakerWidth, wireNH=0.58*beakerHeight
+var wireWW = 0.02*beakerWidth, wireWH=0.069*beakerHeight
 wirePath = d3.path()
-wirePath.moveTo(0.495*beakerWidth, -0.08*beakerHeight)
-wirePath.lineTo(0.495*beakerWidth, 0.5*beakerHeight)
-wirePath.lineTo(0.48*beakerWidth, 0.5*beakerHeight)
-wirePath.lineTo(0.48*beakerWidth, 0.649*beakerHeight)
-wirePath.lineTo(0.52*beakerWidth, 0.649*beakerHeight)
-wirePath.lineTo(0.52*beakerWidth, 0.5*beakerHeight)
-wirePath.lineTo(0.505*beakerWidth, 0.5*beakerHeight)
-wirePath.lineTo(0.505*beakerWidth, -0.08*beakerHeight)
+wirePath.moveTo(-wireNW/2, 0)
+wirePath.lineTo(-wireNW/2, wireNH)
+wirePath.lineTo(-wireWW/2, wireNH)
+wirePath.lineTo(-wireWW/2, wireNH+wireWH)
+wirePath.lineTo(wireWW/2, wireNH+wireWH)
+wirePath.lineTo(wireWW/2, wireNH)
+wirePath.lineTo(wireNW/2, wireNH)
+wirePath.lineTo(wireNW/2, 0)
 wirePath.closePath()
-wirePath.moveTo(0.49*beakerWidth, 0.5*beakerHeight)
-wirePath.lineTo(0.51*beakerWidth, 0.5*beakerHeight)
+wirePath.moveTo(-wireWW/2, wireNH)
+wirePath.lineTo(wireWW/2, wireNH)
 
 voltageReaderHeight = 0.03*width
-voltmeterTop = 0.025*height; voltmeterLeft = 0.025*width; voltmeterWidth = 0.28*width; voltmeterHeight = 0.25*width
+voltmeterTop = 0.025*height; voltmeterLeft = 0.025*width; voltmeterWidth = 0.28*width; voltmeterHeight = 0.24*width
 redHeight = voltmeterTop+0.43*voltmeterHeight; blueHeight = voltmeterTop+0.57*voltmeterHeight; 
 
 circuitPath = d3.path()
@@ -105,6 +109,51 @@ circuitPath.moveTo(voltmeterLeft+voltmeterWidth, redHeight)
 circuitPath.lineTo(posR, redHeight)
 circuitPath.lineTo(posR, beakerBottom-beakerHeight)
 
+var tubeWidth = 0.08*beakerWidth, tubeOffset = 0.14*beakerWidth, 
+tubeCurve = tubeWidth/2, tubeHeight = beakerHeight, tubeBottom=0.6*beakerHeight
+tubePath = d3.path()
+tubePath.moveTo(0, 0)
+tubePath.lineTo(0, 0.85*beakerHeight)
+tubePath.lineTo(tubeOffset, 0.85*beakerHeight)
+tubePath.lineTo(tubeOffset, 0.5*beakerHeight)
+tubePath.moveTo(tubeOffset-0.5*tubeWidth, tubeBottom)
+tubePath.lineTo(tubeOffset-0.5*tubeWidth,tubeBottom-tubeHeight)
+tubePath.moveTo(tubeOffset+0.5*tubeWidth,tubeBottom-tubeHeight)
+tubePath.lineTo(tubeOffset+0.5*tubeWidth, tubeBottom)
+
+var stopperWidth = 0.81*tubeWidth, stopperWWidth=stopperWidth*1.4, stopperNWidth=stopperWidth*0.4
+stopperBottom = beakerHeight-fillHeight, stopperHeight=stopperBottom-tubeBottom+tubeHeight*1.05
+stopperPath = d3.path()
+stopperPath.moveTo(tubeOffset-stopperWidth/2, stopperBottom)
+stopperPath.lineTo(tubeOffset-stopperWidth/2, tubeBottom-tubeHeight-0.075*tubeWidth)
+stopperPath.lineTo(tubeOffset-stopperWWidth/2, tubeBottom-tubeHeight-0.075*tubeWidth)
+stopperPath.lineTo(tubeOffset-stopperWWidth/2, stopperBottom-stopperHeight)
+
+stopperPath.lineTo(tubeOffset-stopperNWidth/2, stopperBottom-stopperHeight)
+stopperPath.lineTo(tubeOffset-stopperNWidth/2, stopperBottom-stopperHeight-stopperNWidth)
+stopperPath.lineTo(tubeOffset+stopperNWidth/2, stopperBottom-stopperHeight-stopperNWidth)
+stopperPath.lineTo(tubeOffset+stopperNWidth/2, stopperBottom-stopperHeight)
+
+stopperPath.lineTo(tubeOffset+stopperWWidth/2, stopperBottom-stopperHeight)
+stopperPath.lineTo(tubeOffset+stopperWWidth/2, tubeBottom-tubeHeight-0.075*tubeWidth)
+stopperPath.lineTo(tubeOffset+stopperWidth/2, tubeBottom-tubeHeight-0.075*tubeWidth)
+stopperPath.lineTo(tubeOffset+stopperWidth/2, stopperBottom)
+stopperPath.closePath()
+
+tsPath = d3.path() // offset, smaller strip
+var tsWidth=0.5*tubeWidth, tsBottom = 0.5*beakerHeight, tsHeight = 0.6*(tsBottom-stopperBottom)
+tsPath.moveTo(tubeOffset-tsWidth/2, tsBottom)
+tsPath.lineTo(tubeOffset-tsWidth/2, tsBottom-tsHeight)
+tsPath.lineTo(tubeOffset+tsWidth/2, tsBottom-tsHeight)
+tsPath.lineTo(tubeOffset+tsWidth/2, tsBottom)
+tsPath.closePath()
+
+// measuring lines on tube
+for (i=0; i<10; i++){
+    let y = beakerHeight-fillHeight-i*(stopperHeight*0.8)/10
+    tubePath.moveTo(tubeOffset+0.5*tubeWidth,y)
+    tubePath.lineTo(tubeOffset+0.5*tubeWidth-0.2*tubeWidth, y)   
+}
 
 // magnifying functions
 var showMagnL = function(){
@@ -271,17 +320,22 @@ var advanceTimerOnce = function(){
 
 
 // Loading Data
-var defaultL = 1, defaultR = 0
-var leftSide, rightSide
-var redoxPairs, solutionLcolor, solutionRcolor, electrodeLcolor, electrodeRcolor, stripL, stripR, tubeL, tubeR, voltageReading
+var defaultCombo = "waterH2SO4"
+var combo, leftSide, rightSide
+var redoxPairs, redoxCombos, solutionColor, electrodeLcolor, electrodeRcolor, stripL, stripR, tubeL, tubeR, voltageReading
 var changePairL, changePairR
 var rP = d3.json("../../files/redoxPairs.json", function(data){
     
-    redoxPairs = data
-    leftSide = redoxPairs[defaultL]
-    rightSide = redoxPairs[defaultR]
-    solutionLcolor = leftSide["solutionColor"]
-    solutionRcolor = rightSide["solutionColor"]
+    redoxPairs = data["halfCells"]
+    redoxCombos = data["combos"]
+    combo = redoxCombos[defaultCombo]
+    leftSide = redoxPairs[combo["left"]]
+    rightSide = redoxPairs[combo["right"]]
+    console.log(combo, leftSide, rightSide)
+    cathDesc.innerHTML = redoxCombos[defaultCombo]["cathDescr"]+ ", "
+    anDesc.innerHTML = redoxCombos[defaultCombo]["anDescr"]+ ", "
+
+    solutionColor = combo["solutionColor"]
     electrodeLcolor = leftSide["electrodeColor"]
     electrodeRcolor = rightSide["electrodeColor"]
     stripL = leftSide["strip"]; stripR = rightSide["strip"]
@@ -293,10 +347,11 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
     svg.append("g").attr("id", "circuit")
     d3.select("#circuit").append("rect")
         .attr("id", "voltmeter")
+        .attr("rx", 7)
         .attr("x", voltmeterLeft).attr("y", voltmeterTop)
         .attr("width", voltmeterWidth).attr("height", voltmeterHeight)
         .style("fill", "rgb(230, 230, 230)")
-        .style("stroke", "black").style("stroke-width", "0.1em")
+        .style("stroke", "rgb(130, 130, 130)").style("stroke-width", "0.1em")
     d3.select("#circuit").append("path")
         .attr("id", "circuitWire")
         .attr("d", circuitPath)
@@ -304,24 +359,24 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .style("fill", "none")
     // red and blue outputs of power supply
     d3.select("#circuit").append("circle")
-        .attr("cx", voltmeterLeft+voltmeterWidth-0.012*width).attr("cy", redHeight)
-        .attr("r", 0.005*width)
+        .attr("cx", voltmeterLeft+voltmeterWidth-0.015*width).attr("cy", redHeight)
+        .attr("r", 0.0055*width)
         .style("fill", "rgb(255, 0,0)")
         .style("stroke", beakerColor).style("stroke-width", "0.1em")
     d3.select("#circuit").append("circle")
-        .attr("cx", voltmeterLeft+voltmeterWidth-0.012*width).attr("cy", blueHeight)
-        .attr("r", 0.005*width)
+        .attr("cx", voltmeterLeft+voltmeterWidth-0.015*width).attr("cy", blueHeight)
+        .attr("r", 0.0055*width)
         .style("fill", "rgb(0,0,255)")
         .style("stroke", beakerColor).style("stroke-width", "0.1em")
      // plus and minus signs
      d3.select("#circuit").append("text")
-        .attr("x", voltmeterLeft+voltmeterWidth-0.027*width).attr("y", redHeight)
+        .attr("x", voltmeterLeft+voltmeterWidth-0.03*width).attr("y", redHeight)
         .style("text-anchor", "middle").style("alignment-baseline", "middle")
-        .text("+").style("font-weight", 600).style("fill", "black")
+        .text("+").style("font-weight", 500).style("font-size", "1.3em").style("fill", "black")
     d3.select("#circuit").append("text")
-        .attr("x", voltmeterLeft+voltmeterWidth-0.027*width).attr("y", blueHeight)
+        .attr("x", voltmeterLeft+voltmeterWidth-0.03*width).attr("y", blueHeight)
         .style("text-anchor", "middle").style("alignment-baseline", "middle")
-        .text("–").style("font-weight", 600).style("fill", "black")   
+        .text("–").style("font-weight", 500).style("font-size", "1.3em").style("fill", "black")   
     
     //switch
     svg.append("g").attr("id", "switch")
@@ -334,49 +389,79 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
     .attr('height', imgHeight)
     .attr('status', "open")
     .attr("xlink:href", "../../images/switchOpenVert.png")
-
-
-    svg.append("g").attr("id", "LS")
+ 
+    
+    svg.append("g").attr("id", "beakerSol")
         .attr("transform", "translate("+ (width/2-beakerWidth/2)+ ","+(beakerBottom-beakerHeight)+ ")")
-    d3.select("#LS").append("path")
-        .attr("id", "wireL")
-        .attr("transform", "translate(-"+ (width/2-posL)+ ",0)")
-        .attr("d", wirePath)
-        .style("stroke", beakerColor).style('stroke-width', "0.03em")
-        .style("fill", electrodeLcolor)
-    d3.select("#LS").append("path")
-        .attr("id", "stripElectrodeL")
-        .attr("transform", "translate(-"+ (width/2-posL)+ ",0)")
-        .attr("d", stripPath)
-        .style("opacity", 1)
-        .style("fill", electrodeLcolor)
-        .style("stroke", "black").style("stroke-width", "0.02em")
-        .style("visibility", stripL)  
-    d3.select("#LS").append("path")
-        .attr("id", "solutionL")
-        .attr("d", contentPath)
-        .style("fill", solutionLcolor)
-        .style("stroke", "black").style("stroke-width", "0.02em") 
-    d3.select("#LS").append("path")
-        .attr("id", "beakerL")
+    d3.select("#beakerSol").append("path")
+        .attr("id", "beaker")
         .attr("d", beakerPath)
         .style("stroke", beakerColor).style('stroke-width', "0.1em")
         .style("fill", "none")
+    d3.select("#beakerSol").append("path")
+        .attr("id", "solution")
+        .attr("d", contentPath)
+        .style("fill", solutionColor)
+        .style("stroke", "black").style("stroke-width", "0") 
+
+
+
+    svg.append("g").attr("id", "LS")
+        .attr("transform", "translate("+ (posL)+ ","+(beakerBottom-beakerHeight)+ ")")
+    // d3.select("#LS").append("path")
+    //     .attr("id", "wireL")
+    //     .attr("transform", "translate(-"+ (width/2-posL)+ ",0)")
+    //     .attr("d", wirePath)
+    //     .style("stroke", beakerColor).style('stroke-width', "0.03em")
+    //     .style("fill", electrodeLcolor)
+    d3.select("#LS").append("path")
+        .attr("id", "stopperL")
+        .attr("d", stopperPath)
+        .style("stroke", "rgb(120,150,165)").style('stroke-width', "0.1em")
+        .style("fill", "rgb(160,200,220)")
+    d3.select("#LS").append("path")
+        .attr("id", "tubeL")
+        .attr("d", tubePath)
+        // .attr("transform", "translate("+posL+",0)")
+        .style("stroke", beakerColor).style('stroke-width', "0.1em")
+        .style("fill", "none")
+    d3.select("#LS").append("path")
+        .attr("id", "stripElectrodeL")
+        // .attr("transform", "translate(-"+ (width/2-posL)+ ",0)")
+        .attr("d", tsPath)
+        .style("opacity", 1)
+        .style("fill", electrodeLcolor)
+        .style("stroke", "black").style("stroke-width", "0.02em")
+        .style("visibility", "visible") 
 
     svg.append("g").attr("id", "RS")
-        .attr("transform", "translate("+ (posR-beakerWidth/2)+ ","+(beakerBottom-beakerHeight)+ ")")
+        .attr("transform", "translate("+ (posR)+ ","+(beakerBottom-beakerHeight)+ ")")
     d3.select("#RS").append("path")
         .attr("id", "wireR")
         .attr("d", wirePath)
         .style("stroke", beakerColor).style('stroke-width', "0.03em")
         .style("fill", electrodeRcolor)
+        .style("visibility", "hidden") 
+    d3.select("#RS").append("path")
+        .attr("id", "stopperR")
+        .attr("transform", "scale(-1,1)")
+        .attr("d", stopperPath)
+        .style("stroke", "rgb(120,150,165)").style('stroke-width', "0.1em")
+        .style("fill", "rgb(160,200,220)")
+    d3.select("#RS").append("path")
+        .attr("id", "tubeR")
+        .attr("d", tubePath)
+        .attr("transform", "scale(-1,1)")
+        .style("stroke", beakerColor).style('stroke-width', "0.1em")
+        .style("fill", "none")
     d3.select("#RS").append("path")
         .attr("id", "stripElectrodeR")
-        .attr("d", stripPath)
+        .attr("transform", "scale(-1,1)")
+        .attr("d", tsPath)
         .style("opacity", 1)
-        .style("fill", electrodeRcolor)
+        .style("fill", electrodeLcolor)
         .style("stroke", "black").style("stroke-width", "0.02em")
-        .style("visibility", stripR) 
+        .style("visibility", "visible") 
 
     svg.append("g").attr("id", "magnPoints")
     d3.select("#magnPoints").append('image')
@@ -416,13 +501,11 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         let system = document.getElementById("systemSelector").value
         val = redoxPairs[system]["ls"]
         leftSide = redoxPairs[val]
-        solutionLcolor = leftSide["solutionColor"]
         electrodeLcolor = leftSide["electrodeColor"]
         stripL = leftSide["strip"]
         tubeL = leftSide["tube"]
         voltageReading = rightSide["E_red"]-leftSide["E_red"]
 
-        d3.select("#solutionL").style("fill", solutionLcolor)
         d3.select("#stripElectrodeL").style("fill", electrodeLcolor)
         d3.select("#stripElectrodeL").style("visibility", stripL)
         d3.select("#tubeL").style("visibility", tubeL)
@@ -434,13 +517,11 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
     changePairR = function(){
         let val = document.getElementById("pairSelectorR").value
         rightSide = redoxPairs[val]
-        solutionRcolor = rightSide["solutionColor"]
         electrodeRcolor = rightSide["electrodeColor"]
         stripR = rightSide["strip"]
         tubeR = rightSide["tube"]
         voltageReading = rightSide["E_red"]-leftSide["E_red"]
 
-        d3.select("#solutionR").style("fill", solutionRcolor)
         d3.select("#stripElectrodeR").style("fill", electrodeRcolor)
         d3.select("#stripElectrodeR").style("visibility", stripR)
         d3.select("#tubeR").style("visibility", tubeR)
@@ -450,7 +531,7 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         videoDiv.style.visibility = "hidden"
     }
     
-    changePairL();changePairR()
+    // changePairL();changePairR()
 })
 
 
@@ -458,6 +539,7 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
 startButton.on("click", function(){
     stopButton.attr("disabled", null)
     startButton.attr("disabled", true)
+    resetTimeButton.attr("disabled", null)
     closeSwitch()
     timer = setInterval(
         function(){
@@ -479,6 +561,10 @@ resetTimeButton.on("click", function(){
     secondsPassed = 0
     writeTime(secondsPassed)
     resetTimeButton.attr("disabled", true)
+    stopButton.attr("disabled", true)
+    startButton.attr("disabled", null)
+    openSwitch()
+    clearInterval(timer)
 })
 
 upV.on("click", raiseV)
