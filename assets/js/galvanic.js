@@ -13,9 +13,12 @@ var outR = document.getElementById("outR")
 var midR = document.getElementById("midR")
 var innR = document.getElementById("innR")
 
+var voltInd = document.getElementById("voltInd")
+
 var videoDiv = document.getElementById("molRep")
 var videoScreen = document.getElementById("molRepVideo")
 var noReaction = document.getElementById("noReaction")
+
 
 // append the svg object to the body of the page
 var svg = d3.select("#galvanic")
@@ -44,7 +47,7 @@ beakerCurve = 0.01*width,
 tubeCurve = 0.08*beakerWidth,
 fillHeight = 0.75*beakerHeight,
 beakerColor = "#585858",
-magnWidth = 0.025*width, magnHeight = 0.8*magnWidth, magnTop = 0.502*height
+magnWidth = 0.035*width, magnHeight = 0.8*magnWidth, magnTop = 0.502*height
 
 beakerPath = d3.path()
 beakerPath.moveTo(0,0)
@@ -271,14 +274,20 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
     stripL = leftSide["strip"]; stripR = rightSide["strip"]
     tubeL = leftSide["tube"]; tubeR = rightSide["tube"]
     voltageReading = rightSide["E_red"]-leftSide["E_red"]
-
+    voltInd.innerHTML = d3.format("+0.2f")(voltageReading)
 
     // Drawing objects
+    var voltmeterTop = 0.1*height, voltmeterHeight = 5*voltageReaderHeight,
+    voltmeterBottom = voltmeterTop+voltmeterHeight
+    var voltmeterWidth = 0.25*width
+    var voltmeterLeft = (width-voltmeterWidth)/2
+
+
     svg.append("g").attr("id", "circuit")
     d3.select("#circuit").append("rect")
         .attr("id", "voltmeter")
-        .attr("x", 0.45*width).attr("y", beakerBottom-beakerHeight-circuitHeight-voltageReaderHeight*1.8)
-        .attr("width", 0.1*width).attr("height", voltageReaderHeight*2.25)
+        .attr("x", voltmeterLeft).attr("y", voltmeterTop)
+        .attr("width", voltmeterWidth).attr("height", voltmeterHeight)
         .style("fill", "rgb(255, 200,100)")
         .style("stroke", "black").style("stroke-width", "0.1em")
     d3.select("#circuit").append("path")
@@ -297,18 +306,6 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .attr("d", bridgePath)
         .style("stroke", beakerColor).style('stroke-width', "0.1em")
         .style("fill", "none")
-    d3.select("#circuit").append("rect")
-        .attr("id", "voltmeterScreen")
-        .attr("x", 0.46*width).attr("y", beakerBottom-beakerHeight-circuitHeight-voltageReaderHeight*3/2)
-        .attr("width", 0.08*width).attr("height", voltageReaderHeight)
-        .style("fill", "rgb(220, 230, 220)")
-        .style("stroke", "black").style("stroke-width", "0.1em")
-    d3.select("#circuit").append("text")
-        .attr("id", "voltReading")
-        .attr("x", 0.5*width).attr("y", beakerBottom-beakerHeight-circuitHeight-voltageReaderHeight)
-        .text(d3.format("+0.2f")(voltageReading)+" V").style("font-size", voltageReaderHeight*0.55)
-        .style("text-anchor", "middle").style("alignment-baseline", "middle")
-        .style("font-weight", 600)
     d3.select("#circuit").append("circle")
         .attr("cx", 0.525*width).attr("cy", beakerBottom-beakerHeight-circuitHeight)
         .attr("r", 0.005*width)
@@ -320,13 +317,13 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .style("fill", "rgb(20,20,20)")
         .style("stroke", beakerColor).style("stroke-width", "0.1em")
     d3.select("#circuit").append("text")
-        .attr("x", 0.475*width).attr("y", beakerBottom-beakerHeight-circuitHeight*0.8)
+        .attr("x", 0.475*width).attr("y", voltmeterBottom-0.05*voltmeterHeight)
         .style("text-anchor", "middle").style("alignment-baseline", "middle")
-        .text("–").style("font-weight", 600).style("fill", "blue")
+        .text("–").style("font-weight", 600).style("fill", "black")
     d3.select("#circuit").append("text")
-        .attr("x", 0.525*width).attr("y", beakerBottom-beakerHeight-circuitHeight*0.8)
+        .attr("x", 0.525*width).attr("y", voltmeterBottom-0.05*voltmeterHeight)
         .style("text-anchor", "middle").style("alignment-baseline", "middle")
-        .text("+").style("font-weight", 600).style("fill", "blue")
+        .text("+").style("font-weight", 600).style("fill", "black")
 
 
     svg.append("g").attr("id", "LS")
@@ -455,7 +452,7 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         d3.select("#stripElectrodeL").style("visibility", stripL)
         d3.select("#tubeL").style("visibility", tubeL)
         d3.select("#wireL").style("fill", electrodeLcolor)
-        d3.select("#voltReading").text(d3.format("+0.2f")(voltageReading)+" V")
+        voltInd.innerHTML = d3.format("+0.2f")(voltageReading)
 
         videoDiv.style.visibility = "hidden"
     }
@@ -477,7 +474,7 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         d3.select("#stripElectrodeR").style("visibility", stripR)
         d3.select("#tubeR").style("visibility", tubeR)
         d3.select("#wireR").style("fill", electrodeRcolor)
-        d3.select("#voltReading").text(d3.format("+0.2f")(voltageReading)+" V")
+        voltInd.innerHTML = d3.format("+0.2f")(voltageReading)
 
         videoDiv.style.visibility = "hidden"
     }

@@ -40,7 +40,9 @@
                     "middlePhase": " H<sub>2</sub> <sub>(g, 1 atm)</sub>  | ",
                     "innerPhase": " H<sup>+</sup><sub>(aq, 1 M)</sub> ",
                     "video_red": "waterReduction.mp4",
-                    "video_oxi": "H_oxidation.mp4"
+                    "video_oxi": "H_oxidation.mp4",
+                    "gas": true,
+                    "electronsPerMolecule": 2
                 },
         "O2prod": {  "id": "O2prod",
                 "name": "O2prod",
@@ -49,13 +51,47 @@
                 "electrodeColor": "rgb(250,250,240)",
                 "strip": "visible",
                 "tube": "visible",
-                "E_red": 0.00,
+                "E_red": 1.23,
                 "outerPhase": "Pt<sub>(s)</sub> ",
                 "middlePhase": " H<sub>2</sub> <sub>(g, 1 atm)</sub>  | ",
                 "innerPhase": " H<sup>+</sup><sub>(aq, 1 M)</sub> ",
                 "video_red": "H_reduction.mp4",
-                "video_oxi": "waterOxidation.mp4"
+                "video_oxi": "waterOxidation.mp4",
+                "gas": true, 
+                "electronsPerMolecule": 4
             },
+        "aqCl2prod": {  "id": "aqCl2prod",
+            "name": "agCl2prod",
+            "abbr": "Cl2/Cl-",
+            "solutionColor":"rgba(200, 240, 255, 0.4)",
+            "electrodeColor": "rgb(120,120,120)",
+            "strip": "visible",
+            "tube": "hidden",
+            "E_red": 1.36,
+            "outerPhase": "Pt<sub>(s)</sub> ",
+            "middlePhase": " H<sub>2</sub> <sub>(g, 1 atm)</sub>  | ",
+            "innerPhase": " H<sup>+</sup><sub>(aq, 1 M)</sub> ",
+            "video_red": "aqCl_oxidation.mp4",
+            "video_oxi": "aqCl_oxidation.mp4",
+            "gas": true,
+            "electronsPerMolecule": 0
+        },
+        "aqNa": {  "id": "aqNa",
+            "name": "aqNa",
+            "abbr": "H+/H",
+            "solutionColor":"rgba(200, 240, 255, 0.4)",
+            "electrodeColor": "rgb(250,250,240)",
+            "strip": "visible",
+            "tube": "hidden",
+            "E_red": 0.00,
+            "outerPhase": "Pt<sub>(s)</sub> ",
+            "middlePhase": " H<sub>2</sub> <sub>(g, 1 atm)</sub>  | ",
+            "innerPhase": " H<sup>+</sup><sub>(aq, 1 M)</sub> ",
+            "video_red": "waterReduction.mp4",
+            "video_oxi": "H_oxidation.mp4",
+            "gas": true,
+            "electronsPerMolecule": 0
+    },
         "ag": {  "id": "ag",
                 "name": "Silber",
                 "abbr": "Ag+/Ag",
@@ -86,19 +122,23 @@
                 }
     }, 
     "combos": {
-        "waterH2SO4": {  "left": "H2prod",
+        "waterH2SO4": { "left": "H2prod",
                         "right": "O2prod",
                         "cathDescr": "inerte Elektrode (Platin)",
                         "anDescr": "inerte Elektrode (Platin)",
                         "membrane": "hidden",
-                        "solutionColor": "rgba(200, 240, 255, 0.4)", 
-                        "thresholdV": 1.23,
-                        "cathodic": "left"
+                        "solutionColor": "rgba(200, 240, 255, 0.4)",
+                        "solutionDesc": "H<sub>2</sub>SO<sub>4</sub>, 1 M"
 
                     },
         "aqNaCl": {  
-                    "left": "she",
-                    "right": "she"
+                    "left": "aqNa",
+                    "right": "aqCl2prod",
+                    "cathDescr": "inerte Elektrode (Platin)",
+                    "anDescr": "Grafitelektrode",
+                    "membrane": "hidden",
+                    "solutionColor": "rgba(200, 240, 255, 0.4)",
+                    "solutionDesc": "NaCl, 1 M"
                 }
         }
 }

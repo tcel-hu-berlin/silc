@@ -16,16 +16,30 @@
         font-family:'digital-clock-font';
         src: url('../../assets/webfonts/digital-7.mono.ttf');
 }
-        .digitalScreen {
-            border: solid rgb(66, 77, 66)  2px;
-            background: rgb(196, 216, 196);
-            border-radius: 5px;
-            font-size:2em;
-            font-family: "digital-clock-font";
+        .digitalScreen, .resetButton {
             padding: 0.1em 0.6em;
-            margin-left: 0.3em;
-            margin-right: 0.3em;
+            margin: 0.1em 0.3em 0 0.3em;
             text-align: right;
+            height: 100%; 
+        }
+
+        .digitalScreen {
+            font-family: "digital-clock-font";
+            background: rgb(196, 216, 196);
+            font-size:2em;
+            border: solid rgb(66, 77, 66)  2px;
+            border-radius: 5px;
+        }
+
+        .resetButton{
+            height: 100%;
+            background:#ffee6c;
+        }
+
+        .resetButton > span {
+            font-size: 1.6em; 
+            bottom: 5%;
+            position: relative;
         }
 
         .bigLabel {
@@ -34,7 +48,6 @@
         }
 
         .upButton, .downButton {
-            
             color: rgb(0, 0, 0); 
             width:100%;
             padding: 0;
@@ -51,63 +64,90 @@
             background: #ffffff; 
         }
 
+        .column {
+            float: left;
+            width: 50%;
+            text-align: center;
+            }
+
+            /* Clear floats after the columns */
+            .row:after {
+            content: "";
+            display: table;
+            clear: both;
+}
     </style>
     <script src="https://d3js.org/d3.v4.js"></script>
     <title>Electrolytic Cell Simulation</title>
 </head>
 <body>
-    <div class="inner" style="text-align: center">
+    <div class="inner" style="text-align: left">
         <label for="systemSelector" class="bigLabel">System: </label>
-        <select id="systemSelector" style="width: 25%; font-size:1.2em; margin: 1em 0">
+        <select id="systemSelector" style="width: 35%; font-size:1.2em; margin: 1em 0 0.5em" onchange="changeCombo()">
             <option value="waterH2SO4" selected>Wasserelektrolyse</option>
             <option value="aqNaCl">Wässrige Lösung von NaCl</option>
         </select>
+        <p>Elektrolytlösung: &nbsp; <span id="solutionDesc">H<sub>2</sub>SO<sub>4</sub>, 1 M</span></p>
     </div>
 
-    <div id="electrolytic" style="position:relative; top:0; left:0; border:0 solid #ff7b00; width:100%; aspect-ratio:1.2">
+    <div id="electrolytic" style="position:relative; top:0; left:0; overflow:hidden; border:0 solid #ff7b00; width:100%; aspect-ratio:1.2">
         <!--  voltmeter controls and screens -->
-        <div style="position:absolute; left:2.5%; top: 4%; height: 8%; width:18%; text-align:center; vertical-align:middle">
-            <p class="bigLabel" style="margin-bottom:0">Spannung (V)</p>
-            <span class="digitalScreen" id="voltageScreen"><span id="voltInd">+0.500</span></span>
+        <div style="position:absolute; left:2.5%; top: 3%; height: 8%; width:18%; text-align:center; vertical-align:middle">
+            <p class="bigLabel" style="margin-bottom:0.3em">Spannung (V)</p>
+            <span class="digitalScreen" id="voltageScreen"><span id="voltInd">+1.000</span></span>
         </div>
-        <div style="position:absolute; left:2.5%; top:18%; height: 8%; width:18%; text-align:center; vertical-align:middle">
-            <p class="bigLabel" style="margin-bottom:0">Stromstärke (A)</p>
+        <div style="position:absolute; left:2.5%; top:16%; height: 8%; width:18%; text-align:center; vertical-align:middle">
+            <p class="bigLabel" style="margin-bottom:0.3em">Stromstärke (A)</p>
             <span class="digitalScreen" id="voltageScreen"><span id="ampInd">+1.000</span>
         </div>
-        <div style="position:absolute; left:20%; top:7.5%; width:3%; display:inline-table; text-align:center">
+        <div style="position:absolute; left:20%; top:6.5%; width:3%; display:inline-table; text-align:center">
             <button id="upV" class="upButton">&#9650;</button>
             <button id="downV" class="downButton">&#9660;</button>
         </div>
-        <div style="position:absolute; left:20%; top:21.5%; width:3%; display:inline-table; text-align:center">
+        <div style="position:absolute; left:20%; top:19.5%; width:3%; display:inline-table; text-align:center">
             <button id="upA" class="upButton">&#9650;</button>
             <button id="downA" class="downButton">&#9660;</button>
         </div>
-        <!-- Anode text -->
-        <div style="position:absolute; left:5%; top:37%; width:25%; display:inline-table; text-align: right">
+        <!-- Masses and Volumes -->
+        <div style="position:absolute; left:40%; top:4%; width:20%">
+            <div class="row">
+                <div class="column">
+                    <p class="bigLabel" style="margin-bottom:0"><b>V<sub>Kathode</sub></b></p>
+                    <p><span id="vLval">--0 mL</span></p>
+                </div>
+                <div class="column">
+                    <p class="bigLabel" style="margin-bottom:0"><b>V<sub>Anode</sub></b></p>
+                    <p><span id="vRval">--  mL</span></p>
+                </div>
+            </div>
+        </div>
+        <!-- Cathode text -->
+        <div style="position:absolute; left:9%; top:45%; width:25%; display:inline-table; text-align: right">
             <p class="bigLabel" style="margin-bottom:0"><b>Kathode (-)</b></p>
             <p><span id="cathDesc"></span>negativ geladen (durch den externen Strom)</p>
         </div>
-        <!-- Timer buttons -->
-        <div style="position:absolute; left:65%; top:7%; height: 8%; width:30%; text-align:center; vertical-align:middle">
-            <p class="bigLabel" style="margin-bottom:0">Zeit (Min.)</p>
-            <span class="digitalScreen" id="timerScreen"><span id="minutesInd">00</span>:<span id="secondsInd">00</span></span>
-        </div>
-        <div style="position:absolute; left:65%; top:20%; width:30%; display:inline-table; text-align:center">
-            <button id="startButton" style="background: #5469b7; color: white">Start</button><span>&nbsp; &nbsp</span>
-            <button id="stopButton" style="background: #5469b7; color: white" disabled>Pause</button><span>&nbsp; &nbsp;</span>
-            <button id="resetTimeButton" style="background: #5469b7; color: white" disabled>&#8634;</button>
-        </div>
-        <!-- Cathode text -->
-        <div style="position:absolute; left:70%; top:37%; width:25%; display:inline-table">
+        <!-- Anode text -->
+        <div style="position:absolute; left:66%; top:45%; width:25%; display:inline-table">
             <p class="bigLabel" style="margin-bottom:0"><b>Anode (+)</b></p>
             <p><span id="anDesc"></span>positiv geladen (durch den externen Strom)</p>
         </div>
-        <div id="solutionDesc" style="position:absolute; left:0%; top:62%; width:100%; display:inline-table; text-align:center">
-            <p><b>Elektrolytlösung:</b> H<sub>2</sub>SO<sub>4</sub>, 1 M</p>
+
+        <!-- Timer buttons -->
+        <div style="position:absolute; left:65%; height: 5%; top:0%; width:30%; text-align:center; vertical-align:middle">
+            <p class="bigLabel" style="margin-bottom:0">Zeit (Min.)</p>
+            <span class="digitalScreen" id="timerScreen" style="margin-top: 1em"><span id="minutesInd">00</span>:<span id="secondsInd">00</span></span>
+            <button class="resetButton" id="resetTimeButton"disabled><span>&#8634;</span></button>
         </div>
-        <div id="molRep" style="position:absolute; left:0%; top:70%; width:100%; text-align:center; visibility: hidden">
+        <div style="position:absolute; left:65%; top:12%; width:30%; display:inline-table; text-align:center">
+            <button id="startButton" style="background: #5469b7; color: white">Start</button><span>&nbsp; &nbsp;</span>
+            <button id="stopButton" style="background: #5469b7; color: white" disabled>Pause</button><span>&nbsp; &nbsp;</span>
+            <!-- <button id="resetTimeButton" style="background: #5469b7; color: white" disabled>&#8634;</button> -->
+        </div>
+        <!-- Submicro view -->
+        <div id="molRep" style="position:absolute; left:67%; top:19%; width:24%; text-align:left; vertical-align: middle; visibility: hidden">
             <p id="noReaction" style="color: red; font-weight: 600; display:none">Keine Netto-Redoxreaktion findet momentan statt.</p>
-            <video id="molRepVideo" src="../../images/Cu_reduction.mp4" style="width:20%; border: solid red 3px; border-radius:18px" loop autoplay></video>
+            <p id="submicroTitle" style="color: red; font-weight: 600; margin-bottom:0;display:none">Submikroskopische Ansicht:</p>
+            <video id="molRepVideo" src="../../images/Cu_reduction.mp4" style="width:95%; border: solid red 3px; border-radius:18px" loop autoplay></video>
         </div>
     </div>
 </div>
@@ -115,7 +155,8 @@
     <script src="../js/electrolytic.js"></script>
     
     <script>
-        document.getElementById("molRepVideo").playbackRate = 1.4
+        document.getElementById("molRepVideo").playbackRate = 1.5
+        // document.getElementById("hourglass").playbackRate = 0.5
     </script>
 </body>
 </html>

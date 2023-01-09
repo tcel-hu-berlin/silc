@@ -6,35 +6,60 @@
         .magn {
             opacity: 0.4;
         }
-
         .magn:hover{
             opacity: 0.8;
             filter: hue-rotate(120deg)
         }
+        @font-face{
+        font-family:'digital-clock-font';
+        src: url('../../assets/webfonts/digital-7.mono.ttf');
+        }
+        .digitalScreen, .resetButton {
+            padding: 0.1em 0.6em;
+            margin: 0.1em 0.3em 0 0.3em;
+            text-align: right;
+            height: 100%; 
+        }
 
+        .digitalScreen {
+            font-family: "digital-clock-font";
+            background: rgb(196, 216, 196);
+            font-size:2em;
+            border: solid rgb(66, 77, 66)  2px;
+            border-radius: 5px;
+        }
+
+        .bigLabel {
+            font-size: 1.2em;
+            font-weight: 600;
+        }
 
     </style>
     <script src="https://d3js.org/d3.v4.js"></script>
     <title>Galvanic Cell Simulation</title>
 </head>
 <body>
-    <div id="galvanic" style="position:absolute; top:0; left:0; border:0 solid #ff7b00; width:100%; aspect-ratio:1.2">
-        <div style="position:absolute; left:15%; top:25%; width:20%; display:inline-table; text-align:right">
-            <p style="margin-bottom:0"><b>(-)-Seite: Redox-Paar</b></p>
+    <div id="galvanic" style="position:relative; top:0; left:0; border:0 solid #ff7b00; width:100%; aspect-ratio:1.2">
+        <div style="position:absolute; left:5%; top:25%; display:inline-table; text-align:right">
+            <p class="bigLabel" style="margin-bottom:0"><b>(-)-Seite-Redox-Paar</b></p>
             <select id="pairSelectorL" onchange="changePairL()" disabled>
-                <option value=0>Cu&#178;&#8314; / Cu</option>
-                <option value=1 selected>H&#8314; / H&#8322; </option>
-                <option value=2>Ag&#8314;/Ag</option>
-                <option value=3>Zn&#178;&#8314;/Zn</option>
+                <option value="cuII" selected>Cu&#178;&#8314; / Cu</option>
+                <option value="she" >H&#8314; / H&#8322; </option>
+                <option value="ag">Ag&#8314;/Ag</option>
+                <option value="zn">Zn&#178;&#8314;/Zn</option>
             </select>
         </div>
-        <div style="position:absolute; left:65%; top:25%; width:20%; display:inline-table">
-            <p style="margin-bottom:0"><b>(+)-Seite: Redox-Paar</b></p>
+        <div style="position:absolute; left:40%; top:10%; height: 8%; width:20%; text-align:center; vertical-align:middle">
+            <p class="bigLabel" style="margin-bottom:0.3em">Zellspannung (V)</p>
+            <span class="digitalScreen" id="voltageScreen"><span id="voltInd">+1.000</span>
+        </div>
+        <div style="position:absolute; left:75%; top:25%; display:inline-table">
+            <p class="bigLabel" style="margin-bottom:0"><b>(+)-Seite-Redox-Paar</b></p>
             <select id="pairSelectorR" onchange="changePairR()" disabled>
-                <option value=0>Cu&#178;&#8314; / Cu</option>
-                <option value=1>H+/H&#8322;</option>
-                <option value=2>Ag&#8314;/Ag</option>
-                <option value=3 selected>Zn&#178;&#8314;/Zn</option>
+                <option value=cuII>Cu&#178;&#8314; / Cu</option>
+                <option value="she">H+/H&#8322;</option>
+                <option value="ag" selected>Ag&#8314;/Ag</option>
+                <option value="zn">Zn&#178;&#8314;/Zn</option>
             </select>
         </div>
         <div id="lineNotation" style="position:absolute; left:0%; top:62%; width:100%; display:inline-table; text-align:center; visibility:hidden">

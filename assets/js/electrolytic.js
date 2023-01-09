@@ -18,8 +18,10 @@ svg.append("rect")
     // .style("stroke", "blue")
 
 // document element selections
+// var hourglass = document.getElementById("hourglass")
 var videoDiv = document.getElementById("molRep")
 var videoScreen = document.getElementById("molRepVideo")
+var videoTitle = document.getElementById("submicroTitle")
 var noReaction = document.getElementById("noReaction")
 var minutesInd = document.getElementById("minutesInd")
 var secondsInd = document.getElementById("secondsInd")
@@ -27,6 +29,9 @@ var voltInd = document.getElementById("voltInd")
 var ampInd = document.getElementById("ampInd")
 var cathDesc = document.getElementById("cathDesc")
 var anDesc = document.getElementById("anDesc")
+var solDesc = document.getElementById("solutionDesc")
+var vLind = document.getElementById("vLval")
+var vRind = document.getElementById("vRval")
 
 // d3.js element selections
 var startButton = d3.select("#startButton")
@@ -38,23 +43,26 @@ var upV = d3.select("#upV"), downV = d3.select("#downV"), upA = d3.select("#upA"
 var thresVolt, molPerElL, molPerElR
 var voltage = +voltInd.innerHTML
 var current = +ampInd.innerHTML
-console.log({voltage}, {current})
+var bubbleFrames = [0, 1, 2, 3, 4], bubbleFrameL = 0, bubbleFrameR = 1
 var timer
-var secondsPassed = 0
-var minV = -2, maxV = 2, minA = 0.5, maxA=5
+var maxVolume = 0.4 // L
+var secondsPassed = 0, coulombsPassed = 0, electronMolesPassed = 0, molGasL = 0, molGasR = 0
+// var massL = 0, massR = 0
+var minV = -2, maxV = 2, minA = 0.5, maxA=2
 
 // Paths
 var posL = 0.40*width,
 posR = 0.60*width,
-beakerBottom = 0.6*height,
+beakerBottom = 0.55*height,
 circuitHeight = 0.15*height,
 
-beakerWidth = 0.15*width*2.3,
+refWidth = 0.15*width*2.3,
+beakerWidth = refWidth*0.8
 beakerHeight = 0.2*height,
 beakerCurve = 0.01*width,
 fillHeight = 0.75*beakerHeight,
 beakerColor = "#585858",
-magnWidth = 0.025*width, magnHeight = 0.8*magnWidth, magnTop = 0.502*height
+magnWidth = 0.035*width, magnHeight = 0.8*magnWidth, magnTop = beakerBottom-fillHeight*0.8
 
 beakerPath = d3.path()
 beakerPath.moveTo(0,0)
@@ -70,12 +78,12 @@ beakerPath.lineTo(beakerWidth,0)
 contentPath = d3.path()
 contentPath.moveTo(0,beakerHeight-fillHeight)
 contentPath.arcTo(0, beakerHeight, beakerCurve, beakerHeight, beakerCurve)
-contentPath.arcTo(beakerWidth, beakerHeight, beakerWidth, beakerHeight-beakerCurve, beakerCurve)
+contentPath.arcTo(beakerWidth, beakerHeight, refWidth, beakerHeight-beakerCurve, beakerCurve)
 contentPath.lineTo(beakerWidth,beakerHeight-fillHeight)
 contentPath.moveTo(beakerWidth,beakerHeight-fillHeight)
 contentPath.lineTo(0,beakerHeight-fillHeight)
 
-var stripWidth = 0.06*beakerWidth, stripHeight=0.75*beakerHeight
+var stripWidth = 0.06*refWidth, stripHeight=0.5*beakerHeight
 stripPath = d3.path()
 stripPath.moveTo(-stripWidth/2, 0)
 stripPath.lineTo(-stripWidth/2, stripHeight)
@@ -83,8 +91,8 @@ stripPath.lineTo(+stripWidth/2, stripHeight)
 stripPath.lineTo(+stripWidth/2, 0)
 stripPath.closePath()
 
-var wireNW = 0.01*beakerWidth, wireNH=0.58*beakerHeight
-var wireWW = 0.02*beakerWidth, wireWH=0.069*beakerHeight
+var wireNW = 0.01*refWidth, wireNH=0.38*beakerHeight
+var wireWW = 0.02*refWidth, wireWH=0.069*beakerHeight
 wirePath = d3.path()
 wirePath.moveTo(-wireNW/2, 0)
 wirePath.lineTo(-wireNW/2, wireNH)
@@ -99,7 +107,7 @@ wirePath.moveTo(-wireWW/2, wireNH)
 wirePath.lineTo(wireWW/2, wireNH)
 
 voltageReaderHeight = 0.03*width
-voltmeterTop = 0.025*height; voltmeterLeft = 0.025*width; voltmeterWidth = 0.28*width; voltmeterHeight = 0.24*width
+voltmeterTop = 0.025*height; voltmeterLeft = 0.025*width; voltmeterWidth = 0.28*width; voltmeterHeight = 0.22*width
 redHeight = voltmeterTop+0.43*voltmeterHeight; blueHeight = voltmeterTop+0.57*voltmeterHeight; 
 
 circuitPath = d3.path()
@@ -110,8 +118,8 @@ circuitPath.moveTo(voltmeterLeft+voltmeterWidth, redHeight)
 circuitPath.lineTo(posR, redHeight)
 circuitPath.lineTo(posR, beakerBottom-beakerHeight)
 
-var tubeWidth = 0.08*beakerWidth, tubeOffset = 0.14*beakerWidth, 
-tubeCurve = tubeWidth/2, tubeHeight = beakerHeight, tubeBottom=0.6*beakerHeight
+var tubeWidth = 0.08*refWidth, tubeOffset = 0.14*refWidth, 
+tubeCurve = tubeWidth/2, tubeHeight = beakerHeight*1.2, tubeBottom=0.6*beakerHeight
 tubePath = d3.path()
 tubePath.moveTo(0, 0)
 tubePath.lineTo(0, 0.85*beakerHeight)
@@ -122,8 +130,9 @@ tubePath.lineTo(tubeOffset-0.5*tubeWidth,tubeBottom-tubeHeight)
 tubePath.moveTo(tubeOffset+0.5*tubeWidth,tubeBottom-tubeHeight)
 tubePath.lineTo(tubeOffset+0.5*tubeWidth, tubeBottom)
 
+var baselineGas = 0 //0.05*beakerHeight
 var stopperWidth = 0.81*tubeWidth, stopperWWidth=stopperWidth*1.4, stopperNWidth=stopperWidth*0.4
-stopperBottom = beakerHeight-fillHeight, stopperHeight=stopperBottom-tubeBottom+tubeHeight*1.05
+stopperBottom = beakerHeight-fillHeight-baselineGas, stopperHeight=stopperBottom-tubeBottom+tubeHeight*1.05
 stopperPath = d3.path()
 stopperPath.moveTo(tubeOffset-stopperWidth/2, stopperBottom)
 stopperPath.lineTo(tubeOffset-stopperWidth/2, tubeBottom-tubeHeight-0.075*tubeWidth)
@@ -150,106 +159,112 @@ tsPath.lineTo(tubeOffset+tsWidth/2, tsBottom)
 tsPath.closePath()
 
 // measuring lines on tube
-for (i=0; i<10; i++){
-    let y = beakerHeight-fillHeight-i*(stopperHeight*0.8)/10
+var maxVolumeHeight = stopperHeight*0.8
+for (i=0; i<11; i++){
+    let y = beakerHeight-fillHeight-baselineGas-i*(maxVolumeHeight)/10
     tubePath.moveTo(tubeOffset+0.5*tubeWidth,y)
     tubePath.lineTo(tubeOffset+0.5*tubeWidth-0.2*tubeWidth, y)   
 }
 
 // magnifying functions
 var showMagnL = function(){
-    d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
-    d3.select("#magnSolL").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
-    if (Math.abs(+voltageReading) < 0.005){
-        videoScreen.src = ""
-        videoDiv.style.visibility = "visible"
-        noReaction.style.display = "block"
-        videoScreen.style.display = "none"
+    if (d3.select("#magnSolL").style("opacity")==0.8){
+        hideSubmicro()
     } else {
-        if (+voltageReading > 0){
-            let file = leftSide["video_oxi"]
-            videoScreen.src = "../../images/" + file
-            videoScreen.playbackRate = 1.1
+         d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
+        d3.select("#magnSolL").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
+        let sw = d3.select("#switchImg")
+        if (voltage <= thresVolt || sw.attr("status") == "open"){
+            videoScreen.src = ""
+            videoDiv.style.visibility = "visible"
+            noReaction.style.display = "block"
+            videoScreen.style.display = "none"
+            videoTitle.style.display = "none"
         } else {
             let file = leftSide["video_red"]
             videoScreen.src = "../../images/" + file
-            videoScreen.playbackRate = 1.1
+            videoScreen.playbackRate = 1.4
+            videoDiv.style.visibility = "visible"
+            videoScreen.style.display = "inline-block"
+            videoTitle.style.display = "block"
+            noReaction.style.display = "none"
         }
-        videoDiv.style.visibility = "visible"
-        videoScreen.style.display = "inline-block"
-        noReaction.style.display = "none"
     }
-}
+    }
+
 
 var showMagnR = function(){
-    d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
-    d3.select("#magnSolR").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
-    if (Math.abs(+voltageReading) < 0.005){
-        videoScreen.src = ""
-        videoDiv.style.visibility = "visible"
-        noReaction.style.display = "block"
-        videoScreen.style.display = "none"
+    if (d3.select("#magnSolR").style("opacity")==0.8){
+        hideSubmicro()
     } else {
-        if (+voltageReading > 0){
-            let file = rightSide["video_red"]
-            videoScreen.src = "../../images/" + file
-            videoScreen.playbackRate = 1.1
+        d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
+        d3.select("#magnSolR").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
+        let sw = d3.select("#switchImg")
+        if (voltage <= thresVolt || sw.attr("status") == "open"){
+            videoScreen.src = ""
+            videoDiv.style.visibility = "visible"
+            noReaction.style.display = "block"
+            videoScreen.style.display = "none"
+            videoTitle.style.display = "none"
         } else {
             let file = rightSide["video_oxi"]
             videoScreen.src = "../../images/" + file
-            videoScreen.playbackRate = 1.1
+            videoScreen.playbackRate = 1.4
+            videoDiv.style.visibility = "visible"
+            videoTitle.style.display = "block"
+            videoScreen.style.display = "inline-block"
+            noReaction.style.display = "none"
+            }
         }
-        videoDiv.style.visibility = "visible"
-        videoScreen.style.display = "inline-block"
-        noReaction.style.display = "none"
-    }
 }
 
 var showMagnCircL = function(){
-    d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
-    d3.select("#magnCircL").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
-    if (Math.abs(+voltageReading) < 0.005){
-        videoScreen.src = ""
-        videoDiv.style.visibility = "visible"
-        noReaction.style.display = "block"
-        videoScreen.style.display = "none"
+    if (d3.select("#magnCircL").style("opacity")==0.8){
+        hideSubmicro()
     } else {
-        if (+voltageReading > 0){
-            let file = "electronsUp.mp4"
-            videoScreen.src = "../../images/" + file
-            videoScreen.playbackRate = 0.7
+        d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
+        d3.select("#magnCircL").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
+        let sw = d3.select("#switchImg")
+        if (voltage <= thresVolt || sw.attr("status") == "open"){
+            videoScreen.src = ""
+            videoDiv.style.visibility = "visible"
+            noReaction.style.display = "block"
+            videoScreen.style.display = "none"
+            videoTitle.style.display = "none"
         } else {
             let file = "electronsDown.mp4"
             videoScreen.src = "../../images/" + file
             videoScreen.playbackRate = 0.7
+            videoDiv.style.visibility = "visible"
+            videoScreen.style.display = "inline-block"
+            videoTitle.style.display = "block"
+            noReaction.style.display = "none"
         }
-        videoDiv.style.visibility = "visible"
-        videoScreen.style.display = "inline-block"
-        noReaction.style.display = "none"
     }
 }
 
 var showMagnCircR = function(){
-    d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
-    d3.select("#magnCircR").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
-    if (Math.abs(+voltageReading) < 0.005){
-        videoScreen.src = ""
-        videoDiv.style.visibility = "visible"
-        noReaction.style.display = "block"
-        videoScreen.style.display = "none"
+    if (d3.select("#magnCircR").style("opacity")==0.8){
+        hideSubmicro()
     } else {
-        if (+voltageReading > 0){
-            let file = "electronsDown.mp4"
-            videoScreen.src = "../../images/" + file
-            videoScreen.playbackRate = 0.7
+        d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
+        d3.select("#magnCircR").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
+        let sw = d3.select("#switchImg")
+        if (voltage <= thresVolt || sw.attr("status") == "open" ){
+            videoScreen.src = ""
+            videoDiv.style.visibility = "visible"
+            noReaction.style.display = "block"
+            videoScreen.style.display = "none"
+            videoTitle.style.display = "none"
         } else {
             let file = "electronsUp.mp4"
             videoScreen.src = "../../images/" + file
             videoScreen.playbackRate = 0.7
+            videoDiv.style.visibility = "visible"
+            videoScreen.style.display = "inline-block"
+            noReaction.style.display = "none"
+            videoTitle.style.display = "block"
         }
-        videoDiv.style.visibility = "visible"
-        videoScreen.style.display = "inline-block"
-        noReaction.style.display = "none"
     }
 }
 
@@ -291,20 +306,48 @@ var dropA = function(){
     }
 }
 
-var closeSwitch = function(){
-    d3.select("#switchImg").attr("xlink:href", "../../images/switchClosedVert.png")
-    d3.select("#switchImg").attr("status","closed")
+var disablePowerVar = function(){
+    upV.attr("disabled", true)
+    downV.attr("disabled", true)
+    upA.attr("disabled", true)
+    downA.attr("disabled", true)
+}
+
+var enablePowerVar = function(){
+    if (voltage < maxV){
+        upV.attr("disabled", null)
+    }
+    if (voltage > minV){
+        downV.attr("disabled", null)
+    }
+    if (current < maxA){
+        upA.attr("disabled", null)
+    }
+    if (current > minA){
+        downA.attr("disabled", null)
+    }
 }
 
 var openSwitch = function(){
     d3.select("#switchImg").attr("xlink:href","../../images/switchOpenVert.png")
     d3.select("#switchImg").attr("status", "open")
+    enablePowerVar()
+}
+var closeSwitch = function(){
+    d3.select("#switchImg").attr("xlink:href", "../../images/switchClosedVert.png")
+    d3.select("#switchImg").attr("status","closed")
+    disablePowerVar()
 }
 
 var toggleSwitch = function(){
     let sw = d3.select("#switchImg")
     let st = sw.attr("status")
     if (st == "open"){closeSwitch()} else {openSwitch()}
+}
+
+var hideSubmicro = function(){
+    videoDiv.style.visibility = "hidden"
+    d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
 }
 
 var writeTime = function(tsec){
@@ -315,10 +358,102 @@ var writeTime = function(tsec){
 }
 var advanceTimerOnce = function(){
     secondsPassed += 1
+    coulombsPassed += current
+    electronMolesPassed = coulombsPassed/96485
     writeTime(secondsPassed)
+}
+var visualizeBubbles = function(){
+    if (secondsPassed>30){
+        if (leftSide["gas"]==true){
+            let m = Math.max(leftSide["electronsPerMolecule"], 1)
+            d3.select("#bubblesL").style("visibility", "visible")
+            if (secondsPassed%(15*m) == 0){
+                let otherBubbleFrames = bubbleFrames.filter(frame => frame != bubbleFrameL)
+                bubbleFrameL = otherBubbleFrames[Math.floor(Math.random() * otherBubbleFrames.length)]
+                let bubbleFile = '../../images/bubbles' + bubbleFrameL.toString() + '.svg'
+                d3.select("#bubblesL").attr('xlink:href', bubbleFile)
+            }
+        }
+
+        if (rightSide["gas"]==true){
+            d3.select("#bubblesR").style("visibility", "visible")
+            let m = Math.max(rightSide["electronsPerMolecule"], 1)
+            if (secondsPassed%(15*m) == 8){
+                let otherBubbleFrames = bubbleFrames.filter(frame => frame != bubbleFrameR)
+                bubbleFrameR = otherBubbleFrames[Math.floor(Math.random() * otherBubbleFrames.length)]
+                let bubbleFile = '../../images/bubbles' + bubbleFrameR.toString() + '.svg'
+                d3.select("#bubblesR").attr('xlink:href', bubbleFile)
+            }
+        }
+    }
+}
+var gasProductionL = function(){
+    molGasL = electronMolesPassed / leftSide["electronsPerMolecule"]
+    let gasVolumeL = molGasL * 22.4
+    let gasHeightL = gasVolumeL/maxVolume*maxVolumeHeight
+    d3.select("#stopperL").attr("transform", "translate(0,-"+(gasHeightL)+ ")")
+    let mLProd = (gasVolumeL*1000).toFixed(1)
+    vLind.innerHTML = mLProd+ " mL"
+}
+var gasProductionR = function(){
+    molGasR = electronMolesPassed / rightSide["electronsPerMolecule"]
+    let gasVolumeR = molGasR * 22.4
+    let gasHeightR = gasVolumeR/maxVolume*maxVolumeHeight
+    d3.select("#stopperR").attr("transform", "scale(-1,1), translate(0,-"+(gasHeightR)+ ")")
+    let mLProd = (gasVolumeR*1000).toFixed(1)
+    vRind.innerHTML = mLProd + " mL"
 }
 
 
+var runElectrolysis = function(){
+    if (secondsPassed >= 1800){
+        clearInterval(timer)
+        openSwitch()
+        disablePowerVar()
+        videoDiv.style.visibility = "hidden"
+        stopButton.attr("disabled", true)
+        startButton.attr("disabled", true)
+        setTimeout(function(){
+            d3.select("#bubblesL").style("visibility", "hidden")
+            d3.select("#bubblesR").style("visibility", "hidden")
+        }, 1000)
+        resetTimeButton.attr("disabled", null)
+    } else {
+        advanceTimerOnce();
+        if (voltage >= thresVolt){
+            visualizeBubbles();
+            if (leftSide["gas"]==true && leftSide["electronsPerMolecule"] != 0){
+                gasProductionL();
+            }
+            if (rightSide["gas"]==true && rightSide["electronsPerMolecule"] != 0){
+                gasProductionR();
+            }
+        }
+       
+    }
+
+}
+
+var resetEl = function(){
+    secondsPassed = 0
+    coulombsPassed = 0
+    electronMolesPassed = 0
+    molGasL = 0; molGasR = 0
+    vLind.innerHTML = "-- mL"
+    vRind.innerHTML = "-- mL"
+    d3.select("#stopperL").attr("transform", null)
+    d3.select("#stopperR").attr("transform", "scale(-1,1)")
+    d3.select("#bubblesL").style("visibility", "hidden")
+    d3.select("#bubblesR").style("visibility", "hidden")
+    writeTime(secondsPassed)
+    resetTimeButton.attr("disabled", true)
+    stopButton.attr("disabled", true)
+    startButton.attr("disabled", null)
+    hideSubmicro()
+    videoScreen.src = ""
+    openSwitch()
+    clearInterval(timer)
+}
 
 // Loading Data
 var defaultCombo = "waterH2SO4"
@@ -332,7 +467,6 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
     combo = redoxCombos[defaultCombo]
     leftSide = redoxPairs[combo["left"]]
     rightSide = redoxPairs[combo["right"]]
-    console.log(combo, leftSide, rightSide)
     cathDesc.innerHTML = redoxCombos[defaultCombo]["cathDescr"]+ ", "
     anDesc.innerHTML = redoxCombos[defaultCombo]["anDescr"]+ ", "
 
@@ -341,7 +475,7 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
     electrodeRcolor = rightSide["electrodeColor"]
     stripL = leftSide["strip"]; stripR = rightSide["strip"]
     tubeL = leftSide["tube"]; tubeR = rightSide["tube"]
-    voltageReading = rightSide["E_red"]-leftSide["E_red"]
+    thresVolt = rightSide["E_red"]-leftSide["E_red"]
 
 
     // Drawing objects
@@ -420,6 +554,7 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .attr("d", stopperPath)
         .style("stroke", "rgb(120,150,165)").style('stroke-width', "0.1em")
         .style("fill", "rgb(160,200,220)")
+        .style("visibility", tubeL)
     d3.select("#LS").append("path")
         .attr("id", "tubeL")
         .attr("d", tubePath)
@@ -433,7 +568,14 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .style("opacity", 1)
         .style("fill", electrodeLcolor)
         .style("stroke", "black").style("stroke-width", "0.02em")
-        .style("visibility", "visible") 
+        .style("visibility", "visible")
+    d3.select("#LS").append("image")
+        .attr("id", "bubblesL")
+        .attr('xlink:href', '../../images/bubbles0.svg')
+        .attr("x", tubeOffset-tubeWidth*0.48).attr("y", beakerHeight-fillHeight+0.03*beakerHeight)
+        .attr('width', tubeWidth*0.96)
+        .attr('height', tubeWidth*0.96*1.5)
+        .style("visibility", "hidden")
 
     svg.append("g").attr("id", "RS")
         .attr("transform", "translate("+ (posR)+ ","+(beakerBottom-beakerHeight)+ ")")
@@ -462,24 +604,33 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .style("opacity", 1)
         .style("fill", electrodeLcolor)
         .style("stroke", "black").style("stroke-width", "0.02em")
-        .style("visibility", "visible") 
+        .style("visibility", tubeR)
+    d3.select("#RS").append("image")
+        .attr("id", "bubblesR")
+        .attr('xlink:href', '../../images/bubbles1.svg')
+        .attr("x", -tubeOffset-tubeWidth*0.48).attr("y", beakerHeight-fillHeight+0.03*beakerHeight)
+        .attr('width', tubeWidth*0.96)
+        .attr('height', tubeWidth*0.96*1.5)
+        .style("visibility", "hidden")
 
     svg.append("g").attr("id", "magnPoints")
     d3.select("#magnPoints").append('image')
         .attr("id", "magnSolL")
         .attr("class", "magn")
         .attr('xlink:href', '../../images/magnGlass.svg')
-        .attr("x", posL).attr("y", magnTop)
+        .attr("x", posL+tubeOffset).attr("y", magnTop)
         .attr('width', magnWidth)
         .attr('height', magnWidth)
+        .style("opacity", 0.4)
         .on("click", showMagnL)
     d3.select("#magnPoints").append('image')
         .attr("id", "magnSolR")
         .attr("class", "magn")
         .attr('xlink:href', '../../images/magnGlass.svg')
-        .attr("x", posR).attr("y", magnTop)
+        .attr("x", posR-tubeOffset).attr("y", magnTop)
         .attr('width', magnWidth)
         .attr('height', magnWidth)
+        .style("opacity", 0.4)
         .on("click", showMagnR)
     d3.select("#magnPoints").append('image')
         .attr("id", "magnCircL")
@@ -488,6 +639,7 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .attr("x", posL-magnWidth*0.4).attr("y", 0.3*height)
         .attr('width', magnWidth)
         .attr('height', magnWidth)
+        .style("opacity", 0.4)
         .on("click", showMagnCircL)
     d3.select("#magnPoints").append('image')
         .attr("id", "magnCircR")
@@ -496,31 +648,72 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .attr("x", posR-magnWidth*0.4).attr("y", 0.3*height)
         .attr('width', magnWidth)
         .attr('height', magnWidth)
+        .style("opacity", 0.4)
         .on("click", showMagnCircR)
 
     changeCombo = function(){
         let val = document.getElementById("systemSelector").value
-        combo = redoxCombos[combo]
-
-
+        combo = redoxCombos[val]
         leftSide = redoxPairs[combo["left"]]
         rightSide = redoxPairs[combo["right"]]
         electrodeLcolor = leftSide["electrodeColor"]
         stripL = leftSide["strip"]
         tubeL = leftSide["tube"]
+        electrodeRcolor = rightSide["electrodeColor"]
+        stripR = rightSide["strip"]
+        tubeR = rightSide["tube"]
+        thresVolt = rightSide["E_red"]-leftSide["E_red"]
+        
+        solDesc.innerHTML = combo["solutionDesc"]
+        cathDesc.innerHTML = combo["cathDescr"]+ ", "
+        anDesc.innerHTML = combo["anDescr"]+ ", "
 
         if (tubeL == "visible"){
             d3.select("#stripElectrodeL").attr("d", tsPath)
             d3.select("#wireL").style("visibility", "hidden")
+            d3.select("#magnSolL").attr("x", posL+tubeOffset)
+            d3.select("#bubblesL").attr("x", tubeOffset-tubeWidth*0.48)
         } else{
+            if (leftSide["gas"]==true){
+                d3.select("#bubblesL").attr("x", -tubeWidth*0.48)
+            }
             d3.select("#stripElectrodeL").attr("d", stripPath)
             d3.select("#wireL").style("visibility", "visible")
+            d3.select("#magnSolL").attr("x", posL)
         }
 
         d3.select("#stripElectrodeL").style("fill", electrodeLcolor)
         d3.select("#stripElectrodeL").style("visibility", stripL)
         d3.select("#tubeL").style("visibility", tubeL)
+        d3.select("#stopperL").style("visibility", tubeL)
         d3.select("#wireL").style("fill", electrodeLcolor)
+
+
+        if (tubeR == "visible"){
+            d3.select("#stripElectrodeR").attr("d", tsPath)
+            d3.select("#wireR").style("visibility", "hidden")
+            d3.select("#magnSolR").attr("x", posR-tubeOffset)
+            d3.select("#bubblesR").attr("x", -tubeOffset-tubeWidth*0.48)
+        } else{
+            if (rightSide["gas"]==true){
+                d3.select("#bubblesR").attr("x", -tubeWidth*0.48)
+            }
+            d3.select("#stripElectrodeR").attr("d", stripPath)
+            d3.select("#wireR").style("visibility", "visible")
+            d3.select("#magnSolR").attr("x", posR)
+        }
+
+        d3.select("#stripElectrodeR").style("fill", electrodeRcolor)
+        d3.select("#stripElectrodeR").style("visibility", stripR)
+        d3.select("#tubeR").style("visibility", tubeR)
+        d3.select("#stopperR").style("visibility", tubeR)
+        d3.select("#wireR").style("fill", electrodeRcolor)
+
+        d3.select("#bubblesL").style("visibility", "hidden")
+        
+        resetEl()
+        // videoDiv.style.visibility = "hidden"
+        
     }
 
     changePairL = function(){
@@ -557,7 +750,7 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         videoDiv.style.visibility = "hidden"
     }
     
-    // changePairL();changePairR()
+    changeCombo()
 })
 
 
@@ -566,31 +759,26 @@ startButton.on("click", function(){
     stopButton.attr("disabled", null)
     startButton.attr("disabled", true)
     resetTimeButton.attr("disabled", null)
+    noReaction.style.display = "none"
     closeSwitch()
-    timer = setInterval(
-        function(){
-            advanceTimerOnce();
-        }, 10
-    )
+    timer = setInterval(runElectrolysis, 20)
+    if (voltage < thresVolt){
+        noReaction.style.display="block"
+        videoScreen.style.display="none"
+        videoDiv.style.visibility="visible"
+    }
 })
 
 stopButton.on("click", function(){
     stopButton.attr("disabled", true)
     startButton.attr("disabled", null)
-    openSwitch()
     clearInterval(timer)
+    // hourglass.style.opacity=0.5
+    // hourglass.pause()
     resetTimeButton.attr("disabled", null)
     })
 
-resetTimeButton.on("click", function(){
-    secondsPassed = 0
-    writeTime(secondsPassed)
-    resetTimeButton.attr("disabled", true)
-    stopButton.attr("disabled", true)
-    startButton.attr("disabled", null)
-    openSwitch()
-    clearInterval(timer)
-})
+resetTimeButton.on("click", resetEl)
 
 upV.on("click", raiseV)
 downV.on("click", dropV)
