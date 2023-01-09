@@ -35,6 +35,7 @@ var resetTimeButton = d3.select("#resetTimeButton")
 var upV = d3.select("#upV"), downV = d3.select("#downV"), upA = d3.select("#upA"), downA = d3.select("#downA")
 
 // variables that are changed throughout simulation
+var thresVolt, molPerElL, molPerElR
 var voltage = +voltInd.innerHTML
 var current = +ampInd.innerHTML
 console.log({voltage}, {current})
@@ -323,7 +324,7 @@ var advanceTimerOnce = function(){
 var defaultCombo = "waterH2SO4"
 var combo, leftSide, rightSide
 var redoxPairs, redoxCombos, solutionColor, electrodeLcolor, electrodeRcolor, stripL, stripR, tubeL, tubeR, voltageReading
-var changePairL, changePairR
+var changeCombo, changePairL, changePairR
 var rP = d3.json("../../files/redoxPairs.json", function(data){
     
     redoxPairs = data["halfCells"]
@@ -497,6 +498,31 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .attr('height', magnWidth)
         .on("click", showMagnCircR)
 
+    changeCombo = function(){
+        let val = document.getElementById("systemSelector").value
+        combo = redoxCombos[combo]
+
+
+        leftSide = redoxPairs[combo["left"]]
+        rightSide = redoxPairs[combo["right"]]
+        electrodeLcolor = leftSide["electrodeColor"]
+        stripL = leftSide["strip"]
+        tubeL = leftSide["tube"]
+
+        if (tubeL == "visible"){
+            d3.select("#stripElectrodeL").attr("d", tsPath)
+            d3.select("#wireL").style("visibility", "hidden")
+        } else{
+            d3.select("#stripElectrodeL").attr("d", stripPath)
+            d3.select("#wireL").style("visibility", "visible")
+        }
+
+        d3.select("#stripElectrodeL").style("fill", electrodeLcolor)
+        d3.select("#stripElectrodeL").style("visibility", stripL)
+        d3.select("#tubeL").style("visibility", tubeL)
+        d3.select("#wireL").style("fill", electrodeLcolor)
+    }
+
     changePairL = function(){
         let system = document.getElementById("systemSelector").value
         val = redoxPairs[system]["ls"]
@@ -546,7 +572,6 @@ startButton.on("click", function(){
             advanceTimerOnce();
         }, 10
     )
-
 })
 
 stopButton.on("click", function(){
