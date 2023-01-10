@@ -32,7 +32,7 @@ svg.append("rect")
     .attr("width", width)
     .attr("height", height)
     .style("fill", "white")
-    .style("stroke", "blue")
+    // .style("stroke", "blue")
 
 // Paths
 var posL = 0.39*width,
@@ -83,16 +83,16 @@ stripPath.lineTo(0.58*beakerWidth, -0.1*beakerHeight)
 stripPath.closePath()
 
 tubePath = d3.path()
-tubePath.moveTo(0.42*beakerWidth, -0.1*beakerHeight)
+tubePath.moveTo(0.42*beakerWidth, -0.25*beakerHeight)
 tubePath.lineTo(0.42*beakerWidth, 0.47*beakerHeight)
 tubePath.moveTo(0.58*beakerWidth, 0.47*beakerHeight)
-tubePath.lineTo(0.58*beakerWidth, 0)
-tubePath.lineTo(0.65*beakerWidth, 0)
-tubePath.moveTo(0.65*beakerWidth, -0.06*beakerHeight)
-tubePath.lineTo(0.58*beakerWidth, -0.06*beakerHeight)
-tubePath.lineTo(0.58*beakerWidth, -0.1*beakerHeight)
-tubePath.arcTo(0.58*beakerWidth, -0.1*beakerHeight-tubeCurve, 0, -0.1*beakerHeight-tubeCurve, tubeCurve)
-tubePath.arcTo(0.42*beakerWidth, -0.1*beakerHeight-tubeCurve, 0.42*beakerWidth, -0.1*beakerHeight, tubeCurve)
+tubePath.lineTo(0.58*beakerWidth, -0.16*beakerHeight)
+tubePath.lineTo(0.65*beakerWidth, -0.16*beakerHeight)
+tubePath.moveTo(0.65*beakerWidth, -0.22*beakerHeight)
+tubePath.lineTo(0.58*beakerWidth, -0.22*beakerHeight)
+tubePath.lineTo(0.58*beakerWidth, -0.25*beakerHeight)
+tubePath.arcTo(0.58*beakerWidth, -0.25*beakerHeight-tubeCurve, 0, -0.25*beakerHeight-tubeCurve, tubeCurve)
+tubePath.arcTo(0.42*beakerWidth, -0.25*beakerHeight-tubeCurve, 0.42*beakerWidth, -0.25*beakerHeight, tubeCurve)
 // tubePath.moveTo(0.46*beakerWidth, 0.56*beakerHeight)
 // tubePath.lineTo(0.45*beakerWidth, 0.64*beakerHeight)
 // tubePath.lineTo(0.55*beakerWidth, 0.64*beakerHeight)
@@ -141,7 +141,24 @@ bridgeContentsPath.arcTo(posL+0.20*beakerWidth+bridgeDiameter, beakerBottom-beak
 bridgeContentsPath.lineTo(posL+0.2*beakerWidth+bridgeDiameter, beakerBottom-0.65*beakerHeight)
 
 // magnifying functions
+var hideSubmicro = function(){
+    videoDiv.style.visibility = "hidden"
+    d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
+}
+var closeViewIfOpen = function(view){
+    if (d3.select("#"+view).style("filter") == "hue-rotate(120deg)"){
+        hideSubmicro()
+        return "was open"
+    } else {
+        return "was closed"
+    }
+}
+
 var showMagnL = function(){
+    let status = closeViewIfOpen("magnSolL")
+    if (status == "was open"){
+        return
+    }
     d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
     d3.select("#magnSolL").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
     if (Math.abs(+voltageReading) < 0.005){
@@ -168,6 +185,10 @@ var showMagnL = function(){
 }
 
 var showMagnR = function(){
+    let status = closeViewIfOpen("magnSolR")
+    if (status == "was open"){
+        return
+    }
     d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
     d3.select("#magnSolR").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
     if (Math.abs(+voltageReading) < 0.005){
@@ -194,6 +215,10 @@ var showMagnR = function(){
 }
 
 var showMagnBr = function(){
+    let status = closeViewIfOpen("magnBr")
+    if (status == "was open"){
+        return
+    }
     d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
     d3.select("#magnBr").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
     if (Math.abs(+voltageReading) < 0.005){
@@ -220,6 +245,10 @@ var showMagnBr = function(){
 }
 
 var showMagnCircL = function(){
+    let status = closeViewIfOpen("magnCircL")
+    if (status == "was open"){
+        return
+    }
     d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
     d3.select("#magnCircL").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
     if (Math.abs(+voltageReading) < 0.005){
@@ -246,6 +275,10 @@ var showMagnCircL = function(){
 }
 
 var showMagnCircR = function(){
+    let status = closeViewIfOpen("magnCircR")
+    if (status == "was open"){
+        return
+    }
     d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
     d3.select("#magnCircR").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
     if (Math.abs(+voltageReading) < 0.005){
@@ -364,7 +397,14 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .attr("d", tubePath)
         .style("stroke", beakerColor).style('stroke-width', "0.1em")
         .style("fill", "none")
-        .style("visibility", tubeL)  
+        .style("visibility", tubeL)
+    d3.select("#LS").append("text")
+        .text(leftSide["gasDesc"])
+        .attr("transform", "translate(0, -"+ (0.17*beakerHeight)+ ")")
+        .attr("text-anchor", "middle")
+        .attr("id", "tubeLtxt")
+        .style("fill", "black")
+        .style("visibility", tubeL)
     d3.select("#LS").append("path")
         .attr("id", "beakerL")
         .attr("d", beakerPath)
@@ -395,7 +435,14 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .attr("d", tubePath)
         .style("stroke", beakerColor).style('stroke-width', "0.1em")
         .style("fill", "none")
-        .style("visibility", tubeR)  
+        .style("visibility", tubeR)
+    d3.select("#RS").append("text")
+        .text(rightSide["gasDesc"])
+        .attr("transform", "translate("+(beakerWidth)+ ", -"+ (0.17*beakerHeight)+ ")")
+        .attr("text-anchor", "middle")
+        .attr("id", "tubeRtxt")
+        .style("fill", "black")
+        .style("visibility", tubeR) 
     d3.select("#RS").append("path")
         .attr("id", "beakerR")
         .attr("d", beakerPath)
@@ -464,6 +511,8 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         d3.select("#stripElectrodeL").style("fill", electrodeLcolor)
         d3.select("#stripElectrodeL").style("visibility", stripL)
         d3.select("#tubeL").style("visibility", tubeL)
+        d3.select("#tubeLtxt").style("visibility", tubeL)
+        d3.select("#tubeLtxt").text(leftSide["gasDesc"]+" →")
         d3.select("#wireL").style("fill", electrodeLcolor)
         voltInd.innerHTML = d3.format("+0.2f")(voltageReading)
 
@@ -487,6 +536,8 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         d3.select("#stripElectrodeR").style("visibility", stripR)
         d3.select("#tubeR").style("visibility", tubeR)
         d3.select("#wireR").style("fill", electrodeRcolor)
+        d3.select("#tubeRtxt").style("visibility", tubeR)
+        d3.select("#tubeRtxt").text("← "+rightSide["gasDesc"])
         voltInd.innerHTML = d3.format("+0.2f")(voltageReading)
 
         videoDiv.style.visibility = "hidden"

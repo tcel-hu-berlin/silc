@@ -1,10 +1,11 @@
 <!DOCTYPE HTML>
 <!--
-TODO: fontsize check
-https://video.tu-freiberg.de/album/video/Kupfer-in-Silbernitratloesung/6e32e92a0e830608a047b98532cf63e0/3 -->
+	Made using the template Phantom by HTML5 UP
+	html5up.net | @ajlkn
+-->
 <html>
 <head>
-    <title>Redoxreaktionen</title>
+    <title>Submikroskopische Einblicke in elektrochemische Zellen</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="../../assets/css/main.css" />
@@ -43,12 +44,17 @@ https://video.tu-freiberg.de/album/video/Kupfer-in-Silbernitratloesung/6e32e92a0
             <div class="inner">
 				<div class="inner" id="helpHints">
 					<h2>Hilfreiche Informationen</h2>
-					<h3>Konstanten:</h3>
+					<h3>Konstanten & Einheiten</h3>
                     <ul>
                         <li>Molares Volumen: 22.4 L / mol</li>
+                        <li>Stromstärke: 1 A = 1 C / s</li>
+                        <li>Ladung eines Elektrons: e = 1,6 &times; 10<sup>-19</sup> C</li>
+                        <li>Avogadro-Konstante: <em>N<sub>A</sub></em> = 6,02 &times; 10<sup>23</sup> mol<sup>-1</sup></li>
+                        <li>Faraday-Konstante: <em>F</em> = 96485 C/(mol Elektronen)</li>
                     </ul>
-                    <h3>Elektrochemische Spannungsreihe</h3>
-                    <iframe style="width: 70%; aspect-ratio: 1.2" src="../../assets/echem/eChemSeries.html"></iframe>
+                    <h3>Elektrochemische Spannungsreihe (scrollbar)</h3>
+                    <p style="margin-bottom:0">Standard-Reduktionspotentiale für ausgewählte Redoxpaare:</p>
+                    <iframe style="width: 70%; aspect-ratio: 1.2; overflow:scroll" src="../../assets/echem/eChemSeries.html"></iframe>
                     <p style="font-size:0.8em">Quelle: Ebbing, Darrell D., General Chemistry, 3rd ed, Houghton Mifflin, 1990</p>
                     <h3><i class="far fa-lightbulb"></i> &nbsp Fakultative Hinweise </i></h3>
                     <p style="margin-bottom:0"><strong>Frage 1a-b</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
@@ -60,11 +66,8 @@ https://video.tu-freiberg.de/album/video/Kupfer-in-Silbernitratloesung/6e32e92a0
         <!-- Main -->
         <div id="main">
             <div class="inner">
-                <a href="index.html"><h1>Submikroskopische Einblicke in elektrochemische Zellen</h1></a>
-				<h2>Simulation B: Galvanische Zellen</h2>
-                <p>Text</p>
-                <iframe scrolling="no" id="galvanicSim" src="../../assets/echem/galvanicCell.html" 
-                        style="width: 100%; aspect-ratio: 1.2;"></iframe>
+                <h1>Submikroskopische Einblicke in elektrochemische Zellen</h1>
+				<p style="margin-bottom:0; margin-top:2em">Wähle eine aus den folgenden Optionen:</p>
             </div>
         </div>
         
@@ -72,6 +75,17 @@ https://video.tu-freiberg.de/album/video/Kupfer-in-Silbernitratloesung/6e32e92a0
         <div id="simnav">
             <div class="inner">
                 <section class="tiles">
+                    <article class="stylePDF">
+                        <span class="image">
+                            <img src="../../images/pic01.jpg" alt="" />
+                        </span>
+                        <a href="">
+                            <h2>PDF</h2>
+                            <div class="content">
+                                <p>Aufgaben dieser Aktivität</p>
+                            </div>
+                        </a>
+                    </article>
                     <article class="styleSim">
                         <span class="image">
                             <img src="../../images/pic02.jpg" alt="" />
@@ -83,7 +97,7 @@ https://video.tu-freiberg.de/album/video/Kupfer-in-Silbernitratloesung/6e32e92a0
                             </div>
                         </a>
                     </article>
-                    <article class="styleSimActive">
+                    <article class="styleSim">
                         <span class="image">
                             <img src="../../images/pic02.jpg" alt="" />
                         </span>
@@ -117,16 +131,14 @@ https://video.tu-freiberg.de/album/video/Kupfer-in-Silbernitratloesung/6e32e92a0
 		</footer>
     </div>
 
-    <!-- Scripts -->
+<!-- Scripts -->
     <script src="../../assets/js/jquery.min.js"></script>
     <script src="../../assets/js/browser.min.js"></script>
     <script src="../../assets/js/breakpoints.min.js"></script>
     <script src="../../assets/js/util.js"></script>
     <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/Three49custom.js"></script>
     <script src="https://d3js.org/d3.v4.js"></script>
-    <!-- <script src="../../assets/js/galvanic.js"></script> -->
-    <!-- <script src="../../assets/js/echemAnimations.js"></script> -->
-
     <script>
         // Setting up hint toggles
         showHideToggles = document.getElementsByClassName("showHide");
@@ -145,6 +157,5 @@ https://video.tu-freiberg.de/album/video/Kupfer-in-Silbernitratloesung/6e32e92a0
             }
         })
     </script>
-</body>
 </body>
 </html>

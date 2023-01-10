@@ -6,10 +6,8 @@
         .magn {
             opacity: 0.4;
         }
-
         .magn:hover{
-            opacity: 0.8;
-            filter: hue-rotate(120deg)
+            opacity: 0.8
         }
 
         @font-face{
@@ -69,13 +67,15 @@
             width: 50%;
             text-align: center;
             }
-
+        .column > p {
+            background: rgba(255, 255, 255, 0.7);
+        }
             /* Clear floats after the columns */
             .row:after {
             content: "";
             display: table;
             clear: both;
-}
+}   
     </style>
     <script src="https://d3js.org/d3.v4.js"></script>
     <title>Electrolytic Cell Simulation</title>
@@ -109,7 +109,7 @@
             <button id="downA" class="downButton">&#9660;</button>
         </div>
         <!-- Masses and Volumes -->
-        <div style="position:absolute; left:40%; top:4%; width:20%">
+        <div style="position:absolute; left:40%; top:2%; width:20%; font-size: 1.2em">
             <div class="row">
                 <div class="column">
                     <p class="bigLabel" style="margin-bottom:0"><b>V<sub>Kathode</sub></b></p>
@@ -147,7 +147,7 @@
         <div id="molRep" style="position:absolute; left:67%; top:19%; width:24%; text-align:left; vertical-align: middle; visibility: hidden">
             <p id="noReaction" style="color: red; font-weight: 600; display:none">Keine elektrolytische Reaktion findet momentan statt.</p>
             <p id="submicroTitle" style="color: red; font-weight: 600; margin-bottom:0;display:none">Submikroskopische Ansicht:</p>
-            <video id="molRepVideo" src="../../images/Cu_reduction.mp4" style="width:95%; border: solid red 3px; border-radius:18px" loop autoplay></video>
+            <video id="molRepVideo" src="../../images/Cu_reduction.mp4" style="width:95%; aspect-ratio:1.32; border: solid red 3px; border-radius:18px" loop autoplay></video>
         </div>
     </div>
 </div>

@@ -168,104 +168,105 @@ for (i=0; i<11; i++){
 
 // magnifying functions
 var showMagnL = function(){
-    if (d3.select("#magnSolL").style("opacity")==0.8){
-        hideSubmicro()
+    let status = closeViewIfOpen("magnSolL")
+    if (status == "was open"){
+        return
+    }
+    d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
+    d3.select("#magnSolL").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
+    let sw = d3.select("#switchImg")
+    if (voltage <= thresVolt || sw.attr("status") == "open"){
+        videoScreen.src = ""
+        videoDiv.style.visibility = "visible"
+        noReaction.style.display = "block"
+        videoScreen.style.display = "none"
+        videoTitle.style.display = "none"
     } else {
-         d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
-        d3.select("#magnSolL").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
-        let sw = d3.select("#switchImg")
-        if (voltage <= thresVolt || sw.attr("status") == "open"){
-            videoScreen.src = ""
-            videoDiv.style.visibility = "visible"
-            noReaction.style.display = "block"
-            videoScreen.style.display = "none"
-            videoTitle.style.display = "none"
-        } else {
-            let file = leftSide["video_red"]
-            videoScreen.src = "../../images/" + file
-            videoScreen.playbackRate = 1.4
-            videoDiv.style.visibility = "visible"
-            videoScreen.style.display = "inline-block"
-            videoTitle.style.display = "block"
-            noReaction.style.display = "none"
-        }
+        let file = leftSide["video_red"]
+        videoScreen.src = "../../images/" + file
+        videoScreen.playbackRate = 1.4
+        videoDiv.style.visibility = "visible"
+        videoScreen.style.display = "inline-block"
+        videoTitle.style.display = "block"
+        noReaction.style.display = "none"
     }
     }
 
 
 var showMagnR = function(){
-    if (d3.select("#magnSolR").style("opacity")==0.8){
-        hideSubmicro()
+    let status = closeViewIfOpen("magnSolR")
+    if (status == "was open"){
+        return
+    }
+    d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
+    d3.select("#magnSolR").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
+    let sw = d3.select("#switchImg")
+    if (voltage <= thresVolt || sw.attr("status") == "open"){
+        videoScreen.src = ""
+        videoDiv.style.visibility = "visible"
+        noReaction.style.display = "block"
+        videoScreen.style.display = "none"
+        videoTitle.style.display = "none"
     } else {
-        d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
-        d3.select("#magnSolR").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
-        let sw = d3.select("#switchImg")
-        if (voltage <= thresVolt || sw.attr("status") == "open"){
-            videoScreen.src = ""
-            videoDiv.style.visibility = "visible"
-            noReaction.style.display = "block"
-            videoScreen.style.display = "none"
-            videoTitle.style.display = "none"
-        } else {
-            let file = rightSide["video_oxi"]
-            videoScreen.src = "../../images/" + file
-            videoScreen.playbackRate = 1.4
-            videoDiv.style.visibility = "visible"
-            videoTitle.style.display = "block"
-            videoScreen.style.display = "inline-block"
-            noReaction.style.display = "none"
-            }
+        let file = rightSide["video_oxi"]
+        videoScreen.src = "../../images/" + file
+        videoScreen.playbackRate = 1.4
+        videoDiv.style.visibility = "visible"
+        videoTitle.style.display = "block"
+        videoScreen.style.display = "inline-block"
+        noReaction.style.display = "none"
         }
 }
 
 var showMagnCircL = function(){
-    if (d3.select("#magnCircL").style("opacity")==0.8){
-        hideSubmicro()
+    let status = closeViewIfOpen("magnCircL")
+    if (status == "was open"){
+        return
+    }
+    d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
+    d3.select("#magnCircL").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
+    let sw = d3.select("#switchImg")
+    if (voltage <= thresVolt || sw.attr("status") == "open"){
+        videoScreen.src = ""
+        videoDiv.style.visibility = "visible"
+        noReaction.style.display = "block"
+        videoScreen.style.display = "none"
+        videoTitle.style.display = "none"
     } else {
-        d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
-        d3.select("#magnCircL").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
-        let sw = d3.select("#switchImg")
-        if (voltage <= thresVolt || sw.attr("status") == "open"){
-            videoScreen.src = ""
-            videoDiv.style.visibility = "visible"
-            noReaction.style.display = "block"
-            videoScreen.style.display = "none"
-            videoTitle.style.display = "none"
-        } else {
-            let file = "electronsDown.mp4"
-            videoScreen.src = "../../images/" + file
-            videoScreen.playbackRate = 0.7
-            videoDiv.style.visibility = "visible"
-            videoScreen.style.display = "inline-block"
-            videoTitle.style.display = "block"
-            noReaction.style.display = "none"
-        }
+        let file = "electronsDown.mp4"
+        videoScreen.src = "../../images/" + file
+        videoScreen.playbackRate = 0.7
+        videoDiv.style.visibility = "visible"
+        videoScreen.style.display = "inline-block"
+        videoTitle.style.display = "block"
+        noReaction.style.display = "none"
     }
 }
 
 var showMagnCircR = function(){
-    if (d3.select("#magnCircR").style("opacity")==0.8){
-        hideSubmicro()
-    } else {
-        d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
-        d3.select("#magnCircR").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
-        let sw = d3.select("#switchImg")
-        if (voltage <= thresVolt || sw.attr("status") == "open" ){
-            videoScreen.src = ""
-            videoDiv.style.visibility = "visible"
-            noReaction.style.display = "block"
-            videoScreen.style.display = "none"
-            videoTitle.style.display = "none"
-        } else {
-            let file = "electronsUp.mp4"
-            videoScreen.src = "../../images/" + file
-            videoScreen.playbackRate = 0.7
-            videoDiv.style.visibility = "visible"
-            videoScreen.style.display = "inline-block"
-            noReaction.style.display = "none"
-            videoTitle.style.display = "block"
-        }
+    let status = closeViewIfOpen("magnCircR")
+    if (status == "was open"){
+        return
     }
+    d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
+    d3.select("#magnCircR").style("filter", "hue-rotate(120deg)").style("opacity", 0.8)
+    let sw = d3.select("#switchImg")
+    if (voltage <= thresVolt || sw.attr("status") == "open" ){
+        videoScreen.src = ""
+        videoDiv.style.visibility = "visible"
+        noReaction.style.display = "block"
+        videoScreen.style.display = "none"
+        videoTitle.style.display = "none"
+    } else {
+        let file = "electronsUp.mp4"
+        videoScreen.src = "../../images/" + file
+        videoScreen.playbackRate = 0.7
+        videoDiv.style.visibility = "visible"
+        videoScreen.style.display = "inline-block"
+        noReaction.style.display = "none"
+        videoTitle.style.display = "block"
+        }
+
 }
 
 // Button functions
@@ -348,6 +349,14 @@ var toggleSwitch = function(){
 var hideSubmicro = function(){
     videoDiv.style.visibility = "hidden"
     d3.selectAll(".magn").style("filter", "hue-rotate(0deg)").style("opacity", 0.4)
+}
+var closeViewIfOpen = function(view){
+    if (d3.select("#"+view).style("filter") == "hue-rotate(120deg)"){
+        hideSubmicro()
+        return "was open"
+    } else {
+        return "was closed"
+    }
 }
 
 var writeTime = function(tsec){
@@ -621,7 +630,6 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .attr("x", posL+tubeOffset).attr("y", magnTop)
         .attr('width', magnWidth)
         .attr('height', magnWidth)
-        .style("opacity", 0.4)
         .on("click", showMagnL)
     d3.select("#magnPoints").append('image')
         .attr("id", "magnSolR")
@@ -630,7 +638,6 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .attr("x", posR-tubeOffset).attr("y", magnTop)
         .attr('width', magnWidth)
         .attr('height', magnWidth)
-        .style("opacity", 0.4)
         .on("click", showMagnR)
     d3.select("#magnPoints").append('image')
         .attr("id", "magnCircL")
@@ -639,7 +646,6 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .attr("x", posL-magnWidth*0.4).attr("y", 0.3*height)
         .attr('width', magnWidth)
         .attr('height', magnWidth)
-        .style("opacity", 0.4)
         .on("click", showMagnCircL)
     d3.select("#magnPoints").append('image')
         .attr("id", "magnCircR")
@@ -648,7 +654,6 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .attr("x", posR-magnWidth*0.4).attr("y", 0.3*height)
         .attr('width', magnWidth)
         .attr('height', magnWidth)
-        .style("opacity", 0.4)
         .on("click", showMagnCircR)
 
     changeCombo = function(){
