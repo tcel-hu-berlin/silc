@@ -1,0 +1,195 @@
+<!DOCTYPE HTML>
+<!--
+	Made using the template Phantom by HTML5 UP
+	html5up.net | @ajlkn
+-->
+<html>
+<head>
+    <title>Redoxreaktionen</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+    <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
+    </head>
+<body class="is-preload">
+<!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <div class="inner">
+                <span class="title">
+                    <a href="../../index.html">
+                        <img src="../../images/simLogo_desc.svg" alt="Simulationen für Interaktives Lernen in Chemie" style="height:8em" />
+                    </a>
+                </span>
+                <!-- Logo -->
+                <span class="logo" >
+                    <span class="symbol"><img src="../../images/huberlin-logo.svg" alt="" /></span>
+                </span>
+            </div>
+            <nav>
+                <span class="helpButton">
+                    <p style="color: rgb(4, 140, 4); margin-bottom: 0; text-align: center">HILFE</p>
+                    <a href="#menu">
+                        <img id="helpIcon" src="../../images/info-circle.svg" alt="Hilfe" />
+                    </a>                    
+                </span>
+            </nav>
+        </header>
+        
+        <!-- Menu (help in disguise)-->
+        <nav id="menu">
+            <div class="inner">
+				<div class="inner" id="helpHints">
+					<h2>Hilfreiche Informationen</h2>
+					<h3>Konstanten & Einheiten</h3>
+                    <ul>
+                        <li>Molares Volumen: 22.4 L / mol</li>
+                        <li>Stromstärke: 1 A = 1 C / s</li>
+                        <li>Ladung eines Elektrons: e = 1,6 &times; 10<sup>-19</sup> C</li>
+                        <li>Avogadro-Konstante: <em>N<sub>A</sub></em> = 6,02 &times; 10<sup>23</sup> mol<sup>-1</sup></li>
+                        <li>Faraday-Konstante: <em>F</em> = 96485 C/(mol Elektronen)</li>
+                    </ul>
+                    <h3>Elektrochemische Spannungsreihe (scrollbar)</h3>
+                    <p style="margin-bottom:0">Standard-Reduktionspotentiale für ausgewählte Redoxpaare:</p>
+                    <iframe style="width: 70%; aspect-ratio: 1.2; overflow:scroll" src="../../assets/echem/eChemSeries.html"></iframe>
+                    <p style="font-size:0.8em">Quelle: Ebbing, Darrell D., General Chemistry, 3rd ed, Houghton Mifflin, 1990</p>
+                    <h3><i class="far fa-lightbulb"></i> &nbsp Fakultative Hinweise </i></h3>
+                    <p style="margin-bottom:0"><strong>Frage 1a-b</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
+                    <p id="hintA" style="display:none">Die mathematische Beziehung wird vielleicht deutlicher, wenn Sie die 1s-Orbitale vollständig überlappen lassen. </p>
+                    
+			</div>
+        </nav>
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+                <a href="index.html"><h1>Submikroskopische Einblicke in elektrochemische Zellen</h1></a>
+				<h2>Animation A: Beschichtung mit Silber</h2>
+                <h3>Überblick:</h3>
+                <ul>
+                    <li>Das erste Video zeigt die Reaktion zwischen einem Stück Kupferband und einer Lösung von Silbernitrat (AgNO<sub>3</sub>>).</li>
+                    <li>Unter dem Video befindet sich eine submikroskopische Darstellung der Prozesse, die auf Teilchenebene zwischen dem Metall und der Lösung stattfinden. Die Animation kann mit oder ohne die umgebenden Wassermoleküle betrachtet werden. </li>
+                    <li>Ein Verzeichnis der Repräsentationen in der Animation ist auch verfügbar.</li>
+                </ul>
+                <h3>Makroskopische Ansicht der Reaktion:</h3>
+                <div style="width:65%; max-width:700px; aspect-ratio: calc(560/315); border: solid 2px; overflow: hidden">
+                    <iframe src="https://video.tu-freiberg.de/media/embed?key=6e32e92a0e830608a047b98532cf63e0&autoplay=true&controls=true&autolightsoff=false&loop=false&chapters=false&playlist=false&related=false&responsive=false&t=9&muted=1 data-src="" class="iframeLoaded" width="100%" height="100%" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" aria-label="media embed code" id="macroVideo" style="visibility:visible"></iframe>
+                </div>
+                <p style="font-size:1em; color:rgb(26, 14, 255); margin-bottom:0; margin-left:0.5em">&copy 2020 Technische Universität Bergakademie Freiberg</a></p> 
+                <p></p>
+                <h3>Submikroskopische Ansicht der Reaktion:</h3>
+                <iframe scrolling="no" id="AnimCuAg" src="../../assets/glowscript/animCuAg.html" 
+                    style="width: 90%; height:0px"></iframe>
+            </div>
+        </div>
+        
+        <!-- Simnav buttons -->
+        <div id="simnav">
+            <div class="inner">
+                <section class="tiles">
+                    <article class="styleSimActive">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="animA.html">
+                            <h2>Animation A</h2>
+                            <div class="content">
+                                <p>Beschichtung mit Silber</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simB.html">
+                            <h2>Simulation B</h2>
+                            <div class="content">
+                                <p>Galvanische Zellen</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simC.html">
+                            <h2>Simulation C</h2>
+                            <div class="content">
+                                <p>Elektrolytische Zellen</p>
+                            </div>
+                        </a>
+                    </article>
+                </section>
+            </div>
+        </div>
+
+		<!-- Footer -->
+		<footer id="footer">
+			<div class="inner">
+				<p style="display: flex; align-items: center">&copy; Natalia Spitha & &nbsp; <a href="https://www.tiemannlab.de/" target="_blank">Tiemann Lab</a> &nbsp;  @  &nbsp; <a href="https://www.hu-berlin.de/" target="_blank">HU-Berlin</a> &nbsp; || &nbsp; Design-Vorlage: &nbsp;<a href="https://html5up.net/phantom" target="_blank">Phantom by HTML5 UP</a> &nbsp;  || &nbsp; <img style="height: 1em" class="icon" src="../../images/githubInventocat.png" /> &nbsp; <a href="https://github.com/tcel-hu-berlin/silc" target="_blank">Github</a> &nbsp; || &nbsp; <img class="icon" src="../../images/pencil-square.svg" /> &nbsp; <a href="https://forms.gle/Cnz2r2Geg79otEF97" target="_blank">Feedback geben</a> &nbsp;</p>
+			</div>
+		</footer>
+    </div>
+
+<!-- Scripts -->
+    <script src="../../assets/js/jquery.min.js"></script>
+    <script src="../../assets/js/browser.min.js"></script>
+    <script src="../../assets/js/breakpoints.min.js"></script>
+    <script src="../../assets/js/util.js"></script>
+    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/Three49custom.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script>
+        var CB
+        iframeAn = document.getElementById("AnimCuAg")
+        iframeAn.onload = function(){
+            iframeAn.style.height = iframeAn.contentWindow.document.body.scrollHeight+'px';
+            CB = iframeAn.contentWindow.document.getElementsByTagName("input")[0]
+            CBtext = iframeAn.contentWindow.document.getElementById("1")
+            gsdiv = iframeAn.contentWindow.document.getElementById("glowscriptdiv")
+            gsdiv.style.height = iframeAn.contentWindow.document.body.scrollHeight+'px';
+            CB.classList.add("oddCB")
+            CB.style["margin-right"] = "2px"
+            CB.parentNode.style.position = "relative"
+            var lbl = iframeAn.contentWindow.document.createElement("label")
+            var key = iframeAn.contentWindow.document.createElement("img")
+            // parent.replaceChild(lbl, CB)
+            // lbl.appendChild(CB)
+            CB.after(lbl)
+            lbl.style.position="absolute"; lbl.style.left="50%"; lbl.style.top="4px"
+            // [lbl, CB].forEach(function(m){m.style.width = "18px"; m.style.height="18px"})
+            CB.style.position="absolute"; CB.style.left="50%"; CB.style.top="4px"
+            CBtext.style["margin-left"]="24px"
+            CBtext.style["font-size"]="16px"
+            gsdiv.style.position = "relative"
+            gsdiv.appendChild(key)
+            key.style = "position: absolute; left: 55%; top: 46%; width: 35%"
+            key.src = "../../../../images/animCuAg_key.png"
+            key.alt = "Verzeichnis der Repräsentationen in der Simulation"
+            
+        }
+       
+        
+        // Setting up hint toggles
+        showHideToggles = document.getElementsByClassName("showHide");
+        
+        [].forEach.call(showHideToggles, function(m){
+            m.onclick = function(){
+                let hintId = m.id.split("showHide")[1]
+                hint = document.getElementById("hint"+hintId)
+                if (hint.style.display=="none"){
+                    this.innerHTML = "Ausblenden"
+                    hint.style.display="block"
+                } else {
+                    this.innerHTML = "Einblenden"
+                    hint.style.display="none"
+                }
+            }
+        })
+    </script>
+</body>
+</html>

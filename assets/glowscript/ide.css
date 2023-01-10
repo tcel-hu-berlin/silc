@@ -2688,7 +2688,7 @@ input, select, textarea {
 		margin-right: -2em;
 		opacity: 0;
 		width: 1em;
-		z-index: -1;
+		z-index: 10;
 	}
 
 	input[type="checkbox"] + label,

@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<!--
+TODO: fontsize check
+https://video.tu-freiberg.de/album/video/Kupfer-in-Silbernitratloesung/6e32e92a0e830608a047b98532cf63e0/3 -->
+<html>
+<head>
+    <title>Redoxreaktionen</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+    <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
+    </head>
+<body class="is-preload">
+<!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <div class="inner">
+                <span class="title">
+                    <a href="../../index.html">
+                        <img src="../../images/simLogo_desc.svg" alt="Simulationen für Interaktives Lernen in Chemie" style="height:8em" />
+                    </a>
+                </span>
+                <!-- Logo -->
+                <span class="logo" >
+                    <span class="symbol"><img src="../../images/huberlin-logo.svg" alt="" /></span>
+                </span>
+            </div>
+            <nav>
+                <span class="helpButton">
+                    <p style="color: rgb(4, 140, 4); margin-bottom: 0; text-align: center">HILFE</p>
+                    <a href="#menu">
+                        <img id="helpIcon" src="../../images/info-circle.svg" alt="Hilfe" />
+                    </a>                    
+                </span>
+            </nav>
+        </header>
+
+        <!-- Menu (help in disguise)-->
+        <nav id="menu">
+            <div class="inner">
+				<div class="inner" id="helpHints">
+					<h2>Hilfreiche Informationen</h2>
+					<h3>Konstanten & Einheiten</h3>
+                    <ul>
+                        <li>Molares Volumen: 22.4 L / mol</li>
+                        <li>Stromstärke: 1 A = 1 C / s</li>
+                        <li>Ladung eines Elektrons: e = 1,6 &times; 10<sup>-19</sup> C</li>
+                        <li>Avogadro-Konstante: <em>N<sub>A</sub></em> = 6,02 &times; 10<sup>23</sup> mol<sup>-1</sup></li>
+                        <li>Faraday-Konstante: <em>F</em> = 96485 C/(mol Elektronen)</li>
+                    </ul>
+                    <h3>Elektrochemische Spannungsreihe (scrollbar)</h3>
+                    <p style="margin-bottom:0">Standard-Reduktionspotentiale für ausgewählte Redoxpaare:</p>
+                    <iframe style="width: 70%; aspect-ratio: 1.2; overflow:scroll" src="../../assets/echem/eChemSeries.html"></iframe>
+                    <p style="font-size:0.8em">Quelle: Ebbing, Darrell D., General Chemistry, 3rd ed, Houghton Mifflin, 1990</p>
+                    <h3><i class="far fa-lightbulb"></i> &nbsp Fakultative Hinweise </i></h3>
+                    <p style="margin-bottom:0"><strong>Frage 1a-b</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
+                    <p id="hintA" style="display:none">Die mathematische Beziehung wird vielleicht deutlicher, wenn Sie die 1s-Orbitale vollständig überlappen lassen. </p>
+                    
+			</div>
+        </nav>
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+                <a href="index.html"><h1>Submikroskopische Einblicke in elektrochemische Zellen</h1></a>
+				<h2>Simulation B: Galvanische Zellen</h2>
+                <h3 style="color: brown">&bdquo;Crashkurs&rdquo; zu galvanischen Zellen: <span style="margin-left:1em; margin-right:2em"><toggle class="showHide" id="showHideGalv">Einblenden</toggle></span> </h3>
+                
+                <div id="hintGalv" style="display:none">
+                    <p style="margin-bottom: 0.5em" >Als <em>galvanisch</em> werden elektrochemische Zellen bezeichnet, in denen eine Redoxreaktion spontan abläuft und elektrischen Strom erzeugt. Eine galvanische Zelle besteht aus einer <b style="color: #167b19">kathodischen Halbzelle</b>, wobei die <b style="color: #167b19">reduktive Halbreaktion</b> stattfindet, und eine <b style="color:#5469b7">anodische Halbzelle</b>, wobei die <b style="color: #5469b7">oxidative Halbreaktion</b> stattfindet. Die beiden Halbzellen enthalten jeweils ein <b>Redoxpaar</b> (z.B. Cu<sup>2+</sup>/Cu(s) oder H<sup>+</sup>/H<sub>2</sub>), wobei jedem Redoxpaar ein <b>Standard-Reduktionspotenzial</b> (s. <em>Hilfe-Menü</em>) entspricht.Die bei der Oxidationsreaktion verlorenen Elektronen werden über den Stromkreis von der Anode zur Kathode übertragen. Die beiden Halbzellen sind außerdem durch eine <b>Salzbrücke</b> verbunden, über die sich Ionen bewegen können, um das Ladungsgleichgewicht zu erhalten.</p>
+                    <p style="margin-bottom: 0.5em">Um die Zellspannung einer galvanischen Zelle zu messen wird ein Voltmeter oder Multimeter verwendet, der die Spannungsdifferenz zwischen der Reduktionspotentiale siner "+"-Seite und seiner "-"-Seite (Referenzseite) anzeigt, d.h. unter Standardbedingungen:</p>
+                    <div style="text-align: center; width: 100%"><img style="width: 30%" src="../../images/cellPotentialEq.svg" alt="E sub cell equals E-naught begin sub red, plus end sub minus E-naught begin sub red, minus end sub"/></div>
+                    <p style="margin-top:0; margin-bottom:0.5em"><b>Wichtig: Der Anschluss des Voltmeters hat keinen Einfluss auf die Rolle von Kathode und Anode! Das Redoxpaar mit dem höchsten Reduktionspotenzial erfährt immer eine Reduktion und wirkt als Kathode.</b> Eine positive Zellspannung bedeutet einfach, dass die "+"-Seite des Voltmeters mit der Kathode verbunden ist, während eine negative Zellspannung bedeutet, dass die "-"-Seite des Voltmeters mit der Anode verbunden ist.</p>
+                    <p style="margin-bottom:0">Galvanische Zellen können auch mit einer verkürzten Schreibweise repräsentiert werden, wie z.B. unten in Simulation B. Bei der verkürzten Schreibweise ist folgendes zu merken:</p>
+                    <ul style="max-width: 500px; margin-left:1em">
+                        <li>Einzelne Linien (<b style="color:blue">|</b>) stellen <b>Grenzen zwischen Phasen</b> dar (z. B. zwischen zwei getrennten Feststoffen, oder einem Feststoff und einer Flüssigkeit). </li>
+                        <li>Mit doppelten Linien (<b style="color:blue">||</b>) ist die <b>Salzbrücke</b> kenngezeichnet.</li>
+                        <li>Die Konzentrationen von Lösungen und die Partialdrücke von Gasen werden (wenn vorhanden) üblich auch angegeben.</li>
+                    </ul>
+                </div>
+                <h3 style="margin-top: 1em">Überblick der Simulation:</h3>
+                <ul>
+                    <li>Unter den Reitern links und rechts können die Redoxpaare für die "-"- und "+"-Seite der Zelle gewählt werden.</li>
+                    <li>Auf dem Voltmeter wird die entsprechende Zellspannung angezeigt.</li>
+                    <li>Submikroskopische Darstellungen der Elektronen und Ionen an den Elektroden, im Stromkreis und in der Salzbrücke können durch Klicken auf die entsprechenden Lupensymbolen (<img style="height: 1em" src="../../images/magnGlass.svg" />) angezeigt werden. </li>
+                </ul>
+                <h3>Zu Beachten:</h3>
+                <ul>
+                    <li>Wassermoleküle werden in den submikroskopischen Animationen nicht dargestellt.</li>
+                </ul>
+
+                <iframe scrolling="no" id="galvanicSim" src="../../assets/echem/galvanicCell.html" 
+                    style="width: 100%; aspect-ratio: 1.2;"></iframe>
+            </div>
+        </div>
+        
+        <!-- Simnav buttons -->
+        <div id="simnav">
+            <div class="inner">
+                <section class="tiles">
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="animA.html">
+                            <h2>Animation A</h2>
+                            <div class="content">
+                                <p>Beschichtung mit Silber</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSimActive">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simB.html">
+                            <h2>Simulation B</h2>
+                            <div class="content">
+                                <p>Galvanische Zellen</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simC.html">
+                            <h2>Simulation C</h2>
+                            <div class="content">
+                                <p>Elektrolytische Zellen</p>
+                            </div>
+                        </a>
+                    </article>
+                </section>
+            </div>
+        </div>
+
+		<!-- Footer -->
+		<footer id="footer">
+			<div class="inner">
+				<p style="display: flex; align-items: center">&copy; Natalia Spitha & &nbsp; <a href="https://www.tiemannlab.de/" target="_blank">Tiemann Lab</a> &nbsp;  @  &nbsp; <a href="https://www.hu-berlin.de/" target="_blank">HU-Berlin</a> &nbsp; || &nbsp; Design-Vorlage: &nbsp;<a href="https://html5up.net/phantom" target="_blank">Phantom by HTML5 UP</a> &nbsp;  || &nbsp; <img style="height: 1em" class="icon" src="../../images/githubInventocat.png" /> &nbsp; <a href="https://github.com/tcel-hu-berlin/silc" target="_blank">Github</a> &nbsp; || &nbsp; <img class="icon" src="../../images/pencil-square.svg" /> &nbsp; <a href="https://forms.gle/Cnz2r2Geg79otEF97" target="_blank">Feedback geben</a> &nbsp;</p>
+			</div>
+		</footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/jquery.min.js"></script>
+    <script src="../../assets/js/browser.min.js"></script>
+    <script src="../../assets/js/breakpoints.min.js"></script>
+    <script src="../../assets/js/util.js"></script>
+    <script src="../../assets/js/main.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <!-- <script src="../../assets/js/galvanic.js"></script> -->
+    <!-- <script src="../../assets/js/echemAnimations.js"></script> -->
+
+    <script>
+        // Setting up hint toggles
+        showHideToggles = document.getElementsByClassName("showHide");
+        
+        [].forEach.call(showHideToggles, function(m){
+            m.onclick = function(){
+                let hintId = m.id.split("showHide")[1]
+                hint = document.getElementById("hint"+hintId)
+                if (hint.style.display=="none"){
+                    this.innerHTML = "Ausblenden"
+                    hint.style.display="block"
+                } else {
+                    this.innerHTML = "Einblenden"
+                    hint.style.display="none"
+                }
+            }
+        })
+    </script>
+</body>
+</body>
+</html>
