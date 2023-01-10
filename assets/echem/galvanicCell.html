@@ -34,6 +34,20 @@
             font-weight: 600;
         }
 
+        /* option, select {
+            font-family: Times New Roman;
+        } */
+
+        option {
+            font-size: 1.1em
+        }
+
+        select {
+            font-size: 1.2em
+        }
+
+        
+
     </style>
     <script src="https://d3js.org/d3.v4.js"></script>
     <title>Galvanic Cell Simulation</title>
@@ -42,34 +56,40 @@
     <div id="galvanic" style="position:relative; top:0; left:0; border:0 solid #ff7b00; width:100%; aspect-ratio:1.2">
         <div style="position:absolute; left:5%; top:25%; display:inline-table; text-align:right">
             <p class="bigLabel" style="margin-bottom:0"><b>(-)-Seite-Redox-Paar</b></p>
-            <select id="pairSelectorL" onchange="changePairL()" disabled>
-                <option value="cuII" selected>Cu&#178;&#8314; / Cu</option>
+            <select class="pairSelector" id="pairSelectorL" onchange="changePairL()" disabled>
+                <option value="cuII" selected>Cu&#178;&#8314;/ Cu</option>
                 <option value="she" >H&#8314; / H&#8322; </option>
                 <option value="ag">Ag&#8314;/Ag</option>
                 <option value="zn">Zn&#178;&#8314;/Zn</option>
             </select>
         </div>
-        <div style="position:absolute; left:40%; top:10%; height: 8%; width:20%; text-align:center; vertical-align:middle">
-            <p class="bigLabel" style="margin-bottom:0.3em">Zellspannung (V)</p>
+        <div style="position:absolute; left:40%; top:11.5%; height: 8%; width:20%; text-align:center; vertical-align:middle">
+            <p class="bigLabel" style="margin-bottom:0em">Zellspannung (V)</p>
             <span class="digitalScreen" id="voltageScreen"><span id="voltInd">+1.000</span>
         </div>
         <div style="position:absolute; left:75%; top:25%; display:inline-table">
             <p class="bigLabel" style="margin-bottom:0"><b>(+)-Seite-Redox-Paar</b></p>
-            <select id="pairSelectorR" onchange="changePairR()" disabled>
+            <select class="pairSelector" id="pairSelectorR" onchange="changePairR()" disabled>
                 <option value=cuII>Cu&#178;&#8314; / Cu</option>
-                <option value="she">H+/H&#8322;</option>
+                <option value="she">H&#8314;/H&#8322;</option>
                 <option value="ag" selected>Ag&#8314;/Ag</option>
                 <option value="zn">Zn&#178;&#8314;/Zn</option>
             </select>
         </div>
-        <div id="lineNotation" style="position:absolute; left:0%; top:62%; width:100%; display:inline-table; text-align:center; visibility:hidden">
+        <div id="lineNotation" style="position:absolute; left:0%; top:63.5%; width:100%; display:inline-table; text-align:center; visibility:hidden">
             <p style="font-size:1.4em"><span id="outL"></span>|<span id="midL">|</span><span id="innL"></span>||
                 <span id="innR">
                 </span>|<span id="midR"> |</span><span id="outR"></span></p>
         </div>
-        <div id="molRep" style="position:absolute; left:0%; top:70%; width:100%; text-align:center; visibility: hidden">
+        <!-- <div id="molRep" style="position:absolute; left:0%; top:70%; width:100%; text-align:center; visibility: hidden">
             <p id="noReaction" style="color: red; font-weight: 600; display:none">Keine Netto-Redoxreaktion findet momentan statt.</p>
             <video id="molRepVideo" src="../../images/Cu_reduction.mp4" style="width:20%; border: solid red 3px; border-radius:18px" loop autoplay></video>
+        </div> -->
+        <!-- Submicro view -->
+        <div id="molRep" style="position:absolute; left:72%; top:37%; width:25%; text-align:left; vertical-align: middle; visibility: hidden">
+            <p id="noReaction" style="color: red; font-weight: 600; display:none">Keine Netto-Redoxreaktion findet momentan statt.</p>
+            <p id="submicroTitle" style="color: red; font-weight: 600; margin-bottom:0;display:none">Submikroskopische Ansicht:</p>
+            <video id="molRepVideo" src="../../images/Cu_reduction.mp4" style="width:95%; border: solid red 3px; border-radius:18px" loop autoplay></video>
         </div>
     </div>
 

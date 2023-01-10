@@ -55,41 +55,22 @@
                 </span>
             </nav>
         </header>
-
         <!-- Menu (help in disguise)-->
         <nav id="menu">
             <div class="inner">
 				<div class="inner" id="helpHints">
 					<h2>Hilfreiche Informationen</h2>
-					<h3>Einheiten:</h3>
+					<h3>Konstanten:</h3>
                     <ul>
-                        <li>1 Å = 10<sup>-10</sup> m</li>
+                        <li>Molares Volumen: 22.4 L / mol</li>
                     </ul>
-					<h3>Löslichkeitswerte einiger Moleküle:</h3>
-                    (in Wasser, bei Raumtemperatur)
-                    <ul style="margin-bottom:0">
-                        <li>Tetrafluormethan: ca. 20 mg/L</li>
-                        <li>Methanol: > 10<sup>6</sup> mg/L</li>
-                        <li>Ammoniak: 5 &middot;10<sup>5</sup> mg/L </li>
-                    </ul>
-                    <p style="font-size:0.8em">von <a href="https://pubchem.ncbi.nlm.nih.gov/" target="_blank">Pubchem</a> abgerufen</p>
+                    <h3>Elektrochemische Spannungsreihe</h3>
+                    <iframe style="width: 70%; aspect-ratio: 1.2" src="../../assets/echem/eChemSeries.html"></iframe>
+                    <p style="font-size:0.8em">Quelle: Ebbing, Darrell D., General Chemistry, 3rd ed, Houghton Mifflin, 1990</p>
                     <h3><i class="far fa-lightbulb"></i> &nbsp Fakultative Hinweise </i></h3>
-					<p style="margin-bottom:0"><strong>Tipps zur Konstruktion von Lewis-Formeln</strong><span style="float:right"><toggle class="showHide" id="showHideLewis">Einblenden</toggle></span></p>
-					<div id="hintLewis" style="display:none">
-                        <ol>
-                            <li>Bestimmen Sie die Gesamtzahl der Valenzelektronen.</li>
-                            <li>Bestimmen Sie das Zentralatom, das in der Regel das am wenigsten elektronegative Atom ist. </li>
-                            <li>Schreiben Sie eine "Gerüststruktur" des Moleküls, in der das Zentralatom durch Einfachbindungen an die anderen Atome gebunden ist.</li>
-                            <li>Verwenden Sie je zwei Valenzelektronen, um jede Bindung in der "Gerüststruktur" zu bilden.</li>
-                            <li>Versuchen Sie, die Oktettregel für alle Atome zu erfüllen, indem Sie die restlichen Valenzelektronen als Nichtbindungselektronen und Mehrfachbindungen verteilen.</li>
-                        </ol>
-                    </div>
                     <p style="margin-bottom:0"><strong>Frage 1a-b</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
                     <p id="hintA" style="display:none">Die mathematische Beziehung wird vielleicht deutlicher, wenn Sie die 1s-Orbitale vollständig überlappen lassen. </p>
-                    <p style="margin-bottom:0"><strong>Frage 8</strong><span style="float:right"><toggle class="showHide" id="showHideB">Einblenden</toggle></span></p>
-                    <p id="hintB" style="display:none">Welche unbesetzte Orbitale werden für die zusätzlichen Elektronen bei Elementen wie Phosphor und Schwefel verwendet?</p>
-                    <p style="margin-bottom:0"><strong>Frage 12</strong><span style="float:right"><toggle class="showHide" id="showHideC">Einblenden</toggle></span></p>
-                    <p id="hintC" style="display:none">Eines der Moleküle weist eine Art von intermolekularer Kraft auf, die in Animationsgruppe D nicht dargestellt ist!</p>
+                    
 			</div>
         </nav>
 
@@ -98,15 +79,23 @@
             <div class="inner">
                 <a href="index.html"><h1>Submikroskopische Einblicke in elektrochemische Zellen</h1></a>
 				<h2>Animation A: Beschichtung mit Silber</h2>
-                <p>Text</p>
-                <div style="width:75%; max-width:700px; aspect-ratio: calc(560/315); border: solid 2px; overflow: hidden">
+                <h3>Überblick:</h3>
+                <ul>
+                    <li>Das erste Video zeigt die Reaktion zwischen einem Stück Kupferband und einer Lösung von Silbernitrat (AgNO<sub>3</sub>>).</li>
+                    <li>Unter dem Video befindet sich eine submikroskopische Darstellung der Prozesse, die auf Teilchenebene zwischen dem Metall und der Lösung stattfinden. Die Animation kann mit oder ohne die umgebenden Wassermoleküle betrachtet werden. </li>
+                    <li>Ein Verzeichnis der Repräsentationen in der Animation ist auch verfügbar.</li>
+                </ul>
+                <h3>Makroskopische Ansicht der Reaktion:</h3>
+                <div style="width:65%; max-width:700px; aspect-ratio: calc(560/315); border: solid 2px; overflow: hidden">
                     <iframe src="https://video.tu-freiberg.de/media/embed?key=6e32e92a0e830608a047b98532cf63e0&autoplay=true&controls=true&autolightsoff=false&loop=false&chapters=false&playlist=false&related=false&responsive=false&t=9&muted=1 data-src="" class="iframeLoaded" width="100%" height="100%" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" aria-label="media embed code" id="macroVideo" style="visibility:visible"></iframe>
                 </div>
-                <p>Text</p>
+                <p style="font-size:1em; color:rgb(26, 14, 255); margin-bottom:0; margin-left:0.5em">&copy 2020 Technische Universität Bergakademie Freiberg</a></p> 
+                <h3>Submikroskopische Ansicht der Reaktion:</h3>
+                <iframe scrolling="no" id="AnimCuAg" src="../../assets/glowscript/animCuAg.html" 
+                    style="width: 90%; height:0px"></iframe>
+                <h3>Verzeichnis der verwendeten Repräsentationen</h3>
                 <img src="../../images/animCuAg_key.png" style="width: 30%; min-width:200px"
                     alt = "Verzeichnis der Repräsentationen in der Simulation">
-                <iframe scrolling="no" id="AnimCuAg" src="../../assets/glowscript/animCuAg.html" 
-                    style="width: 90%; height:500px"></iframe>
             </div>
         </div>
         
@@ -168,16 +157,19 @@
     <script src="../../assets/js/Three49custom.js"></script>
     <script src="https://d3js.org/d3.v4.js"></script>
     <script>
-        let macroVideo = document.getElementById("macroVideo")
-        macroVideo.onload = function(){
-            a = this.contentWindow.document.getElementById("videojsPlayer_html5_api")
-            console.log(a)
+        iframeAn = document.getElementById("AnimCuAg")
+        iframeAn.onload = function(){
+            iframeAn.style.height = iframeAn.contentWindow.document.body.scrollHeight+'px';
         }
+       
+        
         // Setting up hint toggles
-        var letters = ["Lewis", "A", "B", "C"]
-        letters.forEach( function(x){
-            document.getElementById("showHide"+x).onclick = function(){
-                hint = document.getElementById("hint"+x)
+        showHideToggles = document.getElementsByClassName("showHide");
+        
+        [].forEach.call(showHideToggles, function(m){
+            m.onclick = function(){
+                let hintId = m.id.split("showHide")[1]
+                hint = document.getElementById("hint"+hintId)
                 if (hint.style.display=="none"){
                     this.innerHTML = "Ausblenden"
                     hint.style.display="block"

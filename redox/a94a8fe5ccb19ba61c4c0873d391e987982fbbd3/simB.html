@@ -43,35 +43,17 @@ https://video.tu-freiberg.de/album/video/Kupfer-in-Silbernitratloesung/6e32e92a0
             <div class="inner">
 				<div class="inner" id="helpHints">
 					<h2>Hilfreiche Informationen</h2>
-					<h3>Einheiten:</h3>
+					<h3>Konstanten:</h3>
                     <ul>
-                        <li>1 Å = 10<sup>-10</sup> m</li>
+                        <li>Molares Volumen: 22.4 L / mol</li>
                     </ul>
-					<h3>Löslichkeitswerte einiger Moleküle:</h3>
-                    (in Wasser, bei Raumtemperatur)
-                    <ul style="margin-bottom:0">
-                        <li>Tetrafluormethan: ca. 20 mg/L</li>
-                        <li>Methanol: > 10<sup>6</sup> mg/L</li>
-                        <li>Ammoniak: 5 &middot;10<sup>5</sup> mg/L </li>
-                    </ul>
-                    <p style="font-size:0.8em">Quelle: (Ebbing, Darrell D., General Chemistry, 3rd ed, Houghton Mifflin, 1990) </p>
+                    <h3>Elektrochemische Spannungsreihe</h3>
+                    <iframe style="width: 70%; aspect-ratio: 1.2" src="../../assets/echem/eChemSeries.html"></iframe>
+                    <p style="font-size:0.8em">Quelle: Ebbing, Darrell D., General Chemistry, 3rd ed, Houghton Mifflin, 1990</p>
                     <h3><i class="far fa-lightbulb"></i> &nbsp Fakultative Hinweise </i></h3>
-					<p style="margin-bottom:0"><strong>Tipps zur Konstruktion von Lewis-Formeln</strong><span style="float:right"><toggle class="showHide" id="showHideLewis">Einblenden</toggle></span></p>
-					<div id="hintLewis" style="display:none">
-                        <ol>
-                            <li>Bestimmen Sie die Gesamtzahl der Valenzelektronen.</li>
-                            <li>Bestimmen Sie das Zentralatom, das in der Regel das am wenigsten elektronegative Atom ist. </li>
-                            <li>Schreiben Sie eine "Gerüststruktur" des Moleküls, in der das Zentralatom durch Einfachbindungen an die anderen Atome gebunden ist.</li>
-                            <li>Verwenden Sie je zwei Valenzelektronen, um jede Bindung in der "Gerüststruktur" zu bilden.</li>
-                            <li>Versuchen Sie, die Oktettregel für alle Atome zu erfüllen, indem Sie die restlichen Valenzelektronen als Nichtbindungselektronen und Mehrfachbindungen verteilen.</li>
-                        </ol>
-                    </div>
                     <p style="margin-bottom:0"><strong>Frage 1a-b</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
                     <p id="hintA" style="display:none">Die mathematische Beziehung wird vielleicht deutlicher, wenn Sie die 1s-Orbitale vollständig überlappen lassen. </p>
-                    <p style="margin-bottom:0"><strong>Frage 8</strong><span style="float:right"><toggle class="showHide" id="showHideB">Einblenden</toggle></span></p>
-                    <p id="hintB" style="display:none">Welche unbesetzte Orbitale werden für die zusätzlichen Elektronen bei Elementen wie Phosphor und Schwefel verwendet?</p>
-                    <p style="margin-bottom:0"><strong>Frage 12</strong><span style="float:right"><toggle class="showHide" id="showHideC">Einblenden</toggle></span></p>
-                    <p id="hintC" style="display:none">Eines der Moleküle weist eine Art von intermolekularer Kraft auf, die in Animationsgruppe D nicht dargestellt ist!</p>
+                    
 			</div>
         </nav>
 
@@ -147,10 +129,12 @@ https://video.tu-freiberg.de/album/video/Kupfer-in-Silbernitratloesung/6e32e92a0
 
     <script>
         // Setting up hint toggles
-        var letters = ["Lewis", "A", "B", "C"]
-        letters.forEach( function(x){
-            document.getElementById("showHide"+x).onclick = function(){
-                hint = document.getElementById("hint"+x)
+        showHideToggles = document.getElementsByClassName("showHide");
+        
+        [].forEach.call(showHideToggles, function(m){
+            m.onclick = function(){
+                let hintId = m.id.split("showHide")[1]
+                hint = document.getElementById("hint"+hintId)
                 if (hint.style.display=="none"){
                     this.innerHTML = "Ausblenden"
                     hint.style.display="block"

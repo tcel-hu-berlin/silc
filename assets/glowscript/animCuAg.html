@@ -125,7 +125,7 @@
             "32";
             partscreen = ρσ_interpolate_kwargs.call(this, canvas, [ρσ_desugar_kwargs({width: win, height: win, align: "left", background: vec(.1, .1, .1), userzoom: false, userspin: false, userpan: false, resizable: false, range: side["/"](2), fov: .01})]);
             "35";
-            cb = ρσ_interpolate_kwargs.call(this, checkbox, [ρσ_desugar_kwargs({bind: showHideH2O, checked: true, text: "Show water molecules", pos: partscreen.caption_anchor})]);
+            cb = ρσ_interpolate_kwargs.call(this, checkbox, [ρσ_desugar_kwargs({bind: showHideH2O, checked: true, text: "Wassermoleküle zeigen", pos: partscreen.caption_anchor})]);
             "36";
             partscreen.append_to_caption("\n");
             "37";
@@ -985,11 +985,16 @@
             __module__ : {value: null}
         });
 
-
         ;$(function(){ window.__context = { glowscript_container: $("#glowscriptdiv")}; __main__() })})()
         // END JAVASCRIPT
 
+        var CB = document.getElementsByClassName("checkbox")
+        console.log(CB)
         //--><!]]></script>
         </div> 
+        <script>
+
+        </script>
+
 </body>
 

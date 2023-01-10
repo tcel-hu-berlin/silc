@@ -18,6 +18,7 @@ var voltInd = document.getElementById("voltInd")
 var videoDiv = document.getElementById("molRep")
 var videoScreen = document.getElementById("molRepVideo")
 var noReaction = document.getElementById("noReaction")
+var videoTitle = document.getElementById("submicroTitle")
 
 
 // append the svg object to the body of the page
@@ -34,20 +35,26 @@ svg.append("rect")
     .style("stroke", "blue")
 
 // Paths
-var posL = 0.40*width,
-posR = 0.60*width,
-beakerBottom = 0.6*height,
-circuitHeight = 0.15*height,
+var posL = 0.39*width,
+posR = 0.61*width,
+beakerBottom = 0.63*height,
+circuitHeight = 0.17*height,
 voltageReaderHeight = 0.03*width
 bridgeTop = 0.05*height,
 bridgeDiameter = 0.025*height,
-beakerWidth = 0.15*width,
+beakerWidth = 0.16*width,
 beakerHeight = 0.2*height,
 beakerCurve = 0.01*width,
 tubeCurve = 0.08*beakerWidth,
 fillHeight = 0.75*beakerHeight,
 beakerColor = "#585858",
 magnWidth = 0.035*width, magnHeight = 0.8*magnWidth, magnTop = 0.502*height
+
+var voltmeterTop = 0.11*height, voltmeterHeight = 4.9*voltageReaderHeight,
+voltmeterBottom = voltmeterTop+voltmeterHeight
+var voltmeterWidth = 0.18*width
+var voltmeterLeft = (width-voltmeterWidth)/2
+
 
 beakerPath = d3.path()
 beakerPath.moveTo(0,0)
@@ -142,6 +149,7 @@ var showMagnL = function(){
         videoDiv.style.visibility = "visible"
         noReaction.style.display = "block"
         videoScreen.style.display = "none"
+        videoTitle.style.display = "none"
     } else {
         if (+voltageReading > 0){
             let file = leftSide["video_oxi"]
@@ -155,6 +163,7 @@ var showMagnL = function(){
         videoDiv.style.visibility = "visible"
         videoScreen.style.display = "inline-block"
         noReaction.style.display = "none"
+        videoTitle.style.display = "block"
     }
 }
 
@@ -166,6 +175,7 @@ var showMagnR = function(){
         videoDiv.style.visibility = "visible"
         noReaction.style.display = "block"
         videoScreen.style.display = "none"
+        videoTitle.style.display = "none"
     } else {
         if (+voltageReading > 0){
             let file = rightSide["video_red"]
@@ -179,6 +189,7 @@ var showMagnR = function(){
         videoDiv.style.visibility = "visible"
         videoScreen.style.display = "inline-block"
         noReaction.style.display = "none"
+        videoTitle.style.display = "block"
     }
 }
 
@@ -190,6 +201,7 @@ var showMagnBr = function(){
         videoDiv.style.visibility = "visible"
         noReaction.style.display = "block"
         videoScreen.style.display = "none"
+        videoTitle.style.display = "none"
     } else {
         if (+voltageReading > 0){
             let file = "salt_bridge_Kright.mp4"
@@ -203,6 +215,7 @@ var showMagnBr = function(){
         videoDiv.style.visibility = "visible"
         videoScreen.style.display = "inline-block"
         noReaction.style.display = "none"
+        videoTitle.style.display = "block"
     }
 }
 
@@ -214,6 +227,7 @@ var showMagnCircL = function(){
         videoDiv.style.visibility = "visible"
         noReaction.style.display = "block"
         videoScreen.style.display = "none"
+        videoTitle.style.display = "none"
     } else {
         if (+voltageReading > 0){
             let file = "electronsUp.mp4"
@@ -227,6 +241,7 @@ var showMagnCircL = function(){
         videoDiv.style.visibility = "visible"
         videoScreen.style.display = "inline-block"
         noReaction.style.display = "none"
+        videoTitle.style.display = "block"
     }
 }
 
@@ -238,6 +253,7 @@ var showMagnCircR = function(){
         videoDiv.style.visibility = "visible"
         noReaction.style.display = "block"
         videoScreen.style.display = "none"
+        videoTitle.style.display = "none"
     } else {
         if (+voltageReading > 0){
             let file = "electronsDown.mp4"
@@ -251,6 +267,7 @@ var showMagnCircR = function(){
         videoDiv.style.visibility = "visible"
         videoScreen.style.display = "inline-block"
         noReaction.style.display = "none"
+        videoTitle.style.display = "block"
     }
 }
 
@@ -277,19 +294,15 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
     voltInd.innerHTML = d3.format("+0.2f")(voltageReading)
 
     // Drawing objects
-    var voltmeterTop = 0.1*height, voltmeterHeight = 5*voltageReaderHeight,
-    voltmeterBottom = voltmeterTop+voltmeterHeight
-    var voltmeterWidth = 0.25*width
-    var voltmeterLeft = (width-voltmeterWidth)/2
-
 
     svg.append("g").attr("id", "circuit")
     d3.select("#circuit").append("rect")
         .attr("id", "voltmeter")
         .attr("x", voltmeterLeft).attr("y", voltmeterTop)
         .attr("width", voltmeterWidth).attr("height", voltmeterHeight)
-        .style("fill", "rgb(255, 200,100)")
-        .style("stroke", "black").style("stroke-width", "0.1em")
+        .attr("rx", 7)
+        .style("fill", "rgb(255, 220,120)")
+        .style("stroke", "rgb(180, 160,80)").style("stroke-width", "0.1em")
     d3.select("#circuit").append("path")
         .attr("id", "circuitWire")
         .attr("d", circuitPath)
@@ -410,7 +423,7 @@ var rP = d3.json("../../files/redoxPairs.json", function(data){
         .attr("id", "magnBr")
         .attr("class", "magn")
         .attr('xlink:href', '../../images/magnGlass.svg')
-        .attr("x", 0.5*width-magnWidth/2).attr("y", 0.35*height)
+        .attr("x", 0.5*width-magnWidth/2).attr("y", 0.38*height)
         .attr('width', magnWidth)
         .attr('height', magnWidth)
         .on("click", showMagnBr)

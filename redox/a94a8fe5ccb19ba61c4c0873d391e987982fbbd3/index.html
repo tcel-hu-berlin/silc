@@ -44,10 +44,17 @@
             <div class="inner">
 				<div class="inner" id="helpHints">
 					<h2>Hilfreiche Informationen</h2>
+					<h3>Konstanten:</h3>
+                    <ul>
+                        <li>Molares Volumen: 22.4 L / mol</li>
+                    </ul>
+                    <h3>Elektrochemische Spannungsreihe</h3>
+                    <iframe style="width: 70%; aspect-ratio: 1.2" src="../../assets/echem/eChemSeries.html"></iframe>
+                    <p style="font-size:0.8em">Quelle: Ebbing, Darrell D., General Chemistry, 3rd ed, Houghton Mifflin, 1990</p>
                     <h3><i class="far fa-lightbulb"></i> &nbsp Fakultative Hinweise </i></h3>
-                    <p style="margin-bottom:0"><strong>Frage 1a-b</strong><span style="float:right"><toggle class="showHide" id="showHideES">Einblenden</toggle></span></p>
-                    <div id="hintES" style="display:none">
-                    <iframe style="width: 100%; aspect-ratio: 1.4" src="../../assets/echem/eChemSeries.html"></iframe></div>
+                    <p style="margin-bottom:0"><strong>Frage 1a-b</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
+                    <p id="hintA" style="display:none">Die mathematische Beziehung wird vielleicht deutlicher, wenn Sie die 1s-Orbitale vollständig überlappen lassen. </p>
+                    
 			</div>
         </nav>
 
@@ -129,10 +136,12 @@
     <script src="https://d3js.org/d3.v4.js"></script>
     <script>
         // Setting up hint toggles
-        var letters = ["ES"]
-        letters.forEach( function(x){
-            document.getElementById("showHide"+x).onclick = function(){
-                hint = document.getElementById("hint"+x)
+        showHideToggles = document.getElementsByClassName("showHide");
+        
+        [].forEach.call(showHideToggles, function(m){
+            m.onclick = function(){
+                let hintId = m.id.split("showHide")[1]
+                hint = document.getElementById("hint"+hintId)
                 if (hint.style.display=="none"){
                     this.innerHTML = "Ausblenden"
                     hint.style.display="block"
