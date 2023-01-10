@@ -8,7 +8,7 @@
   </head>
 
 <body>
-    <div id="glowscriptdiv" style="width:100%" class="glowscript">
+    <div id="glowscriptdiv" style="width:80%" class="glowscript">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <script type="text/javascript" src="https://www.glowscript.org/lib/jquery/2.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://www.glowscript.org/lib/jquery/2.1/jquery-ui.custom.min.js"></script>
@@ -72,7 +72,7 @@
 
             strings();
             "4";
-            win = 400;
+            win = document.getElementById("glowscriptdiv").offsetWidth/2;
             "5";
             slp_int = .015;
             "6";
@@ -125,13 +125,13 @@
             "32";
             partscreen = ρσ_interpolate_kwargs.call(this, canvas, [ρσ_desugar_kwargs({width: win, height: win, align: "left", background: vec(.1, .1, .1), userzoom: false, userspin: false, userpan: false, resizable: false, range: side["/"](2), fov: .01})]);
             "35";
-            cb = ρσ_interpolate_kwargs.call(this, checkbox, [ρσ_desugar_kwargs({bind: showHideH2O, checked: true, text: "Wassermoleküle zeigen", pos: partscreen.caption_anchor})]);
+            cb = ρσ_interpolate_kwargs.call(this, checkbox, [ρσ_desugar_kwargs({bind: showHideH2O, checked: true, text: "Wassermoleküle zeigen \n", pos: partscreen.caption_anchor})]);
             "36";
             partscreen.append_to_caption("\n");
             "37";
             rb = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({bind: Replay, text: "Replay", disabled: true, pos: partscreen.caption_anchor})]);
             "38";
-            partscreen.append_to_caption("\n Speed: ");
+            partscreen.append_to_caption("\n Geschwindigkeit: ");
             "39";
             ss = ρσ_interpolate_kwargs.call(this, slider, [ρσ_desugar_kwargs({bind: setSpeed, min: 1, max: 2.5, step: .05, value: slp_int_log, length: win["*"](.5)})]);
             "40";
@@ -988,8 +988,8 @@
         ;$(function(){ window.__context = { glowscript_container: $("#glowscriptdiv")}; __main__() })})()
         // END JAVASCRIPT
 
-        var CB = document.getElementsByClassName("checkbox")
-        console.log(CB)
+        
+        
         //--><!]]></script>
         </div> 
         <script>

@@ -9,23 +9,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="../../assets/css/main.css" />
-    <!-- <style>
-        #macroVideo {
-        zoom: calc(75%/560px);
-        -moz-transform: scale(calc(75%/560px));
-        -moz-transform-origin: 0 0;
-        -o-transform: scale(calc(75%/560px));
-        -o-transform-origin: 0 0;
-        -webkit-transform: scale(calc(75%/560px));
-        -webkit-transform-origin: 0 0;
-      }
-      @media screen and (-webkit-min-device-pixel-ratio:0) {
-        #macroVideo {
-          zoom: 1;
-        }
-      }
-
-    </style> -->
     <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
     <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
     </head>
@@ -90,12 +73,10 @@
                     <iframe src="https://video.tu-freiberg.de/media/embed?key=6e32e92a0e830608a047b98532cf63e0&autoplay=true&controls=true&autolightsoff=false&loop=false&chapters=false&playlist=false&related=false&responsive=false&t=9&muted=1 data-src="" class="iframeLoaded" width="100%" height="100%" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" aria-label="media embed code" id="macroVideo" style="visibility:visible"></iframe>
                 </div>
                 <p style="font-size:1em; color:rgb(26, 14, 255); margin-bottom:0; margin-left:0.5em">&copy 2020 Technische Universität Bergakademie Freiberg</a></p> 
+                <p></p>
                 <h3>Submikroskopische Ansicht der Reaktion:</h3>
                 <iframe scrolling="no" id="AnimCuAg" src="../../assets/glowscript/animCuAg.html" 
                     style="width: 90%; height:0px"></iframe>
-                <h3>Verzeichnis der verwendeten Repräsentationen</h3>
-                <img src="../../images/animCuAg_key.png" style="width: 30%; min-width:200px"
-                    alt = "Verzeichnis der Repräsentationen in der Simulation">
             </div>
         </div>
         
@@ -157,9 +138,33 @@
     <script src="../../assets/js/Three49custom.js"></script>
     <script src="https://d3js.org/d3.v4.js"></script>
     <script>
+        var CB
         iframeAn = document.getElementById("AnimCuAg")
         iframeAn.onload = function(){
             iframeAn.style.height = iframeAn.contentWindow.document.body.scrollHeight+'px';
+            CB = iframeAn.contentWindow.document.getElementsByTagName("input")[0]
+            CBtext = iframeAn.contentWindow.document.getElementById("1")
+            gsdiv = iframeAn.contentWindow.document.getElementById("glowscriptdiv")
+            gsdiv.style.height = iframeAn.contentWindow.document.body.scrollHeight+'px';
+            CB.classList.add("oddCB")
+            CB.style["margin-right"] = "2px"
+            CB.parentNode.style.position = "relative"
+            var lbl = iframeAn.contentWindow.document.createElement("label")
+            var key = iframeAn.contentWindow.document.createElement("img")
+            // parent.replaceChild(lbl, CB)
+            // lbl.appendChild(CB)
+            CB.after(lbl)
+            lbl.style.position="absolute"; lbl.style.left="50%"; lbl.style.top="4px"
+            // [lbl, CB].forEach(function(m){m.style.width = "18px"; m.style.height="18px"})
+            CB.style.position="absolute"; CB.style.left="50%"; CB.style.top="4px"
+            CBtext.style["margin-left"]="24px"
+            CBtext.style["font-size"]="16px"
+            gsdiv.style.position = "relative"
+            gsdiv.appendChild(key)
+            key.style = "position: absolute; left: 55%; top: 46%; width: 35%"
+            key.src = "../../../../images/animCuAg_key.png"
+            key.alt = "Verzeichnis der Repräsentationen in der Simulation"
+            
         }
        
         
