@@ -70,7 +70,7 @@
                 "E_red": 1.23,
                 "outerPhase": "Pt<sub>(s)</sub> ",
                 "middlePhase": " H<sub>2</sub> <sub>(g, 1 atm)</sub>  | ",
-                "innerPhase": " H<sup>+</sup><sub>(aq, 1 M)</sub> ",
+                "innerPhase": " H<sup>+</sup><sub> (aq, 1 M)</sub> ",
                 "video_red": "H_reduction.mp4",
                 "video_oxi": "waterOxidation.mp4",
                 "gas": true, 
@@ -132,7 +132,7 @@
                 "E_red": -0.76,
                 "outerPhase": " Zn<sub>(s)</sub> ",
                 "middlePhase": "",
-                "innerPhase": " Zn(NO<sub>3</sub>)<sub>2</sub> (aq, 1 M)</sub> ",
+                "innerPhase": " Zn(NO<sub>3</sub>)<sub>2</sub> <sub>(aq, 1 M)</sub> ",
                 "video_red": "Zn_reduction.mp4",
                 "video_oxi": "Zn_oxidation.mp4"
                 }, 
@@ -147,7 +147,7 @@
                 "E_red": -0.41,
                 "outerPhase": " Fe<sub>(s)</sub> ",
                 "middlePhase": "",
-                "innerPhase": " Fe(NO<sub>3</sub>)<sub>2</sub> (aq, 1 M)</sub> ",
+                "innerPhase": " Fe(NO<sub>3</sub>)<sub>2</sub> <sub>(aq, 1 M)</sub> ",
                 "video_red": "Fe_reduction.mp4",
                 "video_oxi": "Fe_oxidation.mp4"
                 }

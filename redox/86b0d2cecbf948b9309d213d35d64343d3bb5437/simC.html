@@ -46,20 +46,56 @@
 					<h2>Hilfreiche Informationen</h2>
 					<h3>Konstanten & Einheiten</h3>
                     <ul>
-                        <li>Molares Volumen: 22.4 L / mol</li>
-                        <li>Stromstärke: 1 A = 1 C / s</li>
+                        <li>Molares Volumen: 22.4 L mol<sup>-1</sup></li>
+                        <li>Stromstärke: 1 A = 1 C s<sup>-1</sup></li>
+                        <li>Spannung: 1 V = 1 J C<sup>-1</sup> </li>
                         <li>Ladung eines Elektrons: e = 1,6 &times; 10<sup>-19</sup> C</li>
                         <li>Avogadro-Konstante: <em>N<sub>A</sub></em> = 6,02 &times; 10<sup>23</sup> mol<sup>-1</sup></li>
-                        <li>Faraday-Konstante: <em>F</em> = 96485 C/(mol Elektronen)</li>
+                        <li>Faraday-Konstante: <em>F</em> = 96485 C (mol Elektronen)<sup>-1</sup></li>
+                        <li>Dichte von Wasser: d = 1 g mL<sup>-1</sup></li>
+                    </ul>
+                    <h3>Gleichungen</h3>
+                    <ul>
+                        <li>Gibbs-Energie: ΔG<sup>o</sup> = - RT&middot;ln(K<sub>eq</sub>) = - nFE<sup>o</sup></li>
+                        <li>Nernst-Gleichung: ΔE<sub>Zell</sub>=ΔE&deg;<sub>Zell</sub>-RT/nF ln(Q)</li>
+                        <li>Ideales Gasgesetz: PV = nRT</li>                  
                     </ul>
                     <h3>Elektrochemische Spannungsreihe (scrollbar)</h3>
                     <p style="margin-bottom:0">Standard-Reduktionspotentiale für ausgewählte Redoxpaare:</p>
                     <iframe style="width: 70%; aspect-ratio: 1.2; overflow:scroll" src="../../assets/echem/eChemSeries.html"></iframe>
                     <p style="font-size:0.8em">Quelle: Ebbing, Darrell D., General Chemistry, 3rd ed, Houghton Mifflin, 1990</p>
                     <h3><i class="far fa-lightbulb"></i> &nbsp Fakultative Hinweise </i></h3>
-                    <p style="margin-bottom:0"><strong>Frage 1a-b</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
-                    <p id="hintA" style="display:none">Die mathematische Beziehung wird vielleicht deutlicher, wenn Sie die 1s-Orbitale vollständig überlappen lassen. </p>
-                    
+                    <p style="margin-bottom:0"><strong>Aufstellen von Redoxgleichungen</strong><span style="float:right"><toggle class="showHide" id="showHideBalEq">Einblenden</toggle></span></p>
+                    <div id="hintBalEq" style="display:none">
+                        <p style="margin-bottom:0"><a href="https://www.leifichemie.de/allgemeine-chemie/einfuehrung-redoxreaktionen/grundwissen/aufstellen-von-komplexen-redoxgleichungen-mit-oxidationszahlen" target="_blank">LEIFIchemie</a> bietet einen nützlichen Leitfaden dafür mit Hilfe von Oxidationszahlen. Redox-Halbgleichungen können auch ohne Verwendung von Oxidationszahlen mit den folgenden Schritten ausgeglichen werden, z.B. für <span style="color: blue">MnO<sub>4</sub><sup>-</sup>/Mn<sup>2+</sup>:</span></p>
+                        <ul style="margin-bottom: 0.5em">
+                            <li>Gleichen Sie alle Elemente außer H und O aus: 
+                                <br><span style="color: blue">(Stimmt bereits für Mn)</span></li>
+                            <li>Gleichen Sie die Anzahl von O mithilfe von Wassermoleküle aus:
+                                <br><span style="color: blue">MnO<sub>4</sub><sup>-</sup> &#8594; Mn<sup>2+</sup> + 4H<sub>2</sub>O</span></li>
+                            <li>Gleichen Sie die Anzahl von H mithilfe von Protonen (bzw. Oxonium-Ionen und Wasser) aus:
+                                <br><span style="color: blue">MnO<sub>4</sub><sup>-</sup> + 8 H<sup>+</sup> &#8594; Mn<sup>2+</sup> + 4 H<sub>2</sub>O</span>
+                                <br><span style="color: blue">(MnO<sub>4</sub><sup>-</sup> + 8 H<sub>3</sub>O<sup>+</sup>&#8594; Mn<sup>2+</sup> + 12 H<sub>2</sub>O</span>)</li>
+                            <li>Fügen Sie Elektronen auf die passende Seite ein, um ein Ladungsgleichgewicht zu erreichen. 
+                                <br><span style="color: blue">MnO<sub>4</sub><sup>-</sup> + 8 H<sup>+</sup> + 5 e<sup>-</sup>&#8594; Mn<sup>2+</sup> + 4 H<sub>2</sub>O</span>
+                                <br><span style="color: blue">(MnO<sub>4</sub><sup>-</sup> + 8 H<sub>3</sub>O<sup>+</sup> + 5 e<sup>-</sup>&#8594; Mn<sup>2+</sup> + 12 H<sub>2</sub>O</span>)</li>
+                        </ul>
+                        <p>Falls die Reaktion in basischem Medium abläuft, müssen am Ende auf beide Seiten so viele Hydroxidionen eingesetzt werden, wie Protonen vorhanden sind:
+                            <br><span style="color: blue">MnO<sub>4</sub><sup>-</sup> + <span style="border-bottom: solid 0.5px blue">8 H<sup>+</sup> + 8 OH<sup>-</sup></span> + 5 e<sup>-</sup>  &#8594; Mn<sup>2+</sup> + 4 H<sub>2</sub>O + 8 OH<sup>-</sup></span> 
+                            <br><span style="color: blue">MnO<sub>4</sub><sup>-</sup> + 8 H<sub>2</sub>O + 5 e<sup>-</sup>&#8594; Mn<sup>2+</sup> + 4 H<sub>2</sub>O + 8 OH<sup>-</sup></span></li>
+                            <br><span style="color: blue">MnO<sub>4</sub><sup>-</sup> + 4 H<sub>2</sub>O + 5 e<sup>-</sup>&#8594; Mn<sup>2+</sup> + 8 OH<sup>-</sup></span></li>
+                        </p> 
+                    </div>
+                    <p style="margin-bottom:0"><strong>Frage 4</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
+                     <p id="hintA" style="display:none">Meistens werden galvanische Zellen so aufgebaut, dass die + Seite des Voltmeters mit der Kathode und die - Seite des Voltmeters mit der Anode verbunden ist. Aus diesem Grund wird oft die Formel ΔE<sub>Zell</sub> = E<sub>Kathode</sub>- E<sub></sub>> verwendet. Sie sollten jedoch bedenken, dass die "Kathode" in dieser Gleichung nur dann als echte Kathode wirkt, wenn das gemessene ΔE<sub>Zell</sub> positiv ist! </p>
+                    <p style="margin-bottom:0"><strong>Fragen 8a-b</strong><span style="float:right"><toggle class="showHide" id="showHideC">Einblenden</toggle></span></p>
+                     <p id="hintC" style="display:none">Ihre Antworten auf Frage 7 könnten hier hilfreich sein!</p>
+                    <p style="margin-bottom:0"><strong>Frage 8d</strong><span style="float:right"><toggle class="showHide" id="showHideD">Einblenden</toggle></span></p>
+                     <p id="hintD" style="display:none">Beachten Sie, dass sich negative Ladungen am negativen Pol der Batterie ansammeln und umgekehrt. Sie können sich die positiven und negativen Ausgänge einer Stromquelle (wie in Simulation C) auf die gleiche Weise vorstellen.</p>
+                    <p style="margin-bottom:0"><strong>Fragen 10a-c</strong><span style="float:right"><toggle class="showHide" id="showHideE">Einblenden</toggle></span></p>
+                     <p id="hintE" style="display:none">Am Ende des <em>"Crashkurses" zu elektrolytischen Zellen</em> finden Sie einige Tipps zur Durchführung dieser Berechnungen.</p>
+                    <p style="margin-bottom:0"><strong>Frage 10d</strong><span style="float:right"><toggle class="showHide" id="showHideF">Einblenden</toggle></span></p>
+                     <p id="hintF" style="display:none">Wie viele Mol Wasser sind in 18 mL enthalten? Die Dichte von Wasser ist unter <em>Konstanten & Einheiten</em> angegeben.</p>
 			</div>
         </nav>
 
@@ -68,7 +104,7 @@
             <div class="inner">
                 <a href="index.html"><h1>Elektrochemie auf Teilchenebene</h1></a>
 				<h2>Simulation C: Elektrolytische Zellen</h2>
-                <h3 style="color: brown">&bdquo;Crashkurs&rdquo; zu elektrolytischen Zellen: <span style="margin-left:1em; margin-right:2em"><toggle class="showHide" id="showHideElec">Einblenden</toggle></span> </h3>
+                <h3><span style="color: orange; font-size: 1.3em">&bdquo;Crashkurs&rdquo; zu elektrolytischen Zellen:</span><span style="margin-left:1em; margin-right:2em"><toggle class="showHide" id="showHideElec">Einblenden</toggle></span> </h3>
                 <div id="hintElec" style="display:none">
                     <p style="margin-bottom:0.5em">Im Gegensatz zu galvanischen Zellen sind Zellen als <em>elektrolytisch</em> bezeichnet, wenn sie mithilfe einer externen Stromquelle eine normalweise unspontane Redoxreaktion ermögilchen. <b>Die Rollen der Anode und der Kathode werden in elektrolytischen Zellen durch die Stromquelle bestimmt</b>, indem durch die Stromquelle die <b style="color: red">Anode</b> immer <b style="color: red">positiv</b> und die <b style="color: blue">Kathode</b> immer <b style="color: blue">negativ</b> "aufgeladen" wird. Die positive Ladung der Anode ermöglicht es ihr, Elektronen aus der zu oxidierenden Spezies anzuziehen, während die negative Ladung der Kathode Elektronen für die Reduktion liefert. Salzbrücken werden in elektrolytischen Zellen nicht häufig verwendet. Falls erforderlich werden jedoch poröse Membranen und andere Trenntechniken eingesetzt, um eine Interferenz zwischen der anodischen und der kathodischen Reaktion zu verhindern.</p>
                     <p style="margin-bottom:0.5em">Das Ziel einer Elektrolyse ist i.d.R., die Produkte der Oxidation und/oder der Reduktion zu sammeln. Eine häufige Aufgabe bei der Konstruktion einer electrolytischen Zelle besteht daher darin, die zu erwartenden Mengen der erzeugten Stoffe zu berechnen. Bei solchen Berechnungen sind einige nützliche Punkte zu beachten:</p>
@@ -88,7 +124,7 @@
                         <li>Beim ersten Klick auf <b style="color:#5469b7">START</b> wird der Schalter des Stromkreises geschlossen. Die Elektrolyse wird dann mit der gewählten Spannung und Stromstärke gestartet. Die gleiche Taste kann verwendet werden, um die Simulation fortzusetzen, wenn sie angehalten wurde.</li>
                         <li>Wenn Sie auf <b style="color:#5469b7">PAUSE</b> klicken, wird die Simulation angehalten. Sie können diese Funktion nutzen, um zu beobachten, was während der Elektrolyse zu bestimmten Zeitpunkten passiert.</li>
                         <li>Während der Elektrolyse können durch Klicken auf die Lupensymbolen (<img style="height: 1em" src="../../images/magnGlass.svg" />) Animationen angezeigt werden, die das Verhältnis der Elektronen, Ionen und Molekülen auf Teilchenebene abbilden.</li>
-                        <li>Sowohl die vergangene Zeit als auch die gesammelten Mengen relevanter Produkte seit dem Anfang der Elektrolyse werden auch angezeigt. <b style="color:brown">Beachten Sie, dass die Zeit in Minuten angezeigt wird! Die Simulation läuft viel schneller als in Echtzeit.</b> </li>
+                        <li>Sowohl die vergangene Zeit als auch die gesammelten Mengen relevanter Produkte seit dem Anfang der Elektrolyse werden auch angezeigt. <b style="color:brown">Beachten Sie, dass die Zeit in Minuten angezeigt wird!</b> Die Simulation läuft viel schneller als in Echtzeit. </li>
                         <li>Durch Klicken auf die gelbe <span style="border: 1px solid; border-radius: 2px; background: #ffee6c; padding-left: 0.2em; padding-right:0.2em">&#8634;</span>-Schaltfläche wird das System zurückgesetzt, so dass eine neue Elektrolyse eingerichtet werden kann.</li>
                     </ul>
                     <h3>Zu beachten:</h3>

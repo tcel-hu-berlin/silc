@@ -48,7 +48,7 @@ var timer
 var maxVolume = 0.4 // L
 var secondsPassed = 0, coulombsPassed = 0, electronMolesPassed = 0, molGasL = 0, molGasR = 0
 // var massL = 0, massR = 0
-var minV = -2, maxV = 2, minA = 0.5, maxA=2
+var minV = -2, maxV = 5, minA = 0.5, maxA=2
 
 // Paths
 var posL = 0.40*width,
