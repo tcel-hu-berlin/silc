@@ -355,7 +355,7 @@ const MoveCursor = function(m){
     d3.select("#yCur").attr("x1", xval-10).attr("x2", xval+10)
     curX =  xScale.invert(xval); curY = yScale.invert(yval)
     curpH = pHScale.invert(yval)
-    d3.select("#coord").text("("+curX.toFixed(2) + " ms , "+curY.toExponential(1)+" M, pH = "+curpH.toFixed(2)+")").style("visibility", "visible")
+    d3.select("#coord").text("("+curX.toFixed(2) + " ms , "+curY.toExponential(1)+" mM, pH = "+curpH.toFixed(2)+")").style("visibility", "visible")
     if(xval<width/2){
         d3.select("#coord")
             .attr("x", xval+10)
