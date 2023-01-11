@@ -39,7 +39,7 @@
                     "gasDesc": "O₂ , 1 atm",
                     "E_red": 1.23,
                     "outerPhase": "Pt<sub>(s)</sub> ",
-                    "middlePhase": " H<sub>2</sub> <sub>(g, 1 atm)</sub>  | ",
+                    "middlePhase": " O<sub>2</sub> <sub>(g, 1 atm)</sub>  | ",
                     "innerPhase": " H<sup>+</sup><sub>(aq, 1 M)</sub> ",
                     "video_red": "O2_reduction.mp4",
                     "video_oxi": "waterOxidation.mp4"
