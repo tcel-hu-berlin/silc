@@ -21,13 +21,18 @@
             
         }
 
+        @media screen and (max-width: 1000px) {
+            .digitalScreen {
+                padding: 0.3em 0.6em 0.5em
+            }
+        }
+
         .digitalScreen {
             font-family: "digital-clock-font";
             background: rgb(196, 216, 196);
             font-size:2em;
             border: solid rgb(66, 77, 66)  2px;
             border-radius: 5px;
-            line-height: 2.5em;
         }
 
         .resetButton{
@@ -95,12 +100,12 @@
     <div id="electrolytic" style="position:relative; top:0; left:0; overflow:hidden; border:0 solid #ff7b00; width:100%; aspect-ratio:1.2">
         <!--  voltmeter controls and screens -->
         <div style="position:absolute; left:2.5%; top: 3%; height: 8%; width:18%; text-align:center; vertical-align:middle">
-            <p class="bigLabel" style="margin-bottom:0.3em">Spannung (V)</p>
-            <span class="digitalScreen" id="voltageScreen"><span id="voltInd">+1.000</span></span>
+            <p class="bigLabel" style="margin-bottom:0em">Spannung (V)</p>
+            <p style="margin-top:0em;"><span class="digitalScreen" id="voltageScreen"><span id="voltInd">+1.000</span></span></p>
         </div>
         <div style="position:absolute; left:2.5%; top:16%; height: 8%; width:18%; text-align:center; vertical-align:middle">
-            <p class="bigLabel" style="margin-bottom:0.3em">Stromstärke (A)</p>
-            <span class="digitalScreen" id="voltageScreen"><span id="ampInd">+1.000</span>
+            <p class="bigLabel" style="margin-bottom:0em">Stromstärke (A)</p>
+            <p style="margin-top:0"><span class="digitalScreen" id="voltageScreen"><span id="ampInd">+1.000</span></p>
         </div>
         <div style="position:absolute; left:20%; top:6.5%; width:3%; display:inline-table; text-align:center">
             <button id="upV" class="upButton">&#9650;</button>
