@@ -59,7 +59,7 @@
             var display = canvas;
             var scene = canvas();
 
-            var version, print, arange, __name__, type, ρσ_ls, win, slp_int, slp_int_log, tpm, Ao_clr, Ar_clr, Br_clr, Bo_clr, el_clr, waterOpacity, bgWaterOpacity, A_rows, A_columns, A_tot, Ar_0, Ao_0, B_tot, Br_0, Bo_0, Ao_rad, Ar_rad, Bo_rad, Br_rad, O_rad, H_rad, N_rad, side, partscreen, cb, rb, ss, running, A_objects, B_objects, A_bgnd, electron0, electron1, oxygen, hydrogen1, hydrogen2, nitrogen, thetas, oxygen0, oxygen1, oxygen2, waters0, waters1, bgWaters, i, chance, wz, wx, wy, clarity, px, py, p, obj, pz, j;
+            var version, print, arange, __name__, type, ρσ_ls, win, slp_int, slp_int_log, tpm, Ao_clr, Ar_clr, Br_clr, Bo_clr, el_clr, waterOpacity, bgWaterOpacity, A_rows, A_columns, A_tot, Ar_0, Ao_0, B_tot, Br_0, Bo_0, Ao_rad, Ar_rad, Bo_rad, Br_rad, O_rad, H_rad, N_rad, side, partscreen, cb, pb, rb, ss, running, A_objects, B_objects, A_bgnd, electron0, electron1, oxygen, hydrogen1, hydrogen2, nitrogen, thetas, oxygen0, oxygen1, oxygen2, waters0, waters1, bgWaters, i, chance, wz, wx, wy, clarity, px, py, p, obj, pz, j;
             version = ρσ_list_decorate([ "3.2", "glowscript" ]);
             Array.prototype['+'] = function(r) {return this.concat(r)}
             Array.prototype['*'] = function(r) {return __array_times_number(this, r)}
@@ -129,13 +129,15 @@
             "36";
             partscreen.append_to_caption("\n");
             "37";
+            pb = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({bind: RunPause, text: "Play", disabled: false, pos: partscreen.caption_anchor})]);
             rb = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({bind: Replay, text: "Replay", disabled: true, pos: partscreen.caption_anchor})]);
+            
             "38";
             partscreen.append_to_caption("\n Geschwindigkeit: ");
             "39";
             ss = ρσ_interpolate_kwargs.call(this, slider, [ρσ_desugar_kwargs({bind: setSpeed, min: 1, max: 2.5, step: .05, value: slp_int_log, length: win["*"](.5)})]);
             "40";
-            running = true;
+            running = false;
             "42";
             A_objects = ρσ_list_decorate([]);
             B_objects = ρσ_list_decorate([]);
@@ -268,11 +270,12 @@
                 "112";
                 if (running) {
                     "113";
-                    running = false;
+                    running = false; pb.text = "Resume";
                     "114";
                 } else {
                     "115";
-                    running = true;
+                    pb.disabled = false;
+                    running = true; pb.text = "Pause";
                 }
             };
             if (!RunPause.__module__) Object.defineProperties(RunPause, {
@@ -366,7 +369,7 @@
             async function Replay() {
                 var ρσ_ls, running;
                 "146";
-                rb.disabled = true;
+                rb.disabled = true; pb.disabled = false;
                 "147";
                 running = false;
                 "148";
@@ -400,8 +403,8 @@
                 __module__ : {value: null}
             });
 
-            "162";
-            partscreen.bind("click", RunPause);
+            "162";;
+            // partscreen.bind("click", RunPause);
             "165";
             async function checkBounce(molecule) {
                 var ρσ_ls, uv;
@@ -979,7 +982,7 @@
             "409";
             await ρσ_list_decorate(ρσ_interpolate_kwargs.call(this, substitute, [2, 4, 14, 15].concat([ρσ_desugar_kwargs({stack: "bottom", comefrom: "bottom"})])));
             "410";
-            rb.disabled = false;
+            rb.disabled = false; pb.disabled = true;
         };
         if (!__main__.__module__) Object.defineProperties(__main__, {
             __module__ : {value: null}
