@@ -10,7 +10,7 @@
                 "E_red": 0.34,
                 "outerPhase": " Cu<sub>(s)</sub> ",
                 "middlePhase": "",
-                "innerPhase": " Cu<sup>2+</sup><sub>(aq, 1 M)</sub> ",
+                "innerPhase": " Cu(NO<sub>3</sub>)<sub>2</sub> <sub>(aq, 1 M)</sub> ",
                 "video_red": "Cu_reduction.mp4",
                 "video_oxi": "Cu_oxidation.mp4"
             },
@@ -25,7 +25,7 @@
                     "E_red": 0.00,
                     "outerPhase": "Pt<sub>(s)</sub> ",
                     "middlePhase": " H<sub>2</sub> <sub>(g, 1 atm)</sub>  | ",
-                    "innerPhase": " H<sup>+</sup><sub>(aq, 1 M)</sub> ",
+                    "innerPhase": " HCl <sub>(aq, 1 M)</sub> ",
                     "video_red": "H_reduction.mp4",
                     "video_oxi": "H_oxidation.mp4"
                 },
@@ -40,7 +40,7 @@
                     "E_red": 1.23,
                     "outerPhase": "Pt<sub>(s)</sub> ",
                     "middlePhase": " O<sub>2</sub> <sub>(g, 1 atm)</sub>  | ",
-                    "innerPhase": " H<sup>+</sup><sub>(aq, 1 M)</sub> ",
+                    "innerPhase": " HCl <sub>(aq, 1 M)</sub> ",
                     "video_red": "O2_reduction.mp4",
                     "video_oxi": "waterOxidation.mp4"
             },
@@ -118,7 +118,7 @@
                 "E_red": 0.80,
                 "outerPhase": " Ag<sub>(s)</sub> ",
                 "middlePhase": "",
-                "innerPhase": " Ag<sup>+</sup><sub>(aq, 1 M)</sub> ",
+                "innerPhase": " AgNO<sub>3</sub><sub>(aq, 1 M)</sub> ",
                 "video_red": "Ag_reduction.mp4",
                 "video_oxi": "Ag_oxidation.mp4"
             },
@@ -132,9 +132,24 @@
                 "E_red": -0.76,
                 "outerPhase": " Zn<sub>(s)</sub> ",
                 "middlePhase": "",
-                "innerPhase": " Zn<sup>2+</sup><sub>(aq, 1 M)</sub> ",
+                "innerPhase": " Zn(NO<sub>3</sub>)<sub>2</sub> (aq, 1 M)</sub> ",
                 "video_red": "Zn_reduction.mp4",
                 "video_oxi": "Zn_oxidation.mp4"
+                }, 
+
+        "feII": {  "id": "feII",
+                "name": "Eisen",
+                "abbr": "Fe2+/Fe",
+                "solutionColor":"rgba(245, 193, 135, 0.4)",
+                "electrodeColor": "rgb(160,160,160)",
+                "strip": "visible",
+                "tube": "hidden",
+                "E_red": -0.41,
+                "outerPhase": " Fe<sub>(s)</sub> ",
+                "middlePhase": "",
+                "innerPhase": " Fe(NO<sub>3</sub>)<sub>2</sub> (aq, 1 M)</sub> ",
+                "video_red": "Fe_reduction.mp4",
+                "video_oxi": "Fe_oxidation.mp4"
                 }
     }, 
     "combos": {
