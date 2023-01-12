@@ -834,9 +834,9 @@
 	.attr("x", gx+0.02*gwidth).attr("y", gy+0.05*gheight).text("0, 0")
 	.style("fill", "blue").attr("text-anchor", "left").style("visibility", "hidden")
 
-	const MoveCursor = function(){
-		var xval = d3.mouse(this)[0]
-        var yval = d3.mouse(this)[1]
+	var startTouchX, startTouchY, fixedOffsetX, fixedOffsetY, startedMoving=false
+
+	function MoveCursor(xval, yval){
 		let volumeValue = volumeScale.invert(xval), pHValue = pHScale.invert(yval)
 		xCur.attr("x1", xval).attr("x2", xval)
 		yCur.attr("y1", yval).attr("y2", yval)
@@ -866,9 +866,43 @@
 		
 	}
 
+	function DragCursorTouch(xval0, yval0){
+		let offsetPx = 80
+		let d =Math.sqrt((xval0-startTouchX)**2 + (yval0-startTouchY)**2)
+		if (d < offsetPx){return} // don't change cursor position if finger too close to cursor
+		if (!startedMoving){
+			// first time finger gets far enough, save the rel. position between finger and cursor
+			fixedOffsetX = xval0-startTouchX; fixedOffsetY = yval0-startTouchY
+			startedMoving = true
+		}
+		// maintain that offset between finger and cursor for the rest of the dragging
+		let xval = xval0-fixedOffsetX, yval = yval0 - fixedOffsetY
+		MoveCursor(xval, yval)
+	}
+
 	let clickRect = svg.append("rect").attr("id", "clickRect")
 	.attr("x", gx).attr("y", gy).attr("width", gwidth).attr("height", gheight).style("fill", "gray").style("opacity", 0)
-	.on("click", MoveCursor).on("touchmove", MoveCursor).on("mousemove", MoveCursor)
+	.on("click", function(){
+		var x = d3.mouse(this)[0]
+        var y = d3.mouse(this)[1]
+		MoveCursor(x, y)
+	})
+	.on("touchstart", function(){
+		startTouchX = d3.mouse(this)[0]
+		startTouchY = d3.mouse(this)[1]
+		startedMoving=false
+		MoveCursor(startTouchX, startTouchY)
+	})
+	.on("touchmove", function(){
+		var x = d3.mouse(this)[0]
+        var y = d3.mouse(this)[1]
+		DragCursorTouch(x, y)
+	})
+	.on("mousemove", function(){
+		var x = d3.mouse(this)[0]
+        var y = d3.mouse(this)[1]
+		MoveCursor(x, y)
+	})
 
 </script>
 </body>

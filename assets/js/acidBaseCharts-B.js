@@ -346,9 +346,8 @@ cursor.append("text")
     .attr("x", x0+10).attr("y", y0-10)
     .text("Tippe irgendwo, um X und Y anzuzeigen")
 
-const MoveCursor = function(m){
-    var xval = d3.mouse(m)[0]
-    var yval = d3.mouse(m)[1]
+var startTouchX, startTouchY, fixedOffsetX, fixedOffsetY, startedMoving=false
+function MoveCursor(xval, yval){
     d3.select("#xCur").attr("x1", xval).attr("x2", xval).style("visibility", "visible")
     d3.select("#xCur").attr("y1", yval-10).attr("y2", yval+10)
     d3.select("#yCur").attr("y1", yval).attr("y2", yval).style("visibility", "visible")
@@ -367,26 +366,56 @@ const MoveCursor = function(m){
         d3.select("#coord").attr("y", yval+20)}
         else{d3.select("#coord").attr("y", yval-10)} 
 }
+function DragCursorTouch(xval0, yval0){
+    let offsetPx = 80
+    let d =Math.sqrt((xval0-startTouchX)**2 + (yval0-startTouchY)**2)
+    if (d < offsetPx){return} // don't change cursor position if finger too close to cursor
+    if (!startedMoving){
+        // first time finger gets far enough, save the rel. position between finger and cursor
+        fixedOffsetX = xval0-startTouchX; fixedOffsetY = yval0-startTouchY
+        startedMoving = true
+    }
+    // maintain that offset between finger and cursor for the rest of the dragging
+    let xval = xval0-fixedOffsetX, yval = yval0 - fixedOffsetY
+    MoveCursor(xval, yval)
+}
+
 
 rect.on("click", function(){
     if (curVis == "visible"){
-        MoveCursor(this)
+        var x = d3.mouse(this)[0]
+        var y = d3.mouse(this)[1]
+        MoveCursor(x, y)
     } 
+})
+rect.on("touchstart", function(){
+    startTouchX = d3.mouse(this)[0]
+    startTouchY = d3.mouse(this)[1]
+    startedMoving=false
+    MoveCursor(startTouchX, startTouchY)
 })
 rect.on("touchmove", function(){
     let x = d3.mouse(this)[0], y = d3.mouse(this)[1]
     let xbounds = xScale.range(), ybounds = yScale.range()
+
     if (curVis == "visible" && (x-xbounds[0])*(x-xbounds[1])<0 && (y-ybounds[0])*(y-ybounds[1])<0){
-        MoveCursor(this)
+        DragCursorTouch(x, y)
     } else {
-        d3.select("#xCur").style("visibility", "hidden")
-        d3.select("#yCur").style("visibility", "hidden")
-        d3.select("#coord").style("visibility", "hidden")
+        let xg = x-fixedOffsetX, yg = y-fixedOffsetY 
+        if (startedMoving && (xg-xbounds[0])*(xg-xbounds[1])<0 && (yg-ybounds[0])*(yg-ybounds[1])<0){
+            DragCursorTouch(x,y)
+        } else {
+            d3.select("#xCur").style("visibility", "hidden")
+            d3.select("#yCur").style("visibility", "hidden")
+            d3.select("#coord").style("visibility", "hidden")
+        }
     }
 })
 rect.on("mousemove", function(){
     if (curVis == "visible"){
-        MoveCursor(this)
+        var x = d3.mouse(this)[0]
+        var y = d3.mouse(this)[1]
+        MoveCursor(x, y)
     } 
 })
 
