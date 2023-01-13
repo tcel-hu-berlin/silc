@@ -53,11 +53,19 @@
 	function getConcAcid() {  // Get acid concenration
 		clearInterval(titreInterval);
 		concAcid = document.getElementById("concAcid").value;
+		if (+concAcid > 1){
+			concAcid = 1
+			document.getElementById("concAcid").value = (1).toFixed(1)
+			}
 		document.getElementById("concAcidErr").innerHTML = noErrFlag; ready();
 	}
 	function getConcBase() {  // Get base concentration
 		clearInterval(titreInterval);
 		concBase = document.getElementById("concBase").value;
+		if (+concBase > 1){
+			concBase = 1
+			document.getElementById("concBase").value = (1).toFixed(1)
+			}
 		document.getElementById("concBaseErr").innerHTML = noErrFlag; ready();
 	}
 	function getTitrantA() {  // Toggle the titrant if "acid" is clicked
