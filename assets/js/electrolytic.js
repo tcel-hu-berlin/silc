@@ -764,6 +764,7 @@ startButton.on("click", function(){
     stopButton.attr("disabled", null)
     startButton.attr("disabled", true)
     resetTimeButton.attr("disabled", null)
+    hideSubmicro()
     noReaction.style.display = "none"
     closeSwitch()
     timer = setInterval(runElectrolysis, 20)
