@@ -378,7 +378,7 @@ function MoveCursor(xval, yval){
 }
 
 function DragCursorTouch(xval0, yval0){
-    let offsetPx = 80
+    let offsetPx = 60
     let d =Math.sqrt((xval0-startTouchX)**2 + (yval0-startTouchY)**2)
     if (d < offsetPx){return} // don't change cursor position if finger too close to cursor
     if (!startedMoving){
