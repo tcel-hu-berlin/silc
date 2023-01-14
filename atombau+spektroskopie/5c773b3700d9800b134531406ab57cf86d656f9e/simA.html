@@ -11,66 +11,23 @@
     <link rel="stylesheet" href="../../assets/css/main.css" />
     <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
     <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
+    <script src="../../assets/js/jquery.min.js"></script>
     </head>
 <body class="is-preload">
 <!-- Wrapper -->
     <div id="wrapper">
 
-        <!-- Header -->
         <header id="header">
-            <div class="inner">
-                <span class="title">
-                    <a href="../../index.html">
-                        <img src="../../images/simLogo_desc.svg" alt="Simulationen für Interaktives Lernen in Chemie" style="height:8em" />
-                    </a>
-                </span>
-                <!-- Logo -->
-                <span class="logo" >
-                    <span class="symbol"><img src="../../images/huberlin-logo.svg" alt="" /></span>
-                </span>
-            </div>
-            <nav>
-                <span class="helpButton">
-                    <p style="color: rgb(4, 140, 4); margin-bottom: 0; text-align: center">HILFE</p>
-                    <a href="#menu">
-                        <img id="helpIcon" src="../../images/info-circle.svg" alt="Hilfe" />
-                    </a>                    
-                </span>
-            </nav>
+            <script>
+                $("#header").load("../../header.html");
+            </script>
         </header>
 
         <!-- Menu (help in disguise)-->
         <nav id="menu">
-            <div class="inner">
-				<div class="inner" id="helpHints">
-					<h2>Hilfreiche Informationen</h2>
-					<h3>Konstanten:</h3>
-					<li>Planck'sches Wirkungsquantum: <em>h</em> = 6.626 &middot; 10<sup>-34</sup> J&middot;s</sup></li>
-					<li>Lichtgeschwindigkeit: <em>c</em> = 2.998 &middot; 10<sup>8</sup> m&middot;s<sup>-1</sup></li>
-					<h3>Einheiten:</h3>
-					<li>1 eV = 1.602 &middot; 10<sup>-19</sup> J</li>
-					<li>1 Hz = 1 s<sup>-1</sup></li>
-					<h3>Elektromagnetisches Spektrum</h3>
-					<img src="../../images/EM-Spektrum.svg" width="100%" />
-					<p style="font-size:0.8em">Bildnachweis: Matt, CC BY-SA 2.5, via Wikimedia Commons | <a href = "https://commons.wikimedia.org/wiki/File:EM-Spektrum.svg" target="_blank">(Originalbild anschauen)</a></p>
-                    <h3><i class="far fa-lightbulb"></i> &nbsp Fakultative Hinweise </i></h3>
-                    <p style="margin-bottom:0"><strong>Frage 8</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
-                    <p id="hintA" style="display:none">Benutzen Sie u.a. die im Hilfemenü bereitgestellten Informationen, um eine Gleichung zu bestimmen.</p>
-                    <p style="margin-bottom:0"><strong>Frage 9 interaktive Spektren</strong><span style="float:right"><toggle class="showHide" id="showHideSpec">Ausblenden</toggle></span></p>
-                    <div id="hintSpec" style="display:block">
-                        <p style="margin-bottom:0">max. Wellenlänge:</p>
-                        <p style="margin-bottom:0"><input type="radio" name="maxW" id="max200" value="150nm" onchange="drawSpectra(150)" /> 150 nm
-                            &nbsp;<input type="radio" name="maxW" id="max1000" value="1200nm" onchange="drawSpectra(1200)" /> 1200 nm
-                            &nbsp;<input type="radio" name="maxW" id="max2000" value="2000nm" onchange="drawSpectra(2000)" checked /> 2000 nm</p>
-                        <div style="width: 95%" id="absEmSpectra"></div>
-                        <p></p>
-                    </div>
-                    <p style="margin-bottom:0"><strong>Frage 9c</strong><span style="float:right"><toggle class="showHide" id="showHideB">Einblenden</toggle></span></p>
-                    <p id="hintB" style="display:none">Stellen Sie sicher, dass Sie alle Linien der Paschen-Serie berücksichtigt haben!</p>
-                    <p style="margin-bottom:0"><strong>Frage 10</strong><span style="float:right"><toggle class="showHide" id="showHideC">Einblenden</toggle></span></p>
-                    <p id="hintC" style="display:none">Es kann sein, dass Sie an die mathematische Beziehung zwischen der Quantenzahl <em>n</em> und der Energie schon erinnern können!</p>
-                </div>
-			</div>
+            <script>
+                $("#menu").load("helpmenu.html");
+            </script>
         </nav>
 
         <!-- Main -->
@@ -142,14 +99,11 @@
 
 		<!-- Footer -->
 		<footer id="footer">
-			<div class="inner">
-				<p style="display: flex; align-items: center">&copy; Natalia Spitha & &nbsp; <a href="https://www.tiemannlab.de/" target="_blank">Tiemann Lab</a> &nbsp;  @  &nbsp; <a href="https://www.hu-berlin.de/" target="_blank">HU-Berlin</a> &nbsp; || &nbsp; Design-Vorlage: &nbsp;<a href="https://html5up.net/phantom" target="_blank">Phantom by HTML5 UP</a> &nbsp;  || &nbsp; <img style="height: 1em" class="icon" src="../../images/githubInventocat.png" /> &nbsp; <a href="https://github.com/tcel-hu-berlin/silc" target="_blank">Github</a> &nbsp; || &nbsp; <img class="icon" src="../../images/pencil-square.svg" /> &nbsp; <a href="https://forms.gle/Cnz2r2Geg79otEF97" target="_blank">Feedback geben</a> &nbsp;</p>
-			</div>
+            <script>$("#footer").load("../../footer.html"); </script>
 		</footer>
     </div>
 
 <!-- Scripts -->
-    <script src="../../assets/js/jquery.min.js"></script>
     <script src="../../assets/js/browser.min.js"></script>
     <script src="../../assets/js/breakpoints.min.js"></script>
     <script src="../../assets/js/util.js"></script>
@@ -164,22 +118,6 @@
         }
     </script> 
     <script src="../../assets/js/absorptionEmission.js" onload="hideSpectrum()"></script>
-    <script>
-        // Setting up hint toggles
-        var letters = ["Spec", "A", "B", "C"]
-        letters.forEach( function(x){
-            document.getElementById("showHide"+x).onclick = function(){
-                hint = document.getElementById("hint"+x)
-                if (hint.style.display=="none"){
-                    this.innerHTML = "Ausblenden"
-                    hint.style.display="block"
-                } else {
-                    this.innerHTML = "Einblenden"
-                    hint.style.display="none"
-                }
-            }
-        })
-    </script>
 </body>
 </body>
 </html>

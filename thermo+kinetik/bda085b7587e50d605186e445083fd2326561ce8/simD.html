@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../../assets/css/main.css" />
     <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
     <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
+    <script src="../../assets/js/jquery.min.js"></script>
     </head>
 <body class="is-preload">
 <!-- Wrapper -->
@@ -18,69 +19,12 @@
 
         <!-- Header -->
         <header id="header">
-            <div class="inner">
-                <span class="title">
-                    <a href="../../index.html">
-                        <img src="../../images/simLogo_desc.svg" alt="Simulationen für Interaktives Lernen in Chemie" style="height:8em" />
-                    </a>
-                </span>
-                <!-- Logo -->
-                <span class="logo" >
-                    <span class="symbol"><img src="../../images/huberlin-logo.svg" alt="" /></span>
-                </span>
-            </div>
-            <nav>
-                <span class="helpButton">
-                    <p style="color: rgb(4, 140, 4); margin-bottom: 0; text-align: center">HILFE</p>
-                    <a href="#menu">
-                        <img id="helpIcon" src="../../images/info-circle.svg" alt="Hilfe" />
-                    </a>                    
-                </span>
-            </nav>
+            <script> $("#header").load("../../header.html");</script>
         </header>
 
         <!-- Menu (help in disguise)-->
         <nav id="menu">
-            <div class="inner">
-                <h2>Hilfreiche Informationen</h2>
-                <h3>Konstanten:</h3>
-                <ul>
-                    <li>Verdampfungsenthalpie von Wasser: 
-                    ΔH<sub>vap</sub> = 43,9 kJ mol<sup>-1</sup></li>
-                    <li>Sublimationsenthalpie von Kohlenstoff: 
-                    ΔH<sub>sub</sub> = 717 kJ mol<sup>-1</sup></li>
-                    <li>Gaskonstante: R = 8,314 J mol<sup>-1</sup> K<sup>-1</sup></li>
-                    <li>Coulomb-Konstante: <em>k</em> = 8,99&middot;10<sup>9</sup> N m<sup>2</sup> C<sup>-2</sup> </li>
-                </ul>
-                
-                <h3>Gleichungen:</h3>
-                <ul>
-                    <li>Coulombsches Gesetz: F = <em>k</em> (q<sub>1</sub>q<sub>2</sub>)/r<sup>2</sup></li>
-                    <li>Gibbs-Energie: ΔG<sup>o</sup> = ΔH<sup>o</sup> - T &middot;ΔS<sup>o</sup>= - RT&middot;ln(K<sub>eq</sub>)</li>
-                    <li>Arrhenius-Gleichung: <em>k</em> = A &middot; e<sup> - E<sub>a</sub>/RT</sup></li>
-                    <li>Kinetische Energie und Geschwindigkeit: E<sub>K</sub>= ½ &middot;mv<sup>2</sup></li>
-                </ul>  
-                <h3><i class="far fa-lightbulb"></i> &nbsp Fakultative Hinweise </i></h3>
-                <p style="margin-bottom:0"><strong>Vorbereitungsfrage 1b</strong><span style="float:right"><toggle class="showHide" id="showHideG">Einblenden</toggle></span></p>
-                <p id="hintG" style="display:none">Der erste Hauptsatz der Thermodynamik (Prinzip der Energieerhaltung) besagt, dass die innere Energie bei jedem Vorgang in einem abgeschlossenen System konstant bleibt.</p>
-                <p style="margin-bottom:0"><strong>Frage 2a-iii</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
-                <p id="hintA" style="display:none">Achten Sie hier besonders darauf, dass in keinem der Teilschritte einzelne O- oder H-Atome als Produkte vorkommen.</p>
-                <p style="margin-bottom:0"><strong>Frage 2c</strong><span style="float:right"><toggle class="showHide" id="showHideB">Einblenden</toggle></span></p>
-                <p id="hintB" style="display:none">Vergleichen Sie den Aggregatzustand der Moleküle in der Simulation mit ihrem Aggregatzustand in einer realen Verbrennungsreaktion.</p>
-                <p style="margin-bottom:0"><strong>Frage 2e</strong><span style="float:right"><toggle class="showHide" id="showHideC">Einblenden</toggle></span></p>
-                <p id="hintC" style="display:none">Ihre Antwort bei 2a-ii könnte hier hilfreich sein. Überprüfen Sie jedoch, dass Sie den richtigen "Standardzustand" von Kohlenstoff verwenden und, dass die Reaktion in die richtige Richtung läuft!</p>
-                <p style="margin-bottom:0"><strong>Frage 5b</strong><span style="float:right"><toggle class="showHide" id="showHideH">Einblenden</toggle></span></p>
-                <div id="hintH" style="display:none">
-                    <p style="margin-bottom:0">Die Aktivierungsenergie einer Reaktion ist abhängig von dem Weg, worüber die Reaktion abläuft.</p>
-                    <img src="../../images/reactionPathways.png" width="70%" />
-                </div>
-                <p style="margin-bottom:0"><strong>Frage 7b</strong><span style="float:right"><toggle class="showHide" id="showHideD">Einblenden</toggle></span></p>
-                <p id="hintD" style="display:none">Beachten Sie, dass ein Gleichgewicht sowohl eine Hin- als auch eine Rückreaktion umfassen muss!</p>
-                <p style="margin-bottom:0"><strong>Frage 7d</strong><span style="float:right"><toggle class="showHide" id="showHideE">Einblenden</toggle></span></p>
-                <p id="hintE" style="display:none">Verwenden Sie ein Periodensystem, um die molare Masse von AgCl zu bestimmen.</p>
-                <p style="margin-bottom:0"><strong>Frage 9</strong><span style="float:right"><toggle class="showHide" id="showHideF">Einblenden</toggle></span></p>
-                <p id="hintF" style="display:none">Für die Beantwortung dieser Frage wird eventuell die oben genannte Definition der Gibbs-Energie hilfreich sein.</p>
-            </div>
+            <script>$("#menu").load("helpmenu.html");</script>
         </nav>
 
         <!-- Main -->
@@ -178,14 +122,11 @@
 
 		<!-- Footer -->
 		<footer id="footer">
-			<div class="inner">
-				<p style="display: flex; align-items: center">&copy; Natalia Spitha & &nbsp; <a href="https://www.tiemannlab.de/" target="_blank">Tiemann Lab</a> &nbsp;  @  &nbsp; <a href="https://www.hu-berlin.de/" target="_blank">HU-Berlin</a> &nbsp; || &nbsp; Design-Vorlage: &nbsp;<a href="https://html5up.net/phantom" target="_blank">Phantom by HTML5 UP</a> &nbsp;  || &nbsp; <img style="height: 1em" class="icon" src="../../images/githubInventocat.png" /> &nbsp; <a href="https://github.com/tcel-hu-berlin/silc" target="_blank">Github</a> &nbsp; || &nbsp; <img class="icon" src="../../images/pencil-square.svg" /> &nbsp; <a href="https://forms.gle/Cnz2r2Geg79otEF97" target="_blank">Feedback geben</a> &nbsp;</p>
-			</div>
+            <script>$("#footer").load("../../footer.html"); </script>
 		</footer>
     </div>
 
 <!-- Scripts -->
-    <script src="../../assets/js/jquery.min.js"></script>
     <script src="../../assets/js/browser.min.js"></script>
     <script src="../../assets/js/breakpoints.min.js"></script>
     <script src="../../assets/js/util.js"></script>
@@ -215,22 +156,6 @@
                 }, 1000)
 
         }
-    </script>
-    <script>
-        // Setting up hint toggles
-        var letters = ["A", "B", "C", "D", "E", "F", "G", "H"]
-        letters.forEach( function(x){
-            document.getElementById("showHide"+x).onclick = function(){
-                hint = document.getElementById("hint"+x)
-                if (hint.style.display=="none"){
-                    this.innerHTML = "Ausblenden"
-                    hint.style.display="block"
-                } else {
-                    this.innerHTML = "Einblenden"
-                    hint.style.display="none"
-                }
-            }
-        })
     </script>
 </body>
 </html>

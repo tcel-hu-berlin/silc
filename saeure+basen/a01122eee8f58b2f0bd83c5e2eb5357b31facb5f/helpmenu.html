@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Help Menü: Bindungstheorien</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
+    </head>
+<body class="is-preload">
+    <div class="inner">
+        <div class="inner" id="helpHints">
+            <h2>Hilfreiche Informationen</h2>
+            <h3>Konstanten:</h3>
+            <ul>
+                <li>Ionenprodukt des Wassers (bei 25&deg C): 
+                K<sub>Wasser</sub> = [H<sub>3</sub>O<sup>+</sup>][OH<sup>-</sup>] = 1&middot;10<sup>-14</sup> mol<sup>2 </sup> L<sup>-2</sup></li>
+                <li>pK<sub>S</sub>-Werte:
+                    <ul style="margin-bottom:0">
+                        Essigsäure: 4,76
+                    </ul>
+                </li>
+                <li>pK<sub>B</sub>-Werte:
+                    <ul>
+                        <li>Ammoniak: 4,75</li>
+                        <li>Cyanid-Ion: 4,60</li>
+                        <li>Methylamin: 3,34</li>
+                        <li>Anilin: 9,37</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>Gleichungen:</h3>
+            <ul>
+                <li>Dissoziationskonstante für Säuren: K<sub>s</sub> =[A<sup>-</sup>][H<sub>3</sub>O<sup>+</sup>] / [HA]</li>
+                <li>Dissoziationskonstante für Basen: K<sub>b</sub> =[BH<sup>+</sup>][OH<sup>-</sup>] / [B]</li>
+                <li>Logarithmische Form: pK<sub>x</sub> = -log<sub>10</sub>(K<sub>x</sub>)</li>
+                <li>Logarithmus eines Produkts: log(a&middot;b) = log(a) + log(b)</li>
+                <li>Logarithmus eines Bruches: log(a/b) = log(a) - log(b)</li>
+            </ul>
+            <h3>Abbildungen:</h3>
+            <p style="margin-bottom:0"><strong>Titrationsaufbau</strong><span style="float:right"><toggle class="showHide" id="showHideTitr">Einblenden</toggle></span></p>
+            <div id="hintTitr" style="display:none">
+                <img src="../../images/TitrationsAufbau.svg" style="width: 40%; min-width:180px" />
+                <p style="margin-bottom:0">Oben: Bürette mit Maßlösung. Unten: Erlenmeyerkolben mit Probelösung.</p>
+                <p style="margin-top: 0; font-size:0.9em">Bildnachweis: Matthias M., CC BY 2.0 | <a href = "https://de.wikipedia.org/wiki/Titration#/media/Datei:Titration.svg" target="_blank">(Originalbild anschauen)</a></p>
+            </div>
+            <p style="margin-bottom:0"><strong>Frage 2 grafische Darstellung</strong><span style="float:right"><toggle class="showHide" id="showHideICE">Einblenden</toggle></span></p>
+            <div id="hintICE" style="display:none">
+                <img src="../../images/ICE_visualization.png" style="width: 80%; min-width:180px" />
+            </div>
+            <p></p>
+            <h3><i class="far fa-lightbulb"></i> &nbsp Fakultative Hinweise </i></h3>
+            <p style="margin-bottom:0"><strong>Frage 2</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
+            <p id="hintA" style="display:none">Versuchen Sie, zuerst das Massenwirkungsgesetz für dieses System zuerst aufzustellen, bevor Sie es in die logarithmische Form umwandeln. Um die gewünschte Gleichung herzuleiten muss auch eine Näherung vorgenommen werden und zwar, dass der dissoziierte Teil <em>x</em> viel kleiner als die Anfangskonzentration [HA]<sub>0</sub> ist.</p>
+            <p style="margin-bottom:0"><strong>Frage 7a</strong><span style="float:right"><toggle class="showHide" id="showHideB">Einblenden</toggle></span></p>
+            <p id="hintB" style="display:none">Denken Sie zunächst an Ihre Ziellösung, wobei die Konzentrationen der Henderson-Hasselbalch-Gleichung entsprechen sollten. Es gibt unendlich viele Lösungen für dieses Problem, je nachdem, wie konzentriert Sie Ihren Puffer haben wollen. Wenn Sie nicht weiter wissen, setzen Sie Ihre Ziellösung mit 0,100 M Essigsäure und der entsprechenden Menge Acetat an (die Sie berechnen sollen)! </p>
+            <p style="margin-bottom:0"><strong>Frage 7b</strong><span style="float:right"><toggle class="showHide" id="showHideC">Einblenden</toggle></span></p>
+            <div id="hintC" style="display:none">
+                <p style="margin-bottom:0">Dieses Problem ist mathematisch komplizierter, da das gesamte Acetat als Bestandteil des Puffers durch Reaktion von NaOH und Essigsäure hergestellt werden muss.</p>
+                <img src="../../images/SCFhint.png" width="70%" />
+            </div>
+            <p style="margin-bottom:0"><strong>Frage 8a</strong><span style="float:right"><toggle class="showHide" id="showHideD">Einblenden</toggle></span></p>
+            <p id="hintD" style="display:none">Behandeln Sie das Problem einfach wie eine Lösung einer schwachen Säure. </p>
+            <p style="margin-bottom:0"><strong>Frage 8c</strong><span style="float:right"><toggle class="showHide" id="showHideE">Einblenden</toggle></span></p>
+            <p id="hintE" style="display:none">Bei der Berechnung des pH-Werts am Äquivalenzpunkt kann das System als Lösung einer schwachen Base behandelt werden, wobei pK<sub>b</sub> bekannt ist. Achten Sie auf die Änderung des gesamten Volumens der Lösung.</p>
+            <p style="margin-bottom:0"><strong>Frage 9b</strong><span style="float:right"><toggle class="showHide" id="showHideF">Einblenden</toggle></span></p>
+            <p id="hintF" style="display:none">Überlegen Sie sorgfältig, wie ein pK<sub>b</sub>-Wert in einer Titrationskurve dargestellt wird.</p>
+        </div>
+    </div>
+<script>
+    // Setting up hint toggles
+    showHideToggles = document.getElementsByClassName("showHide");
+        
+        [].forEach.call(showHideToggles, function(m){
+            m.onclick = function(){
+                let hintId = m.id.split("showHide")[1]
+                hint = document.getElementById("hint"+hintId)
+                if (hint.style.display=="none"){
+                    this.innerHTML = "Ausblenden"
+                    hint.style.display="block"
+                } else {
+                    this.innerHTML = "Einblenden"
+                    hint.style.display="none"
+                }
+            }
+        })
+</script>
+</body>
+</html>

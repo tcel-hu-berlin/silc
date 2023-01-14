@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Help Menü: Bindungstheorien</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <!-- <link rel="stylesheet" href="../../assets/css/main.css" /> -->
+    <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+    <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
+    </head>
+<body class="is-preload">
+    <div class="inner">
+        <div class="inner" id="helpHints">
+            <h2>Hilfreiche Informationen</h2>
+            <h3>Konstanten:</h3>
+            <ul>
+                <li>Planck'sches Wirkungsquantum: <em>h</em> = 6.626 &middot; 10<sup>-34</sup> J&middot;s</sup></li>
+                <li>Lichtgeschwindigkeit: <em>c</em> = 2.998 &middot; 10<sup>8</sup> m&middot;s<sup>-1</sup></li>
+            </ul>
+            <h3>Einheiten:</h3>
+            <ul>
+                <li>1 eV = 1.602 &middot; 10<sup>-19</sup> J</li>
+                <li>1 Hz = 1 s<sup>-1</sup></li>
+            </ul>
+            <h3>Elektromagnetisches Spektrum</h3>
+            <img src="../../images/EM-Spektrum.svg" width="100%" />
+            <p style="font-size:0.8em">Bildnachweis: Matt, CC BY-SA 2.5, via Wikimedia Commons | <a href = "https://commons.wikimedia.org/wiki/File:EM-Spektrum.svg" target="_blank">(Originalbild anschauen)</a></p>
+            
+            <h3><i class="far fa-lightbulb"></i> &nbsp Fakultative Hinweise </i></h3>
+            <p style="margin-bottom:0"><strong>Frage 4c</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
+            <p id="hintA" style="display:none">Achten Sie auf den Übergang zwischen den Gruppen 15 und 16! Berücksichtigen Sie insbesondere die Anzahl der Elektronen in den Orbitalen.</p>
+            <p style="margin-bottom:0"><strong>Frage 6c-d</strong><span style="float:right"><toggle class="showHide" id="showHideB">Einblenden</toggle></span></p>
+            <p id="hintB" style="display:none">Berücksichtigen Sie die Elektronenkonfigurationen der Atome und Ionen, die an der ersten bzw. der zweiten Ionisierung für jedes Element beteiligt sind.</p>
+        </div>
+    </div>
+<script>
+    // Setting up hint toggles
+    showHideToggles = document.getElementsByClassName("showHide");
+        
+        [].forEach.call(showHideToggles, function(m){
+            m.onclick = function(){
+                let hintId = m.id.split("showHide")[1]
+                hint = document.getElementById("hint"+hintId)
+                if (hint.style.display=="none"){
+                    this.innerHTML = "Ausblenden"
+                    hint.style.display="block"
+                } else {
+                    this.innerHTML = "Einblenden"
+                    hint.style.display="none"
+                }
+            }
+        })
+</script>
+</body>
+</html>
