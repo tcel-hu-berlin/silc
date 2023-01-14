@@ -495,7 +495,7 @@ function toggleCursor(){
             cursor.attr("visibility", "visible")
             d3.select("#coord")
             .attr("x", x0+10).attr("y", y0-10)
-            .text("Tippe irgendwo, um X und Y anzuzeigen")
+            .text("Cursor")
             .attr("text-anchor", "start")
         }
     }

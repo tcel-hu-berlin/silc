@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../../assets/css/main.css" />
     <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
     <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
+    <script src="../../assets/js/jquery.min.js"></script>
     </head>
 <body class="is-preload">
 <!-- Wrapper -->
@@ -18,73 +19,23 @@
 
         <!-- Header -->
         <header id="header">
-            <div class="inner">
-                <span class="title">
-                    <a href="../../index.html">
-                        <img src="../../images/simLogo_desc.svg" alt="Simulationen für Interaktives Lernen in Chemie" style="height:8em" />
-                    </a>
-                </span>
-                <!-- Logo -->
-                <span class="logo" >
-                    <span class="symbol"><img src="../../images/huberlin-logo.svg" alt="" /></span>
-                </span>
-            </div>
-            <nav>
-                <span class="helpButton">
-                    <p style="color: rgb(4, 140, 4); margin-bottom: 0; text-align: center">HILFE</p>
-                    <a href="#menu">
-                        <img id="helpIcon" src="../../images/info-circle.svg" alt="Hilfe" />
-                    </a>                    
-                </span>
-            </nav>
+            <script>
+                $("#header").load("../../header.html");
+            </script>
         </header>
 
         <!-- Menu (help in disguise)-->
         <nav id="menu">
-            <div class="inner">
-				<div class="inner" id="helpHints">
-					<h2>Hilfreiche Informationen</h2>
-					<h3>Einheiten:</h3>
-                    <ul>
-                        <li>1 Å = 10<sup>-10</sup> m</li>
-                    </ul>
-                    <h3>Gleichungen:</h3>
-                    <ul>
-                        <li>Bindungsordnung: BO = 1/2&middot;(n<sub>bindend</sub> - n<sub>antibindend</sub>) </li>
-                    </ul>
-					<h3>Löslichkeitswerte einiger Moleküle:</h3>
-                    (in Wasser, bei Raumtemperatur)
-                    <ul style="margin-bottom:0">
-                        <li>Tetrafluormethan: ca. 20 mg/L</li>
-                        <li>Methanol: > 10<sup>6</sup> mg/L</li>
-                        <li>Ammoniak: 5 &middot;10<sup>5</sup> mg/L </li>
-                    </ul>
-                    <p style="font-size:0.8em">von <a href="https://pubchem.ncbi.nlm.nih.gov/" target="_blank">Pubchem</a> abgerufen</p>
-                    <h3><i class="far fa-lightbulb"></i> &nbsp Fakultative Hinweise </i></h3>
-					<p style="margin-bottom:0"><strong>Tipps zur Konstruktion von Lewis-Formeln</strong><span style="float:right"><toggle class="showHide" id="showHideLewis">Einblenden</toggle></span></p>
-					<div id="hintLewis" style="display:none">
-                        <ol>
-                            <li>Bestimmen Sie die Gesamtzahl der Valenzelektronen.</li>
-                            <li>Bestimmen Sie das Zentralatom, das in der Regel das am wenigsten elektronegative Atom ist. </li>
-                            <li>Zeichnen Sie eine "Gerüststruktur" des Moleküls, in der das Zentralatom durch Einfachbindungen an die anderen Atome gebunden ist.</li>
-                            <li>Verwenden Sie je zwei Valenzelektronen, um jede Bindung in der "Gerüststruktur" zu bilden.</li>
-                            <li>Versuchen Sie, die Oktettregel für alle Atome zu erfüllen, indem Sie die restlichen Valenzelektronen als Nichtbindungselektronen und Mehrfachbindungen verteilen.</li>
-                        </ol>
-                    </div>
-                    <p style="margin-bottom:0"><strong>Frage 1a-b</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
-                    <p id="hintA" style="display:none">Die mathematische Beziehung wird vielleicht deutlicher, wenn Sie die 1s-Orbitale vollständig überlappen lassen. </p>
-                    <p style="margin-bottom:0"><strong>Frage 8</strong><span style="float:right"><toggle class="showHide" id="showHideB">Einblenden</toggle></span></p>
-                    <p id="hintB" style="display:none">Welche unbesetzten Orbitale werden für die zusätzlichen Elektronen bei Elementen wie Phosphor und Schwefel verwendet?</p>
-                    <p style="margin-bottom:0"><strong>Frage 12</strong><span style="float:right"><toggle class="showHide" id="showHideC">Einblenden</toggle></span></p>
-                    <p id="hintC" style="display:none">Eines der Moleküle weist eine Art von intermolekularer Kraft auf, die in der Animationsgruppe D nicht dargestellt ist!</p>
-			</div>
+            <script>
+                $("#menu").load("helpmenu.html");
+            </script>
         </nav>
 
         <!-- Main -->
         <div id="main">
             <div class="inner">
                 <h1>Molekülorbitale und andere Bindungstheorien</h1>
-				<p style="margin-bottom:0; margin-top:2em">Wähle eine aus den folgenden Optionen:</p>
+				<p style="margin-bottom:0; margin-top:2em">Wählen Sie eine aus den folgenden Optionen. Bitte nehmen Sie sich einen Moment Zeit, um die Übersichten zu den einzelnen Simulationen bzw. Animationen zu lesen, bevor Sie beginnen!</p>
             </div>
         </div>
         
@@ -130,7 +81,7 @@
                             <img src="../../images/pic02.jpg" alt="" />
                         </span>
                         <a href="animC.html">
-                            <h2>Animationsgruppe C</h2>
+                            <h2>Animationen C</h2>
                             <div class="content">
                                 <p>Para- und Diamagnetismus</p>
                             </div>
@@ -152,7 +103,7 @@
                             <img src="../../images/pic02.jpg" alt="" />
                         </span>
                         <a href="animE.html">
-                            <h2 style="letter-spacing: 0.01em">Animationsgruppe E</h2>
+                            <h2 style="letter-spacing: 0.01em">Animationen E</h2>
                             <div class="content">
                                 <p>Zwischenmoleküläre Kräfte und Löslichkeit</p>
                             </div>
@@ -164,35 +115,17 @@
 
 		<!-- Footer -->
 		<footer id="footer">
-			<div class="inner">
-				<p style="display: flex; align-items: center">&copy; Natalia Spitha & &nbsp; <a href="https://www.tiemannlab.de/" target="_blank">Tiemann Lab</a> &nbsp;  @  &nbsp; <a href="https://www.hu-berlin.de/" target="_blank">HU-Berlin</a> &nbsp; || &nbsp; Design-Vorlage: &nbsp;<a href="https://html5up.net/phantom" target="_blank">Phantom by HTML5 UP</a> &nbsp;  || &nbsp; <img style="height: 1em" class="icon" src="../../images/githubInventocat.png" /> &nbsp; <a href="https://github.com/tcel-hu-berlin/silc" target="_blank">Github</a> &nbsp; || &nbsp; <img class="icon" src="../../images/pencil-square.svg" /> &nbsp; <a href="https://forms.gle/Cnz2r2Geg79otEF97" target="_blank">Feedback geben</a> &nbsp;</p>
-			</div>
+            <script>$("#footer").load("../../footer.html"); </script>
 		</footer>
     </div>
 
 <!-- Scripts -->
-    <script src="../../assets/js/jquery.min.js"></script>
+    <!-- <script src="../../assets/js/jquery.min.js"></script> -->
     <script src="../../assets/js/browser.min.js"></script>
     <script src="../../assets/js/breakpoints.min.js"></script>
     <script src="../../assets/js/util.js"></script>
     <script src="../../assets/js/main.js"></script>
     <script src="../../assets/js/Three49custom.js"></script>
     <script src="https://d3js.org/d3.v4.js"></script>
-    <script>
-        // Setting up hint toggles
-        var letters = ["Lewis", "A", "B", "C"]
-        letters.forEach( function(x){
-            document.getElementById("showHide"+x).onclick = function(){
-                hint = document.getElementById("hint"+x)
-                if (hint.style.display=="none"){
-                    this.innerHTML = "Ausblenden"
-                    hint.style.display="block"
-                } else {
-                    this.innerHTML = "Einblenden"
-                    hint.style.display="none"
-                }
-            }
-        })
-    </script>
 </body>
 </html>

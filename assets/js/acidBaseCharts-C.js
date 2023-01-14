@@ -353,7 +353,7 @@ cursor.append("text")
     .style("stroke", "rgb(88,88,88)")
     .attr("id", "coord")
     .attr("x", x0+10).attr("y", y0-10)
-    .text("Tippe irgendwo, um X und Y anzuzeigen")
+    .text("Cursor")
 
 var startTouchX, startTouchY, fixedOffsetX, fixedOffsetY, startedMoving=false
 
