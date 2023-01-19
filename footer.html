@@ -10,7 +10,34 @@
     </head>
 <body class="is-preload">
     <div class="inner">
-        <p style="display: flex; align-items: center">&copy; Natalia Spitha & &nbsp; <a href="https://www.tiemannlab.de/" target="_blank">Tiemann Lab</a> &nbsp;  @  &nbsp; <a href="https://www.hu-berlin.de/" target="_blank">HU-Berlin</a> &nbsp; || &nbsp; Design-Vorlage: &nbsp;<a href="https://html5up.net/phantom" target="_blank">Phantom by HTML5 UP</a> &nbsp;  || &nbsp; <img style="height: 1em" class="icon" src="../../images/githubInventocat.png" /> &nbsp; <a href="https://github.com/tcel-hu-berlin/silc" target="_blank">Github</a> &nbsp; || &nbsp; <img class="icon" src="../../images/pencil-square.svg" /> &nbsp; <a href="https://forms.gle/Cnz2r2Geg79otEF97" target="_blank">Feedback geben</a> &nbsp;</p>
+        <p style="display: flex; align-items: center">&copy; Natalia Spitha & &nbsp; <a href="https://www.tiemannlab.de/" target="_blank">Tiemann Lab</a> &nbsp;  @  &nbsp; <a href="https://www.hu-berlin.de/" target="_blank">HU-Berlin</a> &nbsp; || &nbsp; Design-Vorlage: &nbsp;<a href="https://html5up.net/phantom" target="_blank">Phantom by HTML5 UP</a> &nbsp;  || &nbsp; <img style="height: 1em" class="icon" src="../../images/githubInventocat.png" /> &nbsp; <a href="https://github.com/tcel-hu-berlin/silc" target="_blank">Github</a> &nbsp; || &nbsp; <img class="icon" src="../../images/pencil-square.svg" /> &nbsp; <a href="https://forms.gle/Cnz2r2Geg79otEF97" target="_blank">Feedback geben</a> &nbsp; || 
+            &#127760 <select id="langSelect" style="display:inline; width: 7em" >
+                <option value="de" selected>Deutsch</option>
+            </select>
+        </p>
     </div>
+    <script>
+        let hasEnglishVersion = ['/atombau+spektroskopie/5c773b3700d9800b134531406ab57cf86d656f9e/index.html']
+        let currentPath = window.location.pathname
+        if (hasEnglishVersion.includes(currentPath)){
+            let enOpt = document.createElement("option")
+            enOpt.value = "en"
+            enOpt.innerHTML = "English"
+            document.getElementById("langSelect").appendChild(enOpt)
+        }
+    </script>
+    <script>
+        document.getElementById("langSelect").onchange = function(){
+            let currentPath = window.location.pathname
+            let l = currentPath.split("/")
+            let pageName = l[l.length-1].split(".html")[0].split("_")[0]
+            if (this.value == "de"){
+                window.location.href = pageName+".html"
+            }
+            if (this.value == "en"){
+                window.location.href = pageName+"_EN.html"
+            }
+        }
+    </script>
 </body>
 </html>

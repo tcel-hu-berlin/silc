@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<!--
+	Made using the template Phantom by HTML5 UP
+	html5up.net | @ajlkn
+    TODO: adjust iframe if no ad blocker!
+-->
+<html>
+<head>
+    <title>Atombau und Spektroskopie</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+    <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
+    <script src="../../assets/js/jquery.min.js"></script>
+    </head>
+<body class="is-preload">
+<!-- Wrapper -->
+    <div id="wrapper">
+        <!-- Header -->
+        <header id="header">
+            <script>
+                $("#header").load("../../header.html");
+            </script>
+        </header>
+
+        <!-- Menu (help in disguise)-->
+        <nav id="menu">
+            <script>
+                $("#menu").load("helpmenu.html");
+            </script>
+        </nav>
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+                <a href="index.html"><h1>Atomenergieniveaus und Linienspektren</h1></a>
+				<h2>Simulation B: Spektrum von Wasserstoff</h2>
+                    <h3>Überblick:</h3>
+                    <ul>
+                        <li>In Simulation B werden die Energieniveaus des Wasserstoffatoms nach dem Bohrschen Modell quantitativ betrachtet.</li> 
+                        <li>Das rote <span style="background:rgb(255, 0, 0); border-radius: 8px; font-weight: 900; color: rgb(255, 255, 255)">&nbsp +&nbsp </span>-Zeichen steht für den Kern, während das blaue <span style="background:rgb(8, 28, 255); border-radius: 10px; font-weight: 900; color: rgb(255, 255, 255)">&nbsp -&nbsp </span>-Zeichen ein Elektron darstellt, welches das Atom umkreist.</li>
+                        <li>Die Anfangs- und Endpositionen des Elektrons können durch Berühren und Schieben verändert werden, wodurch Übergänge zwischen den Energieniveaus des Wasserstoffatoms erzeugt werden.</li>
+                        <li>Die Energie dieser Übergänge wird entlang der schwarzen Wellenlängenachse über dem Bild angezeigt und ist auch neben dem Pfeil angegeben.</li>
+                    </ul>
+                    <div id="loadText">
+                        <p style="color: rgb(26, 14, 255); border: solid 2px rgb(255, 255, 255)">Bitte warten, bis die Simulation geladen ist...</p>
+                    </div>
+                    <div id="divContainer" style="left: 100px; top: 200px; border: solid 2px rgb(255, 255, 255); overflow: hidden; visibility:hidden">
+                        <iframe id="simulationB" scrolling="no" src="https://javalab.org/en/spectrum_of_hydrogen_en/" style="width: 100%; aspect-ratio: 1; margin-top:-250px; display:block; overflow:scroll">
+                        </iframe>
+                    </div>
+                    <p style="font-size:1em; color:rgb(26, 14, 255); margin-bottom:0; margin-left:0.5em">&copy Created by the <a href="https://javalab.org/en/" target="_blank">JavaLab Team</a></p> 
+                    <p>Besuchen Sie die <a href="https://javalab.org/en/spectrum_of_hydrogen_en/" target="_blank">Original-Website</a>, wenn das Bild nicht richtig angezeigt wird.</p>
+                    <h2>Interaktives Diagramm B</h2>
+                    <h3>Verwendungstipps:</h3>
+                    <ul>
+                        <li>Die aus der Simulation berechneten Energiewerten der Energieniveaus <em>n</em> = 2 – 8 können in eine Tabelle auf der Registerkarte "Table" eingeben werden.</li>
+                        <li>Sie können nur Zahlenwerte eingeben; die Tabelle akzeptiert keine Gleichungen!</li>
+                        <li>Wenn alles richtig eingegeben ist, sollten die Werte als Punkte in der Graphik erscheinen.</li>
+                        <li>In der Registerkarte „Algebra“ (Taschenrechnersymbol) kann mit Hilfe von Schiebereglern eine Gleichung ermittelt werden, die die Punkten am besten verbindet.</p></li>
+                    </ul>
+                    <div id="ggb-intDiag" style="width:100%" ></div> 
+                        <!-- <a href="https://www.geogebra.org/graphing/an6grgwy" target="_blank"><button style="background-color:rgb(255, 240, 254)">Interaktives Diagramm öffnen</button></a> -->
+            </div>
+        </div>
+        
+        <!-- Simnav buttons -->
+        <div id="simnav">
+            <div class="inner">
+                <section class="tiles">
+					<article class="styleSim">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="animA.html">
+                            <h2>Animation A</h2>
+                            <div class="content">
+                                <p>Prinzip der PES</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simA.html">
+                            <h2>Simulation A</h2>
+                            <div class="content">
+                                <p>Identifizierung von PES-Spektren</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSimActive">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simB.html">
+                            <h2>Simulation B</h2>
+                            <div class="content">
+                                <p>Spektrum von Wasserstoff & interaktives Diagram</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simC.html">
+                            <h2>Simulation C</h2>
+                            <div class="content">
+                                <p>Visualisierung von Quantenzahlen</p>
+                            </div>
+                        </a>
+                    </article>
+                </section>
+            </div>
+        </div>
+
+		<!-- Footer -->
+		<footer id="footer">
+            <script>$("#footer").load("../../footer.html"); </script>
+		</footer>
+    </div>
+
+<!-- Scripts -->
+    <script src="../../assets/js/browser.min.js"></script>
+    <script src="../../assets/js/breakpoints.min.js"></script>
+    <script src="../../assets/js/util.js"></script>
+    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/Three49custom.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script>
+        function hideSpectrum(){
+            document.getElementById("hintSpec").style.display = "none"
+            document.getElementById("showHideSpec").innerHTML = "Einblenden"
+        }
+    </script> 
+    <script src="../../assets/js/absorptionEmission.js" onload="hideSpectrum()"></script>
+    <script>
+        var iFrame = document.getElementById("simulationB")
+        var divContainer = document.getElementById("divContainer")
+        var loadText=document.getElementById("loadText")
+        iFrame.onload = function(){
+            loadText.style.display = 'none'
+            divContainer.style.visibility='visible'
+            var width = document.getElementById("divContainer").offsetWidth
+            var height = width * 432/960 // width of canvas, so that the rest is cropped
+            document.getElementById("divContainer").style.height = ""+height+"px"
+           }
+    </script>
+    <script src="https://www.geogebra.org/apps/deployggb.js"></script>
+    <script>
+        var simwidth = document.getElementById("ggb-intDiag").offsetWidth;
+        var simheight = simwidth*0.6
+        var params = {
+            "appName": "graphing",
+                "width": simwidth,
+                "height": simheight,
+                "showMenuBar": true,
+                "material_id": "an6grgwy",};
+        var applet = new GGBApplet(params, true);
+        applet.inject('ggb-intDiag');
+    </script>
+    </body>
+</body>
+</html>

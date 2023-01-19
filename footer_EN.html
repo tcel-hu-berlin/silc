@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Footer</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+    <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
+    </head>
+<body class="is-preload">
+    <div class="inner">
+        <p style="display: flex; align-items: center">&copy; Natalia Spitha & &nbsp; <a href="https://www.tiemannlab.de/" target="_blank">Tiemann Lab</a> &nbsp;  @  &nbsp; <a href="https://www.hu-berlin.de/" target="_blank">HU-Berlin</a> &nbsp; || &nbsp; Design-template: &nbsp;<a href="https://html5up.net/phantom" target="_blank">Phantom by HTML5 UP</a> &nbsp;  || &nbsp; <img style="height: 1em" class="icon" src="../../images/githubInventocat.png" /> &nbsp; <a href="https://github.com/tcel-hu-berlin/silc" target="_blank">Github</a> &nbsp; || &nbsp; <img class="icon" src="../../images/pencil-square.svg" /> &nbsp; <a href="https://forms.gle/Cnz2r2Geg79otEF97" target="_blank">Give Feedback</a> &nbsp; || 
+            &#127760 <select id="langSelect" style="display:inline; width: 7em" >
+                <option value="de">Deutsch</option>
+                <option value="en" selected>English</option>
+            </select>
+        </p>
+    </div>
+<script>
+    document.getElementById("langSelect").onchange = function(){
+        let currentPath = window.location.pathname
+        let l = currentPath.split("/")
+        let pageName = l[l.length-1].split(".html")[0].split("_")[0]
+        if (this.value == "de"){
+            window.location.href = pageName+".html"
+        }
+        if (this.value == "en"){
+            window.location.href = pageName+"_EN.html"
+        }
+    }
+</script>
+</body>
+</html>
