@@ -272,7 +272,7 @@ var showMagnCircR = function(){
 // Button functions
 var raiseV = function(){
     downV.attr("disabled", null)
-    voltage += 0.05
+    voltage += 0.02
     let sign = "+"
     if (voltage<0){sign="-"}
     voltInd.innerHTML = sign+Math.abs(voltage).toFixed(3)
@@ -282,7 +282,7 @@ var raiseV = function(){
 }
 var dropV = function(){
     upV.attr("disabled", null)
-    voltage -= 0.05
+    voltage -= 0.02
     let sign = "+"
     if (voltage<0){sign="-"}
     voltInd.innerHTML = sign+Math.abs(voltage).toFixed(3)
