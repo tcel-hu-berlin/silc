@@ -12,6 +12,7 @@
     <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
     <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
     <script src="../../assets/js/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v4.js" charset="utf-8"></script>
     </head>
 <body class="is-preload">
 <!-- Wrapper -->
@@ -27,7 +28,9 @@
         <!-- Menu (help in disguise)-->
         <nav id="menu">
             <script>
-                $("#menu").load("helpmenu.html");
+                $("#menu").load("helpmenu_EN.html", function(){
+                    $.getScript("../../assets/js/absorptionEmission.js")
+                });
             </script>
         </nav>
 
@@ -77,14 +80,5 @@
     <script src="../../assets/js/util.js"></script>
     <script src="../../assets/js/main.js"></script>
     <script src="../../assets/js/Three49custom.js"></script>
-    <script src="https://d3js.org/d3.v4.js"></script>
-    <script src="../../assets/js/absorptionEmission.js" onload="hideSpectrum()"></script>
-    <script>
-        function hideSpectrum(){
-            document.getElementById("hintSpec").style.display = "none"
-            document.getElementById("showHideSpec").innerHTML = "Einblenden"
-        }
-    </script> 
-    <script src="../../assets/js/absorptionEmission.js" onload="hideSpectrum()"></script>
 </body></body>
 </html>

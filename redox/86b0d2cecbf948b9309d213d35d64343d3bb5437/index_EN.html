@@ -5,52 +5,50 @@
 -->
 <html>
 <head>
-    <title>Atombau und Spektroskopie</title>
+    <title>SILC: Particle-Level Electrochemistry</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="../../assets/css/main.css" />
     <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
     <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
     <script src="../../assets/js/jquery.min.js"></script>
-    <script src="https://d3js.org/d3.v4.js" charset="utf-8"></script>
     </head>
 <body class="is-preload">
 <!-- Wrapper -->
     <div id="wrapper">
+
         <!-- Header -->
         <header id="header">
             <script>
-                $("#header").load("../../header.html");
+                $("#header").load("../../header_EN.html");
             </script>
         </header>
 
         <!-- Menu (help in disguise)-->
         <nav id="menu">
             <script>
-                $("#menu").load("helpmenu_EN.html", function(){
-                    $.getScript("../../assets/js/absorptionEmission.js")
-                });
+                $("#menu").load("helpmenu_EN.html");
             </script>
         </nav>
 
         <!-- Main -->
         <div id="main">
             <div class="inner">
-                <h1>Atomenergieniveaus und Linienspektren</h1>
-				<p style="margin-bottom:0; margin-top:2em">Wählen Sie eine aus den folgenden Optionen. Bitte nehmen Sie sich einen Moment Zeit, um die Übersichten zu den einzelnen Simulationen bzw. Animationen zu lesen, bevor Sie beginnen!</p>
+                <h1>Particle-Level Electrochemistry</h1>
+				<p style="margin-bottom:0; margin-top:2em">Choose one of the options below. Please take a moment to read the overview for each simulation or animation that you use!</p>
             </div>
         </div>
         
         <!-- Simnav buttons -->
         <div id="simnav">
             <script>
-                $("#simnav").load("simnav.html");
+                $("#simnav").load("simnav_EN.html");
             </script>
         </div>
 
 		<!-- Footer -->
 		<footer id="footer">
-            <script>$("#footer").load("../../footer.html"); </script>
+            <script>$("#footer").load("../../footer_EN.html"); </script>
 		</footer>
     </div>
 
@@ -60,5 +58,6 @@
     <script src="../../assets/js/util.js"></script>
     <script src="../../assets/js/main.js"></script>
     <script src="../../assets/js/Three49custom.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
 </body>
 </html>
