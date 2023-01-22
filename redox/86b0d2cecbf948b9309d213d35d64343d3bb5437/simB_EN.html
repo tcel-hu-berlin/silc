@@ -31,11 +31,13 @@ https://video.tu-freiberg.de/album/video/Kupfer-in-Silbernitratloesung/6e32e92a0
             <div class="inner">
                 <a href="index_EN.html"><h1>Particle-Level Electrochemistry</h1></a>
 				<h2>Simulation B: Galvanic Cells</h2>
-                <h3><span style="color: orange; font-size: 1.3em">&bdquo;Crashkurs&rdquo; zu galvanischen Zellen:</span><span style="margin-left:1em; margin-right:2em"><toggle class="showHide" id="showHideGalv">Einblenden</toggle></span> </h3>
+                <h3><span style="color: orange; font-size: 1.3em">&bdquo;Crash course&rdquo; on galvanic cells:</span><span style="margin-left:1em; margin-right:2em"><toggle class="showHide" id="showHideGalv">Show</toggle></span> </h3>
                 
                 <div id="hintGalv" style="display:none">
-                    <p style="margin-bottom: 0.5em" >Als <em>galvanisch</em> werden elektrochemische Zellen bezeichnet, in denen eine Redoxreaktion spontan abläuft und elektrischen Strom erzeugt. Eine galvanische Zelle besteht aus einer <b style="color: #167b19">kathodischen Halbzelle</b>, an der die <b style="color: #167b19">reduktive Halbreaktion</b> stattfindet, und eine <b style="color:#5469b7">anodische Halbzelle</b>, an der die <b style="color: #5469b7">oxidative Halbreaktion</b> stattfindet. Die beiden Halbzellen enthalten jeweils ein <b>Redoxpaar</b> (z.B. Cu<sup>2+</sup>/Cu(s) oder H<sup>+</sup>/H<sub>2</sub>), welches je einem <b>Standard-Reduktionspotenzial</b> (s. <em>Hilfe-Menü</em>) entspricht. Die Elektronen, die bei der Oxidationsreaktion abgegeben werden, werden über den Stromkreis von der Anode zur Kathode übertragen. Die beiden Halbzellen sind außerdem durch eine <b>Salzbrücke</b> verbunden, über die sich Ionen bewegen können, um das Ladungsgleichgewicht zu erhalten.</p>
-                    <p style="margin-bottom: 0.5em">Um die Zellspannung einer galvanischen Zelle zu messen wird ein Voltmeter oder Multimeter verwendet, welches die Spannungsdifferenz zwischen der Reduktionspotentiale seiner "+"-Seite und seiner "-"-Seite (Referenzseite) anzeigt, d.h. unter Standardbedingungen:</p>
+                    <p style="margin-bottom: 0.5em" >Electrochemical cells are referred to as <em>galvanic</em> if they involve a spontaneous redox reaction that produces electricity. A galvanic cell consists of a <b style="color: #167b19">cathodic half-cell</b>, in which the <b style="color: #167b19">reduction half-reaction</b> occurs, and an <b style="color:#5469b7">anodic half-cell</b>, in which the <b style="color: #5469b7">oxidative half-reaction</b> occurs. Each half-cell contains a <b> redox pair</b> (e.g. Cu<sup>2+</sup>/Cu(s) or H<sup>+</sup>/H<sub>2</sub>), which has a corresponding <b>standard reduction potential </b> (see  <em>Help Menu</em>). The electrons given out during the oxidation reaction flow through an electrical cicrcuit from the anode to the cathode. The two half-cells are also connected by a <b>salt bridge</b>, in which ions move between the anode and cathode to ensure the balance of charge. 
+        
+                    <p style="margin-bottom: 0.5em">
+                        A <em>voltmeter</em> or <em>multimeter</em> is used to measure the cell voltage, which corresponds to the potential difference between the reduction potentials at the "+" and the "-" side (reference side) of the voltmeter. Under standard conditions, the measured voltage is given by:</p>
                     <div style="text-align: center; width: 100%"><img style="width: 30%" src="../../images/cellPotentialEqNoRed.svg" alt="E sub cell equals E-naught begin sub red, plus end sub minus E-naught begin sub red, minus end sub"/></div>
                     <p style="margin-top:0; margin-bottom:0.5em"><b>Wichtig: Der Anschluss des Voltmeters hat keinen Einfluss auf die Rolle von Kathode und Anode! Das Redoxpaar mit dem höchsten Reduktionspotenzial erfährt immer eine Reduktion und wirkt als Kathode.</b> Eine positive Zellspannung bedeutet einfach, dass die "+"-Seite des Voltmeters mit der Kathode verbunden ist, während eine negative Zellspannung bedeutet, dass die "-"-Seite des Voltmeters mit der Anode verbunden ist.</p>
                     <p style="margin-bottom:0">Galvanische Zellen können auch mit einer verkürzten Schreibweise repräsentiert werden, wie z.B. unten in Simulation B. Bei der verkürzten Schreibweise ist folgendes zu merken:</p>
@@ -98,10 +100,10 @@ https://video.tu-freiberg.de/album/video/Kupfer-in-Silbernitratloesung/6e32e92a0
                 let hintId = m.id.split("showHide")[1]
                 hint = document.getElementById("hint"+hintId)
                 if (hint.style.display=="none"){
-                    this.innerHTML = "Ausblenden"
+                    this.innerHTML = "Hide"
                     hint.style.display="block"
                 } else {
-                    this.innerHTML = "Einblenden"
+                    this.innerHTML = "Show"
                     hint.style.display="none"
                 }
             }
