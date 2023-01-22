@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Help Menü: Bindungstheorien</title>
+    <title>Help Menu: Atomic Structure</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <!-- <link rel="stylesheet" href="../../assets/css/main.css" /> -->
@@ -9,42 +9,43 @@
     <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
     </head>
 <body class="is-preload">
+    
     <div class="inner">
         <div class="inner" id="helpHints">
-            <h2>Hilfreiche Informationen</h2>
-            <h3>Konstanten:</h3>
-            <li>Planck'sches Wirkungsquantum: <em>h</em> = 6.626 &middot; 10<sup>-34</sup> J&middot;s</sup></li>
-            <li>Lichtgeschwindigkeit: <em>c</em> = 2.998 &middot; 10<sup>8</sup> m&middot;s<sup>-1</sup></li>
-            <h3>Einheiten:</h3>
+            <h2>Helpful Information</h2>
+            <h3>Constants:</h3>
+            <li>Planck's constant: <em>h</em> = 6.626 &middot; 10<sup>-34</sup> J&middot;s</sup></li>
+            <li>Speed of light: <em>c</em> = 2.998 &middot; 10<sup>8</sup> m&middot;s<sup>-1</sup></li>
+            <h3>Units:</h3>
             <li>1 eV = 1.602 &middot; 10<sup>-19</sup> J</li>
             <li>1 Hz = 1 s<sup>-1</sup></li>
-            <h3>Elektromagnetisches Spektrum</h3>
-            <img src="../../images/EM-Spektrum.svg" width="100%" />
-            <p style="font-size:0.8em">Bildnachweis: Matt, CC BY-SA 2.5, via Wikimedia Commons | <a href = "https://commons.wikimedia.org/wiki/File:EM-Spektrum.svg" target="_blank">(Originalbild anschauen)</a></p>
-            <h3><i class="far fa-lightbulb"></i> &nbsp Fakultative Hinweise </i></h3>
-            <p style="margin-bottom:0"><strong>Frage 7</strong><span style="float:right"><toggle class="showHide" id="showHideD">Einblenden</toggle></span></p>
+            <h3>Electromagnetic Spectrum</h3>
+            <img src="../../images/EM_spectrum_EN.svg" width="100%" />
+            <p style="font-size:0.8em">Source: Philip Ronan, CC BY-SA 2.5, via Wikimedia Commons | <a href = "https://commons.wikimedia.org/wiki/File:EM_spectrum.svg" target="_blank">(Original image)</a></p>
+            <h3><i class="far fa-lightbulb"></i> &nbsp Hints </i></h3>
+            <p style="margin-bottom:0"><strong>Question 7</strong><span style="float:right"><toggle class="showHide" id="showHideD">Show</toggle></span></p>
             <div id="hintD" style="display:none" >
-                <p>Die Anordnung von Elektronen in atomaren Energieniveaus wird in der Regel durch das Madelung-Energieschema bestimmt:</p>
+                <p>The arrangement of electrons in atomic energy levels is normally determined by the Madelung rules:</p>
                 <img src="../../images/madelungChemistryGod.png" width="80%" />
-                <p style="font-size:0.8em">Bildnachweis: ChemistryGod | <a target="_blank" href = "https://chemistrygod.com/aufbau-principle">(Originalbeitrag)</a></p>
+                <p style="font-size:0.8em">Source: ChemistryGod | <a target="_blank" href = "https://chemistrygod.com/aufbau-principle">(Original article)</a></p>
             </div>
-            <p style="margin-bottom:0"><strong>Frage 8</strong><span style="float:right"><toggle class="showHide" id="showHideA">Einblenden</toggle></span></p>
-            <p id="hintA" style="display:none">Benutzen Sie u.a. die im Hilfemenü bereitgestellten Informationen, um eine Gleichung zu bestimmen.</p>
-            <p style="margin-bottom:0"><strong>Frage 9 interaktive Spektren</strong><span style="float:right"><toggle class="showHide" id="showHideSpec">Ausblenden</toggle></span></p>
+            <p style="margin-bottom:0"><strong>Question 8</strong><span style="float:right"><toggle class="showHide" id="showHideA">Show</toggle></span></p>
+            <p id="hintA" style="display:none">Use the information available in this help menu (e.g. constants) to determine the equation needed.</p>
+            <p style="margin-bottom:0"><strong>Question 9 interactive spectra</strong><span style="float:right"><toggle class="showHide" id="showHideSpec">Hide</toggle></span></p>
             <div id="hintSpec" style="display:block">
-                <p style="margin-bottom:0">max. Wellenlänge:</p>
+                <p style="margin-bottom:0">max. Wavelength:</p>
                 <p style="margin-bottom:0"><input type="radio" name="maxW" id="max200" value="150nm" onchange="drawSpectra(150)" /> 150 nm
                     &nbsp;<input type="radio" name="maxW" id="max1000" value="1200nm" onchange="drawSpectra(1200)" /> 1200 nm
                     &nbsp;<input type="radio" name="maxW" id="max2000" value="2000nm" onchange="drawSpectra(2000)" checked /> 2000 nm</p>
                 <div style="width: 95%" id="absEmSpectra"></div>
                 <p></p>
             </div>
-            <p style="margin-bottom:0"><strong>Frage 9c</strong><span style="float:right"><toggle class="showHide" id="showHideB">Einblenden</toggle></span></p>
-            <p id="hintB" style="display:none">Stellen Sie sicher, dass Sie alle Linien der Paschen-Serie berücksichtigt haben!</p>
-            <p style="margin-bottom:0"><strong>Frage 10</strong><span style="float:right"><toggle class="showHide" id="showHideC">Einblenden</toggle></span></p>
-            <p id="hintC" style="display:none">Es kann sein, dass Sie an die mathematische Beziehung zwischen der Quantenzahl <em>n</em> und der Energie schon erinnern können!</p>
-            <p style="margin-bottom:0"><strong>Frage 13a</strong><span style="float:right"><toggle class="showHide" id="showHideE">Einblenden</toggle></span></p>
-            <p id="hintE" style="display:none">Ein Hinweis: Das 2s-Atomorbital (nicht aber das 1s-Orbital) enthält einen Radialknoten. Die 3p- und 3d-Atomorbitale (aber nicht das 3s-Atomorbital) enthalten Winkelknoten. Sie können diese Orbitale in Simulation C betrachten.</p>
+            <p style="margin-bottom:0"><strong>Question 9c</strong><span style="float:right"><toggle class="showHide" id="showHideB">Show</toggle></span></p>
+            <p id="hintB" style="display:none">Make sure that you have accounted for all the lines in the Paschen series!</p>
+            <p style="margin-bottom:0"><strong>Question 10</strong><span style="float:right"><toggle class="showHide" id="showHideC">Show</toggle></span></p>
+            <p id="hintC" style="display:none">It is possible that you have already learned the relationship between the quantum number <em>n</em> and the energy of a level.</p>
+            <p style="margin-bottom:0"><strong>Question 13a</strong><span style="float:right"><toggle class="showHide" id="showHideE">Show</toggle></span></p>
+            <p id="hintE" style="display:none">Hint for determining what a "radial" and "angular" node look like: the 2s atomic orbital (but not the 1s orbital) contains a radial node. The 3p and 3d atomic orbitals (but not the 3s orbital) contain angular nodes. You can view all these orbitals in Simulation C.</p>
         </div>
     </div>
 <script>
@@ -56,10 +57,10 @@
                 let hintId = m.id.split("showHide")[1]
                 hint = document.getElementById("hint"+hintId)
                 if (hint.style.display=="none"){
-                    this.innerHTML = "Ausblenden"
+                    this.innerHTML = "Hide"
                     hint.style.display="block"
                 } else {
-                    this.innerHTML = "Einblenden"
+                    this.innerHTML = "Show"
                     hint.style.display="none"
                 }
             }

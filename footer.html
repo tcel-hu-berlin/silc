@@ -17,7 +17,14 @@
         </p>
     </div>
     <script>
-        let hasEnglishVersion = ['/atombau+spektroskopie/5c773b3700d9800b134531406ab57cf86d656f9e/index.html']
+        let hasEnglishVersion = [
+            '/atombau+spektroskopie/5c773b3700d9800b134531406ab57cf86d656f9e/',
+            '/atombau+spektroskopie/5c773b3700d9800b134531406ab57cf86d656f9e/index.html',
+            '/atombau+spektroskopie/5c773b3700d9800b134531406ab57cf86d656f9e/animA.html',
+            '/atombau+spektroskopie/5c773b3700d9800b134531406ab57cf86d656f9e/simA.html',
+            '/atombau+spektroskopie/5c773b3700d9800b134531406ab57cf86d656f9e/simB.html',
+            '/atombau+spektroskopie/5c773b3700d9800b134531406ab57cf86d656f9e/simC.html'
+        ]
         let currentPath = window.location.pathname
         if (hasEnglishVersion.includes(currentPath)){
             let enOpt = document.createElement("option")
@@ -31,6 +38,7 @@
             let currentPath = window.location.pathname
             let l = currentPath.split("/")
             let pageName = l[l.length-1].split(".html")[0].split("_")[0]
+            if (pageName==""){pageName="index"}
             if (this.value == "de"){
                 window.location.href = pageName+".html"
             }

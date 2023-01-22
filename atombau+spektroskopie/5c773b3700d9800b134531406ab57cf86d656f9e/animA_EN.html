@@ -5,13 +5,14 @@
 -->
 <html>
 <head>
-    <title>Atombau und Spektroskopie</title>
+    <title>SILC: Atomic energy levels and line spectra</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="../../assets/css/main.css" />
     <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
     <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
     <script src="../../assets/js/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v4.js" charset="utf-8"></script>
     </head>
 <body class="is-preload">
 <!-- Wrapper -->
@@ -19,25 +20,27 @@
 
         <header id="header">
             <script>
-                $("#header").load("../../header.html");
+                $("#header").load("../../header_EN.html");
             </script>
         </header>
 
         <!-- Menu (help in disguise)-->
         <nav id="menu">
             <script>
-                $("#menu").load("helpmenu.html");
+                $("#menu").load("helpmenu_EN.html", function(){
+                    $.getScript("../../assets/js/absorptionEmission.js")
+                });
             </script>
         </nav>
 
         <!-- Main -->
         <div id="main">
             <div class="inner">
-                <a href="index.html"><h1>Atomenergieniveaus und Linienspektren</h1></a>
-				<h2>Animation A: Photoelektronenspektroskopie</h2>
-                <p>Bei der Photoelektronenspektroskopie (PES) werden mit Hilfe von UV-Licht oder Röntgenstrahlen Elektronen aus verschiedenen Energieniveaus einer Substanz entfernt. Die Entfernung eines Elektrons (Ionisierung) erfolgt, wenn die Energie des Lichts ausreicht, um das Elektron von seinem ursprünglichen Energieniveau (<em>E</em> < 0) zur Vakuumenergie (<em>E</em> = 0) anzuregen. Wenn die kinetische Energie der entfernten Elektronen gemessen wird (und die Energie des Lichts bekannt ist), dann kann die "Bindungsenergie" der verschiedenen Energieniveaus des Atoms bestimmt werden. Die Spitzen (Peaks) in einem PES-Spektrum stellen daher die verschiedenen Energieniveaus (Schalen und deren Unterschalen) einer Probe dar und enthalten Informationen sowohl über die Energie als auch die Anzahl der Elektronen in den Unterschalen.</p>
+                <a href="index_EN.html"><h1>Atomic energy levels and line spectra</h1></a>
+				<h2>Animation A: Principles of photoelectron spectroscopy</h2>
+                <p>Photoelectron spectroscopy (PES) uses UV light or X-rays to remove electrons from different energy levels of a substance. The removal of an electron (ionization) occurs when the energy of the light is sufficient to excite the electron from its original energy level (<em>E</em> < 0) to the vacuum energy (E = 0). If the kinetic energy of the removed electrons is measured (and the energy of the light is known), then the "binding energy" of the different energy levels of the atom can be determined. The peaks in a PES spectrum therefore represent the different energy levels (shells and their subshells) of a sample and contain information about both the energy and the number of electrons in the subshells.</p>
                 <video id="animationA" width="90%" autoplay="true">
-                    <source src="../../images/PES_animationA.mp4" type="video/mp4">
+                    <source src="../../images/PES_animationA_EN.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
@@ -45,54 +48,14 @@
         
         <!-- Simnav buttons -->
         <div id="simnav">
-            <div class="inner">
-                <section class="tiles">
-					<article class="styleSimActive">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="animA.html">
-                            <h2>Animation A</h2>
-                            <div class="content">
-                                <p>Prinzip der PES</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="styleSim">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="simA.html">
-                            <h2>Simulation A</h2>
-                            <div class="content">
-                                <p>Identifizierung von PES-Spektren</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="styleSim">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="simB.html">
-                            <h2>Simulation B</h2>
-                            <div class="content">
-                                <p>Spektrum von Wasserstoff & interaktives Diagramm</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="styleSim">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="simC.html">
-                            <h2>Simulation C</h2>
-                            <div class="content">
-                                <p>Visualisierung von Quantenzahlen</p>
-                            </div>
-                        </a>
-                    </article>
-                </section>
-            </div>
+            <script>
+                $("#simnav").load("simnav_EN.html", function(){
+                    let idx = 0
+                    let activeTab = document.getElementsByClassName("styleSim")[idx]
+                    activeTab.classList.remove("styleSim")
+                    activeTab.classList.add("styleSimActive")
+                });
+            </script>
         </div>
 
 		<!-- Footer -->
@@ -107,14 +70,6 @@
     <script src="../../assets/js/util.js"></script>
     <script src="../../assets/js/main.js"></script>
     <script src="../../assets/js/Three49custom.js"></script>
-    <script src="https://d3js.org/d3.v4.js"></script>
-    <script>
-        function hideSpectrum(){
-            document.getElementById("hintSpec").style.display = "none"
-            document.getElementById("showHideSpec").innerHTML = "Einblenden"
-        }
-    </script> 
-    <script src="../../assets/js/absorptionEmission.js" onload="hideSpectrum()"></script>
     <script>
         // replaying the video
         document.getElementById('animationA').onclick=function(){this.paused ? this.play() : this.pause();}
@@ -125,22 +80,6 @@
                 document.getElementById('animationA').play();
             }, 800);
         }
-    </script>
-    <script>
-        // Setting up hint toggles
-        var letters = ["Spec", "A", "B", "C"]
-        letters.forEach( function(x){
-            document.getElementById("showHide"+x).onclick = function(){
-                hint = document.getElementById("hint"+x)
-                if (hint.style.display=="none"){
-                    this.innerHTML = "Ausblenden"
-                    hint.style.display="block"
-                } else {
-                    this.innerHTML = "Einblenden"
-                    hint.style.display="none"
-                }
-            }
-        })
     </script>
 </body>
 </html>

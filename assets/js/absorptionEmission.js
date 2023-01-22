@@ -276,3 +276,8 @@ function drawSpectra(xlim){
     }
 
 drawSpectra(2000)
+function hideSpectrum(){
+    document.getElementById("hintSpec").style.display = "none"
+    document.getElementById("showHideSpec").innerHTML = "Show"
+}
+hideSpectrum()

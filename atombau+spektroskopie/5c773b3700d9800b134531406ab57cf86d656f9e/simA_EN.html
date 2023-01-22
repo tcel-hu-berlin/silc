@@ -5,13 +5,14 @@
 -->
 <html>
 <head>
-    <title>Atombau und Spektroskopie</title>
+    <title>SILC: Atomic energy levels and line spectra</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="../../assets/css/main.css" />
     <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
     <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
     <script src="../../assets/js/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
     </head>
 <body class="is-preload">
 <!-- Wrapper -->
@@ -19,27 +20,29 @@
 
         <header id="header">
             <script>
-                $("#header").load("../../header.html");
+                $("#header").load("../../header_EN.html");
             </script>
         </header>
 
         <!-- Menu (help in disguise)-->
         <nav id="menu">
             <script>
-                $("#menu").load("helpmenu.html");
+                $("#menu").load("helpmenu_EN.html", function(){
+                    $.getScript("../../assets/js/absorptionEmission.js")
+                });
             </script>
         </nav>
 
         <!-- Main -->
         <div id="main">
             <div class="inner">
-                <a href="index.html"><h1>Atomenergieniveaus und Linienspektren</h1></a>
-                <h2>Simulation A: PES-Spektren verschiedener Atome</h2>
-                <h3>Überblick:</h3>
+                <a href="index_EN.html"><h1>Atomic energy levels and line spectra</h1></a>
+                <h2>Simulation A: PES and electronic configurations</h2>
+                <h3>Overview:</h3>
                 <ul>
-                    <li>Das folgende Diagramm kann unterschiedliche PES-Spektren von bekannten und unbekannten Elementen anzeigen.</li>
-                    <li>Die Legende dieses Diagramms ist interaktiv und kann verwendet werden, um bestimmte Kurven ein- oder auszublenden.</li>
-                    <li>Sie können auf das Diagram tippen, um die Werte der Ionisierungsenergie (IE) und der Intensität genauer abzulesen.</li>
+                    <li>The following diagram can display simulated PES spectra of known and unknown elements.</li>
+                    <li>The legend of the diagram is interactive and can be used to show or hide specific spectra.</li>
+                    <li>You can hover or (on a touch device) drag the cursor over the diagram to display the exact values of the ionization energy (IE) and the intensity.</li>
                 </ul>
                 <div style="width: 85%" id="simulationA"></div>
             </div>
@@ -47,59 +50,19 @@
         
         <!-- Simnav buttons -->
         <div id="simnav">
-            <div class="inner">
-                <section class="tiles">
-					<article class="styleSim">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="animA.html">
-                            <h2>Animation A</h2>
-                            <div class="content">
-                                <p>Prinzip der PES</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="styleSimActive">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="simA.html">
-                            <h2>Simulation A</h2>
-                            <div class="content">
-                                <p>Identifizierung von PES-Spektren</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="styleSim">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="simB.html">
-                            <h2>Simulation B</h2>
-                            <div class="content">
-                                <p>Spektrum von Wasserstoff & interaktives Diagramm</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="styleSim">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="simC.html">
-                            <h2>Simulation C</h2>
-                            <div class="content">
-                                <p>Visualisierung von Quantenzahlen</p>
-                            </div>
-                        </a>
-                    </article>
-                </section>
-            </div>
+            <script>
+                $("#simnav").load("simnav_EN.html", function(){
+                    let idx = 1
+                    let activeTab = document.getElementsByClassName("styleSim")[idx]
+                    activeTab.classList.remove("styleSim")
+                    activeTab.classList.add("styleSimActive")
+                });
+            </script>
         </div>
 
 		<!-- Footer -->
 		<footer id="footer">
-            <script>$("#footer").load("../../footer.html"); </script>
+            <script>$("#footer").load("../../footer_EN.html"); </script>
 		</footer>
     </div>
 
@@ -109,15 +72,18 @@
     <script src="../../assets/js/util.js"></script>
     <script src="../../assets/js/main.js"></script>
     <script src="../../assets/js/Three49custom.js"></script>
-    <script src="https://d3js.org/d3.v4.js"></script>
-	<script src="../../assets/js/pesspectra.js"></script>
+	<script src="../../assets/js/pesspectra_EN.js"></script>
     <script>
-        function hideSpectrum(){
-            document.getElementById("hintSpec").style.display = "none"
-            document.getElementById("showHideSpec").innerHTML = "Einblenden"
+        const disableScroll = function(e){
+            e.preventDefault()
         }
-    </script> 
-    <script src="../../assets/js/absorptionEmission.js" onload="hideSpectrum()"></script>
+        const enableScroll = function(e){
+            e.preventDefault()
+        }
+        const d = document.getElementById("clickRect")
+            d.addEventListener("touchstart", disableScroll)
+            d.addEventListener("touchend", enableScroll)
+    </script>  
 </body>
 </body>
 </html>

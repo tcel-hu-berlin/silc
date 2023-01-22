@@ -12,6 +12,7 @@
     <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
     <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
     <script src="../../assets/js/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v4.js" charset="utf-8"></script>
     </head>
 <body class="is-preload">
 <!-- Wrapper -->
@@ -19,14 +20,16 @@
         <!-- Header -->
         <header id="header">
             <script>
-                $("#header").load("../../header.html");
+                $("#header").load("../../header_EN.html");
             </script>
         </header>
 
         <!-- Menu (help in disguise)-->
         <nav id="menu">
             <script>
-                $("#menu").load("helpmenu.html");
+                $("#menu").load("helpmenu_EN.html", function(){
+                    $.getScript("../../assets/js/absorptionEmission.js")
+                });
             </script>
         </nav>
 
@@ -41,65 +44,9 @@
         
         <!-- Simnav buttons -->
         <div id="simnav">
-            <div class="inner">
-                <section class="tiles">
-                    <article class="stylePDF">
-                        <span class="image">
-                            <img src="../../images/pic01.jpg" alt="" />
-                        </span>
-                        <a href="../../files/en/Activity_1_Atombau und Spektroskopie_EN.pdf">
-                            <h2>PDF</h2>
-                            <div class="content">
-                                <p>Exercises for this activity</p>
-                            </div>
-                        </a>
-                    </article>
-					<article class="styleSim">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="animA.html">
-                            <h2>Animation A</h2>
-                            <div class="content">
-                                <p>Principles of PES</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="styleSim">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="simA.html">
-                            <h2>Simulation A</h2>
-                            <div class="content">
-                                <p>Interpreting PES Spectra</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="styleSim">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="simB.html">
-                            <h2>Simulation B</h2>
-                            <div class="content">
-                                <p>Spectrum of Hydrogen & Interactive Diagram</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="styleSim">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="simC.html">
-                            <h2>Simulation C</h2>
-                            <div class="content">
-                                <p>Visualizing Quantum Numbers</p>
-                            </div>
-                        </a>
-                    </article>
-                </section>
-            </div>
+            <script>
+                $("#simnav").load("simnav_EN.html");
+            </script>
         </div>
 
 		<!-- Footer -->
@@ -114,13 +61,5 @@
     <script src="../../assets/js/util.js"></script>
     <script src="../../assets/js/main.js"></script>
     <script src="../../assets/js/Three49custom.js"></script>
-    <script src="https://d3js.org/d3.v4.js"></script>
-    <script>
-        function hideSpectrum(){
-            document.getElementById("hintSpec").style.display = "none"
-            document.getElementById("showHideSpec").innerHTML = "Einblenden"
-        }
-    </script> 
-    <script src="../../assets/js/absorptionEmission.js" onload="hideSpectrum()"></script>
 </body>
 </html>
