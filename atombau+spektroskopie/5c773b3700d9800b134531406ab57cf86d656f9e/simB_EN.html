@@ -59,7 +59,7 @@
                     </div>
                     <p style="font-size:1em; color:rgb(26, 14, 255); margin-bottom:0; margin-left:0.5em">&copy Created by the <a href="https://javalab.org/en/" target="_blank">JavaLab Team</a></p> 
                     <p>Visit the <a href="https://javalab.org/en/spectrum_of_hydrogen_en/" target="_blank">original website</a>, if the simulation is not display correctly..</p>
-                    <h2>Interactives Diagram B</h2>
+                    <h2>Interactive Diagram B</h2>
                     <h3>Tips:</h3>
                     <ul>
                         <li>The energy values of the energy levels with <em>n</em> = 2 – 8 (which you can determine from the simulation) can be entered in a table in the "Table" tab. The energy of the first level, E(<em>n</em> = 1) = –13.6 eV, is already provided.</li>
@@ -80,6 +80,8 @@
                     let activeTab = document.getElementsByClassName("styleSim")[idx]
                     activeTab.classList.remove("styleSim")
                     activeTab.classList.add("styleSimActive")
+                    let pdfTab = document.getElementsByClassName("stylePDF")[0]
+                    pdfTab.style.display="none"
                 });
             </script>
         </div>
