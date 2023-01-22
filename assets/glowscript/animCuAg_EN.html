@@ -1,0 +1,1003 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <title>Hess's Law Demonstration</title>
+    <link type="text/css" href="jquery-ui.custom.css" rel="stylesheet" />
+    <link type="text/css" href="ide.css" rel="stylesheet" rel="stylesheet" />
+  </head>
+
+<body>
+    <div id="glowscriptdiv" style="width:80%" class="glowscript">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <script type="text/javascript" src="https://www.glowscript.org/lib/jquery/2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://www.glowscript.org/lib/jquery/2.1/jquery-ui.custom.min.js"></script>
+        <script type="text/javascript" src="https://www.glowscript.org/package/glow.3.2.min.js"></script>
+        <script type="text/javascript" src="https://www.glowscript.org/package/RSrun.3.2.min.js"></script>
+        <script type="text/javascript">
+        
+        // START JAVASCRIPT
+        ;(function() {;
+        var ρσ_modules = {};
+        var running, slp_int;
+        ρσ_modules.pythonize = {};
+
+        (function(){
+            function strings() {
+                var string_funcs, exclude, name;
+                string_funcs = set("capitalize strip lstrip rstrip islower isupper isspace lower upper swapcase center count endswith startswith find rfind index rindex format join ljust rjust partition rpartition replace split rsplit splitlines zfill".split(" "));
+                if (!arguments.length) {
+                    exclude = (function(){
+                        var s = ρσ_set();
+                        s.jsset.add("split");
+                        s.jsset.add("replace");
+                        return s;
+                    })();
+                } else if (arguments[0]) {
+                    exclude = Array.prototype.slice.call(arguments);
+                } else {
+                    exclude = null;
+                }
+                if (exclude) {
+                    string_funcs = string_funcs.difference(set(exclude));
+                }
+                var ρσ_Iter0 = string_funcs;
+                ρσ_Iter0 = ((typeof ρσ_Iter0[Symbol.iterator] === "function") ? (ρσ_Iter0 instanceof Map ? ρσ_Iter0.keys() : ρσ_Iter0) : Object.keys(ρσ_Iter0));
+                for (var ρσ_Index0 of ρσ_Iter0) {
+                    name = ρσ_Index0;
+                    (ρσ_expr_temp = String.prototype)[(typeof name === "number" && name < 0) ? ρσ_expr_temp.length + name : name] = (ρσ_expr_temp = ρσ_str.prototype)[(typeof name === "number" && name < 0) ? ρσ_expr_temp.length + name : name];
+                }
+            };
+            if (!strings.__module__) Object.defineProperties(strings, {
+                __module__ : {value: "pythonize"}
+            });
+
+            ρσ_modules.pythonize.strings = strings;
+        })();
+        async function __main__() {
+        "use strict";
+            var display = canvas;
+            var scene = canvas();
+
+            var version, print, arange, __name__, type, ρσ_ls, win, slp_int, slp_int_log, tpm, Ao_clr, Ar_clr, Br_clr, Bo_clr, el_clr, waterOpacity, bgWaterOpacity, A_rows, A_columns, A_tot, Ar_0, Ao_0, B_tot, Br_0, Bo_0, Ao_rad, Ar_rad, Bo_rad, Br_rad, O_rad, H_rad, N_rad, side, partscreen, cb, pb, rb, ss, running, A_objects, B_objects, A_bgnd, electron0, electron1, oxygen, hydrogen1, hydrogen2, nitrogen, thetas, oxygen0, oxygen1, oxygen2, waters0, waters1, bgWaters, i, chance, wz, wx, wy, clarity, px, py, p, obj, pz, j;
+            version = ρσ_list_decorate([ "3.2", "glowscript" ]);
+            Array.prototype['+'] = function(r) {return this.concat(r)}
+            Array.prototype['*'] = function(r) {return __array_times_number(this, r)}
+            window.__GSlang = "vpython";
+            print = GSprint;
+            arange = range;
+            __name__ = "__main__";
+            type = pytype;
+            var strings = ρσ_modules.pythonize.strings;
+
+            strings();
+            "4";
+            win = document.getElementById("glowscriptdiv").offsetWidth/2;
+            "5";
+            slp_int = .015;
+            "6";
+            slp_int_log = 1["-u"]()["*"](log(slp_int))["/"](log(10));
+            "7";
+            tpm = 4;
+            "9";
+            Ao_clr = vec(.8, .4, 0)["*"](.65);
+            "10";
+            Ar_clr = vec(.8, .4, 0);
+            "11";
+            Br_clr = vec(.9, .9, .9);
+            "12";
+            Bo_clr = vec(.9, .9, .9)["*"](.65);
+            "13";
+            el_clr = vec(.3, .8, 1);
+            "14";
+            waterOpacity = .6;
+            "15";
+            bgWaterOpacity = .3;
+            "17";
+            A_rows = 5;
+            A_columns = 4;
+            "18";
+            A_tot = A_rows["*"](A_columns);
+            "19";
+            Ar_0 = A_tot;
+            Ao_0 = A_tot["-"](1["*"](Ar_0));
+            "20";
+            B_tot = A_rows["+"](A_columns)["-"](1["*"](1))["*"](2);
+            "21";
+            Br_0 = 0;
+            Bo_0 = B_tot["-"](1["*"](Br_0));
+            "23";
+            Ao_rad = .2;
+            "24";
+            Ar_rad = .2;
+            "25";
+            Bo_rad = Ao_rad;
+            "26";
+            Br_rad = Ar_rad;
+            "27";
+            O_rad = .12;
+            "28";
+            H_rad = .07;
+            "29";
+            N_rad = .15;
+            "30";
+            side = 4;
+            "32";
+            partscreen = ρσ_interpolate_kwargs.call(this, canvas, [ρσ_desugar_kwargs({width: win, height: win, align: "left", background: vec(.1, .1, .1), userzoom: false, userspin: false, userpan: false, resizable: false, range: side["/"](2), fov: .01})]);
+            "35";
+            cb = ρσ_interpolate_kwargs.call(this, checkbox, [ρσ_desugar_kwargs({bind: showHideH2O, checked: true, text: "Show water molecules \n", pos: partscreen.caption_anchor})]);
+            "36";
+            partscreen.append_to_caption("\n");
+            "37";
+            pb = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({bind: RunPause, text: "Play", disabled: false, pos: partscreen.caption_anchor})]);
+            rb = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({bind: Replay, text: "Replay", disabled: true, pos: partscreen.caption_anchor})]);
+            
+            "38";
+            partscreen.append_to_caption("\n Anim. Speed: ");
+            "39";
+            ss = ρσ_interpolate_kwargs.call(this, slider, [ρσ_desugar_kwargs({bind: setSpeed, min: 1, max: 2.5, step: .05, value: slp_int_log, length: win["*"](.5)})]);
+            "40";
+            running = false;
+            "42";
+            A_objects = ρσ_list_decorate([]);
+            B_objects = ρσ_list_decorate([]);
+            A_bgnd = ρσ_list_decorate([]);
+            "44";
+            electron0 = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vec(0, 0, 0), radius: Ar_rad["/"](5), color: el_clr, visible: false, emissive: true})]);
+            "45";
+            electron1 = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vec(0, 0, 0), radius: Ar_rad["/"](5), color: el_clr, visible: false, emissive: true})]);
+            "46";
+            oxygen = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vec(1["-u"]()["*"](side), 0, 0), radius: O_rad, color: vec(1, .3, .3), opacity: 1})]);
+            "47";
+            hydrogen1 = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vec(1["-u"]()["*"](side)["+"](1.1["*"](O_rad)["/"](sqrt(2))), 1.1["*"](O_rad)["/"](sqrt(2)), 0), radius: H_rad, color: vec(1, 1, 1), opacity: 1})]);
+            "48";
+            hydrogen2 = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vec(1["-u"]()["*"](side)["-"](1.1["*"](O_rad)["/"](sqrt(2))), 1.1["*"](O_rad)["/"](sqrt(2)), 0), radius: H_rad, color: vec(1, 1, 1), opacity: 1})]);
+            "50";
+            nitrogen = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vec(1["-u"]()["*"](side), 0, 0), radius: N_rad, color: vec(.7, 0, .7), opacity: bgWaterOpacity})]);
+            "51";
+            thetas = ρσ_list_decorate([ 0, 2["*"](pi)["/"](3), 1["-u"]()["*"](2)["*"](pi)["/"](3) ]);
+            "52";
+            oxygen0 = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: nitrogen.pos["+"](N_rad["*"](.8)["*"](vec(cos(ρσ_getitem(thetas, 0)), sin(ρσ_getitem(thetas, 0)), 0))), radius: O_rad, color: vec(1, .3, .3), opacity: bgWaterOpacity})]);
+            "53";
+            oxygen1 = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: nitrogen.pos["+"](N_rad["*"](.8)["*"](vec(cos(ρσ_getitem(thetas, 1)), sin(ρσ_getitem(thetas, 1)), 0))), radius: O_rad, color: vec(1, .3, .3), opacity: bgWaterOpacity})]);
+            "54";
+            oxygen2 = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: nitrogen.pos["+"](N_rad["*"](.8)["*"](vec(cos(ρσ_getitem(thetas, 2)), sin(ρσ_getitem(thetas, 2)), 0))), radius: O_rad, color: vec(1, .3, .3), opacity: bgWaterOpacity})]);
+            "57";
+            waters0 = ρσ_list_decorate([]);
+            waters1 = ρσ_list_decorate([]);
+            bgWaters = ρσ_list_decorate([]);
+            "58";
+            for (var ρσ_Index1 = 0; ρσ_Index1["<"](4); ρσ_Index1++) {
+                i = ρσ_Index1;
+                "59";
+                waters0.append(ρσ_interpolate_kwargs.call(this, compound, [ρσ_list_decorate([ oxygen, hydrogen1, hydrogen2 ])].concat([ρσ_desugar_kwargs({shininess: .2, axis: vec(1, 0, 0)})])));
+                "60";
+                waters1.append(ρσ_interpolate_kwargs.call(this, compound, [ρσ_list_decorate([ oxygen, hydrogen1, hydrogen2 ])].concat([ρσ_desugar_kwargs({shininess: .2, axis: vec(1, 0, 0)})])));
+            }
+            "61";
+            for (var ρσ_Index2 = 0; ρσ_Index2["<"](100); ρσ_Index2++) {
+                i = ρσ_Index2;
+                "62";
+                chance = random();
+                "63";
+                if (chance["<"](.8)) {
+                    "64";
+                    wz = 1["-u"]()["*"](300)["+"](random()["*"](300));
+                    "65";
+                    wx = 1["-u"]()["*"](side)["-"](1["*"](O_rad))["+"](random()["*"](2["*"](side)["+"](2["*"](O_rad))));
+                    "66";
+                    wy = 1["-u"]()["*"](side)["-"](1["*"](O_rad))["+"](random()["*"](2["*"](side)["+"](2["*"](O_rad))));
+                    "67";
+                } else {
+                    "68";
+                    wz = random()["*"](300);
+                    "69";
+                    wx = 1["-u"]()["*"](side)["/"](2)["-"](1["*"](O_rad))["+"](random()["*"](side["+"](2["*"](O_rad))));
+                    "70";
+                    wy = 1["-u"]()["*"](side)["/"](2)["-"](1["*"](O_rad))["+"](random()["*"](side["+"](2["*"](O_rad))));
+                    "71";
+                }
+                if (wz[">"](0)) {
+                    "72";
+                    clarity = min(300["-"](1["*"](abs(wz)))["/"](300)["*"](bgWaterOpacity), .05);
+                    "73";
+                } else {
+                    "74";
+                    clarity = bgWaterOpacity;
+                }
+                "76";
+                bgWaters.append(ρσ_interpolate_kwargs.call(this, compound, [ρσ_list_decorate([ oxygen, hydrogen1, hydrogen2 ])].concat([ρσ_desugar_kwargs({axis: vec(1, 0, 0), shininess: .2, pos: vec(wx, wy, wz), opacity: clarity, up: ρσ_interpolate_kwargs.call(this, rotate, [vec(0, 1, 0)].concat([ρσ_desugar_kwargs({angle: 2["*"](pi)["*"](random())})]))})])));
+            }
+            "79";
+            for (var ρσ_Index3 = 0; ρσ_Index3["<"](10); ρσ_Index3++) {
+                i = ρσ_Index3;
+                "80";
+                clarity = bgWaterOpacity;
+                "81";
+                wz = 1["-u"]()["*"](300)["+"](random()["*"](300));
+                "82";
+                wx = 1["-u"]()["*"](side)["-"](1["*"](N_rad))["-"](1["*"](O_rad))["+"](random()["*"](2["*"](side)["+"](2["*"](O_rad))));
+                "83";
+                wy = 1["-u"]()["*"](side)["-"](1["*"](N_rad))["-"](1["*"](O_rad))["+"](random()["*"](2["*"](side)["+"](2["*"](O_rad))));
+                "84";
+                bgWaters.append(ρσ_interpolate_kwargs.call(this, compound, [ρσ_list_decorate([ nitrogen, oxygen0, oxygen1, oxygen2 ])].concat([ρσ_desugar_kwargs({axis: vec(1, 0, 0), shininess: .2, pos: vec(wx, wy, wz), opacity: 1, up: ρσ_interpolate_kwargs.call(this, rotate, [vec(0, 1, 0)].concat([ρσ_desugar_kwargs({angle: 2["*"](pi)["*"](random())})]))})])));
+            }
+            "87";
+            for (var ρσ_Index4 = 0; ρσ_Index4["<"](A_columns); ρσ_Index4++) {
+                i = ρσ_Index4;
+                "88";
+                px = 1["-u"]()["*"](side)["/"](2)["+"](Ar_rad)["+"](2["*"](Ar_rad)["*"](i));
+                "89";
+                A_objects.append(ρσ_list_decorate([]));
+                "90";
+                for (var ρσ_Index5 = 0; ρσ_Index5["<"](A_rows); ρσ_Index5++) {
+                    j = ρσ_Index5;
+                    "91";
+                    py = side["/"](2)["-"](1["*"](Ar_rad))["-"](1["*"](2)["*"](Ar_rad)["*"](j));
+                    "92";
+                    p = vec(px, py, 0);
+                    "93";
+                    obj = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({radius: Ar_rad, color: Ar_clr, pos: p, state: "reduced", shininess: .4, opacity: 1})]);
+                    "94";
+                    ρσ_getitem(A_objects, i).append(obj);
+                    "95";
+                    var ρσ_Iter6 = ρσ_list_decorate([ 1["-u"]()["*"](30), 1["-u"]()["*"](60), 1["-u"]()["*"](90) ]);
+                    ρσ_Iter6 = ((typeof ρσ_Iter6[Symbol.iterator] === "function") ? (ρσ_Iter6 instanceof Map ? ρσ_Iter6.keys() : ρσ_Iter6) : Object.keys(ρσ_Iter6));
+                    for (var ρσ_Index6 of ρσ_Iter6) {
+                        pz = ρσ_Index6;
+                        "96";
+                        A_bgnd.append(ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({radius: Ar_rad, color: Ar_clr["*"](.5), pos: vec(px, py, pz), state: "reduced", shininess: .4, opacity: 1})]));
+                    }
+                }
+            }
+            "103";
+            for (var ρσ_Index7 = 0; ρσ_Index7["<"](Bo_0); ρσ_Index7++) {
+                i = ρσ_Index7;
+                "104";
+                px = side["/"](2);
+                "105";
+                py = side["/"](2)["-"](1["*"](side)["/"](2)["*"](i["%"](2)))["-"](1["*"](side)["/"](4));
+                "106";
+                p = vec(px, py, 0);
+                "107";
+                obj = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({radius: Bo_rad, color: Bo_clr, pos: p, state: "oxidized", opacity: 1, visible: false})]);
+                "108";
+                B_objects.append(obj);
+            }
+            "110";
+            async function RunPause() {
+                "111";
+                "112";
+                if (running) {
+                    "113";
+                    running = false; pb.text = "Resume";
+                    "114";
+                } else {
+                    "115";
+                    pb.disabled = false;
+                    running = true; pb.text = "Pause";
+                }
+            };
+            if (!RunPause.__module__) Object.defineProperties(RunPause, {
+                __module__ : {value: null}
+            });
+
+            "117";
+            async function showHideH2O(cb) {
+                var ρσ_ls, w;
+                "118";
+                if (cb.checked) {
+                    "119";
+                    var ρσ_Iter8 = waters0["+"](waters1)["+"](bgWaters);
+                    ρσ_Iter8 = ((typeof ρσ_Iter8[Symbol.iterator] === "function") ? (ρσ_Iter8 instanceof Map ? ρσ_Iter8.keys() : ρσ_Iter8) : Object.keys(ρσ_Iter8));
+                    for (var ρσ_Index8 of ρσ_Iter8) {
+                        w = ρσ_Index8;
+                        "120";
+                        w.visible = true;
+                        "121";
+                    }
+                } else {
+                    "122";
+                    var ρσ_Iter9 = waters0["+"](waters1)["+"](bgWaters);
+                    ρσ_Iter9 = ((typeof ρσ_Iter9[Symbol.iterator] === "function") ? (ρσ_Iter9 instanceof Map ? ρσ_Iter9.keys() : ρσ_Iter9) : Object.keys(ρσ_Iter9));
+                    for (var ρσ_Index9 of ρσ_Iter9) {
+                        w = ρσ_Index9;
+                        "123";
+                        w.visible = false;
+                    }
+                }
+            };
+            if (!showHideH2O.__argnames__) Object.defineProperties(showHideH2O, {
+                __argnames__ : {value: ["cb"]},
+                __module__ : {value: null}
+            });
+
+            "125";
+            async function setSpeed(ss) {
+                "126";
+                "127";
+                slp_int = Math.pow(10, (1["-u"]()["*"](ss.value)));
+            };
+            if (!setSpeed.__argnames__) Object.defineProperties(setSpeed, {
+                __argnames__ : {value: ["ss"]},
+                __module__ : {value: null}
+            });
+
+            "129";
+            async function Init() {
+                var ρσ_ls, px, py, p, j, i;
+                "130";
+                for (var ρσ_Index10 = 0; ρσ_Index10["<"](A_columns); ρσ_Index10++) {
+                    i = ρσ_Index10;
+                    "131";
+                    px = 1["-u"]()["*"](side)["/"](2)["+"](Ar_rad)["+"](2["*"](Ar_rad)["*"](i));
+                    "132";
+                    for (var ρσ_Index11 = 0; ρσ_Index11["<"](A_rows); ρσ_Index11++) {
+                        j = ρσ_Index11;
+                        "133";
+                        py = side["/"](2)["-"](1["*"](Ar_rad))["-"](1["*"](2)["*"](Ar_rad)["*"](j));
+                        "134";
+                        p = vec(px, py, 0);
+                        "135";
+                        ρσ_getitem(ρσ_getitem(A_objects, i), j).pos = p;
+                        "136";
+                        ρσ_getitem(ρσ_getitem(A_objects, i), j).color = Ar_clr;
+                    }
+                }
+                "137";
+                for (var ρσ_Index12 = 0; ρσ_Index12["<"](Bo_0); ρσ_Index12++) {
+                    i = ρσ_Index12;
+                    "138";
+                    px = side["/"](2);
+                    "139";
+                    py = side["/"](2)["-"](1["*"](side)["/"](2)["*"](i["%"](2)))["-"](1["*"](side)["/"](4));
+                    "140";
+                    p = vec(px, py, 0);
+                    "141";
+                    ρσ_getitem(B_objects, i).pos = p;
+                    "142";
+                    ρσ_getitem(B_objects, i).color = Bo_clr;
+                    "143";
+                    ρσ_getitem(B_objects, i).visible = false;
+                }
+            };
+            if (!Init.__module__) Object.defineProperties(Init, {
+                __module__ : {value: null}
+            });
+
+            "145";
+            async function Replay() {
+                var ρσ_ls, running;
+                "146";
+                rb.disabled = true; pb.disabled = false;
+                "147";
+                running = false;
+                "148";
+                (await sleep(.1));
+                "149";
+                (await Init());
+                "150";
+                (await sleep(.1));
+                "151";
+                running = true;
+                "152";
+                (await substitute(3, 0, 0, 1));
+                "153";
+                await ρσ_list_decorate(ρσ_interpolate_kwargs.call(this, substitute, [1, 4, 2, 3].concat([ρσ_desugar_kwargs({stack: "right", comefrom: "bottom"})])));
+                "154";
+                await ρσ_list_decorate(ρσ_interpolate_kwargs.call(this, substitute, [3, 2, 4, 5].concat([ρσ_desugar_kwargs({stack: "up"})])));
+                "155";
+                await ρσ_list_decorate(ρσ_interpolate_kwargs.call(this, substitute, [3, 4, 6, 7].concat([ρσ_desugar_kwargs({stack: "left", comefrom: "bottom"})])));
+                "156";
+                await ρσ_list_decorate(ρσ_interpolate_kwargs.call(this, substitute, [3, 1, 8, 9].concat([ρσ_desugar_kwargs({stack: "right"})])));
+                "157";
+                await ρσ_list_decorate(ρσ_interpolate_kwargs.call(this, substitute, [0, 4, 10, 11].concat([ρσ_desugar_kwargs({stack: "bottom", comefrom: "bottom"})])));
+                "158";
+                await ρσ_list_decorate(ρσ_interpolate_kwargs.call(this, substitute, [3, 3, 12, 13].concat([ρσ_desugar_kwargs({stack: "right"})])));
+                "159";
+                await ρσ_list_decorate(ρσ_interpolate_kwargs.call(this, substitute, [2, 4, 14, 15].concat([ρσ_desugar_kwargs({stack: "bottom", comefrom: "bottom"})])));
+                "160";
+                rb.disabled = false;
+            };
+            if (!Replay.__module__) Object.defineProperties(Replay, {
+                __module__ : {value: null}
+            });
+
+            "162";;
+            // partscreen.bind("click", RunPause);
+            "165";
+            async function checkBounce(molecule) {
+                var ρσ_ls, uv;
+                "166";
+                uv = molecule.up["*"](1);
+                "167";
+                if (molecule.pos.x[">"](side) || molecule.pos.x["<"](1["-u"]()["*"](side))) {
+                    "168";
+                    uv.x=uv.x["*"](1["-u"]()["*"](1));
+                    "169";
+                }
+                if (molecule.pos.y[">"](side) || molecule.pos.y["<"](1["-u"]()["*"](side))) {
+                    "170";
+                    uv.y=uv.y["*"](1["-u"]()["*"](1));
+                }
+                "171";
+                molecule.up = vec(uv.x, uv.y, uv.z);
+            };
+            if (!checkBounce.__argnames__) Object.defineProperties(checkBounce, {
+                __argnames__ : {value: ["molecule"]},
+                __module__ : {value: null}
+            });
+
+            "173";
+            async function placeH2O(waterList, center) {
+                var ρσ_ls, dfC, orientations, ρσ_unpack, i, water;
+                "174";
+                dfC = 1.1["*"](O_rad["+"](Bo_rad));
+                "176";
+                orientations = ρσ_list_decorate([ vec(0, 1, 0), vec(1, 0, 0), vec(0, 1["-u"]()["*"](1), 0), vec(1["-u"]()["*"](1), 0, 0) ]);
+                "177";
+                var ρσ_Iter13 = enumerate(waterList);
+                ρσ_Iter13 = ((typeof ρσ_Iter13[Symbol.iterator] === "function") ? (ρσ_Iter13 instanceof Map ? ρσ_Iter13.keys() : ρσ_Iter13) : Object.keys(ρσ_Iter13));
+                for (var ρσ_Index13 of ρσ_Iter13) {
+                    ρσ_unpack = ρσ_Index13;
+                    i = ρσ_unpack[0];
+                    water = ρσ_unpack[1];
+                    "178";
+                    water.pos = center["+"](dfC["*"](ρσ_getitem(orientations, i)));
+                    "179";
+                    water.up = ρσ_getitem(orientations, i);
+                    "180";
+                    water.opacity = waterOpacity;
+                }
+            };
+            if (!placeH2O.__argnames__) Object.defineProperties(placeH2O, {
+                __argnames__ : {value: ["waterList", "center"]},
+                __module__ : {value: null}
+            });
+
+            "182";
+            async function substitute() {
+                var A_cidx = ( 0 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true) ? undefined : arguments[0];
+                var A_ridx = ( 1 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true) ? undefined : arguments[1];
+                var B0_idx = ( 2 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true) ? undefined : arguments[2];
+                var B1_idx = ( 3 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true) ? undefined : arguments[3];
+                var stack = (arguments[4] === undefined || ( 4 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true)) ? substitute.__defaults__.stack : arguments[4];
+                var comefrom = (arguments[5] === undefined || ( 5 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true)) ? substitute.__defaults__.comefrom : arguments[5];
+                var ρσ_kwargs_obj = arguments[arguments.length["-"](1)];
+                if (ρσ_kwargs_obj === null || typeof ρσ_kwargs_obj !== "object" || ρσ_kwargs_obj [ρσ_kwargs_symbol] !== true) ρσ_kwargs_obj = {};
+                if (Object.prototype.hasOwnProperty.call(ρσ_kwargs_obj, "stack")){
+                    stack = ρσ_kwargs_obj.stack;
+                }
+                if (Object.prototype.hasOwnProperty.call(ρσ_kwargs_obj, "comefrom")){
+                    comefrom = ρσ_kwargs_obj.comefrom;
+                }
+                var ρσ_ls, B0x, B1x, p, center0, center1, targetA, targ0, targ1, timepts, d0, d1, v0, v1, wtargets, wx, wy, wz, vws, i, approachAlready, isClose, dtChange, opacityStep0, vw0, ρσ_unpack, w, mol, opacityStep1, newup, vw1, vbgw, t, flipChance, eStart, ev0, ev1, vcA, vcB, b, a, aList, targ2, dws, orientations, dfC, vA, outTarget;
+                "184";
+                if ((comefrom === "bottom" || typeof comefrom === "object" && ρσ_equals(comefrom, "bottom"))) {
+                    "185";
+                    if ((stack === "left" || typeof stack === "object" && ρσ_equals(stack, "left"))) {
+                        "186";
+                        B0x = ρσ_getitem(B_objects, B0_idx).pos.y;
+                        "187";
+                        B1x = ρσ_getitem(B_objects, B1_idx).pos.y;
+                        "188";
+                    } else {
+                        "189";
+                        B0x = side["/"](2)["-"](1["*"](ρσ_getitem(B_objects, B0_idx).pos.y));
+                        "190";
+                        B1x = side["/"](2)["-"](1["*"](ρσ_getitem(B_objects, B1_idx).pos.y));
+                    }
+                    "191";
+                    ρσ_getitem(B_objects, B0_idx).pos = vec(B0x, 1["-u"]()["*"](side)["/"](2), 0);
+                    "192";
+                    ρσ_getitem(B_objects, B1_idx).pos = vec(B1x, 1["-u"]()["*"](side)["/"](2), 0);
+                    "195";
+                }
+                if ((comefrom === "right" || typeof comefrom === "object" && ρσ_equals(comefrom, "right")) && (stack === "up" || typeof stack === "object" && ρσ_equals(stack, "up"))) {
+                    "196";
+                    p = ρσ_getitem(B_objects, B0_idx).pos;
+                    "197";
+                    ρσ_getitem(B_objects, B0_idx).pos = ρσ_getitem(B_objects, B1_idx).pos;
+                    "198";
+                    ρσ_getitem(B_objects, B1_idx).pos = p;
+                }
+                "200";
+                ρσ_getitem(B_objects, B0_idx).visible = true;
+                "201";
+                ρσ_getitem(B_objects, B1_idx).visible = true;
+                "204";
+                center0 = ρσ_getitem(B_objects, B0_idx).pos;
+                "205";
+                center1 = ρσ_getitem(B_objects, B1_idx).pos;
+                "207";
+                (await placeH2O(waters0, center0));
+                "208";
+                (await placeH2O(waters1, center1));
+                "210";
+                targetA = ρσ_getitem(ρσ_getitem(A_objects, A_cidx), A_ridx).pos;
+                "211";
+                if ((comefrom === "bottom" || typeof comefrom === "object" && ρσ_equals(comefrom, "bottom"))) {
+                    "212";
+                    targ0 = targetA["+"](vec(0, 1["-u"]()["*"](Ar_rad["+"](Bo_rad)), 0));
+                    "213";
+                } else {
+                    "214";
+                    targ0 = targetA["+"](vec(Ar_rad["+"](Bo_rad), 0, 0));
+                    "215";
+                }
+                if ((stack === "down" || typeof stack === "object" && ρσ_equals(stack, "down"))) {
+                    "216";
+                    targ1 = targ0["+"](vec(0, 1["-u"]()["*"](2)["*"](Bo_rad), 0));
+                    "217";
+                } else if ((stack === "up" || typeof stack === "object" && ρσ_equals(stack, "up"))) {
+                    "218";
+                    targ1 = targ0["+"](vec(0, 2["*"](Bo_rad), 0));
+                    "219";
+                } else if ((stack === "right" || typeof stack === "object" && ρσ_equals(stack, "right"))) {
+                    "220";
+                    targ1 = targ0["+"](vec(2["*"](Bo_rad), 0, 0));
+                    "221";
+                } else if ((stack === "bottom" || typeof stack === "object" && ρσ_equals(stack, "bottom"))) {
+                    "222";
+                    targ1 = targ0["+"](vec(0, 1["-u"]()["*"](2)["*"](Bo_rad), 0));
+                    "223";
+                } else {
+                    "224";
+                    targ1 = targ0["+"](vec(1["-u"]()["*"](2)["*"](Bo_rad), 0, 0));
+                }
+                "227";
+                timepts = 15["*"](tpm);
+                "228";
+                d0 = targ0["-"](1["*"](ρσ_getitem(B_objects, B0_idx).pos));
+                "229";
+                d1 = targ1["-"](1["*"](ρσ_getitem(B_objects, B1_idx).pos));
+                "230";
+                v0 = d0["/"](timepts);
+                "231";
+                v1 = d1["/"](timepts);
+                "234";
+                wtargets = ρσ_list_decorate([]);
+                "235";
+                for (var ρσ_Index14 = 0; ρσ_Index14["<"](4); ρσ_Index14++) {
+                    i = ρσ_Index14;
+                    "236";
+                    wx = 1["-u"]()["*"](side)["/"](4)["+"](random()["*"](side)["/"](2));
+                    "237";
+                    wy = 1["-u"]()["*"](side)["/"](4)["+"](random()["*"](side)["/"](2));
+                    "238";
+                    wz = 1["-u"]()["*"](sqrt(Math.pow(300, 2)["-"](1["*"](Math.pow(wx, 2)))["-"](1["*"](Math.pow(wy, 2)))));
+                    "239";
+                    wtargets.append(vec(wx, wy, wz));
+                    "240";
+                    vws = ρσ_list_decorate([ v0, v0, v0, v0 ]);
+                }
+                "241";
+                approachAlready = 0;
+                "242";
+                for (var ρσ_Index15 = 0; ρσ_Index15["<"](timepts); ρσ_Index15++) {
+                    t = ρσ_Index15;
+                    "243";
+                    while (!running) {
+                        "244";
+                        (await sleep(.05));
+                    }
+                    "245";
+                    (await sleep(slp_int));
+                    "246";
+                    ρσ_getitem(B_objects, B0_idx).pos = ρσ_getitem(B_objects, B0_idx).pos["+"](v0);
+                    "247";
+                    ρσ_getitem(B_objects, B1_idx).pos = ρσ_getitem(B_objects, B1_idx).pos["+"](v1);
+                    "248";
+                    isClose = mag(ρσ_getitem(B_objects, B1_idx).pos["-"](1["*"](ρσ_getitem(B_objects, B0_idx).pos)))["<"](1.4["*"](2["*"](Bo_rad)["+"](2.2["*"](O_rad["+"](H_rad)))));
+                    "249";
+                    var ρσ_Iter16 = enumerate(waters0);
+                    ρσ_Iter16 = ((typeof ρσ_Iter16[Symbol.iterator] === "function") ? (ρσ_Iter16 instanceof Map ? ρσ_Iter16.keys() : ρσ_Iter16) : Object.keys(ρσ_Iter16));
+                    for (var ρσ_Index16 of ρσ_Iter16) {
+                        ρσ_unpack = ρσ_Index16;
+                        w = ρσ_unpack[0];
+                        mol = ρσ_unpack[1];
+                        "250";
+                        if (isClose) {
+                            "251";
+                            if ((approachAlready === 0 || typeof approachAlready === "object" && ρσ_equals(approachAlready, 0))) {
+                                "252";
+                                dtChange = timepts["-"](1["*"](t));
+                                "253";
+                                opacityStep0 = waterOpacity["-"](1["*"](0))["/"](dtChange);
+                                "254";
+                                ρσ_setitem(vws, w, ρσ_getitem(wtargets, w)["/"](dtChange));
+                            }
+                            "255";
+                            vw0 = ρσ_getitem(vws, w);
+                            "256";
+                            mol.opacity = mol.opacity["-"](1["*"](opacityStep0));
+                            "257";
+                        } else {
+                            "258";
+                            vw0 = v0;
+                        }
+                        "259";
+                        mol.pos = mol.pos["+"](vw0);
+                    }
+                    "260";
+                    var ρσ_Iter17 = waters1;
+                    ρσ_Iter17 = ((typeof ρσ_Iter17[Symbol.iterator] === "function") ? (ρσ_Iter17 instanceof Map ? ρσ_Iter17.keys() : ρσ_Iter17) : Object.keys(ρσ_Iter17));
+                    for (var ρσ_Index17 of ρσ_Iter17) {
+                        mol = ρσ_Index17;
+                        "261";
+                        if (isClose) {
+                            "262";
+                            opacityStep1 = waterOpacity["/"](dtChange);
+                            "263";
+                            if (ρσ_equals(t["%"](3), 0)) {
+                                "264";
+                                newup = ρσ_interpolate_kwargs.call(this, rotate, [mol.up].concat([ρσ_desugar_kwargs({angle: 1["-u"]()["*"](.15)["+"](random()["*"](.3))})]));
+                                "265";
+                                mol.up = newup;
+                            }
+                            "266";
+                            vw1 = v1["+"](vec(0, 0, 6))["+"](.01["*"](mol.up));
+                            "267";
+                            mol.opacity = mol.opacity["-"](1["*"](opacityStep1));
+                            "268";
+                        } else {
+                            "269";
+                            vw1 = v1;
+                        }
+                        "270";
+                        mol.pos = mol.pos["+"](vw1);
+                    }
+                    "271";
+                    var ρσ_Iter18 = bgWaters;
+                    ρσ_Iter18 = ((typeof ρσ_Iter18[Symbol.iterator] === "function") ? (ρσ_Iter18 instanceof Map ? ρσ_Iter18.keys() : ρσ_Iter18) : Object.keys(ρσ_Iter18));
+                    for (var ρσ_Index18 of ρσ_Iter18) {
+                        mol = ρσ_Index18;
+                        "272";
+                        if (ρσ_equals(t["%"](4), 0)) {
+                            "273";
+                            newup = ρσ_interpolate_kwargs.call(this, rotate, [mol.up].concat([ρσ_desugar_kwargs({angle: 1["-u"]()["*"](.15)["+"](random()["*"](.3))})]));
+                            "274";
+                            mol.up = newup;
+                        }
+                        "275";
+                        (await checkBounce(mol));
+                        "276";
+                        vbgw = .02["*"](mol.up);
+                        "277";
+                        mol.pos = mol.pos["+"](vbgw);
+                        "278";
+                    }
+                    if (isClose) {
+                        "279";
+                        approachAlready = 1;
+                    }
+                }
+                "281";
+                flipChance = random();
+                "282";
+                if (flipChance["<"](.25)) {
+                    "283";
+                    ρσ_getitem(waters0, 0).pos.z=ρσ_getitem(waters0, 0).pos.z["*"](1["-u"]()["*"](1));
+                    "284";
+                } else if (flipChance["<"](.5)) {
+                    "285";
+                    ρσ_getitem(waters0, 1).pos.z=ρσ_getitem(waters0, 1).pos.z["*"](1["-u"]()["*"](1));
+                    "286";
+                } else if (flipChance["<"](.75)) {
+                    "287";
+                    ρσ_getitem(waters0, 2).pos.z=ρσ_getitem(waters0, 2).pos.z["*"](1["-u"]()["*"](1));
+                    "288";
+                } else {
+                    "289";
+                    ρσ_getitem(waters0, 3).pos.z=ρσ_getitem(waters0, 3).pos.z["*"](1["-u"]()["*"](1));
+                }
+                "290";
+                (await sleep(4["*"](slp_int)));
+                "294";
+                timepts = 10["*"](tpm);
+                "295";
+                eStart = targetA["+"](vec(0, 0, 1));
+                "296";
+                electron0.pos = eStart;
+                electron1.pos = eStart;
+                "297";
+                electron0.visible = true;
+                electron1.visible = true;
+                "298";
+                ev0 = targ0["-"](1["*"](targetA))["+"](vec(0, 0, 1))["/"](timepts);
+                "299";
+                ev1 = targ1["-"](1["*"](targetA))["+"](vec(0, 0, 1))["/"](timepts);
+                "301";
+                vcA = Ao_clr["-"](1["*"](Ar_clr))["/"](timepts);
+                "302";
+                vcB = Br_clr["-"](1["*"](Bo_clr))["/"](timepts);
+                "304";
+                for (var ρσ_Index19 = 0; ρσ_Index19["<"](3); ρσ_Index19++) {
+                    i = ρσ_Index19;
+                    "305";
+                    (await sleep(.1));
+                    "306";
+                    var ρσ_Iter20 = B_objects["+"](A_bgnd);
+                    ρσ_Iter20 = ((typeof ρσ_Iter20[Symbol.iterator] === "function") ? (ρσ_Iter20 instanceof Map ? ρσ_Iter20.keys() : ρσ_Iter20) : Object.keys(ρσ_Iter20));
+                    for (var ρσ_Index20 of ρσ_Iter20) {
+                        b = ρσ_Index20;
+                        "307";
+                        b.opacity=b.opacity["-"](.2);
+                    }
+                    "308";
+                    var ρσ_Iter21 = A_objects;
+                    ρσ_Iter21 = ((typeof ρσ_Iter21[Symbol.iterator] === "function") ? (ρσ_Iter21 instanceof Map ? ρσ_Iter21.keys() : ρσ_Iter21) : Object.keys(ρσ_Iter21));
+                    for (var ρσ_Index21 of ρσ_Iter21) {
+                        aList = ρσ_Index21;
+                        "309";
+                        var ρσ_Iter22 = aList;
+                        ρσ_Iter22 = ((typeof ρσ_Iter22[Symbol.iterator] === "function") ? (ρσ_Iter22 instanceof Map ? ρσ_Iter22.keys() : ρσ_Iter22) : Object.keys(ρσ_Iter22));
+                        for (var ρσ_Index22 of ρσ_Iter22) {
+                            a = ρσ_Index22;
+                            "310";
+                            a.opacity=a.opacity["-"](.2);
+                        }
+                    }
+                    "311";
+                    var ρσ_Iter23 = waters0["+"](waters1)["+"](bgWaters);
+                    ρσ_Iter23 = ((typeof ρσ_Iter23[Symbol.iterator] === "function") ? (ρσ_Iter23 instanceof Map ? ρσ_Iter23.keys() : ρσ_Iter23) : Object.keys(ρσ_Iter23));
+                    for (var ρσ_Index23 of ρσ_Iter23) {
+                        w = ρσ_Index23;
+                        "312";
+                        w.opacity=w.opacity["*"](.8);
+                    }
+                    "313";
+                    ρσ_getitem(B_objects, B0_idx).opacity = 1;
+                    "314";
+                    ρσ_getitem(B_objects, B1_idx).opacity = 1;
+                    "315";
+                    ρσ_getitem(ρσ_getitem(A_objects, A_cidx), A_ridx).opacity = 1;
+                }
+                "317";
+                for (var ρσ_Index24 = 0; ρσ_Index24["<"](timepts); ρσ_Index24++) {
+                    t = ρσ_Index24;
+                    "318";
+                    while (!running) {
+                        "319";
+                        (await sleep(.05));
+                    }
+                    "320";
+                    (await sleep(slp_int));
+                    "321";
+                    ρσ_getitem(B_objects, B0_idx).color = ρσ_getitem(B_objects, B0_idx).color["+"](vcB);
+                    "322";
+                    ρσ_getitem(B_objects, B1_idx).color = ρσ_getitem(B_objects, B1_idx).color["+"](vcB);
+                    "323";
+                    ρσ_getitem(ρσ_getitem(A_objects, A_cidx), A_ridx).color = ρσ_getitem(ρσ_getitem(A_objects, A_cidx), A_ridx).color["+"](vcA);
+                    "324";
+                    electron0.pos = electron0.pos["+"](ev0);
+                    "325";
+                    electron1.pos = electron1.pos["+"](ev1);
+                }
+                "327";
+                (await sleep(4["*"](slp_int)));
+                "328";
+                electron0.visible = false;
+                electron1.visible = false;
+                "330";
+                for (var ρσ_Index25 = 0; ρσ_Index25["<"](3); ρσ_Index25++) {
+                    i = ρσ_Index25;
+                    "331";
+                    while (!running) {
+                        "332";
+                        (await sleep(.05));
+                    }
+                    "333";
+                    (await sleep(.1));
+                    "334";
+                    var ρσ_Iter26 = B_objects["+"](A_bgnd);
+                    ρσ_Iter26 = ((typeof ρσ_Iter26[Symbol.iterator] === "function") ? (ρσ_Iter26 instanceof Map ? ρσ_Iter26.keys() : ρσ_Iter26) : Object.keys(ρσ_Iter26));
+                    for (var ρσ_Index26 of ρσ_Iter26) {
+                        b = ρσ_Index26;
+                        "335";
+                        b.opacity=b.opacity["+"](.2);
+                    }
+                    "336";
+                    var ρσ_Iter27 = A_objects;
+                    ρσ_Iter27 = ((typeof ρσ_Iter27[Symbol.iterator] === "function") ? (ρσ_Iter27 instanceof Map ? ρσ_Iter27.keys() : ρσ_Iter27) : Object.keys(ρσ_Iter27));
+                    for (var ρσ_Index27 of ρσ_Iter27) {
+                        aList = ρσ_Index27;
+                        "337";
+                        var ρσ_Iter28 = aList;
+                        ρσ_Iter28 = ((typeof ρσ_Iter28[Symbol.iterator] === "function") ? (ρσ_Iter28 instanceof Map ? ρσ_Iter28.keys() : ρσ_Iter28) : Object.keys(ρσ_Iter28));
+                        for (var ρσ_Index28 of ρσ_Iter28) {
+                            a = ρσ_Index28;
+                            "338";
+                            a.opacity=a.opacity["+"](.2);
+                        }
+                    }
+                    "339";
+                    var ρσ_Iter29 = waters0["+"](waters1)["+"](bgWaters);
+                    ρσ_Iter29 = ((typeof ρσ_Iter29[Symbol.iterator] === "function") ? (ρσ_Iter29 instanceof Map ? ρσ_Iter29.keys() : ρσ_Iter29) : Object.keys(ρσ_Iter29));
+                    for (var ρσ_Index29 of ρσ_Iter29) {
+                        w = ρσ_Index29;
+                        "340";
+                        w.opacity=w.opacity["*"](1.25);
+                    }
+                    "341";
+                    ρσ_getitem(B_objects, B0_idx).opacity = 1;
+                    "342";
+                    ρσ_getitem(B_objects, B1_idx).opacity = 1;
+                    "343";
+                    ρσ_getitem(ρσ_getitem(A_objects, A_cidx), A_ridx).opacity = 1;
+                }
+                "346";
+                targ2 = targ1["+"](targ1["-"](1["*"](targetA))["*"](1.1));
+                "347";
+                targ1 = targ0["+"](vec(0, 0, 0));
+                "348";
+                targ0 = targetA;
+                "349";
+                timepts = 15["*"](tpm);
+                "351";
+                dws = ρσ_list_decorate([]);
+                "352";
+                orientations = ρσ_list_decorate([ vec(0, 1, 0), vec(1, 0, 0), vec(0, 1["-u"]()["*"](1), 0), vec(1["-u"]()["*"](1), 0, 0) ]);
+                "353";
+                dfC = 1.1["*"](O_rad["+"](Ao_rad));
+                "354";
+                for (var ρσ_Index30 = 0; ρσ_Index30["<"](4); ρσ_Index30++) {
+                    i = ρσ_Index30;
+                    "355";
+                    dws.append(targ2["+"](dfC["*"](ρσ_getitem(orientations, i)))["-"](1["*"](ρσ_getitem(waters0, i).pos)));
+                }
+                "357";
+                d0 = targ0["-"](1["*"](ρσ_getitem(B_objects, B0_idx).pos));
+                "358";
+                d1 = targ1["-"](1["*"](ρσ_getitem(B_objects, B1_idx).pos));
+                "359";
+                v0 = d0["/"](timepts);
+                "360";
+                v1 = d1["/"](timepts);
+                "361";
+                vA = targ2["+"](vec(0, 0, 1["-u"]()["*"](3)))["-"](1["*"](targetA))["/"](timepts);
+                "363";
+                for (var ρσ_Index31 = 0; ρσ_Index31["<"](timepts); ρσ_Index31++) {
+                    t = ρσ_Index31;
+                    "364";
+                    while (!running) {
+                        "365";
+                        (await sleep(.05));
+                    }
+                    "366";
+                    (await sleep(slp_int));
+                    "367";
+                    ρσ_getitem(B_objects, B0_idx).pos = ρσ_getitem(B_objects, B0_idx).pos["+"](v0);
+                    "368";
+                    ρσ_getitem(B_objects, B1_idx).pos = ρσ_getitem(B_objects, B1_idx).pos["+"](v1);
+                    "369";
+                    ρσ_getitem(ρσ_getitem(A_objects, A_cidx), A_ridx).pos = ρσ_getitem(ρσ_getitem(A_objects, A_cidx), A_ridx).pos["+"](vA);
+                    "370";
+                    var ρσ_Iter32 = enumerate(waters0);
+                    ρσ_Iter32 = ((typeof ρσ_Iter32[Symbol.iterator] === "function") ? (ρσ_Iter32 instanceof Map ? ρσ_Iter32.keys() : ρσ_Iter32) : Object.keys(ρσ_Iter32));
+                    for (var ρσ_Index32 of ρσ_Iter32) {
+                        ρσ_unpack = ρσ_Index32;
+                        w = ρσ_unpack[0];
+                        mol = ρσ_unpack[1];
+                        "371";
+                        mol.pos = mol.pos["+"](ρσ_getitem(dws, w)["/"](timepts));
+                        "372";
+                        mol.opacity=mol.opacity["+"](waterOpacity["/"](timepts));
+                    }
+                    "373";
+                    var ρσ_Iter33 = bgWaters;
+                    ρσ_Iter33 = ((typeof ρσ_Iter33[Symbol.iterator] === "function") ? (ρσ_Iter33 instanceof Map ? ρσ_Iter33.keys() : ρσ_Iter33) : Object.keys(ρσ_Iter33));
+                    for (var ρσ_Index33 of ρσ_Iter33) {
+                        mol = ρσ_Index33;
+                        "374";
+                        if (ρσ_equals(t["%"](4), 0)) {
+                            "375";
+                            newup = ρσ_interpolate_kwargs.call(this, rotate, [mol.up].concat([ρσ_desugar_kwargs({angle: 1["-u"]()["*"](.15)["+"](random()["*"](.3))})]));
+                            "376";
+                            mol.up = newup;
+                        }
+                        "377";
+                        (await checkBounce(mol));
+                        "378";
+                        vbgw = .02["*"](mol.up);
+                        "379";
+                        mol.pos = mol.pos["+"](vbgw);
+                    }
+                }
+                "381";
+                timepts = 20["*"](tpm);
+                "382";
+                if ((comefrom === "bottom" || typeof comefrom === "object" && ρσ_equals(comefrom, "bottom"))) {
+                    "383";
+                    outTarget = vec(1["-u"]()["*"](side)["/"](2)["+"](random()["*"](side)), 1["-u"]()["*"](side["/"](2)["+"](2.5["*"](Ar_rad))), 0);
+                    "384";
+                } else {
+                    "385";
+                    outTarget = vec(side["/"](2)["+"](2.5["*"](Ar_rad)), 1["-u"]()["*"](side)["/"](2)["+"](random()["*"](side)), 0);
+                }
+                "386";
+                vA = outTarget["-"](1["*"](ρσ_getitem(ρσ_getitem(A_objects, A_cidx), A_ridx).pos))["/"](timepts);
+                "387";
+                for (var ρσ_Index34 = 0; ρσ_Index34["<"](timepts); ρσ_Index34++) {
+                    t = ρσ_Index34;
+                    "388";
+                    while (!running) {
+                        "389";
+                        (await sleep(.05));
+                    }
+                    "390";
+                    (await sleep(slp_int));
+                    "391";
+                    ρσ_getitem(ρσ_getitem(A_objects, A_cidx), A_ridx).pos = ρσ_getitem(ρσ_getitem(A_objects, A_cidx), A_ridx).pos["+"](vA);
+                    "392";
+                    var ρσ_Iter35 = waters0;
+                    ρσ_Iter35 = ((typeof ρσ_Iter35[Symbol.iterator] === "function") ? (ρσ_Iter35 instanceof Map ? ρσ_Iter35.keys() : ρσ_Iter35) : Object.keys(ρσ_Iter35));
+                    for (var ρσ_Index35 of ρσ_Iter35) {
+                        mol = ρσ_Index35;
+                        "393";
+                        mol.pos = mol.pos["+"](vA);
+                    }
+                    "394";
+                    var ρσ_Iter36 = bgWaters;
+                    ρσ_Iter36 = ((typeof ρσ_Iter36[Symbol.iterator] === "function") ? (ρσ_Iter36 instanceof Map ? ρσ_Iter36.keys() : ρσ_Iter36) : Object.keys(ρσ_Iter36));
+                    for (var ρσ_Index36 of ρσ_Iter36) {
+                        mol = ρσ_Index36;
+                        "395";
+                        if (ρσ_equals(t["%"](4), 0)) {
+                            "396";
+                            newup = ρσ_interpolate_kwargs.call(this, rotate, [mol.up].concat([ρσ_desugar_kwargs({angle: 1["-u"]()["*"](.15)["+"](random()["*"](.3))})]));
+                            "397";
+                            mol.up = newup;
+                        }
+                        "398";
+                        (await checkBounce(mol));
+                        "399";
+                        vbgw = .02["*"](mol.up);
+                        "400";
+                        mol.pos = mol.pos["+"](vbgw);
+                    }
+                }
+            };
+            if (!substitute.__defaults__) Object.defineProperties(substitute, {
+                __defaults__ : {value: {stack:"down", comefrom:"right"}},
+                __handles_kwarg_interpolation__ : {value: true},
+                __argnames__ : {value: ["A_cidx", "A_ridx", "B0_idx", "B1_idx", "stack", "comefrom"]},
+                __module__ : {value: null}
+            });
+
+            "402";
+            (await substitute(3, 0, 0, 1));
+            "403";
+            await ρσ_list_decorate(ρσ_interpolate_kwargs.call(this, substitute, [1, 4, 2, 3].concat([ρσ_desugar_kwargs({stack: "right", comefrom: "bottom"})])));
+            "404";
+            await ρσ_list_decorate(ρσ_interpolate_kwargs.call(this, substitute, [3, 2, 4, 5].concat([ρσ_desugar_kwargs({stack: "up"})])));
+            "405";
+            await ρσ_list_decorate(ρσ_interpolate_kwargs.call(this, substitute, [3, 4, 6, 7].concat([ρσ_desugar_kwargs({stack: "left", comefrom: "bottom"})])));
+            "406";
+            await ρσ_list_decorate(ρσ_interpolate_kwargs.call(this, substitute, [3, 1, 8, 9].concat([ρσ_desugar_kwargs({stack: "right"})])));
+            "407";
+            await ρσ_list_decorate(ρσ_interpolate_kwargs.call(this, substitute, [0, 4, 10, 11].concat([ρσ_desugar_kwargs({stack: "bottom", comefrom: "bottom"})])));
+            "408";
+            await ρσ_list_decorate(ρσ_interpolate_kwargs.call(this, substitute, [3, 3, 12, 13].concat([ρσ_desugar_kwargs({stack: "right"})])));
+            "409";
+            await ρσ_list_decorate(ρσ_interpolate_kwargs.call(this, substitute, [2, 4, 14, 15].concat([ρσ_desugar_kwargs({stack: "bottom", comefrom: "bottom"})])));
+            "410";
+            rb.disabled = false; pb.disabled = true;
+        };
+        if (!__main__.__module__) Object.defineProperties(__main__, {
+            __module__ : {value: null}
+        });
+
+        ;$(function(){ window.__context = { glowscript_container: $("#glowscriptdiv")}; __main__() })})()
+        // END JAVASCRIPT
+
+        
+        
+        //--><!]]></script>
+        </div> 
+        <script>
+
+        </script>
+
+</body>
+
