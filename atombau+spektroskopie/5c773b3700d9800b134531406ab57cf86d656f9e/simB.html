@@ -47,7 +47,7 @@
                         <p style="color: rgb(26, 14, 255); border: solid 2px rgb(255, 255, 255)">Bitte warten, bis die Simulation geladen ist...</p>
                     </div>
                     <div id="divContainer" style="left: 100px; top: 200px; border: solid 2px rgb(255, 255, 255); overflow: hidden; visibility:hidden">
-                        <iframe id="simulationB" scrolling="no" src="https://javalab.org/en/spectrum_of_hydrogen_en/" style="width: 100%; aspect-ratio: 1; margin-top:-250px; display:block; overflow:scroll">
+                        <iframe id="simulationB" scrolling="no" src="https://javalab.org/en/spectrum_of_hydrogen_en/" style="width: 100%; aspect-ratio: 1; margin-top:-3em; display:block; overflow:scroll">
                         </iframe>
                     </div>
                     <p style="font-size:1em; color:rgb(26, 14, 255); margin-bottom:0; margin-left:0.5em">&copy Created by the <a href="https://javalab.org/en/" target="_blank">JavaLab Team</a></p> 
@@ -67,54 +67,14 @@
         
         <!-- Simnav buttons -->
         <div id="simnav">
-            <div class="inner">
-                <section class="tiles">
-					<article class="styleSim">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="animA.html">
-                            <h2>Animation A</h2>
-                            <div class="content">
-                                <p>Prinzip der PES</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="styleSim">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="simA.html">
-                            <h2>Simulation A</h2>
-                            <div class="content">
-                                <p>Identifizierung von PES-Spektren</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="styleSimActive">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="simB.html">
-                            <h2>Simulation B</h2>
-                            <div class="content">
-                                <p>Spektrum von Wasserstoff & interaktives Diagram</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="styleSim">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="simC.html">
-                            <h2>Simulation C</h2>
-                            <div class="content">
-                                <p>Visualisierung von Quantenzahlen</p>
-                            </div>
-                        </a>
-                    </article>
-                </section>
-            </div>
+            <script>
+                $("#simnav").load("simnav.html", function(){
+                    let idx = 2
+                    let activeTab = document.getElementsByClassName("styleSim")[idx]
+                    activeTab.classList.remove("styleSim")
+                    activeTab.classList.add("styleSimActive")
+                });
+            </script>
         </div>
 
 		<!-- Footer -->

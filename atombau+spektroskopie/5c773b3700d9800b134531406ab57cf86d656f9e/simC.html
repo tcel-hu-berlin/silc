@@ -53,54 +53,14 @@
         
         <!-- Simnav buttons -->
         <div id="simnav">
-            <div class="inner">
-                <section class="tiles">
-					<article class="styleSim">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="animA.html">
-                            <h2>Animation A</h2>
-                            <div class="content">
-                                <p>Prinzip der PES</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="styleSim">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="simA.html">
-                            <h2>Simulation A</h2>
-                            <div class="content">
-                                <p>Identifizierung von PES-Spektren</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="styleSim">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="simB.html">
-                            <h2>Simulation B</h2>
-                            <div class="content">
-                                <p>Spektrum von Wasserstoff & interaktives Diagramm</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="styleSimActive">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="simC.html">
-                            <h2>Simulation C</h2>
-                            <div class="content">
-                                <p>Visualisierung von Quantenzahlen</p>
-                            </div>
-                        </a>
-                    </article>
-                </section>
-            </div>
+            <script>
+                $("#simnav").load("simnav.html", function(){
+                    let idx = 3
+                    let activeTab = document.getElementsByClassName("styleSim")[idx]
+                    activeTab.classList.remove("styleSim")
+                    activeTab.classList.add("styleSimActive")
+                });
+            </script>
         </div>
         
 		<!-- Footer -->
