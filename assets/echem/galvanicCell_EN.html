@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" href="../css/main.css" />
+    <style>
+        .magn {
+            opacity: 0.4;
+        }
+        .magn:hover{
+            opacity: 0.8;
+            /* filter: hue-rotate(120deg) */
+        }
+        @font-face{
+        font-family:'digital-clock-font';
+        src: url('../../assets/webfonts/digital-7.mono.ttf');
+        }
+        .digitalScreen, .resetButton {
+            padding: 0.1em 0.6em;
+            margin: 0.1em 0.3em 0 0.3em;
+            text-align: right;
+            /* height: 100%;  */
+        }
+
+        @media screen and (max-width: 1000px) {
+            .digitalScreen {
+                padding: 0.3em 0.6em 0.5em
+            }
+        }
+
+        .digitalScreen {
+            font-family: "digital-clock-font";
+            background: rgb(196, 216, 196);
+            font-size:2em;
+            border: solid rgb(66, 77, 66)  2px;
+            border-radius: 5px;
+            height: 2.5em;
+        }
+
+        .bigLabel {
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        option {
+            font-size: 1.1em
+        }
+
+        select {
+            font-size: 1.2em
+        }
+
+        
+
+    </style>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <title>Galvanic Cell Simulation</title>
+</head>
+<body>
+    <div id="galvanic" style="position:relative; top:0; left:0; border:0 solid #ff7b00; width:100%; aspect-ratio:1.2">
+        <div style="position:absolute; left:5%; top:25%; display:inline-table; text-align:right">
+            <p class="bigLabel" style="margin-bottom:0"><b>"-" Side redox pair</b></p>
+            <select class="pairSelector" id="pairSelectorL" onchange="changePairL()" disabled>
+                <option value="cuII" selected>Cu&#178;&#8314;/ Cu</option>
+                <option value="she" >H&#8314; / H&#8322; </option>
+                <option value="ag">Ag&#8314;/Ag</option>
+                <option value="zn">Zn&#178;&#8314;/Zn</option>
+                <option value="feII">Fe&#178;&#8314;/Fe</option>
+                <option value="oer">O&#8322;/H&#8322;O</option>
+            </select>
+        </div>
+        <div style="position:absolute; left:75%; top:25%; display:inline-table">
+            <p class="bigLabel" style="margin-bottom:0"><b>"+" Side redox pair</b></p>
+            <select class="pairSelector" id="pairSelectorR" onchange="changePairR()" disabled>
+                <option value="cuII">Cu&#178;&#8314; / Cu</option>
+                <option value="she">H&#8314;/H&#8322;</option>
+                <option value="ag" selected>Ag&#8314;/Ag</option>
+                <option value="zn">Zn&#178;&#8314;/Zn</option>
+                <option value="feII">Fe&#178;&#8314;/Fe</option>
+                <option value="oer">O&#8322;/H&#8322;O</option>
+            </select>
+        </div>
+        <div style="position:absolute; left:40%; top:11.5%; height: 8%; width:20%; text-align:center; vertical-align:middle">
+            <p class="bigLabel" style="margin-bottom:0em">Cell Voltage (V)</p>
+            <span class="digitalScreen" id="voltageScreen"><span id="voltInd">+1.000</span>
+        </div>
+        <div id="lineNotation" style="position:absolute; left:0%; top:63.5%; width:100%; display:inline-table; text-align:center; visibility:hidden">
+            <p style="font-size:1.4em"><span id="outL"></span>|<span id="midL">|</span><span id="innL"></span>||
+                <span id="innR">
+                </span>|<span id="midR"> |</span><span id="outR"></span></p>
+        </div>
+        <!-- Submicro view -->
+        <div id="molRep" style="position:absolute; left:72%; top:41%; width:25%; text-align: center; vertical-align: middle; visibility: hidden">
+            <p id="noReaction" style="color: red; font-weight: 600;text-align:left; display:none"> <br>No net redox reaction is currently taking place.</p>
+            <p id="submicroTitle" style="color: red; font-weight: 600; margin-bottom:0;display:none">Submicroscopic View:</p>
+            <video id="molRepVideo" src="../../images/Cu_reduction.mp4" style="width:95%; aspect-ratio:1.32; background: red; border: solid red 3px; border-radius:18px" loop autoplay></video>
+        </div>
+    </div>
+
+    <script src="../js/galvanic.js"></script>
+    
+    <script>
+        document.getElementById("molRepVideo").playbackRate = 1.4
+    </script>
+</body>
+</html>

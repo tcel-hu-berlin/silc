@@ -41,8 +41,9 @@ function MoveCursor(xval, yval){
     d3.select("#xCur").attr("y1", yval-10).attr("y2", yval+10)
     d3.select("#yCur").attr("y1", yval).attr("y2", yval).style("visibility", "visible")
     d3.select("#yCur").attr("x1", xval-10).attr("x2", xval+10)
+    d3.select("#coord").style("visibility", "visible")
     curX = xP.invert(xval); curY = yP.invert(yval)
-    d3.select("#coord").text("IE: "+curX.toFixed(1) + " eV  | Intensität: "+curY.toFixed(1))
+    d3.select("#coord").text("IE: "+curX.toFixed(1) + " eV  | Intensity: "+curY.toFixed(1))
     if(xval<widthP/2){
         d3.select("#coord")
             .attr("x", xval+10)
@@ -143,15 +144,15 @@ svgP.append("text")
     .attr("text-anchor", "end")
     .attr("x", widthP/2 + marginP.left)
     .attr("y", heightP + marginP.top + 25)
-    .text("Ionisierungsenergie (eV)");
+    .text("Ionisation Energy (eV)");
 
 // Y axis label:
 svgP.append("text")
     .attr("text-anchor", "end")
     .attr("transform", "rotate(-90)")
     .attr("y", -marginP.left + 20)
-    .attr("x", -marginP.top - heightP/2 + 20)
-    .text("Intensität")
+    .attr("x", -marginP.top - heightP/2 + 70)
+    .text("Intensity (No. of electrons)")
 
 // Cursor-cross with x and y values
 x0 = 0.05*widthP; y0 = 0.05*heightP
@@ -172,7 +173,7 @@ cursor.append("text")
     .style("stroke", "black")
     .attr("id", "coord")
     .attr("x", x0+10).attr("y", y0+20)
-    .text("Tippe irgendwo, um X und Y anzuzeigen")
+    .text("XY Cursor")
     //.attr("visibility", "hidden")
 
 //Read the data

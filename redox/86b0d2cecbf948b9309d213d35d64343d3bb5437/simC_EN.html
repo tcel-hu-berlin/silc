@@ -31,35 +31,35 @@
         <div id="main">
             <div class="inner">
                 <a href="index_EN.html"><h1>Particle-Level Electrochemistry</h1></a>
-				<h2>Simulation C: Elektrolysezellen</h2>
-                <h3><span style="color: orange; font-size: 1.3em">&bdquo;Crashkurs&rdquo; zu Elektrolysezellen:</span><span style="margin-left:1em; margin-right:2em"><toggle class="showHide" id="showHideElec">Einblenden</toggle></span> </h3>
+				<h2>Simulation C: Electrolytic cells</h2>
+                <h3><span style="color: orange; font-size: 1.3em">&bdquo;Crash course&rdquo; on electrolytic cells:</span><span style="margin-left:1em; margin-right:2em"><toggle class="showHide" id="showHideElec">Show</toggle></span> </h3>
                 <div id="hintElec" style="display:none">
-                    <p style="margin-bottom:0.5em">Im Gegensatz zu galvanischen Zellen sind Zellen als <em>elektrolytisch</em> bezeichnet, wenn sie mithilfe einer externen Stromquelle eine normalweise unspontane Redoxreaktion ermögilchen. <b>Die Rollen der Anode und der Kathode werden in Elektrolysezellen durch die Stromquelle bestimmt</b>, indem durch die Stromquelle die <b style="color: red">Anode</b> immer <b style="color: red">positiv</b> und die <b style="color: blue">Kathode</b> immer <b style="color: blue">negativ</b> "aufgeladen" wird. Die positive Ladung der Anode ermöglicht es ihr, Elektronen aus der zu oxidierenden Spezies anzuziehen, während die negative Ladung der Kathode Elektronen für die Reduktion liefert. Salzbrücken werden in Elektrolysezellen nicht häufig verwendet. Falls erforderlich werden jedoch poröse Membranen und andere Trenntechniken eingesetzt, um eine Interferenz zwischen der anodischen und der kathodischen Reaktion zu verhindern.</p>
-                    <p style="margin-bottom:0.5em">Das Ziel einer Elektrolyse ist i.d.R., die Produkte der Oxidation und/oder der Reduktion zu sammeln. Eine häufige Aufgabe bei der Konstruktion einer Elektrolysezelle besteht daher darin, die zu erwartenden Mengen der erzeugten Stoffe zu berechnen. Bei solchen Berechnungen sind einige nützliche Punkte zu beachten:</p>
+                    <p style="margin-bottom:0.5em">Unlike galvanic cells, <em>electrolytic</em> cells are characterized by an external power source that drives forward a normally non-spontaneous redox reaction. Here, <b>the roles of anode and cathode are pre-determined by the power supply,</b> i.e. one of the electrodes acquires a <b style="color: red">positive</b> charge and acts as the <b style="color: red">anode</b>, while the other electrode acquires a <b style="color: blue">negative</b> charge and acts as the <b style="color: blue">cathode</b>. The positive charge of the anode allows it to "extract" electrons from the species to be oxidized, while the negative charge of the cathode "delivers" electrons to the species that gets reduced. Salt bridges are not as common in electrolytic cells; if needed, porous membranes and other separation techniques are used to prevent interference between the anodic and cathodic reactions.</p>
+                    <p style="margin-bottom:0.5em">The goal of an electrolytic cell is generally to collect the products of the oxidation and/or the reduction. A common task when constructing an electrolytic cell is therefore to calculate the expected amount of products that will be generated. The following points are important to consider when making such calculations:</p>
                     <ul style="width:60%; margin-left:1em; margin-bottom:0.5em">
-                        <li>Die Stromstärke <em>I</em> in A gibt an, wie viele Coulomb Ladung sich pro Sekunde im Stromkreis bewegen (1 A = 1 C s<sup>-1</sup>).</li>
-                        <li>Die von einem Elektron getragene Ladung (Elementarladung) beträgt 1,6 &times; 10<sup>-19</sup> C. Daraus folgt, dass ein Mol (<em>N<sub>A</sub></em>) Elektronen eine Ladung von 96485 C trägt, was durch die Faraday-Konstante <em>F</em> repräsentiert wird.</li>
-                        <li>Das Stoffmengenverhältnis zwischen Elektronen und Molekülen in einer Redox-Halbreaktion lässt sich aus der elektrochemischen Spannungsreihe ableiten. Bei der Oxidation von Cl<sup>-</sup> zu Chlorgas werden z.B. zwei Mol Elektronen pro Mol Chlorgas erzeugt.</li>
-                        <li>Wenn die Dauer der Elektrolyse bekannt ist, kann die genaue Stoffmenge eines Produkts anhand der oben genannten Informationen berechnet werden.</li>
-                        <li>Für ideale Gase kann das Volumen des Produkts mithilfe des molaren Volumens (22.4 L mol<sup>-1</sup>) unter Standardbedingungen berechnet werden. Für Feststoffe kann mithilfe der molaren Masse die gesamte Masse des Produkts berechnet werden.</li>
+                        <li>The quantity of electric current (<em>I</em>, measured in Amperes) determines how many coulombs of charge are passing a cross-section of the circuit at a given second (1 A = 1 C s<sup>-1</sup>).</li>
+                        <li>The charge carried by an electron (elementary charge) is <em>e</em> = 1.6 &times; 10<sup>-19</sup> C. It follows that a mole of electrons carries a charge of N<sub>A</sub> &times; <em>e</em> = 96,485 C, which is represented by the Faraday constant <em>F</em>.
+                        <li>The molar ratio between electrons and a particular product is determined by the corresponding redox reaction, which in most cases can be found in the the electrochemical series. For example, the oxidation of Cl<sup>-</sup> into chlorine gas produces two moles of electrons per mole of chlorine gas/</li>
+                        <li>If the applied current and the duration of the electrolysis are known, the total amount of charge consumed and therefore the exact molar amount of a product can be determined using the above information.</li>
+                        <li>For ideal gases, the volume of the produced gas can be calculated using the molar volume of 22.4 L mol<sup>-1</sup> at standard temperature and pressure (STP). For solids, the mass of solid produced can be determined using its molar mass.</li>
                     </ul>
-                    <p>Die Verwendung der oben genannten Punkte geht davon aus, dass keine Energieentwertung stattfindet und keine Nebenprodukte entstehen.</p>
+                    <p>The application of the above points assumes that there are no energy losses or byproducts  during the electrolysis.</p>
                 </div>
-                    <h3 style="margin-top: 1em">Überblick der Simulation:</h3>
+                    <h3 style="margin-top: 1em">Overview of the simulation:</h3>
                     <ul>
-                        <li>Über den Reiter "System" kann eine gewünschte Elektrolysezelle ausgewählt werden.</li>
-                        <li>Die Spannung und die Stromstärke lassen sich direkt auf der virtuellen grauen Stromquelle variieren.</li>
-                        <li>Beim ersten Klick auf <b style="color:#5469b7">START</b> wird der Schalter des Stromkreises geschlossen. Die Elektrolyse wird dann mit der gewählten Spannung und Stromstärke gestartet. Die gleiche Taste kann verwendet werden, um die Simulation fortzusetzen, wenn sie angehalten wurde.</li>
-                        <li>Wenn Sie auf <b style="color:#5469b7">PAUSE</b> klicken, wird die Simulation angehalten. Sie können diese Funktion nutzen, um zu beobachten, was während der Elektrolyse zu bestimmten Zeitpunkten passiert.</li>
-                        <li>Während der Elektrolyse können durch Klicken auf die Lupensymbolen (<img style="height: 1em" src="../../images/magnGlass.svg" />) Animationen angezeigt werden, die das Verhältnis der Elektronen, Ionen und Molekülen auf Teilchenebene abbilden.</li>
-                        <li>Sowohl die vergangene Zeit als auch die gesammelten Mengen relevanter Produkte seit dem Anfang der Elektrolyse werden angezeigt. <b style="color:brown">Beachten Sie, dass die Zeit in Minuten angezeigt wird!</b> Die Simulation läuft viel schneller als in Echtzeit. </li>
-                        <li>Durch Klicken auf die gelbe <span style="border: 1px solid; border-radius: 2px; background: #ffee6c; padding-left: 0.2em; padding-right:0.2em">&#8634;</span>-Schaltfläche wird das System zurückgesetzt, so dass eine neue Elektrolyse eingerichtet werden kann.</li>
+                        <li>The desired electrolytic cell can be selected from the drop-down menu "System."</li>
+                        <li>The applied voltage and current can be varied using the buttons on the gray power supply.</li>
+                        <li>Upon first clicking on <b style="color:#5469b7">START</b>, the switch of the circuit will close. This will start the electrolysis with the selected voltage and current. The same button can be used to resume the simulation if it has been paused.</li>
+                        <li>By clicking on <b style="color:#5469b7">PAUSE</b>, you can "freeze time" in the simulation. You can use this feature to more carefully observe what is happening at specific time points during the electrolysis.</li>
+                        <li>During the electrolysis, you can click on the magnifying glass symbols (<img style="height: 1em" src="../../images/magnGlass.svg" />) to view animations of the behavior of electrons, ions, and molecules at the submicroscopic level.</li>
+                        <li>The elapsed time and (where applicable) the collected amounts of relevant products since the start of the electrolysis are also shown. <b style="color:brown">Note that time is displayed in minutes!</b> The simulation runs much faster than real-time. </li>
+                        <li>By clicking on the yellow button (<span style="border: 1px solid; border-radius: 2px; background: #ffee6c; padding-left: 0.2em; padding-right:0.2em">&#8634;</span>), the system is reset and a new electrolysis can be set up.</li>
                     </ul>
-                    <h3>Zu beachten:</h3>
+                    <h3>Note:</h3>
                     <ul>
-                        <li><b style="color:brown">Solange die angelegte Spannung nicht ausreichend ist, wird keine Elektrolysereaktion angezeigt!</b> Bei dieser Simulation muss eine bestimmte Schwellenspannung angelegt werden, um die Reaktion voranzutreiben. In der Realität ist die Situation etwas kontinuierlicher. </li>
+                        <li><b style="color:brown">If the applied voltage is insufficient, no electrolytic reaction will be observed!</b> This simulation requires a particular threshold voltage to drive the reaction forward. In reality, the situation is a bit more continuous. </li>
                     </ul>
-                <iframe scrolling="no" id="electrolyticSim" src="../../assets/echem/electrolytCell.html" 
+                <iframe scrolling="no" id="electrolyticSim" src="../../assets/echem/electrolytCell_EN.html" 
                         style="width: 100%; aspect-ratio: 1.2;"></iframe>
             </div>
         </div>
@@ -100,10 +100,10 @@
                 let hintId = m.id.split("showHide")[1]
                 hint = document.getElementById("hint"+hintId)
                 if (hint.style.display=="none"){
-                    this.innerHTML = "Ausblenden"
+                    this.innerHTML = "Hide"
                     hint.style.display="block"
                 } else {
-                    this.innerHTML = "Einblenden"
+                    this.innerHTML = "Show"
                     hint.style.display="none"
                 }
             }
