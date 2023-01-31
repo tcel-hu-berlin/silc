@@ -18,6 +18,7 @@
     </div>
     <script>
         let hasEnglishVersion = [
+            '/',
             '/index.html',
             '/atombau+spektroskopie/5c773b3700d9800b134531406ab57cf86d656f9e/',
             '/atombau+spektroskopie/5c773b3700d9800b134531406ab57cf86d656f9e/index.html',
@@ -32,6 +33,9 @@
             '/redox/86b0d2cecbf948b9309d213d35d64343d3bb5437/simC.html',
         ]
         let currentPath = window.location.pathname
+        if (currentPath.includes("silc")){
+            currentPath = currentPath.split("silc")[1]
+        }
         if (hasEnglishVersion.includes(currentPath)){
             let enOpt = document.createElement("option")
             enOpt.value = "en"
