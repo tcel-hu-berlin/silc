@@ -10,7 +10,7 @@
     </head>
 <body class="is-preload">
     <div class="inner">
-        <p style="display: flex; align-items: center">&copy; 2023 Natalia Spitha & &nbsp; <a href="https://www.tiemannlab.de/" target="_blank">Tiemann Lab</a> &nbsp;  @  &nbsp; <a href="https://www.hu-berlin.de/" target="_blank">HU-Berlin</a> &nbsp; || &nbsp; Design-Vorlage: &nbsp;<a href="https://html5up.net/phantom" target="_blank">Phantom by HTML5 UP</a> &nbsp;  || &nbsp; <img style="height: 1em" class="icon" src="../../images/githubInventocat.png" /> &nbsp; <a href="https://github.com/tcel-hu-berlin/silc" target="_blank">Github</a> &nbsp; || &nbsp; <img class="icon" src="../../images/pencil-square.svg" /> &nbsp; <a href="https://forms.gle/Cnz2r2Geg79otEF97" target="_blank">Feedback geben</a> &nbsp; || 
+        <p style="display: flex; align-items: center">&copy; 2023 Natalia Spitha & &nbsp; <a href="https://www.tiemannlab.de/" target="_blank">Tiemann Lab</a> &nbsp;  @  &nbsp; <a href="https://www.hu-berlin.de/" target="_blank">HU-Berlin</a> &nbsp; || &nbsp; Design-Vorlage: &nbsp;<a href="https://html5up.net/phantom" target="_blank">Phantom by HTML5 UP</a> &nbsp;  || &nbsp; <img id="inventocatIcon" style="height: 1em" class="icon" src="../../images/githubInventocat.png" /> &nbsp; <a href="https://github.com/tcel-hu-berlin/silc" target="_blank">Github</a> &nbsp; || &nbsp; <img id="pencilIcon" class="icon" src="../../images/pencil-square.svg" /> &nbsp; <a href="https://forms.gle/Cnz2r2Geg79otEF97" target="_blank">Feedback geben</a> &nbsp; || 
             &#127760 <select id="langSelect" style="display:inline; width: 7em" >
                 <option value="de" selected>Deutsch</option>
             </select>
@@ -35,6 +35,10 @@
         let currentPath = window.location.pathname
         if (currentPath.includes("silc")){
             currentPath = currentPath.split("silc")[1]
+        }
+        if (currentPath=="/" || currentPath=="index.html"){
+            document.getElementById("inventocatIcon").src = "images/githubInventocat.png"
+            document.getElementById("pencilIcon").src = "images/pencil-square.svg"
         }
         if (hasEnglishVersion.includes(currentPath)){
             let enOpt = document.createElement("option")
