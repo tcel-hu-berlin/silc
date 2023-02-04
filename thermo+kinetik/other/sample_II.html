@@ -1,0 +1,293 @@
+<!DOCTYPE HTML>
+<!--
+	Made using the template Phantom by HTML5 UP
+	html5up.net | @ajlkn
+-->
+<html>
+<head>
+    <title>Chemical Equilibrium: Example Lesson</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+    <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
+    <script src="../../assets/js/jquery.min.js"></script>
+    <style>
+        h1 {
+            padding-top:2em;
+        }
+
+        teq, .eq {
+            font-family: cambria;
+            /* color: #000; */
+        }
+
+        .learningContext {
+            width:100%; 
+            margin: 2em 0em 1em; 
+            padding: 1em 2em 1em; 
+            background:rgb(210, 255, 213)
+        }
+
+        .learningContext > h3 {
+            color: #585858
+        }
+
+        .learningContext > h2 {
+            color: #588858;
+            padding-top: 0em;
+        }
+
+
+        .lesson > * {
+           margin: auto;
+           display: block;
+        }
+
+        .lesson > p, .lesson > h2, .lesson > .summary {
+            width: 65%;
+            margin-bottom:1em;
+        }
+
+        .lesson > .eq {
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+        .lesson > video {
+            padding: 1em 0;
+        }
+
+        .lesson > .summary {
+            background:rgb(230, 243, 255);
+            padding: 1em 1em 0.2em;
+            color: #5469b7
+        }
+
+        .summary > * > li {
+            margin-bottom: 1em;
+        }
+
+        .navigationButtons {
+            padding-bottom:2em;
+            padding-top:3em;
+        }
+
+        .enterValues {
+            font-family: Cambria;
+            width: 40%;
+            padding: 1em 1em 1em;
+            margin-bottom:1em;
+            border-radius:8px;
+            background: #ffee66
+        }
+        .navigationButtons > *{
+            font-size:1.2em;
+            font-weight:600;
+            color:#d36622;
+            text-transform: uppercase;
+        }
+
+        input {
+            font-family: cambria;
+            font-weight:600;
+            color: #5469b7
+        }
+    </style>
+    </head>
+<body class="is-preload">
+<!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <!-- <header id="header">
+            <script> $("#header").load("../../header_EN.html");</script>
+        </header> -->
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner" >
+                <!-- <h1>Energieänderungen, Geschwindigkeiten und Gleichgewichte von Reaktionen</h1> -->
+                <h1>Example Lesson: Chemical Equilibrium</h1>
+                <p style="font-size: 1.5em; font-weight:500; margin-bottom:0">Natalia Spitha</p>
+                <div class="learningContext">
+                <h3>Learning Goals</h3>
+                    <ul>
+                        <li>
+                            Describe the state of chemical equilibrium in terms of competing "forward" and "reverse" chemical reactions.
+                        </li>
+                        <li>
+                            Define the term equilibrium constant.
+                        </li>
+                        <li>
+                            Relate the mathematical definition of the equilibrium constant to amounts of molecules present at a submicroscopic level.
+                        </li>
+                        <li>
+                            Optional: Name examples of reactions where the "equilibrium" is very one-sided (e.g. strong acid-strong base reactions)
+                        </li>
+                    </ul>
+                    <h3>Prior knowledge used</h3>
+                        <ul style="width:80%">
+                            <li>
+                                Ability to define the terms atom and ion.
+                            </li>
+                            <li>
+                                Understanding of the notation used for chemical equations
+                            </li>
+                            <li>
+                                Familiarity with the concept of mole, with molar concentration (in moles per liter), and with orders of magnitude (e.g. 1 μL = 10<sup>-6</sup> L)
+                            </li>
+                        </ul>
+                    <h3>Helpful additional knowledge</h3>
+                        <ul style="margin-bottom:0; width:90%">        
+                            <li>
+                                Familiarity with the definition of acids as proton donors and bases as proton acceptors.
+                            </li>
+                            <li>
+                                Ability to define the free energy change of a reaction (ΔG) and relate it to the spontaneity of the reaction.
+                            </li>
+                        </ul>
+                </div>
+                <div class="lesson" id="lesson">
+                    <h2>Part 2: The equilibrium constant</h2>
+                    <p>Let's revisit the animation from the previous part, which shows how the concentrations of the reactants and products evolve over time:</p>
+                    <p class="eq">H<sub>2</sub>S + CN<sup>-</sup> &#8652; HS<sup>-</sup> + HCN</p>
+                    <iframe scrolling="no" id="simulationD1" src="../../assets/glowscript/equilAcidBase_EN.html" style="width: 70%; height:160px"></iframe>
+                    <p>Start the animation again and let the reaction evolve while you are reading the rest of this text -- reaching equilibrium may take a while!</p>
+                    <p>As you may have realized from the previous lesson, this reaction will not proceed to 100% completion, as there will still be a small amount of reactants (H<sub>2</sub>S and CN<sup>-</sup>) left after the equilibrium state is reached. But <b><em>how much of the reactants and products is present at equilibrium, exactly?</em></b> If you are finding yourself pondering this question, you should be glad to know there there is actually a way to determine that!</p>
+                    <p>The concept that will be most useful to us for quantifying the concentration of each species at equilibrium is called (unsurprisingly) the <b>equilibrium constant</b>, <teq><em>K</em></teq>:</p>
+                    <img src="../../images/eqConstantH2SCN.svg" style="height:4em;  margin-bottom: 1em"/>
+                    <p>Here, <teq>[ ... ]<em><sub>eq</sub></em></teq> denotes the concentration of a species at equilibrium. The main idea behind the equilibrium constant is that, regardless of what initial concentrations the reactants and products have at the start of the reaction, the concentrations at equilibrium will always* satisfy this mathematical relationship.</p>
+                    
+                    <p>Perhaps the animation above has finished by now! Once the animation is finished, you can hover or tap on the graph to read the concentration values of the reactants and products. Try recording the equilibrium concentrations of the reactants and products from the graph! Then, enter them below to determine the value of <teq><em>K<sub>eq</sub></em></teq>.</p>
+                    <div class="enterValues">
+                        <p style="font-size: 1.1em; color: #000; text-align:center">
+                            [H<sub>2</sub>S]<sub>eq</sub> = <input type="number" min="0" max="100" step="0.01" id="R-value"> μmol / L = [CN<sup>-</sup>]<sub>eq</sub> 
+                        </p>
+                        <p style="font-size: 1.1em; color: #000; text-align:center; margin-bottom:1em">
+                            &nbsp; [HS<sup>-</sup>]<sub>eq</sub> = <input type="number" min="0" max="100" step="0.01" id="P-value"> μmol / L = [HCN]<sub>eq</sub> 
+                        </p>
+                        <p style="width:100%; aspect-ratio:2.4; display: flex; align-items: center; color: #5469b7; font-size:1.3em; font-weight: 600;padding-left:1em; margin-bottom:0">
+                            <img style="width:70%" src="../../images/eqConstantH2SCN_equals.svg"/><span id="Kval" style="background:rgba(255,255,255,0.6); width:20%; text-align:center">? </span></p>
+                    </div>
+                    <!-- 6,64, 92,9 -->
+                    <p>If you obtained a <teq><em>K<sub>eq</sub></em></teq> value between about 170 and 270, you are most likely correct! Since the simulation runs a bit differently every time, the equilibrium concentrations can slightly vary. As previously mentioned, the same value of the equilibrium constant should be obtained regardless of how the reaction started. If you want, you can test this by starting the reaction with just HS<sup>-</sup> and HCN!</p>
+                    <button id="showExtraSim" style="margin-bottom:1em" disabled="true">Try it!</button>
+                    <iframe scrolling="no" id="simulationD2" src="../../assets/glowscript/equilAcidBase2_EN.html" style="width: 70%; height:0px;"></iframe>
+                    <p>You may also be wondering why the <teq><em>K</em></teq> of this particular reaction has the value that it does. Each chemical reaction is characterized by a unique equilibrium constant, which is closely tied to the thermodynamic stability of the products and reactants. If you have heard of the term <em>Gibbs-free energy change</em> for chemical reaction (<teq><em>ΔG<sup>o</sup></em></teq>), the equilibrium constant is just another "lens" for viewing the same phenomenon! The two are related together by the equation:</p>
+                    <img src="../../images/deltaGRTlnK.png" style="height:2em;  margin-bottom: 1em" />
+                    <p style="text-align:right; font-size:0.9em;">where <teq><em>R</em></teq> is the gas constant, <teq><em>T</em></teq> the absolute temperature in Kelvin, and <teq>ln</teq> stands for the natural logarithm.</p>
+                    <p>Chemical reactions where the products are favored have a negative standard free energy change (<teq><em>ΔG<sup>o</sup></em>&nbsp;<&nbsp;0</teq>) and equilibrium constants that are higher than 1. On the contrary, reactions where <teq><em>K&nbsp;<&nbsp;1</em></teq> have a positive free energy change and favor the reactants (in other words, they are not very likely to occur). You will learn more about the meaning and the relationship between these thermodynamic quantities in later lessons.</p>
+                    <p>One last note, before we conclude with this lesson: some chemical reactions have such an extreme preference for the reactants or the products, that we don't consider them as equilibrium reactions! For example, the dissociation of the strong acid hydrogen chloride in water occurs pretty much irreversibly:</p>
+                    <p style="text-align: center"><teq style="font-size: 1.5em;">HCl &#x27F6; Cl<sup>-</sup> + H<sup>+</sup></teq> <span style="float:right">(not <teq style="font-size: 1.5em;">&#8652;</teq>)</span></p>
+                    <p>Take a moment to consider what the values of the "equilibrium" constant and the free energy change would look like for these reactions! In the meantime, let's summarize and generalize what we have learned this far:</p> 
+                    <div class="summary">
+                        <ul>
+                            <li><p style="margin-bottom:0">The <b>equilibrium constant</b> for a reversible reaction between two reactants A and B is generally given by:</p>
+                                <img src="../../images/eqRxn.png" style="height:3.5em;  margin-bottom: 0.5em; margin-top:0; display:block" />
+                                <p style="margin-top:0; margin-bottom:0">where C and D are the products and <em>a, b, c,</em> and <em>d</em> are the coefficients of all species in the chemical reaction.</p>
+                            </li>
+                            <li>The concentrations of the reactants and products will satisfy the equilibrium conditions defined by <em>K</em>, regardless of the initial concentrations.</li>
+                            <li>The higher the value of the equilibrium constant, the more <b>product-favored</b> the reaction. The lower the value of the equilibrium constant, the more <b>reactant-favored</b> the reaction.</li>
+                            <li>The product-favored or reactant-favored nature of a chemical reaction is related to the <b>thermodynamic stability</b> of the reactants and the products. It is directly related to the free energy change of the reaction.</li>
+                        </ul>
+                    </div>
+                    <p style="color:#000"><em>* The value of an equilibrium constant can change if the temperature and atmospheric pressure of the environment change, or if the species involved have very high concentrations.</em></p>
+                </div>
+                
+            </div>
+             <!-- Previous and Next -->
+             <div class="inner">
+                <div class="navigationButtons" style="width:85%; margin:auto">
+                    <a  style="float:left" href="sample_I.html#lesson">&#11164; Previous: What is chemical equilibrium? </a>
+                </div>
+             </div>
+        </div>
+        
+
+		<!-- Footer -->
+		<footer id="footer">
+            <div class="inner">
+                <p style="display: flex; align-items: center">&copy; 2023 Natalia Spitha &nbsp; || &nbsp; Design template: &nbsp;<a href="https://html5up.net/phantom" target="_blank">Phantom by HTML5 UP</a> &nbsp;  || &nbsp; <img style="height: 1em" class="icon" src="../../images/githubInventocat.png" /> &nbsp; <a href="https://github.com/tcel-hu-berlin/silc" target="_blank">Github</a> &nbsp; || &nbsp; <img class="icon" src="../../images/pencil-square.svg" /> &nbsp; <a href="https://forms.gle/Cnz2r2Geg79otEF97" target="_blank">Feedback</a> &nbsp; || <a href="https://tcel-hu-berlin.github.io/silc "> &nbsp; SILC webpage</a></p>
+            </div>
+		</footer>
+    </div>
+
+<!-- Scripts -->
+    <script src="../../assets/js/browser.min.js"></script>
+    <script src="../../assets/js/breakpoints.min.js"></script>
+    <script src="../../assets/js/util.js"></script>
+    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/Three49custom.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script>
+        iFrame1 = document.getElementById("simulationD1")
+        iFrame1.onload = function(){
+            window_width = iFrame1.contentWindow.window_width
+            iFrame1.style.height = window_width/2+'px'
+            setTimeout(function(){
+                legend1 = iFrame1.contentWindow.legend[0]
+                legend1.style.opacity=0
+                }, 1000)
+            }    
+        iFrame2 = document.getElementById("simulationD2")
+        iFrame2.onload = function(){
+            window_width = iFrame2.contentWindow.window_width
+            
+            setTimeout(function(){
+                legend2 = iFrame2.contentWindow.legend[0]
+                legend2.style.opacity=0
+                iFrame2.style.height = window_width/2+'px'
+                iFrame2.style.display = "none"
+                document.getElementById("showExtraSim").disabled=false
+                }, 1000)
+        }     
+    </script>
+    <script>
+        let maxV = 100, minV=0.1
+        let valR = 0, valP=0, valK=0
+        function calcK(R, P){
+            return P**2/R**2
+        }
+        document.getElementById("R-value").onchange=function(){
+            valR = +this.value
+            if (valR>maxV){
+                valR = maxV
+                this.value = maxV
+            }
+            if (valR<minV){
+                valR = minV
+                this.value = minV
+            }
+            if (valP != 0){
+                valK = calcK(valR, valP)
+                console.log(valR.toFixed(1))
+                document.getElementById("Kval").innerHTML = valK.toPrecision(3)
+            }
+        }
+        document.getElementById("P-value").onchange=function(){
+            valP = +this.value
+            if (valP>maxV){
+                valP = maxV
+                this.value = maxV
+            }
+            if (valP<minV){
+                valP = minV
+                this.value = minV
+            }
+            if (valR != 0){
+                valK = calcK(valR, valP)
+                console.log(valP.toFixed(1))
+                document.getElementById("Kval").innerHTML = valK.toPrecision(3)
+            }
+        }
+    </script>
+    <script>
+        document.getElementById("showExtraSim").onclick = function(){
+            this.style.display="none"
+            iFrame2.style["margin-bottom"] = "1em"
+            iFrame2.style.display = "block"
+        }
+    </script>
+</body>
+</html>

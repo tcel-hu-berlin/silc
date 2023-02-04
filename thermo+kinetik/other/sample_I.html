@@ -13,6 +13,15 @@
     <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
     <script src="../../assets/js/jquery.min.js"></script>
     <style>
+        h1 {
+            padding-top:2em;
+        }
+        
+        teq, .eq {
+            font-family: cambria;
+            /* color: #000; */
+        }
+
         .learningContext {
             width:100%; 
             margin: 2em 0em 1em; 
@@ -42,7 +51,7 @@
 
         .lesson > .eq {
             text-align: center;
-            font-size: 1.6em;
+            font-size: 1.5em;
         }
 
         .lesson > video {
@@ -55,15 +64,34 @@
             color: #5469b7
         }
 
-        .navigationButtons {
-            padding-bottom:2em;
+        .summary > * > li {
+            margin-bottom: 1em;
         }
 
+        .navigationButtons {
+            padding-bottom:2em;;
+            padding-top:3em;
+        }
+
+        .enterValues {
+            font-family: Cambria;
+            width: 40%;
+            padding: 1em 1em 1em;
+            margin-bottom:1em;
+            border-radius:8px;
+            background: #ffee66
+        }
         .navigationButtons > *{
             font-size:1.2em;
             font-weight:600;
-            color:#000000;
+            color:#d36622;
             text-transform: uppercase;
+        }
+
+        input {
+            font-family: cambria;
+            font-weight:600;
+            color: #5469b7
         }
     </style>
     </head>
@@ -98,8 +126,8 @@
                             Optional: Name examples of reactions where the "equilibrium" is very one-sided (e.g. strong acid-strong base reactions)
                         </li>
                     </ul>
-                <h3>Prior knowledge used</h3>
-                    <ul style="margin-bottom:0; width:90%">
+                    <h3>Prior knowledge used</h3>
+                    <ul style="width:80%">
                         <li>
                             Ability to define the terms atom and ion.
                         </li>
@@ -109,15 +137,39 @@
                         <li>
                             Familiarity with the concept of mole, with molar concentration (in moles per liter), and with orders of magnitude (e.g. 1 μL = 10<sup>-6</sup> L)
                         </li>
+                    </ul>
+                    <h3>Helpful additional knowledge</h3>
+                    <ul style="margin-bottom:0; width:90%">        
                         <li>
-                            Helpful: Familiarity with the definition of acids as proton donors and bases as proton acceptors.
+                            Familiarity with the definition of acids as proton donors and bases as proton acceptors.
+                        </li>
+                        <li>
+                            Ability to define the free energy change of a reaction (ΔG) and relate it to the spontaneity of the reaction.
                         </li>
                     </ul>
                 </div>
-                <div class="lesson">
-                    <h2>Part 2: The equilibrium constant</h2>
-                    <p>Let's revisit the animation from the previous part, which shows how the concentrations of the reactants and products evolve over time:</p>
-                    <p class="eq">H<sub>2</sub>S + CN<sup>-</sup> &#8652; HS<sup>-</sup> + HCN</p>
+                <div class="lesson" id="lesson">
+                    <h2>Part 1: What is chemical equilibrium?</h2>
+                    <p>Let us consider the reaction between hydrogen sulfide (H<sub>2</sub>S) and cyanide (CN<sup>-</sup>). Both of these substances are quite toxic to humans, but, thankfully, they can also be useful for illustrating this next topic!</p>
+                    <p class="eq">H<sub>2</sub>S + CN<sup>-</sup> &#x27F6 HS<sup>-</sup> + HCN</p>
+                    <p>In this reaction, the hydrogen sulfide molecule donates a hydrogen ion (or proton) to the cyanide molecule:</p>
+                    <video src="../../images/A4sample_fwdRxn.mp4" style="width:40%" autoplay=1 loop=1 muted=1></video>
+                    <img src="../../images/A4sample_fwRxn.png" style="height:6em"/>
+                    <p>This exchange occurs because hydrogen sulfide is slightly <b>acidic</b>, meaning that it has a tendency to <b>donate protons</b>. The negatively charged cyanide ion is a good <b>proton "acceptor"</b> and acts as a <b>base</b>.</p>
+                    <p>The products of this reaction are hydrogen cyanide (HCN) molecule and hydrosulfide (HS<sup>-</sup>). However, this is not the end of the story! The HS<sup>-</sup> ion now has a negative charge, which makes it a good proton acceptor. Similarly, the hydrogen cyanide atom now has a proton that it can give away. As a result, the following reaction can also occur, converting our "products" back into the reactants!
+                    </p>
+                    <video src="../../images/A4sample_revRxn.mp4" style="width:40%" autoplay=1 loop=1 muted=1></video>
+                    <img src="../../images/A4sample_rvRxn.png" style="height:6em"/>
+                    
+                    <p>Since the second reaction can also occur alongside the first one, it is more accurate to represent the equation not with a single right arrow (as above), but with a pair of opposite arrows:</p>
+                    <p class="eq">H<sub>2</sub>S + CN<sup>-</sup> <b style="color: red; font-weight:800">&#8652;</b> HS<sup>-</sup> + HCN</p>
+                    <p>It just so happens that hydrogen sulfide is a better acid (proton donor) than hydrogen cyanide (more on that on the <em>Acids and Bases</em> chapter!). This means that the first reaction (or <b>forward reaction</b>) is much more likely to happen than the second reaction (<b>reverse reaction</b>). But the reverse reaction will still occur, especially if there are many more HS<sup>-</sup> and HCN molecules available than H<sub>2</sub>S and CN<sup>-</sup> molecules.</p>
+                    <p>The presence of two competing reactions affects how the original reaction progresses over time. At the beginning of the reaction, a lot of H<sub>2</sub>S and CN<sup>-</sup> is present, so the forward reaction occurs very frequently. As the molecules are consumed during the reaction, the rate of the forward reaction slows down over time.</p>
+                    <img src="../../images/A4sample_fwdRate.png" style="width: 45%; min-width:200px" />
+                    <p>As for the reverse reaction, it hardly occurs at the beginning of the reaction, both due to its unlikeliness and because of the very low amount of HS<sup>-</sup> and HCN available to react. However, as more and more HS<sup>-</sup> and HCN molecules are produced, the frequency (rate) of the reverse reaction rises.</p>
+                    <img src="../../images/A4sample_bothRates.png" style="width: 45%; min-width:200px" />
+                    <p>Notice how the blue and red lines above converge to the same point at the end of the graph? This is not by chance; it is actually a key element of chemical reactions and it represents the transition of the reaction into <b>chemical equilibrium</b>! Eventually, as reactions progress, the rates of the forward and reverse reactions become the same.</p>
+                    <p>Let's now view the same concept in terms of the amount of molecules present in the reaction as time progresses. The picture on the left shows the progress of the reaction on the "molecular level" (where each particle represents a μmol of particles), while the graph on the right shows the concentrations of H<sub>2</sub>S, CN<sup>-</sup>, HS<sup>-</sup>, and HCN in μmol/L over time. Here, it is better to talk about  molar <em>concentrations</em> of molecules, since the closeness of the particles to each other is just as important as the number of particles itself.</p>
                     <iframe scrolling="no" id="simulationD1" src="../../assets/glowscript/equilAcidBase_EN.html" style="width: 70%; height:160px"></iframe>
                     <p>As expected, the concentrations of the reactants (H<sub>2</sub>S  and CN<sup>-</sup>) decrease over time, while the concentrations of the products increase. However, all species eventually stop changing in concentration. This is because, as shown before, the forward and reverse reactions of a system in equilibrium are happening at the same rate. <b>Molecules still react with each other, but the two competing reactions "cancel each other out" in a way that makes the system not change overall.</b></p>
                     <p>So, how would you define the term <em>chemical equilibrium</em>? Let's summarize what we've learned so far:</p>
@@ -135,7 +187,7 @@
              <!-- Previous and Next -->
              <div class="inner">
                 <div class="navigationButtons" style="width:85%; margin:auto">
-                    <a  style="float:left" href="" inactive>&#11164; Previous: What is chemical equilibrium? </a>
+                    <a  style="float:right" href="sample_II.html#lesson">Next: The equilibrium constant &#11166;</a>
                 </div>
              </div>
         </div>
@@ -144,7 +196,7 @@
 		<!-- Footer -->
 		<footer id="footer">
             <div class="inner">
-                <p style="display: flex; align-items: center">&copy; 2023 Natalia Spitha &nbsp; || &nbsp; Design template: &nbsp;<a href="https://html5up.net/phantom" target="_blank">Phantom by HTML5 UP</a> &nbsp;  || &nbsp; <img style="height: 1em" class="icon" src="../../images/githubInventocat.png" /> &nbsp; <a href="https://github.com/tcel-hu-berlin/silc" target="_blank">Github</a> &nbsp; || &nbsp; <img class="icon" src="../../images/pencil-square.svg" /> &nbsp; <a href="https://forms.gle/Cnz2r2Geg79otEF97" target="_blank">Feedback</a> &nbsp;</p>
+                <p style="display: flex; align-items: center">&copy; 2023 Natalia Spitha &nbsp; || &nbsp; Design template: &nbsp;<a href="https://html5up.net/phantom" target="_blank">Phantom by HTML5 UP</a> &nbsp;  || &nbsp; <img style="height: 1em" class="icon" src="../../images/githubInventocat.png" /> &nbsp; <a href="https://github.com/tcel-hu-berlin/silc" target="_blank">Github</a> &nbsp; || &nbsp; <img class="icon" src="../../images/pencil-square.svg" /> &nbsp; <a href="https://forms.gle/Cnz2r2Geg79otEF97" target="_blank">Feedback</a> &nbsp; || <a href="https://tcel-hu-berlin.github.io/silc "> &nbsp; SILC webpage</a></p>
             </div>
 		</footer>
     </div>
