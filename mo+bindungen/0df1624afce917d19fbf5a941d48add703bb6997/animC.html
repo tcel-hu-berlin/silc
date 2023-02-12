@@ -56,76 +56,16 @@
         
         <!-- Simnav buttons -->
         <div id="simnav">
-            <div class="inner">
-                <section class="tiles">
-                    <article class="stylePDF">
-                        <span class="image">
-                            <img src="../../images/pic01.jpg" alt="" />
-                        </span>
-                        <a href="../../files/Activity_3_Bindungen_DE.pdf">
-                            <h2>PDF</h2>
-                            <div class="content">
-                                <p>Aufgaben dieser Aktivität</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="styleSim">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="simA.html">
-                            <h2>Simulation A</h2>
-                            <div class="content">
-                                <p>Zwei Wasserstoffatome</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="styleSim">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="animB.html">
-                            <h2>Animation B</h2>
-                            <div class="content">
-                                <p>Zwei Sauerstoffatome</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="styleSimActive">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="animC.html">
-                            <h2>Animationen C</h2>
-                            <div class="content">
-                                <p>Para- und Diamagnetismus</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="styleSim">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="simD.html">
-                            <h2>Simulation D</h2>
-                            <div class="content">
-                                <p>VSEPR-Simulation von PhET&trade;</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="styleSim">
-                        <span class="image">
-                            <img src="../../images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="animE.html">
-                            <h2 style="letter-spacing: 0.01em">Animationen E</h2>
-                            <div class="content">
-                                <p>Zwischenmoleküläre Kräfte und Löslichkeit</p>
-                            </div>
-                        </a>
-                    </article>
-                </section>
-            </div>
+            <script>
+                $("#simnav").load("simnav.html", function(){
+                    let idx = 2
+                    let activeTab = document.getElementsByClassName("styleSim")[idx]
+                    activeTab.classList.remove("styleSim")
+                    activeTab.classList.add("styleSimActive")
+                    let pdfTab = document.getElementsByClassName("stylePDF")[0]
+                    pdfTab.style.display="none"
+                });
+            </script>
         </div>
 
 		<!-- Footer -->
