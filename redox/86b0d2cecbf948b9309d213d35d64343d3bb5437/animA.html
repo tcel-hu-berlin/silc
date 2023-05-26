@@ -24,6 +24,7 @@
             </script>
         </header>
 
+
         <!-- Menu (help in disguise)-->
         <nav id="menu">
             <script>
@@ -88,28 +89,28 @@
         iframeAn = document.getElementById("AnimCuAg")
         iframeAn.onload = function(){
             iframeAn.style.height = iframeAn.contentWindow.document.body.scrollHeight+'px';
-            CB = iframeAn.contentWindow.document.getElementsByTagName("input")[0]
-            CBtext = iframeAn.contentWindow.document.getElementById("1")
+            // CB = iframeAn.contentWindow.document.getElementsByTagName("input")[0]
+            // CBtext = iframeAn.contentWindow.document.getElementById("1")
             gsdiv = iframeAn.contentWindow.document.getElementById("glowscriptdiv")
             gsdiv.style.height = iframeAn.contentWindow.document.body.scrollHeight+'px';
-            CB.classList.add("oddCB")
-            CB.style["margin-right"] = "2px"
-            CB.parentNode.style.position = "relative"
-            var lbl = iframeAn.contentWindow.document.createElement("label")
-            var key = iframeAn.contentWindow.document.createElement("img")
-            // parent.replaceChild(lbl, CB)
-            // lbl.appendChild(CB)
-            CB.after(lbl)
-            lbl.style.position="absolute"; lbl.style.left="50%"; lbl.style.top="4px"
-            // [lbl, CB].forEach(function(m){m.style.width = "18px"; m.style.height="18px"})
-            CB.style.position="absolute"; CB.style.left="50%"; CB.style.top="4px"
-            CBtext.style["margin-left"]="24px"
-            CBtext.style["font-size"]="16px"
-            gsdiv.style.position = "relative"
-            gsdiv.appendChild(key)
-            key.style = "position: absolute; left: 55%; top: 46%; width: 35%"
-            key.src = "../../images/animCuAg_key.png"
-            key.alt = "Verzeichnis der Repräsentationen in der Simulation"
+            // CB.classList.add("oddCB")
+            // CB.style["margin-right"] = "2px"
+            // CB.parentNode.style.position = "relative"
+            // var lbl = iframeAn.contentWindow.document.createElement("label")
+            // var key = iframeAn.contentWindow.document.createElement("img")
+            // // parent.replaceChild(lbl, CB)
+            // // lbl.appendChild(CB)
+            // CB.after(lbl)
+            // lbl.style.position="absolute"; lbl.style.left="50%"; lbl.style.top="4px"
+            // // [lbl, CB].forEach(function(m){m.style.width = "18px"; m.style.height="18px"})
+            // CB.style.position="absolute"; CB.style.left="50%"; CB.style.top="4px"
+            // CBtext.style["margin-left"]="24px"
+            // CBtext.style["font-size"]="16px"
+            // gsdiv.style.position = "relative"
+            // gsdiv.appendChild(key)
+            // key.style = "position: absolute; left: 55%; top: 46%; width: 35%"
+            // key.src = "../../images/animCuAg_key.png"
+            // key.alt = "Verzeichnis der Repräsentationen in der Simulation"
             
         }
     </script>

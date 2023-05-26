@@ -2,12 +2,12 @@
 <html lang="de">
   <head>
     <meta charset="utf-8">
-    <title>Hess's Law Demonstration</title>
+    <title>Cu and Ag animation</title>
     <link type="text/css" href="jquery-ui.custom.css" rel="stylesheet" />
     <link type="text/css" href="ide.css" rel="stylesheet" rel="stylesheet" />
   </head>
 
-<body>
+<body onload="FixCheckboxAddPicture()">
     <div id="glowscriptdiv" style="width:80%" class="glowscript">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <script type="text/javascript" src="https://www.glowscript.org/lib/jquery/2.1/jquery.min.js"></script>
@@ -989,13 +989,35 @@
         });
 
         ;$(function(){ window.__context = { glowscript_container: $("#glowscriptdiv")}; __main__() })})()
-        // END JAVASCRIPT
-
-        
-        
+        // END JAVASCRIPT        
         //--><!]]></script>
         </div> 
         <script>
+            function FixCheckboxAddPicture(){
+                var CB
+                CB = document.getElementsByTagName("input")[0]
+                CBtext = document.getElementById("1")
+                gsdiv = document.getElementById("glowscriptdiv")
+                gsdiv.style.height = document.body.scrollHeight+'px';
+                CB.classList.add("oddCB")
+                CB.style["margin-right"] = "2px"
+                CB.parentNode.style.position = "relative"
+                var lbl = document.createElement("label")
+                var key = document.createElement("img")
+                // parent.replaceChild(lbl, CB)
+                // lbl.appendChild(CB)
+                CB.after(lbl)
+                lbl.style.position="absolute"; lbl.style.left="50%"; lbl.style.top="4px"
+                // [lbl, CB].forEach(function(m){m.style.width = "18px"; m.style.height="18px"})
+                CB.style.position="absolute"; CB.style.left="50%"; CB.style.top="4px"
+                CBtext.style["margin-left"]="24px"
+                CBtext.style["font-size"]="16px"
+                gsdiv.style.position = "relative"
+                gsdiv.appendChild(key)
+                key.style = "position: absolute; left: 55%; top: 46%; width: 35%"
+                key.src = "../../images/animCuAg_key.png"
+                key.alt = "Verzeichnis der Repräsentationen in der Simulation"
+            }
 
         </script>
 
