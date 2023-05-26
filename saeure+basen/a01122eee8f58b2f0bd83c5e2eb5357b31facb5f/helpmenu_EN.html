@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Help Menü: Bindungstheorien</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
+    </head>
+<body class="is-preload">
+    <div class="inner">
+        <div class="inner" id="helpHints">
+            <h2>Helpful Information</h2>
+            <h3>Constants</h3>
+            <ul>
+                <li>Ionic product of water (at 25&deg C): 
+                K<sub>W</sub> = [H<sub>3</sub>O<sup>+</sup>][OH<sup>-</sup>] = 1&middot;10<sup>-14</sup> mol<sup>2 </sup> L<sup>-2</sup></li>
+                <li>pK<sub>a</sub> values:
+                    <ul style="margin-bottom:0">
+                        Acetic Acid: 4.76
+                    </ul>
+                </li>
+                <li>pK<sub>b</sub> values:
+                    <ul>
+                        <li>Ammonia: 4.75</li>
+                        <li>Cyanide ion: 4.60</li>
+                        <li>Methylamine: 3.34</li>
+                        <li>Aniline: 9.37</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>Equations</h3>
+            <ul>
+                <li>Acid dissociation constant: K<sub>a</sub> =[A<sup>-</sup>][H<sub>3</sub>O<sup>+</sup>] / [HA]</li>
+                <li>Base dissociation constant: K<sub>b</sub> =[BH<sup>+</sup>][OH<sup>-</sup>] / [B]</li>
+                <li>Logarithmic form: pK<sub>x</sub> = -log<sub>10</sub>(K<sub>x</sub>)</li>
+                <li>Logarithm of a product: log(a&middot;b) = log(a) + log(b)</li>
+                <li>Logarithm of a fraction: log(a/b) = log(a) - log(b)</li>
+            </ul>
+            <h3>Illustrations</h3>
+            <p style="margin-bottom:0"><strong>Titration setup</strong><span style="float:right"><toggle class="showHide" id="showHideTitr">Show</toggle></span></p>
+            <div id="hintTitr" style="display:none">
+                <img src="../../images/TitrationsAufbau_EN.svg" style="width: 40%; min-width:180px" />
+                <p style="margin-bottom:0">Above: Burette with titrant solution. Below: Erlenmeyer flask with analyte.</p>
+                <p style="margin-top: 0; font-size:0.9em">Source: Matthias M., CC BY 2.0 | <a href = "https://de.wikipedia.org/wiki/Titration#/media/Datei:Titration.svg" target="_blank">(Originalbild anschauen)</a></p>
+            </div>
+            <p style="margin-bottom:0"><strong>Question 2 graphic representation</strong><span style="float:right"><toggle class="showHide" id="showHideICE">Show</toggle></span></p>
+            <div id="hintICE" style="display:none">
+                <img src="../../images/ICE_visualization_EN.png" style="width: 80%; min-width:180px" />
+            </div>
+            <p></p>
+            <h3><i class="far fa-lightbulb"></i> &nbsp Optional Hints </i></h3>
+            <p style="margin-bottom:0"><strong>Question 2</strong><span style="float:right"><toggle class="showHide" id="showHideA">Show</toggle></span></p>
+            <p id="hintA" style="display:none">Try to first write the general form of the acid dissociation constant, before converting it to its logarithmic form. In order to derive the desired equation, one must also make an approximation; namely, that the amount of acid dissociating (<em>x</em>) is much smaller than the starting concentration [HA]<sub>0</sub>.</p>
+            <p style="margin-bottom:0"><strong>Question 7a</strong><span style="float:right"><toggle class="showHide" id="showHideB">Show</toggle></span></p>
+            <p id="hintB" style="display:none">Start by considering your "target" solution, in which the concentrations of the acid and the conjugate base should conform to the Henderson-Hasselbalch equation. There are 
+
+                Denken Sie zunächst an Ihre Ziellösung, wobei die Konzentrationen der Henderson-Hasselbalch-Gleichung entsprechen sollten. Es gibt unendlich viele Lösungen für dieses Problem, je nachdem, wie konzentriert Sie Ihren Puffer haben wollen. Wenn Sie nicht weiter wissen, setzen Sie Ihre Ziellösung mit 0,100 M Essigsäure und der entsprechenden Menge Acetat an (die Sie berechnen sollen)! </p>
+            <p style="margin-bottom:0"><strong>Question 7b</strong><span style="float:right"><toggle class="showHide" id="showHideC">Show</toggle></span></p>
+            <div id="hintC" style="display:none">
+                <p style="margin-bottom:0">Dieses Problem ist mathematisch komplizierter, da das gesamte Acetat als Bestandteil des Puffers durch Reaktion von NaOH und Essigsäure hergestellt werden muss.</p>
+                <img src="../../images/SCFhint.png" width="70%" />
+            </div>
+            <p style="margin-bottom:0"><strong>Question 8a</strong><span style="float:right"><toggle class="showHide" id="showHideD">Show</toggle></span></p>
+            <p id="hintD" style="display:none">Behandeln Sie das Problem einfach wie eine Lösung einer schwachen Säure. </p>
+            <p style="margin-bottom:0"><strong>Question 8c</strong><span style="float:right"><toggle class="showHide" id="showHideE">Show</toggle></span></p>
+            <p id="hintE" style="display:none">Bei der Berechnung des pH-Werts am Äquivalenzpunkt kann das System als Lösung einer schwachen Base behandelt werden, wobei pK<sub>b</sub> bekannt ist. Achten Sie auf die Änderung des gesamten Volumens der Lösung.</p>
+            <p style="margin-bottom:0"><strong>Question 9b</strong><span style="float:right"><toggle class="showHide" id="showHideF">Show</toggle></span></p>
+            <p id="hintF" style="display:none">Überlegen Sie sorgfältig, wie ein pK<sub>b</sub>-Wert in einer Titrationskurve dargestellt wird.</p>
+        </div>
+    </div>
+<script>
+    // Setting up hint toggles
+    showHideToggles = document.getElementsByClassName("showHide");
+        
+        [].forEach.call(showHideToggles, function(m){
+            m.onclick = function(){
+                let hintId = m.id.split("showHide")[1]
+                hint = document.getElementById("hint"+hintId)
+                if (hint.style.display=="none"){
+                    this.innerHTML = "Hide"
+                    hint.style.display="block"
+                } else {
+                    this.innerHTML = "Show"
+                    hint.style.display="none"
+                }
+            }
+        })
+</script>
+</body>
+</html>

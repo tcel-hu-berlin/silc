@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<!--
+	Made using the template Phantom by HTML5 UP
+	html5up.net | @ajlkn
+    TODO: adjust iFrame height for small screens
+    TODO: double check numbers...?
+-->
+<html>
+<head>
+    <title>Säuren und Basen
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+    <script src="../../assets/js/jquery.min.js"></script>
+</head>
+<body class="is-preload">
+<!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <script>$("#header").load("../../header.html");</script>
+        </header>
+
+        <!-- Menu (help in disguise)-->
+        <nav id="menu">
+            <script>$("#menu").load("helpmenu.html");</script>
+        </nav>
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+                <a href="index.html" ><h1>Säuren, Basen und Puffer</h1></a>
+                <h2>Simulation A: Säuredissoziation auf molekularer Ebene </h2>
+                <h3>Überblick der Simulation:</h3>
+                    <ul>
+                        <li>
+                            Diese Simulation zeigt eine vereinfachte Darstellung der Moleküle in einer Lösung, während eine schwache Säure HA in Wasser dissoziiert.
+                        </li>
+                        <li>
+                            Die Konzentrationen der Säure HA, ihrer konjugierten Base A<sup>-</sup> und der Hydronium-Ionen (H<sub>3</sub>O<sup>+</sup>) ändern sich im Laufe der Zeit. Diese Entwicklung wird schrittweise im begleitenden Diagramm dargestellt.
+                        </li>
+                        <li>
+                            Die Animation kann jederzeit mit einer Berührung angehalten und fortgesetzt werden.
+                        </li> 
+                        <li>
+                            Wenn die Animation gestoppt ist, können die genauen Werte im Diagramm durch Berühren abgelesen werden.
+                        </li>
+                    </ul>
+                <h3>Zu Beachten:</h3>
+                <ul>
+                    <li>Jedes Teilchen in der Animation kann als 1 μmol von Teilchen betrachtet werden.</li>
+                    <li>Das Volumen der Lösung kann als 1 L angenommen werden.</li>
+                </ul>
+                <iframe scrolling="no" id="simulationA" src="../../assets/glowscript/acidBaseSimA.html" style="width: 100%; height:200px"></iframe>
+            </div>
+        </div>
+        
+        <!-- Simnav buttons -->
+        <div id="simnav">
+            <div class="inner">
+                <section class="tiles">
+                    <article class="styleSimActive">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simA.html">
+                            <h2>Simulation A</h2>
+                            <div class="content">
+                                <p>Säuredissoziation auf molekularer Ebene</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simB.html">
+                            <h2>Simulation B</h2>
+                            <div class="content">
+                                <p>Vorhersage von Säure-Basen-Gleichgewichten</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simC.html">
+                            <h2>Simulation C</h2>
+                            <div class="content">
+                                <p>Erstellung eines Puffers</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simD.html">
+                            <h2>Simulation D</h2>
+                            <div class="content">
+                                <p>Modellierung einer Titration</p>
+                            </div>
+                        </a>
+                    </article>
+                </section>
+            </div>
+        </div>
+        
+		<!-- Footer -->
+		<footer id="footer">
+            <script>$("#footer").load("../../footer.html"); </script>
+		</footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/browser.min.js"></script>
+    <script src="../../assets/js/breakpoints.min.js"></script>
+    <script src="../../assets/js/util.js"></script>
+    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/Three49custom.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script>
+        iFrame = document.getElementById("simulationA")
+        iFrame.onload = function(){
+            window_width = iFrame.contentWindow.window_width
+            iFrame.style.height = window_width/2.1+'px'
+            setTimeout(function(){
+                legend = iFrame.contentWindow.legend[0]
+                legend.style.opacity=0
+                }, 1000)
+        }
+    </script>
+</body>
+</html>
