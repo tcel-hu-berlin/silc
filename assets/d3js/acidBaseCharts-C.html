@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<!--
+	Made using the template Phantom by HTML5 UP
+	html5up.net | @ajlkn
+-->
+<html>
+<head>
+    <title>Erstellung eines Puffers</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+    <script src="../../assets/js/jquery.min.js"></script>
+    </head>
+<body class="is-preload">
+    <p style="margin-bottom: 0.5em"><button class="interfaceButton" id="play-button">Run</button>
+        &nbsp &nbsp &nbsp [HA]<sub>0</sub> =
+        <input type="number" min="0" max="1" step="0.050" value="0.100" id="cHA-value">
+        M &nbsp &nbsp &nbsp  [A<sup>-</sup>]<sub>0</sub> = 
+        <input type="number" min="0" max="1" step="0.05" value="0.000" id="cA-value">
+        M &nbsp &nbsp &nbsp &nbsp <span style="font-weight:600">log. Skala</span> 
+        <input type="checkbox" id="logScaleCB" name="logScaleCB" checked><label for="logScaleCB"></label>
+    </p>
+    <p><button class="interfaceButton" id="addBase-button" disabled>+ Base</button>
+        <span id="addBase-block" style="font-weight:700; color: rgb(0, 127.5, 204); display:none"> &nbsp &nbsp ← Füge 5 mL 5M NaOH hinzu!</span></p>
+    <svg class="interactiveGraph" id="simulationC-svg" width="800" height="500"></svg>
+
+<!-- Scripts -->
+    <script src="../../assets/js/browser.min.js"></script>
+    <script src="../../assets/js/breakpoints.min.js"></script>
+    <script src="../../assets/js/util.js"></script>
+    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/Three49custom.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="../js/acidBaseCharts-C.js"></script>
+    <script>
+        const disableScroll = function(e){
+            e.preventDefault()
+        }
+        const enableScroll = function(e){
+            e.preventDefault()
+        }
+        const d = document.getElementById("clickRect")
+            d.addEventListener("touchstart", disableScroll)
+            d.addEventListener("touchend", enableScroll)
+    </script>
+</body>
+</html>
