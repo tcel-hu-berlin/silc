@@ -1,0 +1,417 @@
+<!DOCTYPE HTML>
+<!--
+	Made using the template Phantom by HTML5 UP
+	html5up.net | @ajlkn
+-->
+<html>
+<head>
+    <title>Ion Chart</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+    <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
+    <script src="ionNomenclature.js"></script>
+    <link rel="stylesheet" href="../assets/mathquill-0.10.1/mathquill.css">
+    <style>
+        input[type="checkbox"] {
+            display: inline !important
+        }
+        /* disabling italics for letters to better match chemical formulas */
+        .mq-math-mode var,
+        .mq-math-mode i,
+        .mq-math-mode i.mq-font {
+            font-style: normal;
+            }
+        
+        .feedback {
+            font-size: 0.8em
+        }
+        .correct {
+            border-width: 0;
+            /* color: green; */
+        }
+        .correct.feedback {
+            color: green;
+            font-weight: 600;
+        }
+        .incorrect {
+            /* border-color: red; */
+            color: red;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+            }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: rgb(68, 68, 130);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            margin-left: 8px; 
+            
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+            top: -5px;
+            left: 105%;
+            }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            }
+        
+        button {
+            text-transform: none !important;
+            height: 2.5em !important;
+            line-height:2.5em !important;
+            display:inline
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../assets/mathquill-0.10.1/mathquill.js"></script>
+    <script>
+        var MQ = MathQuill.getInterface(2);
+        </script>
+    </head>
+<body class="is-preload">
+<!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <script>
+                $("#header").load("../../header_EN.html");
+            </script>
+        </header>
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner" style="max-width: 80em">
+                <h1>Ion Chart</h1>
+                <p>Test your knowledge of salt nomenclature! Enter the formulas and names for the various combinations of cations (rows) and anions (columns). You can hover over each ion to view its common name. Use underscore (_) to include a subscript or a "carrot" (^) to include a superscript. Press Enter to check your answer.
+                <br>
+                <span style="color: red">Warning: this is a minimum working version of this page! No guarantees that it won't randomly reload and erase all of your inputs. Take frequent screenshots of your work.</span>
+                </p>
+                <p id="listOfAnions">Select up to <b>6</b> anions to display, then click on "Regenerate Table".<br>
+                </p>
+                <button id="genTable" style="margin-bottom:2em">generate table</button>
+                <div id="areYouSure" style="display:none"><span style="color:red; font-weight:600">&nbsp; Erase everything and create a new table? &nbsp; &nbsp;</span><button id="yesGenTable" style="margin-bottom:2em; display:inline">Yes</button>&nbsp; <button id="noGenTable" style="margin-bottom:2em; display:inline">No</button></div>
+                <script>
+                    var listOfAnions = []
+                    defaultAnions = ["Cl", "F", "NO3", "PO4", "SO4", "H", "OH"]
+                    var numChecked = defaultAnions.length
+                    for (var key in ionNames["anions"]) {
+                        if (ionNames["anions"].hasOwnProperty(key)){
+                            // listOfAnions.push(ionNames["anions"][key])
+                            ionSpan = document.createElement("span")
+                            ionCheckbox = document.createElement("input")
+                            ionCheckbox.setAttribute("type", "checkbox")
+                            ionCheckbox.setAttribute("class", "checkbox")
+                            ionCheckbox.setAttribute("id", key)
+                            if (defaultAnions.includes(key)){
+                                ionCheckbox.setAttribute("checked", true)
+                                listOfAnions.push(key)
+                            } else {ionCheckbox.setAttribute("disabled", true)}
+                            a = ionNames["anions"][key]
+                            ionCheckbox.onclick = function(){
+                                document.getElementById("areYouSure").style.display="none"
+                                document.getElementById("genTable").disabled=false
+                                if(this.checked){
+                                    console.log("add"+this.id)
+                                    listOfAnions.push(this.id)
+                                    listOfAnions.sort((a,b)=>(ionNames["anions"][a].order-ionNames["anions"][b].order))
+                                    console.log(listOfAnions)
+                                    Array.from(document.getElementsByClassName("checkbox")).filter((cb)=>cb.checked == true).forEach((e)=>e.disabled=false)
+                                    numChecked += 1
+                                    if (numChecked>=6){
+                                        Array.from(document.getElementsByClassName("checkbox")).filter((cb)=>cb.checked == false).forEach((e)=>e.disabled=true)
+                                    }
+                                }
+                                else {
+                                    console.log("remove"+this.id)
+                                    listOfAnions = listOfAnions.filter((a)=>a != this.id)
+                                    listOfAnions.sort((a,b)=>(ionNames["anions"][a].order-ionNames["anions"][b].order))
+                                    console.log(listOfAnions)
+                                    numChecked -= 1
+                                    Array.from(document.getElementsByClassName("checkbox")).filter((cb)=>cb.checked == false).forEach((e)=>e.disabled=false)
+                                    if (numChecked<=1){
+                                        Array.from(document.getElementsByClassName("checkbox")).filter((cb)=>cb.checked == true).forEach((e)=>e.disabled=true)
+                                    }
+                                }
+                            }
+                            ionSpan.innerHTML = a["symbol"] + " &nbsp &nbsp"
+                            document.getElementById("listOfAnions").appendChild(ionCheckbox)
+                            document.getElementById("listOfAnions").appendChild(ionSpan)
+                        }
+                    }
+                    
+
+                    // button functions 
+                    document.getElementById("genTable").onclick = function(){
+                        if (this.innerHTML=="generate table"){
+                            this.innerHTML = "regenerate table"
+                            generateTable(listOfAnions)
+                        } else {
+                            console.log("yo")
+                            document.getElementById("areYouSure").style.display="inline"
+                            document.getElementById("genTable").disabled=true
+                        }
+                        
+                    }
+                    document.getElementById("yesGenTable").onclick = function(){
+                        document.getElementById("areYouSure").style.display="none"
+                        document.getElementById("genTable").disabled=false
+                        generateTable(listOfAnions)
+                    }
+                    document.getElementById("noGenTable").onclick = function(){
+                        document.getElementById("areYouSure").style.display="none"
+                        document.getElementById("genTable").disabled=false
+                    }
+                </script>
+                <!-- <p><span id="testBox1">---</span> <span id="testBox2">---</span> <span id="testBox3">H_2SO_4</span></p> -->
+                <table id="ionChart"></table>
+                <script>
+                    // greatest common denominator, from wikipedia
+                    function gcd_rec(a, b) {
+                        if (b) {
+                            return gcd_rec(b, a % b);
+                        } else {
+                            return Math.abs(a);
+                        }
+                    }
+                    function determineFormula(comboID){
+                        var catIdx = comboID.split("x")[0], anIdx = comboID.split("x")[1] 
+                        var catInfo = cationInfo[catIdx], anInfo = anionInfo[anIdx] 
+                        // some notable exceptions to handle
+                        if (catInfo.preName=="hydrogen" && anInfo.postName=="hydride"){
+                            return "H<sub>2</sub>"
+                        }
+                        if (catInfo.preName=="hydrogen" && anInfo.postName=="hydroxide"){
+                            return "H<sub>2</sub>O"
+                        }
+                        var catSide = catInfo.symbol.split("<sup>")[0], anSide = anInfo.symbol.split("<sup>")[0]
+                        var catCoeff = anInfo.charge, anCoeff = catInfo.charge
+                        // simplifying coefficients
+                        var gcd = gcd_rec(catCoeff, anCoeff)
+                        catCoeff /= gcd; anCoeff /= gcd
+                        if (catCoeff != 1){
+                            if (catInfo.poly == true ){
+                                catSide = "(" + catSide + ")"
+                            }
+                            catSide = catSide + "<sub>" + catCoeff + "</sub>"
+                        }
+
+                        if (anCoeff != 1){
+                            if (anInfo.poly == true){
+                                anSide = "(" + anSide + ")" 
+                            }
+                            anSide = anSide + "<sub>"+anCoeff+"</sub>"  
+                        }
+                        return catSide + anSide
+                    }
+                    function determineName(comboID){
+                        var catIdx = comboID.split("x")[0], anIdx = comboID.split("x")[1]
+                        var catInfo = cationInfo[catIdx], anInfo = anionInfo[anIdx]
+                        // some notable exceptions to handle
+                        if (catInfo.preName=="hydrogen"){
+                            if (anInfo.postName=="hydride"){
+                                return "hydrogen"
+                                } else if (anInfo.postName == "hydroxide"){
+                                    return "water"
+                                    } else {
+                                        return anInfo.preName + " " + catInfo.postName
+                                    }
+                        } else {
+                            return catInfo.preName + " " + anInfo.postName
+                        }
+                        
+                        // to do: transition metal conditions
+                    }
+                    function cleanLeftRight(htmlString){
+                        return htmlString.split("\\left").join("").split("\\right").join("")
+                    }
+                    function LatexToHTML(latexString){
+                        // only for superscripts and subscripts!
+                        ls = latexString
+                        var ignore = false
+                        builtString = latexString[0]
+                        for (i=1; i<latexString.length; i++){
+                            console.log(ls[i])
+                            if (ls[i] == "}"){
+                                ignore = false
+                                console.log("continuing?")
+                                continue
+                            }
+                            if (ignore || ls[i-1] == "^" || ls[i-1] == "_") {
+                                console.log("skipped")
+                                continue
+                            }
+                            if (ls[i]=="_"){
+                                // subscript condition
+                                if (ls[i+1] == "{"){
+                                    ignore = true
+                                    subscript = latexString.substring(i+2).split("}")[0]
+                                } else {
+                                    subscript = ls[i+1]
+                                }
+                                builtString = builtString + "<sub>" + subscript + "</sub>"
+                                console.log("subscripted")
+                                }
+                            if (ls[i]=="^"){
+                                // superscript condition
+                                if (ls[i+1] == "{"){
+                                    ignore = true
+                                    supscript = latexString.substring(i+2).split("}")[0]
+                                } else {
+                                    supscript = ls[i+1]
+                                }
+                                builtString = builtString + "<sup>" + supscript + "</sup>"
+                                console.log("superscripted")
+                                }
+                            if (ls[i] != "_" && ls[i] !="_"){
+                               builtString = builtString + ls[i] 
+                               console.log("normal")
+                            }
+                            }
+                        return cleanLeftRight(builtString)
+                        }
+
+                    var includedCations, includedAnions, cations, cationInfo, anions, anionInfo, enteredFormulas, correctFormulas, enteredNames, correctNames, table, selComboID, firstRow, corner
+                    function generateTable(anionList){
+                        
+                        includedCations = ["H", "Li", "Na", "K", "NH4", "Ca", "Al", "FeII", "FeIII"]
+                        includedAnions = anionList //["Cl", "NO3", "PO4", "SO4", "H", "OH"]
+                        cations = []; cationInfo = []; anions = []; anionInfo=[]
+                        includedCations.forEach(function(c){
+                            cations.push(ionNames["cations"][c].symbol);
+                            cationInfo.push(ionNames["cations"][c])
+                        })
+                        includedAnions.forEach(function(a){
+                            anions.push(ionNames["anions"][a].symbol);
+                            anionInfo.push(ionNames["anions"][a])
+                        })
+                        enteredFormulas = {}; correctFormulas = {}
+                        enteredNames = {}; correctNames = {}
+                        table = document.getElementById("ionChart")
+                        table.innerHTML=""
+                        var selComboID
+                        for (i=0; i<cations.length; i++){
+                            var row = table.insertRow(i)
+                            var rowName = row.insertCell(0)
+                            // rowName.innerHTML = "<b>"+cations[i]+"</b>"
+                            rowName.innerHTML = "<div class='tooltip'><b>"+cations[i]+"</b><span class='tooltiptext'>"+cationInfo[i].preName+" ion</span></div>"
+                            for (j=0; j<anions.length; j++){
+                                var cell = row.insertCell(j+1)
+                                var cellID = i.toString()+"x"+j.toString()
+                                cell.setAttribute("id", cellID)
+                                cell.innerHTML = "<p style='margin-bottom:0'><span id='form"+cellID+"'><input type='text' id='dummy"+cellID+"' placeholder='enter formula' style='width: 90%'></input></span><span class='feedback' id='fdbk"+cellID+"'></span><br><input id='name"+cellID+"' type='text' placeholder='enter name' style='width: 90%'></input><span class='feedback' id='nfdbk"+cellID+"' style='width: 10%'></span></p>" 
+                                correctFormulas[cellID]=determineFormula(cellID)
+                                correctNames[cellID] = determineName(cellID)
+                                document.getElementById("form"+cellID).onclick = function(){
+                                    this.innerHTML = ""
+                                    selComboID = this.id.split("form")[1]
+                                    // document.getElementById("testBox1").innerHTML = correctFormulas[selComboID]
+                                    // document.getElementById("testBox2").innerHTML = correctNames[selComboID]
+                                    enteredFormulas[selComboID] = MQ.MathField(this, {
+                                        handlers: {
+                                            edit: function() {
+                                                enteredMath = enteredFormulas[selComboID].latex(); // Get entered math in LaTeX format
+                                            }, 
+                                            enter: function() {
+                                                console.log("thank you.")
+                                                var entered = LatexToHTML(enteredFormulas[selComboID].latex())
+                                                var correct = correctFormulas[selComboID]
+                                                if (entered == correct){
+                                                    console.log("Correct Formula!")
+                                                    document.getElementById("fdbk"+selComboID).innerHTML="&nbsp; &#x2713;"
+                                                    document.getElementById("form"+selComboID).classList.remove("incorrect")
+                                                    document.getElementById("form"+selComboID).classList.remove("mq-focused")
+                                                    document.getElementById("form"+selComboID).classList.add("correct")
+                                                    document.getElementById("fdbk"+selComboID).classList.add("correct")
+                                                } else {
+                                                    console.log("Incorrect Formula")
+                                                    document.getElementById("fdbk"+selComboID).innerHTML="&nbsp; &#x2717; Try again!"
+                                                    document.getElementById("form"+selComboID).classList.add("incorrect")
+                                                    document.getElementById("fdbk"+selComboID).classList.remove("correct")
+                                                    document.getElementById("fdbk"+selComboID).classList.add("incorrect")
+                                                }
+                                                    
+                                                console.log("entered: ", entered)
+                                                console.log("correct: ", correct)
+                                            } 
+                                        }
+                                    })
+                                    enteredFormulas[selComboID].focus()
+                                    this.onclick = function(){
+                                        selComboID = this.id.split("form")[1]
+                                        enteredFormulas[selComboID].focus()
+                                    }         
+                                }
+
+                                // document.getElementById("name"+cellID).onclick = function(field){
+                                //     selComboID = this.id.split("name")[1]
+                                //     enteredNames[selComboID] = field       
+                                // }
+                                document.getElementById("name"+cellID).addEventListener("keypress", function(e){
+                                    if (e.key === "Enter") {
+                                        idx = this.id.split("name")[1]
+                                        enteredNames[idx] = this.value
+                                        entered = this.value
+                                        correct = correctNames[idx]
+                                        console.log("entered:", entered)
+                                        console.log("correct:", correct)
+                                        if (entered == correct){
+                                            console.log("Correct Name!")
+                                            document.getElementById("nfdbk"+idx).innerHTML="&nbsp; &#x2713;"
+                                            document.getElementById("name"+idx).classList.remove("incorrect")
+                                            // document.getElementById("name"+idx).style.width='fit-content'
+                                            document.getElementById("name"+idx).disabled=true
+                                            document.getElementById("name"+idx).style.borderBottom = "0"
+                                            document.getElementById("name"+idx).classList.add("correct")
+                                            document.getElementById("nfdbk"+idx).classList.add("correct")
+
+                                        }
+                                    }
+                                })
+
+                                // document.getElementById("name"+cellID).onclick = function(field){
+                                //     selComboID = this.id.split("name")[1]
+                                //     enteredNames[selComboID] = field       
+                                // }
+
+                                
+                            }
+                        }
+                        firstRow = table.insertRow(0)
+                        corner = firstRow.insertCell(0)
+                        // corner.innerHTML = "<b>anion →<br>cation ↓</b>"
+                        for (j=0; j<anions.length; j++){
+                                var cell = firstRow.insertCell(j+1)
+                                cell.innerHTML = "<div class='tooltip'><b>"+anions[j]+"</b><span class='tooltiptext'>"+anionInfo[j].postName+" ion</span></div>"
+                                
+                            }
+                    }
+                </script>
+            </div>
+        </div>
+        
+		<!-- Footer -->
+		<footer id="footer">
+            <script>$("#footer").load("../footer_EN.html"); </script>
+		</footer>
+    </div>
+
+<!-- Scripts -->
+    <script src="../../assets/js/browser.min.js"></script>
+    <script src="../../assets/js/breakpoints.min.js"></script>
+    <script src="../../assets/js/util.js"></script>
+    <script src="../../assets/js/main.js"></script>
+</body>
+</html>
