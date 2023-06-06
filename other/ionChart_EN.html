@@ -389,6 +389,11 @@
                                         }
                                     }
                                 })
+                                document.getElementById("dummy"+cellID).addEventListener("focus", function(e){
+                                    selComboID = this.id.split("dummy")[1]
+                                    document.getElementById("form"+selComboID).click()
+                                    document.getElementById("form"+selComboID).focus()
+                                })
 
                                 // document.getElementById("name"+cellID).onclick = function(field){
                                 //     selComboID = this.id.split("name")[1]
