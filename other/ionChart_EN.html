@@ -5,7 +5,7 @@
 -->
 <html>
 <head>
-    <title>Ion Chart</title>
+    <title>Ionic Compounds Chart</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="../assets/css/main.css" />
@@ -88,6 +88,10 @@
             border: solid 1px rgba(144, 144, 250, 0.45);
         }
 
+        .keepTogether {
+            display: inline-block
+        }
+
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="../assets/mathquill-0.10.1/mathquill.js"></script>
@@ -101,15 +105,16 @@
         <!-- Main -->
         <div id="main">
             <div class="inner" style="max-width: 80em">
-                <h1>Ion Chart</h1>
-                <p style="margin-bottom:0">Test your knowledge of salt nomenclature! Enter the formulas and names for the various combinations of cations (rows) and anions (columns). You can hover over each ion to view its common name. Use underscore (_) to include a subscript or a "carrot" (^) to include a superscript. Press Enter to check your answer. The solution can optionally be found below the table.</p>
+                <h2>Ionic Compounds Chart</h2>
+                <h3>Test your knowledge of salt nomenclature! </h3>
+                <p style="margin-bottom:0">Enter the formulas and names for the various combinations of cations (rows) and anions (columns). You can hover over each ion to view its common name. Use underscore (_) to include a subscript or a "carrot" (^) to include a superscript. Press Enter to check your answer. The solution can optionally be found below the table.</p>
                 <h3>Notes:</h3>
                 <ul>
                     <li><span style="color: red">Warning: this page does not save any of your work! If the page refreshes, your answers will be erased.</span></li>
                     <li>The current version is very limited on the names that are accepted; if you enter a name and it is marked as "incorrect," it is possible that you are correct but are using an alternate nomenclature. Lastly, note that American spelling conventions are followed in the current version (<em>sulfate</em> instead of <em>sulphate</em>, <em>aluminum</em> instead of <em>aluminium</em>, etc.).</li>
+                    <li>Need a refresher? Read about <a href="https://chem.libretexts.org/Courses/Los_Angeles_Trade_Technical_College/Foundations_of_Introductory_College_Chemistry/06%3A_Nomenclature/5.1_Naming_Binary_Ionic_Compounds">naming binary ionic compounds</a> (including polyatomic ions) on LibreTexts.org.</li>
                 </ul>
-                
-                <p id="listOfAnions">Select up to <b>6</b> anions to display, then click on "Regenerate Table".<br>
+                <p id="listOfAnions" style="margin-bottom:1em">Select up to <b>6</b> anions to display, then click on "Regenerate Table".<br>
                 </p>
                 <button id="genTable" style="margin-bottom:2em">generate table</button>
                 <div id="areYouSure" style="display:none"><span style="color:red; font-weight:600">&nbsp; Erase everything and create a new table? &nbsp; &nbsp;</span><button id="yesGenTable" style="margin-bottom:2em; display:inline">Yes</button>&nbsp; <button id="noGenTable" style="margin-bottom:2em; display:inline">No</button></div>
@@ -117,9 +122,12 @@
                     var listOfAnions = []
                     defaultAnions = ["Cl", "F", "NO3", "PO4", "SO4", "H", "OH"]
                     var numChecked = defaultAnions.length
+                    ctr=0
                     for (var key in ionNames["anions"]) {
                         if (ionNames["anions"].hasOwnProperty(key)){
                             // listOfAnions.push(ionNames["anions"][key])
+                            group = document.createElement("span")
+                            group.setAttribute("class","keepTogether")
                             ionSpan = document.createElement("span")
                             ionCheckbox = document.createElement("input")
                             ionCheckbox.setAttribute("type", "checkbox")
@@ -156,9 +164,18 @@
                                     }
                                 }
                             }
+                            ctr += 1
                             ionSpan.innerHTML = a["symbol"] + " &nbsp &nbsp"
-                            document.getElementById("listOfAnions").appendChild(ionCheckbox)
-                            document.getElementById("listOfAnions").appendChild(ionSpan)
+                            // document.getElementById("listOfAnions").appendChild(ionCheckbox)
+                            // document.getElementById("listOfAnions").appendChild(ionSpan)
+                            
+                            group.appendChild(ionCheckbox)
+                            // group.appendChild(document.createTextNode(" "))
+                            group.appendChild(ionSpan)
+                            // if (ctr%8 == 0){
+                            //     group.appendChild(document.createElement("br"))
+                            // }
+                            document.getElementById("listOfAnions").appendChild(group)
                         }
                     }
                     
@@ -235,7 +252,7 @@
                         if (catInfo.preName=="hydrogen"){
                             if (anInfo.postName=="hydride"){
                                 return "hydrogen"
-                                } else if (anInfo.postName == "hydroxide"){
+                                } else if (anInfo.postName == "hydroxide" || anInfo.postName == "oxide"){
                                     return "water"
                                     } else {
                                         return anInfo.preName + " " + catInfo.postName

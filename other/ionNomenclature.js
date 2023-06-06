@@ -156,7 +156,36 @@ const ionNames = {
                 "postName": "hydride",
                 "charge": 1,
                 "poly": false,
+                "order": 11
+        },
+        "O": {  "symbol": "O<sup>2-</sup>",
+                "preName": "water",
+                "postName": "oxide",
+                "charge": 2,
+                "poly": false,
                 "order": 10
-        }
+        },
+        "CrO4": {  "symbol": "CrO<sub>4</sub><sup>2-</sup>",
+                "preName": "chromic",
+                "postName": "chromate",
+                "charge": 2,
+                "poly": true,
+                "order": 12
+        },
+        "Cr2O7": {  "symbol": "Cr<sub>2</sub>O<sub>7</sub><sup>2-</sup>",
+                "preName": "dichromic",
+                "postName": "dichromate",
+                "charge": 2,
+                "poly": true,
+                "order": 13
+        },
+        "CN": {  "symbol": "CN<sup>-</sup>",
+                "preName": "prussic",
+                "postName": "cyanide",
+                "charge": 1,
+                "poly": true,
+                "order": 14
+        },
+        
     }
 }
