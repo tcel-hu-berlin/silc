@@ -102,10 +102,13 @@
         <div id="main">
             <div class="inner" style="max-width: 80em">
                 <h1>Ion Chart</h1>
-                <p>Test your knowledge of salt nomenclature! Enter the formulas and names for the various combinations of cations (rows) and anions (columns). You can hover over each ion to view its common name. Use underscore (_) to include a subscript or a "carrot" (^) to include a superscript. Press Enter to check your answer.
-                <br>
-                <span style="color: red">Warning: this is a minimum working version of this page! No guarantees that it won't randomly reload and erase all of your inputs. Take frequent screenshots of your work.</span>
-                </p>
+                <p style="margin-bottom:0">Test your knowledge of salt nomenclature! Enter the formulas and names for the various combinations of cations (rows) and anions (columns). You can hover over each ion to view its common name. Use underscore (_) to include a subscript or a "carrot" (^) to include a superscript. Press Enter to check your answer. The solution can optionally be found below the table.</p>
+                <h3>Notes:</h3>
+                <ul>
+                    <li><span style="color: red">Warning: this page does not save any of your work! If the page refreshes, your answers will be erased.</span></li>
+                    <li>The current version is very limited on the names that are accepted; if you enter a name and it is marked as "incorrect," it is possible that you are correct but are using an alternate nomenclature. Lastly, note that American spelling conventions are followed in the current version (<em>sulfate</em> instead of <em>sulphate</em>, <em>aluminum</em> instead of <em>aluminium</em>, etc.).</li>
+                </ul>
+                
                 <p id="listOfAnions">Select up to <b>6</b> anions to display, then click on "Regenerate Table".<br>
                 </p>
                 <button id="genTable" style="margin-bottom:2em">generate table</button>
@@ -184,7 +187,7 @@
                 </script>
                 <!-- <p><span id="testBox1">---</span> <span id="testBox2">---</span> <span id="testBox3">H_2SO_4</span></p> -->
                 <table id="ionChart"></table>
-                <p id="solutionHint" style="display:none">Having trouble?: &nbsp; <a id="showHideSol">Check solution</a></p>
+                <p id="solutionHint" style="display:none"><a id="showHideSol">Check solution</a></p>
                 <table id="ionChartSol" style="visibility:hidden"></table>
                 <script>
                     // greatest common denominator, from wikipedia
