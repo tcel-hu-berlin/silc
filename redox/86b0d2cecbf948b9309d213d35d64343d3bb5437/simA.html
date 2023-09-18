@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<!--
+	Made using the template Phantom by HTML5 UP
+	html5up.net | @ajlkn
+-->
+<html>
+<head>
+    <title>Elektrochemie auf Teilchenebene</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+    <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
+    <script src="../../assets/js/jquery.min.js"></script>
+    <style>
+        /* Add some basic styling to the chart */
+        #chart {
+          width: 400px;
+          height: 300px;
+          margin: 0 auto;
+          border: solid 2px red 
+        }
+      </style>
+    </head>
+<body class="is-preload">
+<!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <script>
+                $("#header").load("../../header.html");
+            </script>
+        </header>
+
+        <!-- Menu (help in disguise)-->
+        <nav id="menu">
+            <script>
+                $("#menu").load("helpmenu.html");
+            </script>
+        </nav>
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+                <a href="index.html"><h1>Elektrochemie auf Teilchenebene</h1></a>
+				<h2>Interaktives Diagramm A: E, G, K</h2>
+                <h3>Überblick:</h3>
+                <ul>
+                    <li>Hier sind die Verhältnisse zwischen der Gleichgewichtskonstante, der Gibbs-Enthalpie, und dem Standardpotential zu sehen.</li>
+                </ul>
+                <div id="chart"></div>
+                    <form>
+                        <label for="kInput">K:</label>
+                        <input type="number" id="kInput">
+                        <label for="gInput">G:</label>
+                        <input type="number" id="gInput">
+                    </form>
+
+                    
+            </div>
+        </div>
+        
+        <!-- Simnav buttons -->
+        <div id="simnav">
+            <script>
+                $("#simnav").load("simnav.html", function(){
+                    let idx = 0
+                    let activeTab = document.getElementsByClassName("styleSim")[idx]
+                    activeTab.classList.remove("styleSim")
+                    activeTab.classList.add("styleSimActive")
+                    let pdfTab = document.getElementsByClassName("stylePDF")[0]
+                    pdfTab.style.display="none"
+                });
+            </script>
+        </div>
+
+		<!-- Footer -->
+		<footer id="footer">
+            <script>$("#footer").load("../../footer.html"); </script>
+		</footer>
+    </div>
+
+<!-- Scripts -->
+    <script src="../../assets/js/browser.min.js"></script>
+    <script src="../../assets/js/breakpoints.min.js"></script>
+    <script src="../../assets/js/util.js"></script>
+    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/Three49custom.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script>
+        // Get the input fields and chart container
+        const kInput = document.getElementById('kInput');
+        const gInput = document.getElementById('gInput');
+        const chartContainer = document.getElementById('chart');
+
+        // Set initial values for K and G
+        let kValue = 10;
+        let gValue = -3 * Math.log(kValue);
+
+        // Create the chart using D3.js
+        const svg = d3.select(chartContainer)
+        .append('svg')
+        .attr('width', '100%')
+        .attr('height', '100%');
+
+        const kScale = d3.scaleLinear()
+        .domain([1000, 1])
+        .range([100, 200]);
+
+        const gScale = d3.scaleLinear()
+        .domain([27, 0]) // Update domain to allow for negative values
+        .range([100, 200]);
+
+        const kAxis = d3.axisLeft(kScale);
+        const gAxis = d3.axisRight(gScale);
+
+        const chart = svg.append('g');
+
+        chart.append('rect')
+        .attr('x', 50)
+        .attr('y', (d) => 200 - Math.max(0, kScale(kValue))) // Update y-coordinate to accommodate negative values
+        .attr('width', 40)
+        .attr('height', (d) => Math.abs(kScale(kValue))) // Update height to accommodate negative values
+        .attr('fill', 'steelblue');
+
+        chart.append('rect')
+        .attr('x', 150)
+        .attr('y', (d) => 200 - Math.max(0, gScale(gValue))) // Update y-coordinate to accommodate negative values
+        .attr('width', 40)
+        .attr('height', (d) => Math.abs(gScale(gValue))) // Update height to accommodate negative values
+        .attr('fill', 'steelblue');
+
+        chart.append('g')
+        .attr('transform', 'translate(50, 0)')
+        .call(kAxis);
+
+        chart.append('g')
+        .attr('transform', 'translate(190, 0)')
+        .call(gAxis);
+
+        // Update the chart based on the current values of K and G
+        const updateChart = () => {
+        kValue = parseFloat(kInput.value);
+        gValue = -3 * Math.log(kValue);
+
+        chart.select('rect')
+            .attr('y', (d) => 200 - Math.max(0, kScale(kValue)))
+            .attr('height', (d) => Math.abs(kScale(kValue)));
+
+            chart.select('rect:nth-child(2)')
+            .attr('y', (d) => 200 - Math.max(0, gScale(gValue)))
+            .attr('height', (d) => Math.abs(gScale(gValue)));
+
+        chart.select('.axisRight')
+            .call(gAxis);
+        }
+
+        // Add event listeners to the input fields
+        kInput.addEventListener('input', updateChart);
+        gInput.addEventListener('input', updateChart);
+  </script>
+</body>
+</html>
+
+    </script>
+
+</body>
+</html>

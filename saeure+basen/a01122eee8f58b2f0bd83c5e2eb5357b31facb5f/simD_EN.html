@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<!--
+	Made using the template Phantom by HTML5 UP
+	html5up.net | @ajlkn
+-->
+<html>
+<head>
+    <title>Säuren und Basen
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+    <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
+    <script src="../../assets/js/jquery.min.js"></script>
+    </head>
+<body class="is-preload">
+<!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <script>$("#header").load("../../header.html");</script>
+        </header>
+
+        <!-- Menu (help in disguise)-->
+        <nav id="menu">
+            <script>$("#menu").load("helpmenu.html");</script>
+        </nav>
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+                <a href="index.html" ><h1>Säuren, Basen und Puffer</h1></a>
+                <h2>Simulation D: Modellierung einer Titration</h2>
+                <p>Mit dieser Simulation lässt sich die Veränderung des pH-Wertes während einer Säure-Base-Titration beobachten. Verschiedene Kombinationen von Säuren und Basen können simuliert werden. Für die virtuelle Titration stehen mehrere starke und schwache Säuren und Basen sowie Indikatoren zur Auswahl. Die Simulation wurde ursprünglich von Prof. Dr. Peter Bird (Concordia University) entwickelt.</p>
+                <h3>Überblick:</h3>
+                <ul style="margin-bottom: 0">
+                    <li>
+                        Die Identitäten und Konzentrationen der Säure und der Base können über die Dropdown-Menüs ausgewählt werden.
+                    </li>
+                    <li>
+                        Die Rolle des Titriermittels kann entweder die Säure oder die Base übernehmen. Dies kann über den Radiobutton <b style="color:#5469b7">Bürette enthält...</b> eingestellt werden.
+                    </li>
+                    <li>
+                        Unter dem Reiter <b style="color:#5469b7">Indikator</b> lässt sich ein Indikator für die Titration wählen. Der pH-Bereich des Indikators ist auch angegeben.
+                    </li>
+                    <li>
+                        Nach Bestätigung der Auswahl (mit der Taste <b style="color:#5469b7">Bürette & Kolben füllen</b>) kann die Titration durch "Drehen" des Bürettenhahns gestartet oder angehalten werden.
+                    </li>
+                </ul>
+                <h3>Zu Beachten:</h3>
+                <ul>
+                    <li>Eine evtl. hilfreiche Abbildung des Aufbaus einer Titration ist im Hilfemenü zu finden. Bei diesen Experimenten ist das Volumen der Probelösung immer 20 mL und das maximale Volumen der Maßlösung 25 mL.</li>
+                </ul>
+                <iframe scrolling="no" id="titrationSim" src="../../assets/titration/titration-DE.html" 
+                        style="width: 100%; aspect-ratio: 1.2"></iframe>
+                <p style="font-size:1em; color:rgb(26, 14, 255); margin-bottom:0; margin-left:0.5em">
+                    &copy Simulation von <a href="http://faculty.concordia.ca/bird/" target="_blank">Peter Bird</a>, verändert und übersetzt. | <a href=" http://faculty.concordia.ca/bird/javascript/titration/titration-js.html" target="_blank">Original-Simulation</a>
+                </p> 
+            </div>
+        </div>
+        
+        <!-- Simnav buttons -->
+        <div id="simnav">
+            <div class="inner">
+                <section class="tiles">
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simA.html">
+                            <h2>Simulation A</h2>
+                            <div class="content">
+                                <p>Säuredissoziation auf molekularer Ebene</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simB.html">
+                            <h2>Simulation B</h2>
+                            <div class="content">
+                                <p>Vorhersage von Säure-Basen-Gleichgewichten</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simC.html">
+                            <h2>Simulation C</h2>
+                            <div class="content">
+                                <p>Erstellung eines Puffers</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSimActive">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simD.html">
+                            <h2>Simulation D</h2>
+                            <div class="content">
+                                <p>Modellierung einer Titration</p>
+                            </div>
+                        </a>
+                    </article>
+                </section>
+            </div>
+        </div>
+
+		<!-- Footer -->
+		<footer id="footer">
+            <script>$("#footer").load("../../footer.html"); </script>
+		</footer>
+        
+    </div>
+
+<!-- Scripts -->
+    <script src="../../assets/js/browser.min.js"></script>
+    <script src="../../assets/js/breakpoints.min.js"></script>
+    <script src="../../assets/js/util.js"></script>
+    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/Three49custom.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script>
+        const disableScroll = function(e){
+            e.preventDefault()
+        }
+        const enableScroll = function(e){
+            e.preventDefault()
+        }
+        const iFrame = document.getElementById('titrationSim')
+        iFrame.onload = function(){
+            let d = iFrame.contentWindow.document.getElementById("clickRect")
+            // console.log(d)
+            d.addEventListener("touchstart", disableScroll)
+            d.addEventListener("touchend", enableScroll)
+        }
+    </script>
+</body>
+</html>

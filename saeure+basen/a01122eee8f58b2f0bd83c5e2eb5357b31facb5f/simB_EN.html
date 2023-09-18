@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<!--
+	Made using the template Phantom by HTML5 UP
+	html5up.net | @ajlkn
+-->
+<html>
+<head>
+    <title>Säuren und Basen
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+    <script src="../../assets/js/jquery.min.js"></script>
+    </head>
+<body class="is-preload">
+<!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <script>$("#header").load("../../header.html");</script>
+        </header>
+
+        <!-- Menu (help in disguise)-->
+        <nav id="menu">
+            <script>$("#menu").load("helpmenu.html");</script>
+        </nav>
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+                <a href="index.html" ><h1>Säuren, Basen und Puffer</h1></a>
+                <h2>Simulation B: Vorhersage von Säure-Basen-Gleichgewichten</h2>
+                <p>Hier wird das Mischen einer gewünschten Menge einer Säure HA und ihrer konjugierten Base, um eine Lösung herzustellen, simuliert.</p>
+                <h3>Überblick der Simulation:</h3>
+                <ul>
+                    <li>
+                        Die Ausgangskonzentrationen der Säure ([HA]<sub>0</sub>) und der Base ([A<sup>-</sup>]<sub>0</sub>) sind frei wählbar.
+                    </li>
+                    <li>
+                        Durch ein Tippen auf <span style="color:rgb(56, 81, 222)">Run</span> wird mit der Erstellung der Lösung begonnen.
+                    </li>
+                    <li>
+                        Die Legende des Diagramms ist interaktiv und kann verwendet werden, um bestimmte Kurven ein- oder auszublenden.
+                    </li>
+                    <li>
+                        Die Konzentration kann entweder auf einer logarithmischen oder einer linearen Skala angezeigt werden.
+                    </li>
+                    <li>
+                        Wenn die Simulation gestoppt ist, können die genauen Werte der Zeit (ms) und der Konzentration (M) sowie der pH-Wert abgelesen werden. Bewegen Sie den Mauszeiger über das Diagramm oder ziehen Sie den Cursor (auf einem Touchscreen), um die Werte anzuzeigen.
+                    </li>
+                </ul>
+                <h3>Zu Beachten:</h3>
+                <ul>
+                    <li>
+                        Die Konzentrationen von HA und A<sup>-</sup> lassen sich zwischen 0-1 mM einstellen.
+                    </li>                        
+                </ul>
+                <p style="margin-bottom: 0.5em"><button id="play-button">Run</button>
+                    &nbsp &nbsp &nbsp [HA]<sub>0</sub> =
+                    <input type="number" min="0" max="1" step="0.050" value="0.100" id="cHA-value">
+                    mM &nbsp &nbsp &nbsp  [A<sup>-</sup>]<sub>0</sub> = 
+                    <input type="number" min="0" max="1" step="0.05" value="0.000" id="cA-value">
+                    mM &nbsp &nbsp &nbsp &nbsp <span style="font-weight:600">log. Skala</span> <input type="checkbox" id="logScaleCB" name="logScaleCB" checked><label for="logScaleCB"></label>
+                </p>
+            <svg class="interactiveGraph" id="simulationB-svg" width="800" height="500"></svg>
+            </div>
+        </div>
+        
+        <!-- Simnav buttons -->
+        <div id="simnav">
+            <div class="inner">
+                <section class="tiles">
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simA.html">
+                            <h2>Simulation A</h2>
+                            <div class="content">
+                                <p>Säuredissoziation auf molekularer Ebene</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSimActive">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simB.html">
+                            <h2>Simulation B</h2>
+                            <div class="content">
+                                <p>Vorhersage von Säure-Basen-Gleichgewichten</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simC.html">
+                            <h2>Simulation C</h2>
+                            <div class="content">
+                                <p>Erstellung eines Puffers</p>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="styleSim">
+                        <span class="image">
+                            <img src="../../images/pic02.jpg" alt="" />
+                        </span>
+                        <a href="simD.html">
+                            <h2>Simulation D</h2>
+                            <div class="content">
+                                <p>Modellierung einer Titration</p>
+                            </div>
+                        </a>
+                    </article>
+                </section>
+            </div>
+        </div>
+
+		<!-- Footer -->
+		<footer id="footer">
+            <script>$("#footer").load("../../footer.html"); </script>
+		</footer>
+    </div>
+
+<!-- Scripts -->
+    <script src="../../assets/js/browser.min.js"></script>
+    <script src="../../assets/js/breakpoints.min.js"></script>
+    <script src="../../assets/js/util.js"></script>
+    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/Three49custom.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="../../assets/js/acidBaseCharts-B.js"></script>
+    <script>
+        const disableScroll = function(e){
+            e.preventDefault()
+        }
+        const enableScroll = function(e){
+            e.preventDefault()
+        }
+        const d = document.getElementById("clickRect")
+            d.addEventListener("touchstart", disableScroll)
+            d.addEventListener("touchend", enableScroll)
+    </script>
+</body>
+</html>

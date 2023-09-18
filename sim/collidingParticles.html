@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<!--
+	Made using the template Phantom by HTML5 UP
+	html5up.net | @ajlkn
+-->
+<html>
+<head>
+    <title>Teilchen und Reaktionsgeschwindigkeit</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+    <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
+    <script src="../assets/js/jquery.min.js"></script>
+</head>
+<body class="is-preload">
+<!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <script> $("#header").load("../../header.html");</script>
+        </header>
+
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner" >
+                <h2>Simulation: Teilchen und Reaktionsgeschwindigkeit</h2>
+                <p style="width:80%">Tippen Sie auf die Animation, um sie anzuhalten oder fortzusetzen. Wenn die Animation angehalten ist, können im Diagram die genauen X- und Y-Werte abgelesen werden.</p>
+                <iframe scrolling="no" id="simulation" src="../assets/glowscript/particleKineticsKE.html" 
+                    style="width: 80%; height: 20px"></iframe>
+            </div>
+        </div>
+        
+
+		<!-- Footer -->
+		<footer id="footer">
+            <script>$("#footer").load("../footer.html"); </script>
+		</footer>
+    </div>
+
+<!-- Scripts -->
+<script src="../assets/js/browser.min.js"></script>
+<script src="../assets/js/breakpoints.min.js"></script>
+<script src="../assets/js/util.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/Three49custom.js"></script>
+<script src="https://d3js.org/d3.v4.js"></script>
+<script>
+    var iFrame = document.getElementById("simulation")
+    iFrame.onload = function(){
+        window_width = iFrame.contentWindow.window_width
+        iFrame.style.height = window_width/2.1+'px'
+        // graph1 = iFrame.contentDocument.getElementById("graph1")
+        // console.log(graph1)
+        // graph1.style["margin-top"]="2em"
+        // setTimeout(function(){
+        //     iFrame.contentDocument.getElementById("graph1").style["margin-top"]="2em"
+        // }, 4000)
+    }
+    function waitForElement(selector, callback, waitTime) {
+        // Check if an element matching the selector exists in the DOM
+        if (iFrame.contentDocument.querySelector(selector)) {
+            // If the element is found, invoke the callback function
+            callback();
+        } else {
+            // If the element is not found at first, set up a timeout to recheck after waitTime
+            console.log("retrying")
+            setTimeout(function() {
+                // Recursively call waitForElement with the same selector, callback, and waitTime values
+                waitForElement(selector, callback, waitTime);
+            }, waitTime);
+        }
+    }
+    waitForElement("#s1", function(){
+        console.log("created")
+        iFrame.contentDocument.getElementById("s1").parentElement.style["margin-bottom"]="2em"
+    }, 500)
+</script>
+</body>
+</html>
