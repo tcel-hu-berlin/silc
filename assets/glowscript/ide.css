@@ -470,7 +470,7 @@ section, summary, time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 100%;
+	/* font-size: 100%; */
 	font: inherit;
 	vertical-align: baseline;}
 
@@ -480,7 +480,7 @@ canvas {
 
 .glowscript-graph {
 	margin: 0 0 0 0.5em;
-	overflow: hidden
+	overflow: visible
 }
 
 article, aside, details, figcaption, figure,

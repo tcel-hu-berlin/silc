@@ -22,14 +22,18 @@
             <script> $("#header").load("../../header.html");</script>
         </header>
 
+        <!-- Menu (help in disguise)-->
+        <nav id="menu">
+            <script>$("#menu").load("helpMenuCP.html");</script>
+        </nav>
 
         <!-- Main -->
         <div id="main">
             <div class="inner" >
                 <h2>Simulation: Teilchen und Reaktionsgeschwindigkeit</h2>
-                <p style="width:80%">Tippen Sie auf die Animation, um sie anzuhalten oder fortzusetzen. Wenn die Animation angehalten ist, können im Diagram die genauen X- und Y-Werte abgelesen werden.</p>
+                <p style="width:80%">Tippen Sie auf die Animation, um sie anzuhalten oder fortzusetzen. Wenn die Animation angehalten ist, können im Diagramm die genauen X- und Y-Werte abgelesen werden.</p>
                 <iframe scrolling="no" id="simulation" src="../assets/glowscript/particleKineticsKE.html" 
-                    style="width: 80%; height: 20px"></iframe>
+                style="width: 80%; height: 20px"></iframe>
             </div>
         </div>
         
@@ -51,7 +55,7 @@
     var iFrame = document.getElementById("simulation")
     iFrame.onload = function(){
         window_width = iFrame.contentWindow.window_width
-        iFrame.style.height = window_width/2.1+'px'
+        iFrame.style.height = window_width/1.9+'px'
         // graph1 = iFrame.contentDocument.getElementById("graph1")
         // console.log(graph1)
         // graph1.style["margin-top"]="2em"
@@ -73,10 +77,16 @@
             }, waitTime);
         }
     }
+    // waitForElement("#s0", function(){
+    //     console.log("created")
+    //     iFrame.contentDocument.getElementById("s0").style["margin-top"]="10px"
+    // }, 500)
     waitForElement("#s1", function(){
         console.log("created")
+        iFrame.contentDocument.getElementById("s0").style["margin-top"]="1.5em"
         iFrame.contentDocument.getElementById("s1").parentElement.style["margin-bottom"]="2em"
     }, 500)
+
 </script>
 </body>
 </html>

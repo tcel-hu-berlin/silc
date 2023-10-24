@@ -9,6 +9,31 @@
     <title>Particle Kinetics</title>
     <link type="text/css" href="jquery-ui.custom.css" rel="stylesheet" />
     <link type="text/css" href="ide.css" rel="stylesheet" rel="stylesheet" />
+    <style>
+        @media screen and (max-width:700px) {
+            .glowscript {
+                font-size:0.85em
+            }
+
+        }
+        body {
+            font-size: 1em;
+        }
+        canvas {
+            margin-right: 1em;
+        }
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        input[type="checkbox"]:disabled + label {
+            pointer-events:none
+        }
+        input[type="checkbox"]:disabled + label:before {
+            border-color:rgb(178, 178, 178);
+            pointer-events: none;
+        }
+    </style>
   </head>
 
 <body>
@@ -24,7 +49,7 @@
         // START JAVASCRIPT
         ;(function() {;
         var ρσ_modules = {};
-        var running, a, T, v_thres, Atoms, Natoms, gg, ea_line, pavg_line, pavg, mass, histo, setTemp, p, apos, hitlist, accum, theory, nhisto, vdist, win;
+        var running, a, T, v_thres, Atoms, Natoms, EA, assignedLights, unusedLights, singleTracking, reactionsEnabled, EAcontrol, slowMo, fastFwd, fastFwdCB, slowMoCB, gg, ea_line, pavg_line, pavg, mass, histo, setTemp, p, apos, hitlist, accum, theory, nhisto, vdist, flashes, singleBar, singleBarData, win, current_flash;
         ρσ_modules.pythonize = {};
 
         (function(){
@@ -68,7 +93,7 @@
             fontloading();
             await waitforfonts();
 
-            var version, print, arange, __name__, type, ρσ_ls, running, win, atoms_per_side, Natoms, deltav, T, EA, mass, v_thres, L, gray, Ratom, k, dt, d, r, num_bins, KE_max, deltaKE, dv, animation, s, tempcontrol, temptxt, EAcontrol, EAtxt, gg, ea_line, pauseText, resumeText, pauseBgnd, boxbottom, boxtop, vert1, vert2, vert3, vert4, Atoms, p, apos, pavg, pavg_line, aps, dL, xi, yi, zi, x, y, z, theta, phi, px, py, pz, i, nhisto;
+            var version, print, arange, __name__, type, ρσ_ls, running, reactionsEnabled, singleTracking, simrate, slowMo, fastFwd, win, atoms_per_side, Natoms, deltav, T, EA, mass, v_thres, L, gray, Ratom, k, dt, d, r, num_bins, KE_max, deltaKE, dv, animation, s, trackCB, enableRxn, slowMoCB, fastFwdCB, tempcontrol, temptxt, EAcontrol, EAtxt, gg, ea_line, pauseText, resumeText, pauseBgnd, boxbottom, boxtop, vert1, vert2, vert3, vert4, Atoms, p, apos, pavg, unusedLights, j, assignedLights, flashes, current_flash, l, pavg_line, aps, dL, xi, yi, zi, x, y, z, theta, phi, px, py, pz, trail_type, i, atom, nhisto;
             version = ρσ_list_decorate([ "3.2", "glowscript" ]);
             Array.prototype['+'] = function(r) {return this.concat(r)}
             Array.prototype['*'] = function(r) {return __array_times_number(this, r)}
@@ -82,172 +107,245 @@
             strings();
             "7";
             running = false;
+            "8";
+            reactionsEnabled = false;
             "9";
-            win = window_width * 0.45;
+            singleTracking = false;
             "10";
-            atoms_per_side = 5;
+            simrate = 300;
             "11";
-            Natoms = Math.pow(atoms_per_side, 3);
+            slowMo = false;
             "12";
-            deltav = 100;
-            "13";
-            T = 300;
+            fastFwd = false;
             "14";
-            EA = 5;
+            win = window_width*0.47;
             "15";
-            mass = .004["/"](6e23);
+            atoms_per_side = 4;
             "16";
-            v_thres = sqrt(2["*"](EA)["/"](6e23)["*"](1e3)["/"](mass));
+            Natoms = Math.pow(atoms_per_side, 3);
+            "17";
+            deltav = 100;
+            "18";
+            T = 300;
             "19";
-            L = 2;
+            EA = 4.5;
             "20";
-            gray = color.gray(.7);
-            "22";
-            Ratom = .03;
-            "23";
-            k = 1.4e-23;
+            mass = .004["/"](6e23);
+            "21";
+            v_thres = sqrt(2["*"](EA)["/"](6e23)["*"](1e3)["/"](mass));
             "24";
-            dt = 1e-5;
-            "26";
-            d = L["/"](2)["+"](Ratom);
+            L = 2;
+            "25";
+            gray = color.gray(.7);
             "27";
-            r = .005;
+            Ratom = .08;
+            "28";
+            k = 1.4e-23;
             "29";
-            num_bins = 4500;
-            "30";
-            KE_max = Math.pow(num_bins, 2)["*"](.5)["*"](mass)["/"](1e3)["*"](6.02e23);
+            dt = 1e-5;
             "31";
-            deltaKE = KE_max["/"](50);
+            d = L["/"](2)["+"](Ratom);
             "32";
-            dv = 10;
+            r = .005;
+            "34";
+            num_bins = 4500;
+            "35";
+            KE_max = Math.pow(num_bins, 2)["*"](.5)["*"](mass)["/"](1e3)["*"](6.02e23);
             "36";
-            animation = ρσ_interpolate_kwargs.call(this, canvas, [ρσ_desugar_kwargs({width: win, height: win, align: "left", background: vector(.1, .1, .1), userzoom: false, userspin: false, userpan: false, resizable: false})]);
+            deltaKE = KE_max["/"](50);
             "37";
-            animation.range = L["*"](.8);
-            "38";
-            s = "";
-            "39";
-            animation.caption = s;
-            "40";
-            tempcontrol = ρσ_interpolate_kwargs.call(this, slider, [ρσ_desugar_kwargs({min: 75, max: 500, step: 5, value: T, length: 200, bind: setTemp})]);
+            dv = 10;
             "41";
-            temptxt = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "Temperatur: {:i} K".format(tempcontrol.value)})]);
-            "42";
-            animation.append_to_caption("\n");
+            animation = ρσ_interpolate_kwargs.call(this, canvas, [ρσ_desugar_kwargs({width: win, height: win, align: "left", background: vector(.1, .1, .1), userzoom: false, userspin: false, userpan: false, resizable: false})]);
             "43";
-            EAcontrol = ρσ_interpolate_kwargs.call(this, slider, [ρσ_desugar_kwargs({min: .5, max: 17, value: EA, length: 200, bind: setEA})]);
+            animation.range = L["*"](.8);
             "44";
-            EAtxt = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "Aktivierungsenergie: {:i} kJ/mol".format(EAcontrol.value)})]);
+            s = "";
+            "45";
+            animation.caption = s;
+            "46";
+            trackCB = ρσ_interpolate_kwargs.call(this, checkbox, [ρσ_desugar_kwargs({bind: trackParticle, text: "Einzelnes Teilchen verfolgen"})]);
             "47";
-            animation.append_to_caption("\n");
+            trackCB.disabled = true;
+            "48";
+            animation.append_to_caption("  ");
             "49";
-            gg = ρσ_interpolate_kwargs.call(this, graph, [ρσ_desugar_kwargs({width: win, height: 0.8["*"](win), xmax: 25, align: "left", xtitle: "Kinetische Energie (kJ/mol)", ytitle: "Anzahl Teilchen", ymax: Natoms["*"](deltav)["/"](1e3)})]);
+            enableRxn = ρσ_interpolate_kwargs.call(this, checkbox, [ρσ_desugar_kwargs({bind: toggleRxn, text: "Reaktivität anzeigen"})]);
             "50";
-            ea_line = ρσ_interpolate_kwargs.call(this, gvbars, [ρσ_desugar_kwargs({graph: gg})]);
+            animation.append_to_caption("\n");
+            "51";
+            slowMoCB = ρσ_interpolate_kwargs.call(this, checkbox, [ρσ_desugar_kwargs({bind: toggleSlowMo, text: "Slow-Motion"})]);
+            "52";
+            animation.append_to_caption("  ");
             "53";
-            pauseText = ρσ_interpolate_kwargs.call(this, text, [ρσ_desugar_kwargs({pos: vec(0, 0, 1.1), text: "Start", color: vec(1, 1, 1), height: L["/"](25), align: "center", visible: true})]);
+            fastFwdCB = ρσ_interpolate_kwargs.call(this, checkbox, [ρσ_desugar_kwargs({bind: toggleFastFwd, text: "Fast-Forward"})]);
             "54";
-            resumeText = ρσ_interpolate_kwargs.call(this, text, [ρσ_desugar_kwargs({pos: vec(0, 0, 1.1), text: "Resume", color: vec(1, 1, 1), height: L["/"](25), align: "center", visible: false})]);
+            animation.append_to_caption("\n");
             "55";
-            pauseBgnd = ρσ_interpolate_kwargs.call(this, box, [ρσ_desugar_kwargs({pos: vec(0, 0, 1), width: .5, height: win, length: win, color: color.white, opacity: .4, emissive: true, visible: true})]);
+            tempcontrol = ρσ_interpolate_kwargs.call(this, slider, [ρσ_desugar_kwargs({min: 75, max: 500, step: 5, value: T, length: 200, bind: setTemp})]);
+            "56";
+            temptxt = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "Temperatur: {:i} K \n".format(tempcontrol.value)})]);
+            "57";
+            EAcontrol = ρσ_interpolate_kwargs.call(this, slider, [ρσ_desugar_kwargs({min: .5, max: 16.5, value: EA, length: 201, bind: setEA})]);
             "58";
-            boxbottom = ρσ_interpolate_kwargs.call(this, curve, [ρσ_desugar_kwargs({color: gray, radius: r})]);
+            EAcontrol.disabled = true;
             "59";
-            boxbottom.append(ρσ_list_decorate([ vector(1["-u"]()["*"](d), 1["-u"]()["*"](d), 1["-u"]()["*"](d)), vector(1["-u"]()["*"](d), 1["-u"]()["*"](d), d), vector(d, 1["-u"]()["*"](d), d), vector(d, 1["-u"]()["*"](d), 1["-u"]()["*"](d)), vector(1["-u"]()["*"](d), 1["-u"]()["*"](d), 1["-u"]()["*"](d)) ]));
+            EAtxt = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "Aktivierungsenergie: {:0.2f} kJ/mol \n".format(EAcontrol.value)})]);
             "60";
-            boxtop = ρσ_interpolate_kwargs.call(this, curve, [ρσ_desugar_kwargs({color: gray, radius: r})]);
-            "61";
-            boxtop.append(ρσ_list_decorate([ vector(1["-u"]()["*"](d), d, 1["-u"]()["*"](d)), vector(1["-u"]()["*"](d), d, d), vector(d, d, d), vector(d, d, 1["-u"]()["*"](d)), vector(1["-u"]()["*"](d), d, 1["-u"]()["*"](d)) ]));
-            "62";
-            vert1 = ρσ_interpolate_kwargs.call(this, curve, [ρσ_desugar_kwargs({color: gray, radius: r})]);
-            "63";
-            vert2 = ρσ_interpolate_kwargs.call(this, curve, [ρσ_desugar_kwargs({color: gray, radius: r})]);
+            // animation.append_to_caption("\n \n");
             "64";
-            vert3 = ρσ_interpolate_kwargs.call(this, curve, [ρσ_desugar_kwargs({color: gray, radius: r})]);
+            gg = ρσ_interpolate_kwargs.call(this, graph, [ρσ_desugar_kwargs({width: win, height: .85["*"](win), xmax: 25, align: "left", xtitle: "Kinetische Energie m/s", ytitle: "Anzahl Teilchen", ymax: Natoms["*"](deltav)["/"](1e3)})]);
             "65";
-            vert4 = ρσ_interpolate_kwargs.call(this, curve, [ρσ_desugar_kwargs({color: gray, radius: r})]);
-            "66";
-            vert1.append(ρσ_list_decorate([ vector(1["-u"]()["*"](d), 1["-u"]()["*"](d), 1["-u"]()["*"](d)), vector(1["-u"]()["*"](d), d, 1["-u"]()["*"](d)) ]));
-            "67";
-            vert2.append(ρσ_list_decorate([ vector(1["-u"]()["*"](d), 1["-u"]()["*"](d), d), vector(1["-u"]()["*"](d), d, d) ]));
+            ea_line = ρσ_interpolate_kwargs.call(this, gvbars, [ρσ_desugar_kwargs({graph: gg})]);
             "68";
-            vert3.append(ρσ_list_decorate([ vector(d, 1["-u"]()["*"](d), d), vector(d, d, d) ]));
+            pauseText = ρσ_interpolate_kwargs.call(this, text, [ρσ_desugar_kwargs({pos: vec(0, 0, 1.1), text: "Start", color: vec(1, 1, 1), height: L["/"](25), align: "center", visible: true})]);
             "69";
-            vert4.append(ρσ_list_decorate([ vector(d, 1["-u"]()["*"](d), 1["-u"]()["*"](d)), vector(d, d, 1["-u"]()["*"](d)) ]));
-            "72";
-            Atoms = ρσ_list_decorate([]);
+            resumeText = ρσ_interpolate_kwargs.call(this, text, [ρσ_desugar_kwargs({pos: vec(0, 0, 1.1), text: "Resume", color: vec(1, 1, 1), height: L["/"](25), align: "center", visible: false})]);
+            "70";
+            pauseBgnd = ρσ_interpolate_kwargs.call(this, box, [ρσ_desugar_kwargs({pos: vec(0, 0, 1), width: .5, height: win, length: win, color: color.white, opacity: .4, emissive: true, visible: true})]);
             "73";
-            p = ρσ_list_decorate([]);
+            boxbottom = ρσ_interpolate_kwargs.call(this, curve, [ρσ_desugar_kwargs({color: gray, radius: r, emissive: true})]);
             "74";
-            apos = ρσ_list_decorate([]);
+            boxbottom.append(ρσ_list_decorate([ vector(1["-u"]()["*"](d), 1["-u"]()["*"](d), 1["-u"]()["*"](d)), vector(1["-u"]()["*"](d), 1["-u"]()["*"](d), d), vector(d, 1["-u"]()["*"](d), d), vector(d, 1["-u"]()["*"](d), 1["-u"]()["*"](d)), vector(1["-u"]()["*"](d), 1["-u"]()["*"](d), 1["-u"]()["*"](d)) ]));
             "75";
-            pavg = sqrt(2["*"](mass)["*"](1.5)["*"](k)["*"](T));
+            boxtop = ρσ_interpolate_kwargs.call(this, curve, [ρσ_desugar_kwargs({color: gray, radius: r, emissive: true})]);
+            "76";
+            boxtop.append(ρσ_list_decorate([ vector(1["-u"]()["*"](d), d, 1["-u"]()["*"](d)), vector(1["-u"]()["*"](d), d, d), vector(d, d, d), vector(d, d, 1["-u"]()["*"](d)), vector(1["-u"]()["*"](d), d, 1["-u"]()["*"](d)) ]));
             "77";
-            pavg_line = ρσ_interpolate_kwargs.call(this, gcurve, [ρσ_desugar_kwargs({color: color.blue, width: 2, label: "Durchschn. Kinetische Energie"})]);
+            vert1 = ρσ_interpolate_kwargs.call(this, curve, [ρσ_desugar_kwargs({color: gray, radius: r, emissive: true})]);
             "78";
+            vert2 = ρσ_interpolate_kwargs.call(this, curve, [ρσ_desugar_kwargs({color: gray, radius: r, emissive: true})]);
+            "79";
+            vert3 = ρσ_interpolate_kwargs.call(this, curve, [ρσ_desugar_kwargs({color: gray, radius: r, emissive: true})]);
+            "80";
+            vert4 = ρσ_interpolate_kwargs.call(this, curve, [ρσ_desugar_kwargs({color: gray, radius: r, emissive: true})]);
+            "81";
+            vert1.append(ρσ_list_decorate([ vector(1["-u"]()["*"](d), 1["-u"]()["*"](d), 1["-u"]()["*"](d)), vector(1["-u"]()["*"](d), d, 1["-u"]()["*"](d)) ]));
+            "82";
+            vert2.append(ρσ_list_decorate([ vector(1["-u"]()["*"](d), 1["-u"]()["*"](d), d), vector(1["-u"]()["*"](d), d, d) ]));
+            "83";
+            vert3.append(ρσ_list_decorate([ vector(d, 1["-u"]()["*"](d), d), vector(d, d, d) ]));
+            "84";
+            vert4.append(ρσ_list_decorate([ vector(d, 1["-u"]()["*"](d), 1["-u"]()["*"](d)), vector(d, d, 1["-u"]()["*"](d)) ]));
+            "87";
+            Atoms = ρσ_list_decorate([]);
+            "88";
+            p = ρσ_list_decorate([]);
+            "89";
+            apos = ρσ_list_decorate([]);
+            "90";
+            pavg = sqrt(2["*"](mass)["*"](1.5)["*"](k)["*"](T));
+            "91";
+            unusedLights = ρσ_list_decorate([]);
+            "92";
+            for (var ρσ_Index1 = 0; ρσ_Index1["<"](Natoms); ρσ_Index1++) {
+                j = ρσ_Index1;
+                "93";
+                unusedLights.append(ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vec(0, 0, 0), radius: 1.3["*"](Ratom), color: vec(1, 1, 1), opacity: .3, visible: false})]));
+            }
+            "94";
+            assignedLights = ρσ_list_decorate([]);
+            "96";
+            flashes = ρσ_list_decorate([]);
+            "97";
+            current_flash = 0;
+            "98";
+            for (var ρσ_Index2 = 0; ρσ_Index2["<"](30); ρσ_Index2++) {
+                l = ρσ_Index2;
+                "99";
+                flashes.append(ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vector(0, 0, 0), radius: .1["*"](Ratom), color: vec(1, 1, 0), opacity: 1, emissive: true, visible: false, counter: 0})]));
+            }
+            "105";
+            pavg_line = ρσ_interpolate_kwargs.call(this, gcurve, [ρσ_desugar_kwargs({color: color.blue, width: 2, label: "Durchschn. Kinetische Energie"})]);
+            "106";
             pavg_line.plot(Math.pow(pavg, 2)["/"](2["*"](mass))["/"](1e3)["*"](6.02e23), 0);
             pavg_line.plot(Math.pow(pavg, 2)["/"](2["*"](mass))["/"](1e3)["*"](6.02e23), Natoms["*"](deltav)["/"](400));
-            "80";
+            "108";
             aps = atoms_per_side;
-            "81";
+            "109";
             dL = L["-"](1["*"](2)["*"](Ratom))["/"](aps["-"](1["*"](1)));
-            "82";
-            for (var ρσ_Index1 = 0; ρσ_Index1["<"](Natoms); ρσ_Index1++) {
-                i = ρσ_Index1;
-                "83";
+            "110";
+            for (var ρσ_Index3 = 0; ρσ_Index3["<"](Natoms); ρσ_Index3++) {
+                i = ρσ_Index3;
+                "111";
                 xi = i["%"](aps);
-                "84";
+                "112";
                 yi = Math.floor(i["/"](aps))["-"](1["*"](aps)["*"](Math.floor(i["/"](Math.pow(aps, 2)))));
-                "85";
+                "113";
                 zi = Math.floor(i["/"](Math.pow(aps, 2)));
-                "87";
+                "115";
                 x = dL["*"](xi)["-"](1["*"](L)["/"](2));
-                "88";
+                "116";
                 y = dL["*"](yi)["-"](1["*"](L)["/"](2));
-                "89";
+                "117";
                 z = dL["*"](zi)["-"](1["*"](L)["/"](2));
-                "91";
+                "119";
                 apos.append(vec(x, y, z));
-                "92";
+                "120";
                 theta = pi["*"](random());
-                "93";
+                "121";
                 phi = 2["*"](pi)["*"](random());
-                "94";
+                "122";
                 px = pavg["*"](sin(theta))["*"](cos(phi));
-                "95";
+                "123";
                 py = pavg["*"](sin(theta))["*"](sin(phi));
-                "96";
+                "124";
                 pz = pavg["*"](cos(theta));
-                "97";
-                Atoms.append(ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vector(x, y, z), radius: Ratom, color: (await PartColor(vec(px, py, pz)))})]));
-                "98";
+                "125";
+                if ((i === 0 || typeof i === "object" && ρσ_equals(i, 0))) {
+                    "126";
+                    trail_type = "curve";
+                    "127";
+                } else {
+                    "128";
+                    trail_type = "points";
+                }
+                "129";
+                Atoms.append(ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: vector(x, y, z), radius: Ratom, make_trail: true, shininess: 0, emissive: false, retain: 80, interval: 2, trail_type: trail_type, trail_color: vec(.4, 1, .4), trail_radius: .1["*"](Ratom)})]));
+                "131";
+                assignedLights.append(false);
+                "132";
                 p.append(vector(px, py, pz));
             }
-            "100";
+            "134";
+            var ρσ_Iter4 = Atoms;
+            ρσ_Iter4 = ((typeof ρσ_Iter4[Symbol.iterator] === "function") ? (ρσ_Iter4 instanceof Map ? ρσ_Iter4.keys() : ρσ_Iter4) : Object.keys(ρσ_Iter4));
+            for (var ρσ_Index4 of ρσ_Iter4) {
+                atom = ρσ_Index4;
+                "135";
+                atom.clear_trail();
+                "136";
+                atom.make_trail = false;
+            }
+            "137";
             nhisto = int(KE_max["/"](deltaKE));
-            "104";
+            "141";
             async function PlayPause() {
-                "105";
-                "106";
+                "142";
+                "143";
                 running = !running;
-                "107";
+                "144";
                 if (resumeText.visible) {
-                    "108";
+                    "145";
                     resumeText.visible = false;
-                    "109";
+                    "146";
                 }
                 if (running) {
-                    "110";
+                    "147";
+                    trackCB.disabled = false;
+                    "148";
                     pauseBgnd.visible = false;
-                    "111";
+                    "149";
                     pauseText.visible = false;
-                    "112";
+                    "150";
                     resumeText.visible = false;
-                    "113";
+                    "151";
                 } else {
-                    "114";
+                    "152";
+                    trackCB.disabled = true;
+                    "153";
                     pauseBgnd.visible = true;
-                    "116";
+                    "155";
                     resumeText.visible = true;
                 }
             };
@@ -255,33 +353,33 @@
                 __module__ : {value: null}
             });
 
-            "119";
+            "157";
             async function setTemp(m) {
-                "120";
-                "121";
+                "158";
+                "159";
                 running = false;
-                "122";
+                "160";
                 if (pauseBgnd.visible) {
-                    "123";
+                    "161";
                     resumeText.visible = false;
-                    "124";
+                    "162";
                     pauseText.visible = false;
                 }
-                "125";
-                temptxt.text = "Temperatur:{:i} K".format(tempcontrol.value);
-                "126";
+                "163";
+                temptxt.text = "Temperatur: {:i} K \n".format(tempcontrol.value);
+                "164";
                 T = m.value;
-                "127";
+                "165";
                 (await Init());
-                "128";
+                "166";
                 (await sleep(.5));
-                "129";
+                "167";
                 if (pauseBgnd.visible) {
-                    "130";
+                    "168";
                     pauseText.visible = true;
-                    "131";
+                    "169";
                 } else {
-                    "132";
+                    "170";
                     running = true;
                 }
             };
@@ -290,23 +388,23 @@
                 __module__ : {value: null}
             });
 
-            "137";
+            "175";
             async function setEA(m) {
                 var ρσ_ls, i;
-                "138";
-                "139";
-                EAtxt.text = "Aktivierungsenergie: {:i} kJ/mol".format(m.value);
-                "140";
+                "176";
+                "177";
+                EAtxt.text = "Aktivierungsenergie: {:0.2f} kJ/mol  \n".format(m.value);
+                "178";
                 EA = m.value;
-                "141";
+                "179";
                 v_thres = sqrt(2["*"](EA)["/"](6e23)["*"](1e3)["/"](mass));
-                "142";
-                for (var ρσ_Index2 = 0; ρσ_Index2["<"](Natoms); ρσ_Index2++) {
-                    i = ρσ_Index2;
-                    "143";
-                    ρσ_getitem(Atoms, i).color = (await PartColor(ρσ_getitem(p, i)));
+                "180";
+                for (var ρσ_Index5 = 0; ρσ_Index5["<"](Natoms); ρσ_Index5++) {
+                    i = ρσ_Index5;
+                    "181";
+                    (await PartColor(i, ρσ_getitem(p, i)));
                 }
-                "145";
+                "183";
                 (await plotEA(EA));
             };
             if (!setEA.__argnames__) Object.defineProperties(setEA, {
@@ -314,34 +412,175 @@
                 __module__ : {value: null}
             });
 
-            "147";
+            "185";
+            async function trackParticle(r) {
+                var ρσ_ls, i, j;
+                "186";
+                "187";
+                if ((r.checked === true || typeof r.checked === "object" && ρσ_equals(r.checked, true))) {
+                    "188";
+                    singleTracking = true;
+                    "189";
+                    ρσ_getitem(Atoms, 0).make_trail = true;
+                    "190";
+                    for (var ρσ_Index6 = 1; ρσ_Index6["<"](Natoms); ρσ_Index6++) {
+                        i = ρσ_Index6;
+                        "191";
+                        ρσ_getitem(Atoms, i).opacity = .3;
+                        "192";
+                        if ((ρσ_getitem(assignedLights, i) !== false && (typeof ρσ_getitem(assignedLights, i) !== "object" || ρσ_not_equals(ρσ_getitem(assignedLights, i), false)))) {
+                            "193";
+                            ρσ_getitem(assignedLights, i).color = vec(.2, .2, .2);
+                        }
+                    }
+                    "194";
+                    var ρσ_Iter7 = range(len(unusedLights));
+                    ρσ_Iter7 = ((typeof ρσ_Iter7[Symbol.iterator] === "function") ? (ρσ_Iter7 instanceof Map ? ρσ_Iter7.keys() : ρσ_Iter7) : Object.keys(ρσ_Iter7));
+                    for (var ρσ_Index7 of ρσ_Iter7) {
+                        j = ρσ_Index7;
+                        "195";
+                        ρσ_getitem(unusedLights, j).color = vec(.5, .5, .5);
+                        "196";
+                    }
+                } else {
+                    "197";
+                    singleTracking = false;
+                    "198";
+                    ρσ_getitem(Atoms, 0).clear_trail();
+                    "199";
+                    ρσ_getitem(Atoms, 0).make_trail = false;
+                    "200";
+                    for (var ρσ_Index8 = 1; ρσ_Index8["<"](Natoms); ρσ_Index8++) {
+                        i = ρσ_Index8;
+                        "201";
+                        ρσ_getitem(Atoms, i).opacity = 1;
+                        "202";
+                        if ((ρσ_getitem(assignedLights, i) !== false && (typeof ρσ_getitem(assignedLights, i) !== "object" || ρσ_not_equals(ρσ_getitem(assignedLights, i), false)))) {
+                            "203";
+                            ρσ_getitem(assignedLights, i).color = vec(1, 1, 1);
+                        }
+                    }
+                    "204";
+                    var ρσ_Iter9 = range(len(unusedLights));
+                    ρσ_Iter9 = ((typeof ρσ_Iter9[Symbol.iterator] === "function") ? (ρσ_Iter9 instanceof Map ? ρσ_Iter9.keys() : ρσ_Iter9) : Object.keys(ρσ_Iter9));
+                    for (var ρσ_Index9 of ρσ_Iter9) {
+                        j = ρσ_Index9;
+                        "205";
+                        ρσ_getitem(unusedLights, j).color = vec(1, 1, 1);
+                    }
+                }
+            };
+            if (!trackParticle.__argnames__) Object.defineProperties(trackParticle, {
+                __argnames__ : {value: ["r"]},
+                __module__ : {value: null}
+            });
+
+            "207";
+            async function toggleRxn(m) {
+                "208";
+                "209";
+                if (m.checked) {
+                    "210";
+                    EAcontrol.disabled = false;
+                    "211";
+                    reactionsEnabled = true;
+                    "212";
+                } else {
+                    "213";
+                    EAcontrol.disabled = true;
+                    "214";
+                    reactionsEnabled = false;
+                }
+                "215";
+                (await plotEA(EAcontrol.value));
+            };
+            if (!toggleRxn.__argnames__) Object.defineProperties(toggleRxn, {
+                __argnames__ : {value: ["m"]},
+                __module__ : {value: null}
+            });
+
+            "217";
+            async function toggleSlowMo(m) {
+                "218";
+                "219";
+                if (m.checked) {
+                    "220";
+                    slowMo = true;
+                    "221";
+                    fastFwdCB.disabled = true;
+                    "222";
+                } else {
+                    "223";
+                    slowMo = false;
+                    "224";
+                    fastFwdCB.disabled = false;
+                }
+            };
+            if (!toggleSlowMo.__argnames__) Object.defineProperties(toggleSlowMo, {
+                __argnames__ : {value: ["m"]},
+                __module__ : {value: null}
+            });
+
+            "226";
+            async function toggleFastFwd(m) {
+                "227";
+                "228";
+                if (m.checked) {
+                    "229";
+                    fastFwd = true;
+                    "230";
+                    slowMoCB.disabled = true;
+                    "232";
+                } else {
+                    "233";
+                    fastFwd = false;
+                    "234";
+                    slowMoCB.disabled = false;
+                }
+            };
+            if (!toggleFastFwd.__argnames__) Object.defineProperties(toggleFastFwd, {
+                __argnames__ : {value: ["m"]},
+                __module__ : {value: null}
+            });
+
+            "236";
             async function plotEA(val) {
-                "148";
-                "149";
+                "237";
+                "238";
                 ea_line.visible = false;
-                "150";
+                "239";
                 ea_line.remove();
-                "151";
-                ea_line = ρσ_interpolate_kwargs.call(this, gcurve, [ρσ_desugar_kwargs({graph: gg, color: vector(.9, .8, .3), label: "Aktivierungsenergie", width: 4})]);
-                "152";
-                ea_line.plot(val, 0);
-                ea_line.plot(val, 100);
+                "240";
+                if ((reactionsEnabled === true || typeof reactionsEnabled === "object" && ρσ_equals(reactionsEnabled, true))) {
+                    "241";
+                    ea_line = ρσ_interpolate_kwargs.call(this, gcurve, [ρσ_desugar_kwargs({graph: gg, color: vector(.9, .8, .3), label: "Aktivierungsenergie", width: 4})]);
+                    "242";
+                } else {
+                    "243";
+                    ea_line = ρσ_interpolate_kwargs.call(this, gcurve, [ρσ_desugar_kwargs({graph: gg, color: vector(.9, .8, .3), width: 4})]);
+                    "244";
+                }
+                if ((reactionsEnabled === true || typeof reactionsEnabled === "object" && ρσ_equals(reactionsEnabled, true))) {
+                    "245";
+                    ea_line.plot(val, 0);
+                    ea_line.plot(val, 100);
+                }
             };
             if (!plotEA.__argnames__) Object.defineProperties(plotEA, {
                 __argnames__ : {value: ["val"]},
                 __module__ : {value: null}
             });
 
-            "154";
+            "247";
             async function plotPavg(val) {
-                "155";
-                "156";
+                "248";
+                "249";
                 pavg_line.visible = false;
-                "157";
+                "250";
                 pavg_line.remove();
-                "158";
-                pavg_line = ρσ_interpolate_kwargs.call(this, gcurve, [ρσ_desugar_kwargs({graph: gg, color: color.red, width: 2, label: "Durchschn. Kinetische Energie"})]);
-                "159";
+                "251";
+                pavg_line = ρσ_interpolate_kwargs.call(this, gcurve, [ρσ_desugar_kwargs({graph: gg, color: vec(.3, .7, .4), width: 2, label: "Durchschn. Kinetische Energie"})]);
+                "252";
                 pavg_line.plot(Math.pow(val, 2)["/"](2["*"](mass))["/"](1e3)["*"](6.02e23), 0);
                 pavg_line.plot(Math.pow(val, 2)["/"](2["*"](mass))["/"](1e3)["*"](6.02e23), 100);
             };
@@ -350,12 +589,12 @@
                 __module__ : {value: null}
             });
 
-            "161";
+            "254";
             async function barx(v) {
                 var ρσ_ls, KE;
-                "164";
+                "257";
                 KE = .5["*"](mass)["*"](Math.pow(v, 2))["/"](1e3)["*"](6.02e23);
-                "166";
+                "259";
                 return int(KE["/"](deltaKE));
             };
             if (!barx.__argnames__) Object.defineProperties(barx, {
@@ -363,27 +602,27 @@
                 __module__ : {value: null}
             });
 
-            "169";
+            "262";
             async function interchange(v1, v2) {
                 var ρσ_ls, barx1, barx2, lim;
-                "170";
-                "171";
+                "263";
+                "264";
                 barx1 = (await barx(v1));
-                "172";
+                "265";
                 barx2 = (await barx(v2));
-                "173";
+                "266";
                 if ((barx1 === barx2 || typeof barx1 === "object" && ρσ_equals(barx1, barx2))) {
                     return;
                 }
-                "174";
+                "267";
                 lim = len(histo)["*"](1.05);
-                "175";
+                "268";
                 if (barx1[">="](lim) || barx2[">="](lim)) {
                     return;
                 }
-                "176";
+                "269";
                 ρσ_setitem(histo, barx1, ρσ_getitem(histo, barx1)["-"](1));
-                "177";
+                "270";
                 ρσ_setitem(histo, barx2, ρσ_getitem(histo, barx2)["+"](1));
             };
             if (!interchange.__argnames__) Object.defineProperties(interchange, {
@@ -391,162 +630,277 @@
                 __module__ : {value: null}
             });
 
-            "179";
+            "272";
             async function checkCollisions() {
                 var ρσ_ls, hitlist, r2, ai, aj, dr, j, i;
-                "180";
+                "273";
                 hitlist = ρσ_list_decorate([]);
-                "181";
+                "274";
                 r2 = 2["*"](Ratom);
-                "182";
+                "275";
                 r2=r2["*"](r2);
-                "183";
-                for (var ρσ_Index3 = 0; ρσ_Index3["<"](Natoms); ρσ_Index3++) {
-                    i = ρσ_Index3;
-                    "184";
+                "276";
+                for (var ρσ_Index10 = 0; ρσ_Index10["<"](Natoms); ρσ_Index10++) {
+                    i = ρσ_Index10;
+                    "277";
                     ai = ρσ_getitem(apos, i);
-                    "185";
-                    for (var ρσ_Index4 = 0; ρσ_Index4["<"](i); ρσ_Index4++) {
-                        j = ρσ_Index4;
-                        "186";
+                    "278";
+                    for (var ρσ_Index11 = 0; ρσ_Index11["<"](i); ρσ_Index11++) {
+                        j = ρσ_Index11;
+                        "279";
                         aj = ρσ_getitem(apos, j);
-                        "187";
+                        "280";
                         dr = ai["-"](1["*"](aj));
-                        "188";
+                        "281";
                         if (mag2(dr)["<"](r2)) {
                             hitlist.append(ρσ_list_decorate([ i, j ]));
                         }
                     }
                 }
-                "189";
+                "282";
                 return hitlist;
             };
             if (!checkCollisions.__module__) Object.defineProperties(checkCollisions, {
                 __module__ : {value: null}
             });
 
-            "191";
-            async function PartColor(p_vec) {
-                var ρσ_ls, base, vmin, vmax, speed, vscaled, red, blue;
-                "192";
+            "284";
+            async function PartColor(i, p_vec) {
+                var ρσ_ls, atom, base, vmin, vmax, speed, vscaled, red, blue, glow;
+                "285";
+                "286";
+                atom = ρσ_getitem(Atoms, i);
+                "287";
                 base = 0;
-                "193";
-                vmin = 1e3;
-                "194";
+                "288";
+                vmin = 500;
+                "289";
                 vmax = 1800;
-                "195";
+                "290";
                 speed = mag(p_vec)["/"](mass);
-                "196";
+                "291";
+                vscaled = speed["-"](1["*"](vmin))["/"](vmax["-"](1["*"](vmin)));
+                "292";
+                red = base["+"](1["-"](1["*"](base))["*"](vscaled));
+                "293";
+                blue = 1["-"](1["*"](1["-"](1["*"](base)))["*"](vscaled));
+                "294";
+                red = max(ρσ_list_decorate([ 0, red ]));
+                "295";
+                red = min(ρσ_list_decorate([ 1, red ]));
+                "296";
+                blue = max(ρσ_list_decorate([ 0, blue ]));
+                "297";
+                blue = min(ρσ_list_decorate([ 1, blue ]));
+                "298";
+                if ((i === 0 || typeof i === "object" && ρσ_equals(i, 0))) {
+                    "299";
+                    atom.trail_color = .85["*"](vec(red, .3, blue));
+                    "300";
+                    if (red[">"](1) || red["<"](0) || blue[">"](1) || blue["<"](0)) {
+                        "301";
+                        print(red, blue);
+                        "302";
+                    }
+                }
                 if (speed["<"](v_thres)) {
-                    "197";
-                    vscaled = speed["-"](1["*"](vmin))["/"](vmax["-"](1["*"](vmin)));
-                    "199";
-                    red = base["+"](1["-"](1["*"](base))["*"](vscaled));
-                    "200";
-                    blue = 1["-"](1["*"](1["-"](1["*"](base)))["*"](vscaled));
-                    "201";
-                    return vec(red, .3, blue);
-                    "202";
+                    "303";
+                    atom.color = .85["*"](vec(red, .3, blue));
+                    "304";
+                    atom.shininess = 0;
+                    "305";
+                    if ((ρσ_getitem(assignedLights, i) !== false && (typeof ρσ_getitem(assignedLights, i) !== "object" || ρσ_not_equals(ρσ_getitem(assignedLights, i), false)))) {
+                        "306";
+                        if ((i === 0 || typeof i === "object" && ρσ_equals(i, 0)) && (singleTracking === true || typeof singleTracking === "object" && ρσ_equals(singleTracking, true))) {
+                            "307";
+                            ρσ_getitem(assignedLights, i).color = vec(.5, .5, .5);
+                        }
+                        "308";
+                        unusedLights.append(ρσ_getitem(assignedLights, i));
+                        "309";
+                        ρσ_getitem(assignedLights, i).visible = false;
+                        "310";
+                        ρσ_setitem(assignedLights, i, false);
+                        "311";
+                    }
                 } else {
-                    "203";
-                    return vec(.9, .8, .3);
+                    "312";
+                    if ((reactionsEnabled === true || typeof reactionsEnabled === "object" && ρσ_equals(reactionsEnabled, true))) {
+                        "313";
+                        atom.color = vec(red, .3, blue);
+                        "314";
+                        atom.shininess = .6;
+                        "315";
+                        if ((ρσ_getitem(assignedLights, i) === false || typeof ρσ_getitem(assignedLights, i) === "object" && ρσ_equals(ρσ_getitem(assignedLights, i), false))) {
+                            "316";
+                            glow = ρσ_setitem(assignedLights, i, ρσ_getitem(unusedLights, 0));
+                            "317";
+                            unusedLights = unusedLights.slice(1);
+                            "318";
+                            glow.pos = atom.pos;
+                            "319";
+                            glow.visible = true;
+                            "320";
+                            glow.emissive = true;
+                            "321";
+                            if ((i === 0 || typeof i === "object" && ρσ_equals(i, 0))) {
+                                "322";
+                                glow.color = vec(1, 1, 1);
+                                "323";
+                            }
+                        } else {
+                            "324";
+                            if ((i === 0 || typeof i === "object" && ρσ_equals(i, 0))) {
+                                "325";
+                                ρσ_getitem(assignedLights, i).color = vec(1, 1, 1);
+                                "326";
+                            }
+                        }
+                    } else {
+                        "327";
+                        atom.color = .85["*"](vec(red, .3, blue));
+                        "328";
+                        atom.shininess = 0;
+                        "329";
+                        if ((ρσ_getitem(assignedLights, i) !== false && (typeof ρσ_getitem(assignedLights, i) !== "object" || ρσ_not_equals(ρσ_getitem(assignedLights, i), false)))) {
+                            "330";
+                            if ((i === 0 || typeof i === "object" && ρσ_equals(i, 0))) {
+                                "331";
+                                ρσ_getitem(assignedLights, i).color = vec(.5, .5, .5);
+                            }
+                            "332";
+                            unusedLights.append(ρσ_getitem(assignedLights, i));
+                            "333";
+                            ρσ_getitem(assignedLights, i).visible = false;
+                            "334";
+                            ρσ_setitem(assignedLights, i, false);
+                        }
+                    }
                 }
             };
             if (!PartColor.__argnames__) Object.defineProperties(PartColor, {
-                __argnames__ : {value: ["p_vec"]},
+                __argnames__ : {value: ["i", "p_vec"]},
                 __module__ : {value: null}
             });
 
-            "206";
+            "337";
             async function Init() {
-                var ρσ_ls, xi, yi, zi, x, y, z, theta, phi, px, py, pz, i, v;
-                "207";
-                "208";
+                var ρσ_ls, xi, yi, zi, x, y, z, theta, phi, px, py, pz, i, v, current_flash, flash;
+                "338";
+                "339";
                 gg.remove();
-                "209";
+                "340";
+                ρσ_getitem(Atoms, 0).clear_trail();
+                "341";
                 pavg = sqrt(2["*"](mass)["*"](1.5)["*"](k)["*"](T));
-                "210";
-                for (var ρσ_Index5 = 0; ρσ_Index5["<"](Natoms); ρσ_Index5++) {
-                    i = ρσ_Index5;
-                    "211";
+                "342";
+                for (var ρσ_Index12 = 0; ρσ_Index12["<"](Natoms); ρσ_Index12++) {
+                    i = ρσ_Index12;
+                    "343";
                     xi = i["%"](aps);
-                    "212";
+                    "344";
                     yi = Math.floor(i["/"](aps))["-"](1["*"](aps)["*"](Math.floor(i["/"](Math.pow(aps, 2)))));
-                    "213";
+                    "345";
                     zi = Math.floor(i["/"](Math.pow(aps, 2)));
-                    "214";
+                    "346";
                     x = dL["*"](xi)["-"](1["*"](L)["/"](2));
-                    "215";
+                    "347";
                     y = dL["*"](yi)["-"](1["*"](L)["/"](2));
-                    "216";
+                    "348";
                     z = dL["*"](zi)["-"](1["*"](L)["/"](2));
-                    "217";
+                    "349";
                     ρσ_getitem(Atoms, i).pos = vec(x, y, z);
-                    "218";
+                    "350";
                     ρσ_setitem(apos, i, vec(x, y, z));
-                    "219";
+                    "351";
                     theta = pi["*"](random());
-                    "220";
+                    "352";
                     phi = 2["*"](pi)["*"](random());
-                    "221";
+                    "353";
                     px = pavg["*"](sin(theta))["*"](cos(phi));
-                    "222";
+                    "354";
                     py = pavg["*"](sin(theta))["*"](sin(phi));
-                    "223";
+                    "355";
                     pz = pavg["*"](cos(theta));
-                    "224";
+                    "356";
                     ρσ_setitem(p, i, vector(px, py, pz));
-                    "225";
-                    ρσ_getitem(Atoms, i).color = (await PartColor(vec(px, py, pz)));
+                    "357";
+                    (await PartColor(i, vec(px, py, pz)));
+                    "358";
+                    if ((ρσ_getitem(assignedLights, i) !== false && (typeof ρσ_getitem(assignedLights, i) !== "object" || ρσ_not_equals(ρσ_getitem(assignedLights, i), false)))) {
+                        "359";
+                        ρσ_getitem(assignedLights, i).pos = vec(x, y, z);
+                        "360";
+                        ρσ_getitem(assignedLights, i).color = vec(1, 1, 1);
+                    }
                 }
-                "226";
+                "361";
                 nhisto = int(KE_max["/"](deltaKE));
-                "227";
+                "362";
                 histo = ρσ_list_decorate([]);
-                "228";
-                for (var ρσ_Index6 = 0; ρσ_Index6["<"](nhisto); ρσ_Index6++) {
-                    i = ρσ_Index6;
+                "363";
+                for (var ρσ_Index13 = 0; ρσ_Index13["<"](nhisto); ρσ_Index13++) {
+                    i = ρσ_Index13;
                     histo.append(0);
                 }
-                "229";
+                "364";
                 ρσ_setitem(histo, (await barx(pavg["/"](mass))), Natoms);
-                "231";
-                gg = ρσ_interpolate_kwargs.call(this, graph, [ρσ_desugar_kwargs({width: win, height: 0.7["*"](win), xmax: 25, xmin: 0, align: "left", xtitle: "Kinetische Energie (kJ/mol)", ytitle: "Anzahl Teilchen", ymax: Natoms["*"](deltav)["/"](500)})]);
-                "232";
+                "366";
+                gg = ρσ_interpolate_kwargs.call(this, graph, [ρσ_desugar_kwargs({width: win, height: .68["*"](win), xmax: 25, xmin: 0, align: "left", xtitle: "Kinetische Energie (kJ/mol)", ytitle: "Anzahl Teilchen", ymin: 0, ymax: Natoms["*"](deltav)["/"](500)})]);
+                "367";
                 (await plotEA(EA));
-                "233";
+                "368";
                 (await plotPavg(pavg));
-                "234";
-                theory = ρσ_interpolate_kwargs.call(this, gcurve, [ρσ_desugar_kwargs({color: vector(.5, .5, 1), label: "Theor. Verteilung"})]);
-                "235";
-                var ρσ_Iter7 = range(0, num_bins["+"](1)["+"](dv), dv);
-                ρσ_Iter7 = ((typeof ρσ_Iter7[Symbol.iterator] === "function") ? (ρσ_Iter7 instanceof Map ? ρσ_Iter7.keys() : ρσ_Iter7) : Object.keys(ρσ_Iter7));
-                for (var ρσ_Index7 of ρσ_Iter7) {
-                    v = ρσ_Index7;
-                    "236";
+                "369";
+                theory = ρσ_interpolate_kwargs.call(this, gcurve, [ρσ_desugar_kwargs({color: vec(.3, .5, .3), label: "Theor. Verteilung"})]);
+                "370";
+                var ρσ_Iter14 = range(0, num_bins["+"](1)["+"](dv), dv);
+                ρσ_Iter14 = ((typeof ρσ_Iter14[Symbol.iterator] === "function") ? (ρσ_Iter14 instanceof Map ? ρσ_Iter14.keys() : ρσ_Iter14) : Object.keys(ρσ_Iter14));
+                for (var ρσ_Index14 of ρσ_Iter14) {
+                    v = ρσ_Index14;
+                    "371";
                     theory.plot(.5["*"](mass)["*"](Math.pow(v, 2))["/"](1e3)["*"](6.02e23), deltav["/"](dv)["*"](Natoms)["*"](4)["*"](pi)["*"](Math.pow((mass["/"](2["*"](pi)["*"](k)["*"](T))), 1.5))["*"](exp(1["-u"]()["*"](.5)["*"](mass)["*"](Math.pow(v, 2))["/"](k["*"](T))))["*"](Math.pow(v, 2))["*"](dv));
                 }
-                "237";
+                "372";
                 accum = ρσ_list_decorate([]);
-                "238";
-                var ρσ_Iter8 = range(int(KE_max["/"](deltaKE)));
-                ρσ_Iter8 = ((typeof ρσ_Iter8[Symbol.iterator] === "function") ? (ρσ_Iter8 instanceof Map ? ρσ_Iter8.keys() : ρσ_Iter8) : Object.keys(ρσ_Iter8));
-                for (var ρσ_Index8 of ρσ_Iter8) {
-                    i = ρσ_Index8;
+                "373";
+                singleBarData = ρσ_list_decorate([]);
+                "374";
+                var ρσ_Iter15 = range(int(KE_max["/"](deltaKE)));
+                ρσ_Iter15 = ((typeof ρσ_Iter15[Symbol.iterator] === "function") ? (ρσ_Iter15 instanceof Map ? ρσ_Iter15.keys() : ρσ_Iter15) : Object.keys(ρσ_Iter15));
+                for (var ρσ_Index15 of ρσ_Iter15) {
+                    i = ρσ_Index15;
+                    "375";
                     accum.append(ρσ_list_decorate([ deltaKE["*"](i["+"](.5)), 0 ]));
+                    "376";
+                    singleBarData.append(ρσ_list_decorate([ deltaKE["*"](i["+"](.5)), 1["-u"]()["*"](1) ]));
                 }
-                "239";
+                "377";
                 vdist = ρσ_interpolate_kwargs.call(this, gvbars, [ρσ_desugar_kwargs({color: color.gray(.4), delta: deltaKE})]);
-                "241";
+                "378";
+                singleBar = ρσ_interpolate_kwargs.call(this, gvbars, [ρσ_desugar_kwargs({color: vec(.2, .2, .2), visible: false, delta: deltaKE})]);
+                "380";
                 nhisto = 0;
+                "381";
+                current_flash = 0;
+                "382";
+                var ρσ_Iter16 = flashes;
+                ρσ_Iter16 = ((typeof ρσ_Iter16[Symbol.iterator] === "function") ? (ρσ_Iter16 instanceof Map ? ρσ_Iter16.keys() : ρσ_Iter16) : Object.keys(ρσ_Iter16));
+                for (var ρσ_Index16 of ρσ_Iter16) {
+                    flash = ρσ_Index16;
+                    "383";
+                    flash.visible = false;
+                    "384";
+                    flash.counter = 0;
+                }
             };
             if (!Init.__module__) Object.defineProperties(Init, {
                 __module__ : {value: null}
             });
 
-            "243";
+            "387";
             async function Controls(evt) {
-                "244";
+                "388";
                 (await PlayPause());
             };
             if (!Controls.__argnames__) Object.defineProperties(Controls, {
@@ -554,148 +908,243 @@
                 __module__ : {value: null}
             });
 
-            "246";
+            "390";
             async function Run() {
-                var ρσ_ls, i, hitlist, j, ptot, posi, posj, vi, vj, vrel, a, rrel, dx, dy, alpha, d_in, deltat, mtot, pcmi, pcmj, ij, loc;
-                "247";
-                "250";
+                var simrate = (arguments[0] === undefined || ( 0 === arguments.length["-"](1) && arguments[arguments.length["-"](1)] !== null && typeof arguments[arguments.length["-"](1)] === "object" && arguments[arguments.length["-"](1)] [ρσ_kwargs_symbol] === true)) ? Run.__defaults__.simrate : arguments[0];
+                var ρσ_kwargs_obj = arguments[arguments.length["-"](1)];
+                if (ρσ_kwargs_obj === null || typeof ρσ_kwargs_obj !== "object" || ρσ_kwargs_obj [ρσ_kwargs_symbol] !== true) ρσ_kwargs_obj = {};
+                if (Object.prototype.hasOwnProperty.call(ρσ_kwargs_obj, "simrate")){
+                    simrate = ρσ_kwargs_obj.simrate;
+                }
+                var ρσ_ls, v0, i, hitlist, number_of_flashes, j, ptot, posi, posj, vi, vj, vrel, a, rrel, dx, dy, alpha, d_in, deltat, mtot, pcmi, pcmj, flashUnique, flash, ij, loc;
+                "391";
+                "394";
                 while (true) {
-                    "251";
-                    (await rate(140));
-                    "252";
+                    "395";
+                    (await rate(simrate));
+                    "396";
                     if (!running) {
-                        "253";
-                        "254";
+                        "397";
+                        "398";
                     } else {
-                        "256";
-                        var ρσ_Iter9 = range(len(accum));
-                        ρσ_Iter9 = ((typeof ρσ_Iter9[Symbol.iterator] === "function") ? (ρσ_Iter9 instanceof Map ? ρσ_Iter9.keys() : ρσ_Iter9) : Object.keys(ρσ_Iter9));
-                        for (var ρσ_Index9 of ρσ_Iter9) {
-                            i = ρσ_Index9;
-                            "257";
+                        "400";
+                        var ρσ_Iter17 = range(len(accum));
+                        ρσ_Iter17 = ((typeof ρσ_Iter17[Symbol.iterator] === "function") ? (ρσ_Iter17 instanceof Map ? ρσ_Iter17.keys() : ρσ_Iter17) : Object.keys(ρσ_Iter17));
+                        for (var ρσ_Index17 of ρσ_Iter17) {
+                            i = ρσ_Index17;
+                            "401";
                             ρσ_setitem(ρσ_getitem(accum, i), 1, nhisto["*"](ρσ_getitem(ρσ_getitem(accum, i), 1))["+"](ρσ_getitem(histo, i))["/"](nhisto["+"](1)));
-                            "258";
+                            "402";
+                            ρσ_setitem(ρσ_getitem(singleBarData, i), 1, 1["-u"]()["*"](1));
+                            "403";
+                            if ((singleTracking === true || typeof singleTracking === "object" && ρσ_equals(singleTracking, true))) {
+                                "404";
+                                v0 = ρσ_getitem(p, 0).mag["/"](mass);
+                                "405";
+                                ρσ_setitem(ρσ_getitem(singleBarData, (await barx(v0))), 1, ρσ_getitem(ρσ_getitem(accum, (await barx(v0))), 1));
+                                "406";
+                                singleBar.color = ρσ_getitem(Atoms, 0).color["*"](.5);
+                                "407";
+                            }
                             if (ρσ_getitem(ρσ_getitem(accum, i), 1)["<"](0)) {
-                                "260";
+                                "409";
                                 if (ρσ_getitem(ρσ_getitem(accum, i), 1)["<"](1["-u"]()["*"](1))) {
                                     running = false;
                                 }
-                                "261";
+                                "412";
                             }
                         }
                         if (ρσ_equals(nhisto["%"](10), 0)) {
-                            "262";
+                            "413";
                             vdist.data = accum;
+                            "414";
+                            if ((singleTracking === true || typeof singleTracking === "object" && ρσ_equals(singleTracking, true))) {
+                                "415";
+                                singleBar.data = singleBarData;
+                                "416";
+                                singleBar.visible = true;
+                                "417";
+                            } else {
+                                "418";
+                                singleBar.visible = false;
+                            }
                         }
-                        "263";
+                        "419";
                         nhisto=nhisto["+"](1);
-                        "266";
-                        for (var ρσ_Index10 = 0; ρσ_Index10["<"](Natoms); ρσ_Index10++) {
-                            i = ρσ_Index10;
+                        "422";
+                        for (var ρσ_Index18 = 0; ρσ_Index18["<"](Natoms); ρσ_Index18++) {
+                            i = ρσ_Index18;
+                            "423";
                             ρσ_getitem(Atoms, i).pos = ρσ_setitem(apos, i, ρσ_getitem(apos, i)["+"](ρσ_getitem(p, i)["/"](mass)["*"](dt)));
+                            "424";
+                            if ((ρσ_getitem(assignedLights, i) !== false && (typeof ρσ_getitem(assignedLights, i) !== "object" || ρσ_not_equals(ρσ_getitem(assignedLights, i), false)))) {
+                                "425";
+                                ρσ_getitem(assignedLights, i).pos = ρσ_getitem(Atoms, i).pos;
+                            }
                         }
-                        "269";
+                        "428";
                         hitlist = (await checkCollisions());
-                        "272";
-                        var ρσ_Iter11 = hitlist;
-                        ρσ_Iter11 = ((typeof ρσ_Iter11[Symbol.iterator] === "function") ? (ρσ_Iter11 instanceof Map ? ρσ_Iter11.keys() : ρσ_Iter11) : Object.keys(ρσ_Iter11));
-                        for (var ρσ_Index11 of ρσ_Iter11) {
-                            ij = ρσ_Index11;
-                            "273";
+                        "431";
+                        number_of_flashes = 0;
+                        "432";
+                        var ρσ_Iter19 = hitlist;
+                        ρσ_Iter19 = ((typeof ρσ_Iter19[Symbol.iterator] === "function") ? (ρσ_Iter19 instanceof Map ? ρσ_Iter19.keys() : ρσ_Iter19) : Object.keys(ρσ_Iter19));
+                        for (var ρσ_Index19 of ρσ_Iter19) {
+                            ij = ρσ_Index19;
+                            "433";
                             i = ρσ_getitem(ij, 0);
-                            "274";
+                            "434";
                             j = ρσ_getitem(ij, 1);
-                            "275";
+                            "435";
                             ptot = ρσ_getitem(p, i)["+"](ρσ_getitem(p, j));
-                            "276";
+                            "436";
                             posi = ρσ_getitem(apos, i);
-                            "277";
+                            "437";
                             posj = ρσ_getitem(apos, j);
-                            "278";
+                            "438";
                             vi = ρσ_getitem(p, i)["/"](mass);
-                            "279";
+                            "439";
                             vj = ρσ_getitem(p, j)["/"](mass);
-                            "280";
+                            "441";
                             vrel = vj["-"](1["*"](vi));
-                            "281";
+                            "442";
                             a = vrel.mag2;
-                            "282";
+                            "443";
                             if ((a === 0 || typeof a === "object" && ρσ_equals(a, 0))) {
                                 continue;
                             }
-                            "283";
+                            "444";
                             rrel = posi["-"](1["*"](posj));
-                            "284";
+                            "445";
                             if (rrel.mag[">"](Ratom)) {
                                 continue;
                             }
-                            "287";
+                            "448";
                             dx = dot(rrel, vrel.hat);
-                            "288";
+                            "449";
                             dy = cross(rrel, vrel.hat).mag;
-                            "291";
+                            "452";
                             alpha = asin(dy["/"](2["*"](Ratom)));
-                            "292";
+                            "453";
                             d_in = 2["*"](Ratom)["*"](cos(alpha))["-"](1["*"](dx));
-                            "293";
+                            "454";
                             deltat = d_in["/"](vrel.mag);
-                            "295";
+                            "456";
                             posi = posi["-"](1["*"](vi)["*"](deltat));
-                            "296";
+                            "457";
                             posj = posj["-"](1["*"](vj)["*"](deltat));
-                            "297";
+                            "458";
                             mtot = 2["*"](mass);
-                            "298";
+                            "459";
                             pcmi = ρσ_getitem(p, i)["-"](1["*"](ptot)["*"](mass)["/"](mtot));
-                            "299";
+                            "460";
                             pcmj = ρσ_getitem(p, j)["-"](1["*"](ptot)["*"](mass)["/"](mtot));
-                            "300";
+                            "461";
                             rrel = norm(rrel);
-                            "301";
+                            "462";
                             pcmi = pcmi["-"](1["*"](2)["*"](pcmi.dot(rrel))["*"](rrel));
-                            "302";
+                            "463";
                             pcmj = pcmj["-"](1["*"](2)["*"](pcmj.dot(rrel))["*"](rrel));
-                            "303";
+                            "464";
                             ρσ_setitem(p, i, pcmi["+"](ptot["*"](mass)["/"](mtot)));
-                            "304";
+                            "465";
                             ρσ_setitem(p, j, pcmj["+"](ptot["*"](mass)["/"](mtot)));
-                            "305";
+                            "466";
                             ρσ_setitem(apos, i, posi["+"](ρσ_getitem(p, i)["/"](mass)["*"](deltat)));
-                            "306";
+                            "467";
                             ρσ_setitem(apos, j, posj["+"](ρσ_getitem(p, j)["/"](mass)["*"](deltat)));
-                            "307";
+                            "468";
+                            if (reactionsEnabled && vi.mag[">"](v_thres) && vj.mag[">"](v_thres) && number_of_flashes["<="](15)) {
+                                "469";
+                                if ((singleTracking === true || typeof singleTracking === "object" && ρσ_equals(singleTracking, true)) && (i !== 0 && (typeof i !== "object" || ρσ_not_equals(i, 0))) && (j !== 0 && (typeof j !== "object" || ρσ_not_equals(j, 0)))) {
+                                    "470";
+                                    "471";
+                                } else {
+                                    "473";
+                                    flashUnique = true;
+                                    "474";
+                                    var ρσ_Iter20 = flashes;
+                                    ρσ_Iter20 = ((typeof ρσ_Iter20[Symbol.iterator] === "function") ? (ρσ_Iter20 instanceof Map ? ρσ_Iter20.keys() : ρσ_Iter20) : Object.keys(ρσ_Iter20));
+                                    for (var ρσ_Index20 of ρσ_Iter20) {
+                                        flash = ρσ_Index20;
+                                        "475";
+                                        if (([flash.ai, flash.aj] == [i, j] || typeof [flash.ai, flash.aj] === "object" && ρσ_equals([flash.ai, 
+                                        flash.aj], [i, j]))) {
+                                            "476";
+                                            flashUnique = false;
+                                            "477";
+                                        }
+                                    }
+                                    if ((flashUnique === true || typeof flashUnique === "object" && ρσ_equals(flashUnique, true))) {
+                                        "478";
+                                        ρσ_getitem(flashes, current_flash).pos = posi["+"](.5["*"](posj["-"](1["*"](posi))));
+                                        "479";
+                                        ρσ_getitem(flashes, current_flash).visible = true;
+                                        "480";
+                                        ρσ_getitem(flashes, current_flash).counter = 0;
+                                        "481";
+                                        ρσ_getitem(flashes, current_flash).ai = i;
+                                        "482";
+                                        ρσ_getitem(flashes, current_flash).aj = j;
+                                        "483";
+                                        current_flash=current_flash["+"](1);
+                                        "484";
+                                        if (1) {
+                                            "485";
+                                            ρσ_getitem(Atoms, i).make_trail = true;
+                                            "486";
+                                            ρσ_getitem(Atoms, i).trail_color = vec(0, 1, 0);
+                                            "487";
+                                        }
+                                        if (1) {
+                                            "488";
+                                            ρσ_getitem(Atoms, j).make_trail = true;
+                                            "489";
+                                            ρσ_getitem(Atoms, j).trail_color = vec(0, 1, 0);
+                                            "490";
+                                        }
+                                        if (current_flash[">="](len(flashes))) {
+                                            "491";
+                                            current_flash = 0;
+                                        }
+                                        "492";
+                                        number_of_flashes=number_of_flashes["+"](1);
+                                    }
+                                }
+                            }
+                            "493";
                             (await interchange(vi.mag, ρσ_getitem(p, i).mag["/"](mass)));
-                            "308";
+                            "494";
                             (await interchange(vj.mag, ρσ_getitem(p, j).mag["/"](mass)));
                         }
-                        "310";
-                        for (var ρσ_Index12 = 0; ρσ_Index12["<"](Natoms); ρσ_Index12++) {
-                            i = ρσ_Index12;
-                            "311";
-                            ρσ_getitem(Atoms, i).color = (await PartColor(ρσ_getitem(p, i)));
-                            "312";
+                        "496";
+                        for (var ρσ_Index21 = 0; ρσ_Index21["<"](Natoms); ρσ_Index21++) {
+                            i = ρσ_Index21;
+                            "497";
+                            (await PartColor(i, ρσ_getitem(p, i)));
+                            "498";
                             loc = ρσ_getitem(apos, i);
-                            "313";
+                            "499";
                             if (abs(loc.x)[">"](L["/"](2))) {
-                                "314";
+                                "500";
                                 if (loc.x["<"](0)) {
                                     ρσ_getitem(p, i).x = abs(ρσ_getitem(p, i).x);
                                 } else {
                                     ρσ_getitem(p, i).x = 1["-u"]()["*"](abs(ρσ_getitem(p, i).x));
                                 }
-                                "317";
+                                "503";
                             }
                             if (abs(loc.y)[">"](L["/"](2))) {
-                                "318";
+                                "504";
                                 if (loc.y["<"](0)) {
                                     ρσ_getitem(p, i).y = abs(ρσ_getitem(p, i).y);
                                 } else {
                                     ρσ_getitem(p, i).y = 1["-u"]()["*"](abs(ρσ_getitem(p, i).y));
                                 }
-                                "321";
+                                "507";
                             }
                             if (abs(loc.z)[">"](L["/"](2))) {
-                                "322";
+                                "508";
                                 if (loc.z["<"](0)) {
                                     ρσ_getitem(p, i).z = abs(ρσ_getitem(p, i).z);
                                 } else {
@@ -703,28 +1152,152 @@
                                 }
                             }
                         }
+                        "510";
+                        var ρσ_Iter22 = flashes;
+                        ρσ_Iter22 = ((typeof ρσ_Iter22[Symbol.iterator] === "function") ? (ρσ_Iter22 instanceof Map ? ρσ_Iter22.keys() : ρσ_Iter22) : Object.keys(ρσ_Iter22));
+                        for (var ρσ_Index22 of ρσ_Iter22) {
+                            flash = ρσ_Index22;
+                            "511";
+                            if (flash.visible) {
+                                "512";
+                                flash.radius = 1.05["*"](flash.radius);
+                                "513";
+                                if ((slowMo === true || typeof slowMo === "object" && ρσ_equals(slowMo, true))) {
+                                    "514";
+                                    flash.opacity = flash.opacity["*"](.975);
+                                    "515";
+                                } else {
+                                    "516";
+                                    flash.opacity = flash.opacity["*"](.98);
+                                }
+                                "517";
+                                flash.counter=flash.counter["+"](1);
+                                "518";
+                                ρσ_getitem(Atoms, flash.ai).trail_color = vec(0, 1, 0)["*"](Math.pow(flash.opacity, 1.5));
+                                "519";
+                                ρσ_getitem(Atoms, flash.aj).trail_color = vec(0, 1, 0)["*"](Math.pow(flash.opacity, 1.5));
+                                "521";
+                                if (flash.radius[">="](4["*"](Ratom))) {
+                                    "522";
+                                    if ((flash.ai !== 0 && (typeof flash.ai !== "object" || ρσ_not_equals(flash.ai, 0)))) {
+                                        "523";
+                                        ρσ_getitem(Atoms, flash.ai).trail_color = vec(0, 1, 0);
+                                        "524";
+                                    } else {
+                                        "525";
+                                        ρσ_getitem(Atoms, flash.ai).trail_color = ρσ_getitem(Atoms, flash.ai).color;
+                                    }
+                                    "526";
+                                    ρσ_getitem(Atoms, flash.ai).clear_trail();
+                                    "527";
+                                    if ((flash.ai === 0 || typeof flash.ai === "object" && ρσ_equals(flash.ai, 0)) && (singleTracking === true || typeof singleTracking === "object" && ρσ_equals(singleTracking, true))) {
+                                        "528";
+                                        "529";
+                                    } else {
+                                        "530";
+                                        ρσ_getitem(Atoms, flash.ai).make_trail = false;
+                                        "532";
+                                    }
+                                    if ((flash.aj !== 0 && (typeof flash.aj !== "object" || ρσ_not_equals(flash.aj, 0)))) {
+                                        "533";
+                                        ρσ_getitem(Atoms, flash.aj).trail_color = vec(0, 1, 0);
+                                        "534";
+                                    } else {
+                                        "535";
+                                        ρσ_getitem(Atoms, flash.aj).trail_color = ρσ_getitem(Atoms, flash.aj).color;
+                                    }
+                                    "536";
+                                    ρσ_getitem(Atoms, flash.aj).clear_trail();
+                                    "537";
+                                    if ((flash.aj === 0 || typeof flash.aj === "object" && ρσ_equals(flash.aj, 0)) && (singleTracking === true || typeof singleTracking === "object" && ρσ_equals(singleTracking, true))) {
+                                        "538";
+                                        "539";
+                                    } else {
+                                        "540";
+                                        ρσ_getitem(Atoms, flash.aj).make_trail = false;
+                                        "542";
+                                    }
+                                }
+                                if (flash.radius[">="](5["*"](Ratom))) {
+                                    "543";
+                                    flash.visible = false;
+                                    "544";
+                                    flash.opacity = 1;
+                                    "545";
+                                    flash.ai = 1["-u"]()["*"](1);
+                                    "546";
+                                    flash.aj = 1["-u"]()["*"](1);
+                                    "547";
+                                    flash.radius = .1["*"](Ratom);
+                                    "554";
+                                }
+                            }
+                        }
+                        if ((fastFwd === true || typeof fastFwd === "object" && ρσ_equals(fastFwd, true))) {
+                            "555";
+                            "556";
+                        } else {
+                            "557";
+                            if ((slowMo === true || typeof slowMo === "object" && ρσ_equals(slowMo, true))) {
+                                "558";
+                                (await sleep(.03));
+                                "559";
+                            } else {
+                                "560";
+                                (await sleep(.006));
+                            }
+                        }
                     }
                 }
             };
-            if (!Run.__module__) Object.defineProperties(Run, {
+            if (!Run.__defaults__) Object.defineProperties(Run, {
+                __defaults__ : {value: {simrate:simrate}},
+                __handles_kwarg_interpolation__ : {value: true},
+                __argnames__ : {value: ["simrate"]},
                 __module__ : {value: null}
             });
 
-            "325";
+            "564";
             animation.bind("click", Controls);
-            "326";
+            "565";
             (await Init());
-            "327";
+            "566";
             (await Run());
         };
         if (!__main__.__module__) Object.defineProperties(__main__, {
             __module__ : {value: null}
         });
 
-    ;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; __main__() })})()
-    // END JAVASCRIPT
+        ;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; __main__() })})()
+        // END JAVASCRIPT
             
             //--><!]]></script>
             </div>
     
+
+<script>
+    // function waitForElement(selector, callback, waitTime) {
+    //     // Check if an element matching the selector exists in the DOM
+    //     if (document.querySelector(selector)) {
+    //         // If the element is found, invoke the callback function
+    //         callback();
+    //     } else {
+    //         // If the element is not found at first, set up a timeout to recheck after waitTime
+    //         console.log("retrying")
+    //         setTimeout(function() {
+    //             // Recursively call waitForElement with the same selector, callback, and waitTime values
+    //             waitForElement(selector, callback, waitTime);
+    //         }, waitTime);
+    //     }
+    // }
+    // // add some space between sliders and checkboxes
+    // waitForElement("#s0", function(){
+    //     document.getElementById("s0").style["margin-top"]="1.5em"
+    // }, 500)
+    // // and between slides and graph
+    // waitForElement("#s1", function(){
+    //     document.getElementById("s1").parentElement.style["margin-bottom"]="2em"
+    // }, 500)
+
+</script>
 </body>
