@@ -14,6 +14,27 @@
     <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
     <script src="../../assets/js/jquery.min.js"></script>
     <script src="https://d3js.org/d3.v4.js" charset="utf-8"></script>
+    <style>
+        .javaLabSim {
+            width: 100%; 
+            aspect-ratio: 1; 
+            margin-top: 0; 
+            display:block; 
+            overflow:hidden;
+            
+        }
+        .copyRightInfo {
+            font-size:1em; 
+            color:rgb(26, 14, 255); 
+            margin-bottom:0; 
+            margin-left:0.5em
+        }
+        #divContainer {
+            /* border: solid 2px rgb(145, 76, 76);  */
+            overflow: hidden; 
+            visibility:hidden
+        }
+    </style>
     </head>
 <body class="is-preload">
 <!-- Wrapper -->
@@ -53,11 +74,11 @@
                     <div id="loadText">
                         <p style="color: rgb(26, 14, 255); border: solid 2px rgb(255, 255, 255)">Please wait until the simulation loads...</p>
                     </div>
-                    <div id="divContainer" style="left: 100px; top: 100px; border: solid 2px rgb(255, 255, 255); overflow: hidden; visibility:hidden">
-                        <iframe id="simulationB" scrolling="no" src="https://javalab.org/en/spectrum_of_hydrogen_en/" style="width: 100%; aspect-ratio: 1; margin-top:-3em; display:block">
+                    <div id="divContainer">
+                        <iframe id="simulationB" class="javaLabSim" scrolling="no" src="https://javalab.org/en/spectrum_of_hydrogen_en/">
                         </iframe>
                     </div>
-                    <p style="font-size:1em; color:rgb(26, 14, 255); margin-bottom:0; margin-left:0.5em">&copy Created by the <a href="https://javalab.org/en/" target="_blank">JavaLab Team</a></p> 
+                    <p class="copyRightInfo">&copy Created by DJ Lee @ <a href="https://javalab.org/en/" target="_blank">JavaLab.org</a></p> 
                     <p>Visit the <a href="https://javalab.org/en/spectrum_of_hydrogen_en/" target="_blank">original website</a>, if the simulation is not display correctly..</p>
                     <h2>Interactive Diagram B</h2>
                     <h3>Tips:</h3>
@@ -106,7 +127,7 @@
             loadText.style.display = 'none'
             divContainer.style.visibility='visible'
             var width = document.getElementById("divContainer").offsetWidth
-            var height = width * 1500/3455 // width of canvas, so that the rest is cropped
+            var height = width * 0.50 // width of canvas, so that the rest is cropped
             document.getElementById("divContainer").style.height = ""+height+"px"
            }
     </script>
