@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<!--
+	Made using the template Phantom by HTML5 UP
+	html5up.net | @ajlkn
+-->
+<html>
+<head>
+    <title>Spektrum von Wasserstoff</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+    <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
+    <script src="../assets/js/jquery.min.js"></script>
+    <style>
+        .javaLabSim {
+            width: 100%; 
+            aspect-ratio: 1; 
+            margin-top: 0; 
+            display:block; 
+            overflow:hidden;
+            
+        }
+        .copyRightInfo {
+            font-size:1em; 
+            color:rgb(26, 14, 255); 
+            margin-bottom:0; 
+            margin-left:0.5em
+        }
+        #divContainer {
+            /* border: solid 2px rgb(145, 76, 76);  */
+            overflow: hidden; 
+            visibility:hidden
+        }
+    </style>
+</head>
+<body class="is-preload">
+<!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <script> $("#header").load("../../header.html");</script>
+        </header>
+
+        <!-- Menu (help in disguise)-->
+        <nav id="menu">
+            <script>$("#menu").load("helpMenuCP.html");</script>
+        </nav>
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner" >
+                <h2>Simulation: Spektrum von Wasserstoff</h2>
+                <div id="loadText">
+                    <p style="color: rgb(26, 14, 255); border: solid 2px rgb(255, 255, 255)">Bitte warten Sie, bis die Simulation geladen ist...</p>
+                </div>
+                <div id="divContainer">
+                    <iframe id="simulationB" class="javaLabSim" src="https://javalab.org/en/spectrum_of_hydrogen_en/" scrolling="no">
+                    </iframe>
+                </div>
+                <p class="copyRightInfo">&copy Erstellt von DJ Lee @<a href="https://javalab.org/en/" target="_blank">JavaLab.org</a></p> 
+                <p>Besuchen Sie die <a href="https://javalab.org/en/spectrum_of_hydrogen_en/" target="_blank">Original-Website</a>, wenn das Bild nicht richtig angezeigt wird.</p>
+            </div>
+        </div>
+        
+
+		<!-- Footer -->
+		<footer id="footer">
+            <script>$("#footer").load("../footer.html"); </script>
+		</footer>
+    </div>
+
+<!-- Scripts -->
+<script src="../assets/js/browser.min.js"></script>
+<script src="../assets/js/breakpoints.min.js"></script>
+<script src="../assets/js/util.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/Three49custom.js"></script>
+<script>
+    var iFrame = document.getElementById("simulationB")
+    var divContainer = document.getElementById("divContainer")
+    var loadText=document.getElementById("loadText")
+    var cropFrame = function(){
+        loadText.style.display = 'none'
+        divContainer.style.visibility='visible'
+        var width = document.getElementById("divContainer").offsetWidth
+        var height = width * 0.505 // width of canvas, so that the rest is cropped
+        document.getElementById("divContainer").style.height = ""+height+"px"
+    }
+    iFrame.onload = cropFrame
+    window.addEventListener("resize", cropFrame)
+</script>
+</body>
+</html>
