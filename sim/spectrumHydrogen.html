@@ -32,6 +32,22 @@
             overflow: hidden; 
             visibility:hidden
         }
+        .hint {
+            /* display: none; */
+            overflow: hidden;
+            max-height: 0;
+            -webkit-transition: max-height 0.5s; 
+            -moz-transition: max-height 0.5s; 
+            -ms-transition: max-height 0.5s; 
+            -o-transition: max-height 0.5s; 
+            transition: max-height 0.5s;
+        }
+        .showHide {
+            margin-left:1em; 
+            margin-right:2em;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body class="is-preload">
@@ -51,7 +67,18 @@
         <!-- Main -->
         <div id="main">
             <div class="inner" >
+                <h1>Atombau & Spektroskopie: Vertiefungsaktivität</h1>
                 <h2>Simulation: Spektrum von Wasserstoff</h2>
+                <h3>Hinweise zur Nutzung der Simulation:<span><toggle class="showHide" id="showHideUsage">Einblenden</toggle></span></h3>
+                <div id="hintUsage" class="hint">
+                    <ul>
+                        <li>In diese Simulation werden die Energieniveaus des Wasserstoffatoms nach dem Bohrschen Modell quantitativ betrachtet.</li> 
+                        <li>Der obere Bereich ist eine Wellenlängeachse. Der untere Bereich zeigt eine vereinfachte Darstellung der Energieniveaus eines Wasserstoffatoms dar.</li>
+                        <li>Das rote <span style="background:rgb(255, 0, 0); border-radius: 8px; font-weight: 900; color: rgb(255, 255, 255)">&nbsp +&nbsp </span>-Zeichen steht für den Kern, während das blaue <span style="background:rgb(8, 28, 255); border-radius: 10px; font-weight: 900; color: rgb(255, 255, 255)">&nbsp -&nbsp </span>-Zeichen ein Elektron darstellt, welches das Atom umkreist.</li>
+                        <li>Die Anfangs- und Endpositionen des Elektrons können durch Berühren und Schieben verändert werden, wodurch Übergänge zwischen den Energieniveaus des Wasserstoffatoms erzeugt werden.</li>
+                        <li>Die Energie dieser Übergänge wird entlang der schwarzen Wellenlängenachse über dem Bild angezeigt und ist auch neben dem Pfeil angegeben.</li>
+                    </ul>
+                </div>
                 <div id="loadText">
                     <p style="color: rgb(26, 14, 255); border: solid 2px rgb(255, 255, 255)">Bitte warten Sie, bis die Simulation geladen ist...</p>
                 </div>
@@ -90,6 +117,26 @@
     }
     iFrame.onload = cropFrame
     window.addEventListener("resize", cropFrame)
+</script>
+<script>
+    // Setting up hint toggles
+    showHideToggles = document.getElementsByClassName("showHide");
+    
+    [].forEach.call(showHideToggles, function(m){
+        m.onclick = function(){
+            let hintId = m.id.split("showHide")[1]
+            hint = document.getElementById("hint"+hintId)
+            if (this.innerHTML == "Einblenden"){
+                this.innerHTML = "Ausblenden"
+                hint.style["max-height"] = "400px"
+                // hint.style.display="block"
+            } else {
+                this.innerHTML = "Einblenden"
+                hint.style["max-height"] = "0px"
+                // hint.style.display="none"
+            }
+        }
+    })
 </script>
 </body>
 </html>
