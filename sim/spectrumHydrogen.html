@@ -112,8 +112,9 @@
     var cropFrame = function(){
         loadText.style.display = 'none'
         divContainer.style.visibility='visible'
-        var width = document.getElementById("divContainer").offsetWidth
+        var width = iFrame.offsetWidth
         var height = width * 0.50 // width of canvas, so that the rest is cropped
+        document.getElementById("divContainer").style.width = ""+width+"px"
         document.getElementById("divContainer").style.height = ""+height+"px"
     }
     iFrame.onload = cropFrame
