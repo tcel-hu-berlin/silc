@@ -2889,7 +2889,7 @@ button.addRemoveButon:hover{
 				}
 				
 				.tiles article.styleSimActive > .image {
-					opacity: 0;
+					opacity: 0; 
 				}
 
 				.tiles article > a .content {

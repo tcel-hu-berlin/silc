@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<!--
+	Made using the template Phantom by HTML5 UP
+	html5up.net | @ajlkn
+-->
+<html>
+<head>
+    <title>SILC: Molekülgeometrie</title>
+    <link rel="icon" type="image/x-icon" href="../../images/fav.png">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+    <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
+    <script src="../../assets/js/jquery.min.js"></script>
+    <style>
+        .copyRightInfo {
+            font-size:1em; 
+            color:rgb(26, 14, 255); 
+            margin-bottom:0; 
+            margin-left:0.5em
+        }
+        #divContainer {
+            /* border: solid 2px rgb(145, 76, 76);  */
+            overflow: hidden; 
+            visibility:hidden
+        }
+        .hint {
+            /* display: none; */
+            overflow: hidden;
+            max-height: 0;
+            -webkit-transition: max-height 0.5s; 
+            -moz-transition: max-height 0.5s; 
+            -ms-transition: max-height 0.5s; 
+            -o-transition: max-height 0.5s; 
+            transition: max-height 0.5s;
+        }
+        .showHide {
+            margin-left:1em; 
+            margin-right:2em;
+            cursor: pointer;
+        }
+
+    </style>
+    </head>
+<body class="is-preload">
+<!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <script>
+                $("#header").load("../../header.html");
+            </script>
+        </header>
+
+        <!-- Menu (help in disguise)-->
+        <nav id="menu" style="width:75%; max-width:1100px">
+            <script>
+                $("#menu").load("helpmenuMG.html");
+            </script>
+        </nav>
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+                <a href="MG_home.html" ><h1>Molekülgeometrie: Vertiefungsaktivität</h1></a>
+                <!-- Simnav buttons -->
+                <div id="simnav" style="padding-bottom:0">
+                    <script>
+                        $("#simnav").load("MG_simnav.html", function(){
+                            let idx = 0
+                            let activeTab = document.getElementsByClassName("styleSim")[idx]
+                            activeTab.classList.remove("styleSim")
+                            activeTab.classList.add("styleSimActive")
+                        });
+                    </script>
+                </div>
+				<h2>Simulation A: Molekülgeometrie (PhET&trade;)</h2>
+                <p>Diese Simulation ist Teil einer umfangreichen Sammlung von Simulationen für den MINT-Unterricht, die vom PhET&trade;-Team an der Universität von Colorado entwickelt wurde. Mit dieser Simulation können Molekülgeometrien für verschiedene Bindungskonfigurationen um ein Zentralatom betrachtet werden.</p>
+                <h3>Hinweise zur Nutzung der Simulation: <span><toggle class="showHide" id="showHideUsage">Einblenden</toggle></span></h3>
+                <div id="hintUsage" class="hint">
+                    <ul>
+                        <li>
+                            Für die Aufgaben dieser Aktivität sollte hauptsächlich das "Modell"-Panel verwendet werden. Eine Ausnahme liegt bei Aufgabe 3c, wo Sie das reale Wassermolekül betrachten sollen.
+                        </li>
+                        <li>
+                            Mit Hilfe der Tafeln auf der rechten Seite können bis zu sechs Bindungen oder nicht bindende Elektronenpaare zum Zentralatom hinzugefügt werden.
+                        </li>
+                        <li>
+                            Die Simulation kann auch Bindungswinkel und Namen von Geometrien anzeigen. Sie sollten jedoch diese Funktionen nur zum Üperprüfen Ihrer Vorhersagen nutzen, damit Sie Ihr eigenes Gedächtnis für diese Konzepte testen und weiterentwickeln können.
+                        </li>
+                    </ul>
+                </div>
+
+                <div style="position: relative; margin-top:1em; padding-bottom:75%; width:80%; height:3em">
+                    <iframe src="https://phet.colorado.edu/sims/html/molecule-shapes/latest/molecule-shapes_de.html" style="position:absolute; width:100%; height:65%"></iframe>
+                </div>
+                <p class="copyRightInfo">&copy 2002-2023 <a href="https://phet.colorado.edu/en/simulations/molecule-shapes/about" target="_blank">PhET &trade; Interactive Simulations</a></p> 
+            </div>
+        </div>
+        
+
+
+		<!-- Footer -->
+		<footer id="footer">
+            <script>$("#footer").load("../../footer.html"); </script>
+		</footer>
+    </div>
+
+<!-- Scripts -->
+    <script src="../../assets/js/browser.min.js"></script>
+    <script src="../../assets/js/breakpoints.min.js"></script>
+    <script src="../../assets/js/util.js"></script>
+    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/Three49custom.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://www.geogebra.org/apps/deployggb.js"></script>
+    <script>
+        // Setting up hint toggles
+        showHideToggles = document.getElementsByClassName("showHide");
+        
+        [].forEach.call(showHideToggles, function(m){
+            m.onclick = function(){
+                let hintId = m.id.split("showHide")[1]
+                hint = document.getElementById("hint"+hintId)
+                if (this.innerHTML == "Einblenden"){
+                    this.innerHTML = "Ausblenden"
+                    hint.style["max-height"] = "400px"
+                    // hint.style.display="block"
+                } else {
+                    this.innerHTML = "Einblenden"
+                    hint.style["max-height"] = "0px"
+                    // hint.style.display="none"
+                }
+            }
+        })
+    </script>
+</body></body>
+</html>

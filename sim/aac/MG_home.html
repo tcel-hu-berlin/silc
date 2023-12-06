@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<!--
+	Made using the template Phantom by HTML5 UP
+	html5up.net | @ajlkn
+-->
+<html>
+<head>
+    <title>SILC: Molekülgeometrie</title>
+    <link rel="icon" type="image/x-icon" href="../../images/fav.png">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+    <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
+    <script src="../../assets/js/jquery.min.js"></script>
+    </head>
+<body class="is-preload">
+<!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <script>
+                $("#header").load("../../header.html");
+            </script>
+        </header>
+
+        <!-- Menu (help in disguise)-->
+        <nav id="menu" style="width:75%; max-width:1100px">
+            <script>
+                $("#menu").load("helpmenuMG.html");
+            </script>
+        </nav>
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+                <h1>Molekülgeometrie: Vertiefungsaktivität</h1>
+                
+        <!-- Simnav buttons -->
+        <div id="simnav">
+            <script>
+                $("#simnav").load("MG_simnav.html");
+            </script>
+        </div>
+
+		<!-- Footer -->
+		<footer id="footer">
+            <script>$("#footer").load("../../footer.html"); </script>
+		</footer>
+    </div>
+
+<!-- Scripts -->
+    <script src="../../assets/js/browser.min.js"></script>
+    <script src="../../assets/js/breakpoints.min.js"></script>
+    <script src="../../assets/js/util.js"></script>
+    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/Three49custom.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://www.geogebra.org/apps/deployggb.js"></script>
+    <script>
+        var simwidth = document.getElementById("ggb-vsepr").offsetWidth;
+        var simheight = simwidth*0.6
+        var params = {
+            "appName": "classic",
+                "width": simwidth,
+                "height": simheight,
+                "showMenuBar": false,
+                "scaleContainerClass": "graphContainer",
+                "material_id": "ywwztneg",};
+        var applet = new GGBApplet(params, true);
+        applet.inject('ggb-vsepr');
+    </script>
+</body></body>
+</html>

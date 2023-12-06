@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<!--
+	Made using the template Phantom by HTML5 UP
+	html5up.net | @ajlkn
+-->
+<html>
+<head>
+    <title>SILC: Molekülgeometrie</title>
+    <link rel="icon" type="image/x-icon" href="../../images/fav.png">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+    <script src="https://kit.fontawesome.com/8b1d63b705.js" crossorigin="anonymous"></script>
+    <script src="../../assets/js/jquery.min.js"></script>
+    <style>
+        .copyRightInfo {
+            font-size:1em; 
+            color:rgb(26, 14, 255); 
+            margin-bottom:0; 
+            margin-left:0.5em
+        }
+        .hint {
+            /* display: none; */
+            overflow: hidden;
+            max-height: 0;
+            -webkit-transition: max-height 0.5s; 
+            -moz-transition: max-height 0.5s; 
+            -ms-transition: max-height 0.5s; 
+            -o-transition: max-height 0.5s; 
+            transition: max-height 0.5s;
+        }
+        .showHide {
+            margin-left:1em; 
+            margin-right:2em;
+            cursor: pointer;
+        }
+
+    </style>
+    </head>
+<body class="is-preload">
+<!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <script>
+                $("#header").load("../../header.html");
+            </script>
+        </header>
+
+        <!-- Menu (help in disguise)-->
+        <nav id="menu" style="width:75%; max-width:1100px">
+            <script>
+                $("#menu").load("helpmenuMG.html");
+            </script>
+        </nav>
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+                <a href="MG_home.html" ><h1>Molekülgeometrie: Vertiefungsaktivität</h1></a>
+                <!-- Simnav buttons -->
+                <div id="simnav" style="padding-bottom:0">
+                    <script>
+                        $("#simnav").load("MG_simnav.html", function(){
+                            let idx = 1
+                            let activeTab = document.getElementsByClassName("styleSim")[idx]
+                            activeTab.classList.remove("styleSim")
+                            activeTab.classList.add("styleSimActive")
+                        });
+                    </script>
+                </div>            
+				<h2>Simulation B: Polarität</h2>
+                <p>Mit dieser Simulation, die in Geogebra vom Nutzer <em>WitchOfAgnesi</em> entwickelt wurde, können ebenfalls Molekülgeometrien dargestellt werden. Die Simulation ermöglicht es Ihnen auch, die Elektronegativitätsdifferenzen der verschiedenen Bindungen im Molekül zu definieren und so die Polarität des Moleküls als Vektor zu visualisieren.</p>
+                <h3>Hinweise zur Nutzung der Simulation: <span><toggle class="showHide" id="showHideUsage">Einblenden</toggle></span></h3>
+                <div id="hintUsage" class="hint">
+                    <ul>
+                        <li>
+                            Mit den beiden horizontalen Schiebereglern können Sie die Gesamtzahl der Elektronendomänen um das Molekül und die Anzahl der Bindungen festlegen.
+                        </li>
+                        <li>
+                            Sie finden für jede Bindung auch einen vertikalen Schieberegler, mit dem Sie die Elektronegativitätdifferenz in dieser Bindung festlegen können. Beachten Sie, dass das bei der Berechnung der Elektronegativitátsdifferenz die Elektronegativität des Zentralatoms von der des äußersten Atoms (Liganden) subtrahiert wird.
+                        </li>
+                    </ul>
+                </div>
+                <div id="graph" style="width:100%;height:100%; margin-top:1em" class="graphContainer">
+                    <div id="ggb-vsepr" style="width: 1208px; overflow:hidden" ></div>
+                </div>
+                <p style="font-size:1em; color:rgb(26, 14, 255); margin-bottom:0; margin-left:0.5em">Simulation "VSEPR Playground" vom Geogebra-Nutzer <a href="https://www.geogebra.org/m/ehuusabh">WitchOfAgnesi</a>, übersetzt und leicht verändert</p> 
+            </div>
+        </div>
+
+		<!-- Footer -->
+		<footer id="footer">
+            <script>$("#footer").load("../../footer.html"); </script>
+		</footer>
+    </div>
+
+<!-- Scripts -->
+    <script src="../../assets/js/browser.min.js"></script>
+    <script src="../../assets/js/breakpoints.min.js"></script>
+    <script src="../../assets/js/util.js"></script>
+    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/Three49custom.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://www.geogebra.org/apps/deployggb.js"></script>
+    <script>
+        var simwidth = document.getElementById("ggb-vsepr").offsetWidth;
+        var simheight = simwidth*0.6
+        var params = {
+            "appName": "classic",
+                "width": simwidth,
+                "height": simheight,
+                "showMenuBar": false,
+                "scaleContainerClass": "graphContainer",
+                "material_id": "ywwztneg",};
+        var applet = new GGBApplet(params, true);
+        applet.inject('ggb-vsepr');
+    </script>
+        <script>
+            // Setting up hint toggles
+            showHideToggles = document.getElementsByClassName("showHide");
+            
+            [].forEach.call(showHideToggles, function(m){
+                m.onclick = function(){
+                    let hintId = m.id.split("showHide")[1]
+                    hint = document.getElementById("hint"+hintId)
+                    if (this.innerHTML == "Einblenden"){
+                        this.innerHTML = "Ausblenden"
+                        hint.style["max-height"] = "400px"
+                        // hint.style.display="block"
+                    } else {
+                        this.innerHTML = "Einblenden"
+                        hint.style["max-height"] = "0px"
+                        // hint.style.display="none"
+                    }
+                }
+            })
+        </script>
+</body></body>
+</html>
