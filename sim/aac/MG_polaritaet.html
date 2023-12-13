@@ -118,25 +118,25 @@
         var applet = new GGBApplet(params, true);
         applet.inject('ggb-vsepr');
     </script>
-        <script>
-            // Setting up hint toggles
-            showHideToggles = document.getElementsByClassName("showHide");
-            
-            [].forEach.call(showHideToggles, function(m){
-                m.onclick = function(){
-                    let hintId = m.id.split("showHide")[1]
-                    hint = document.getElementById("hint"+hintId)
-                    if (this.innerHTML == "Einblenden"){
-                        this.innerHTML = "Ausblenden"
-                        hint.style["max-height"] = "400px"
-                        // hint.style.display="block"
-                    } else {
-                        this.innerHTML = "Einblenden"
-                        hint.style["max-height"] = "0px"
-                        // hint.style.display="none"
-                    }
+    <script>
+        // Setting up hint toggles
+        showHideToggles = document.getElementsByClassName("showHide");
+        
+        [].forEach.call(showHideToggles, function(m){
+            m.onclick = function(){
+                let hintId = m.id.split("showHide")[1]
+                hint = document.getElementById("hint"+hintId)
+                if (this.innerHTML == "Einblenden"){
+                    this.innerHTML = "Ausblenden"
+                    hint.style["max-height"] = "400px"
+                    // hint.style.display="block"
+                } else {
+                    this.innerHTML = "Einblenden"
+                    hint.style["max-height"] = "0px"
+                    // hint.style.display="none"
                 }
-            })
-        </script>
+            }
+        })
+    </script>
 </body></body>
 </html>

@@ -20,11 +20,6 @@
             margin-bottom:0; 
             margin-left:0.5em
         }
-        #divContainer {
-            /* border: solid 2px rgb(145, 76, 76);  */
-            overflow: hidden; 
-            visibility:hidden
-        }
         .hint {
             /* display: none; */
             overflow: hidden;
@@ -93,8 +88,8 @@
                     </ul>
                 </div>
 
-                <div style="position: relative; margin-top:1em; padding-bottom:75%; width:80%; height:3em">
-                    <iframe src="https://phet.colorado.edu/sims/html/molecule-shapes/latest/molecule-shapes_de.html" style="position:absolute; width:100%; height:65%"></iframe>
+                <div id="phetContainer" style="position: relative; margin-top:1em; padding-bottom:75%; width:80%; height:3em">
+                    <iframe id="phet" src="https://phet.colorado.edu/sims/html/molecule-shapes/latest/molecule-shapes_de.html" style="position:absolute; width:100%; height:65%"></iframe>
                 </div>
                 <p class="copyRightInfo">&copy 2002-2023 <a href="https://phet.colorado.edu/en/simulations/molecule-shapes/about" target="_blank">PhET &trade; Interactive Simulations</a></p> 
             </div>
@@ -114,27 +109,25 @@
     <script src="../../assets/js/util.js"></script>
     <script src="../../assets/js/main.js"></script>
     <script src="../../assets/js/Three49custom.js"></script>
-    <script src="https://d3js.org/d3.v4.js"></script>
-    <script src="https://www.geogebra.org/apps/deployggb.js"></script>
     <script>
-        // Setting up hint toggles
-        showHideToggles = document.getElementsByClassName("showHide");
-        
-        [].forEach.call(showHideToggles, function(m){
-            m.onclick = function(){
-                let hintId = m.id.split("showHide")[1]
-                hint = document.getElementById("hint"+hintId)
-                if (this.innerHTML == "Einblenden"){
-                    this.innerHTML = "Ausblenden"
-                    hint.style["max-height"] = "400px"
-                    // hint.style.display="block"
-                } else {
-                    this.innerHTML = "Einblenden"
-                    hint.style["max-height"] = "0px"
-                    // hint.style.display="none"
-                }
+    // Setting up hint toggles
+    showHideToggles = document.getElementsByClassName("showHide");
+    
+    [].forEach.call(showHideToggles, function(m){
+        m.onclick = function(){
+            let hintId = m.id.split("showHide")[1]
+            hint = document.getElementById("hint"+hintId)
+            if (this.innerHTML == "Einblenden"){
+                this.innerHTML = "Ausblenden"
+                hint.style["max-height"] = "400px"
+                // hint.style.display="block"
+            } else {
+                this.innerHTML = "Einblenden"
+                hint.style["max-height"] = "0px"
+                // hint.style.display="none"
             }
-        })
+        }
+    })
     </script>
-</body></body>
+</body>
 </html>
