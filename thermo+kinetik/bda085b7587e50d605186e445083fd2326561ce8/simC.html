@@ -44,7 +44,7 @@
                         Die Temperatur und die Aktivierungsenergie der Reaktion lassen sich mit dem Schieberegler einstellen. 
                     </li> 
                 </ul>
-                <iframe scrolling="no" id="simulationC" src="../../assets/glowscript/particleKinetics.html" 
+                <iframe scrolling="no" id="simulationC" src="../../assets/glowscript/particleKineticsKE.html" 
                                 style="width: 90%; height: 50px"></iframe>
                 <h3>Zu Beachten:</h3>
                 <ul>
@@ -121,6 +121,43 @@
 <script src="../../assets/js/Three49custom.js"></script>
 <script src="https://d3js.org/d3.v4.js"></script>
 <script>
+    var iFrame = document.getElementById("simulationC")
+    iFrame.onload = function(){
+        window_width = iFrame.contentWindow.window_width
+        iFrame.style.height = window_width/1.9+'px'
+        // graph1 = iFrame.contentDocument.getElementById("graph1")
+        // console.log(graph1)
+        // graph1.style["margin-top"]="2em"
+        // setTimeout(function(){
+        //     iFrame.contentDocument.getElementById("graph1").style["margin-top"]="2em"
+        // }, 4000)
+    }
+    function waitForElement(selector, callback, waitTime) {
+        // Check if an element matching the selector exists in the DOM
+        if (iFrame.contentDocument.querySelector(selector)) {
+            // If the element is found, invoke the callback function
+            callback();
+        } else {
+            // If the element is not found at first, set up a timeout to recheck after waitTime
+            console.log("retrying")
+            setTimeout(function() {
+                // Recursively call waitForElement with the same selector, callback, and waitTime values
+                waitForElement(selector, callback, waitTime);
+            }, waitTime);
+        }
+    }
+    // waitForElement("#s0", function(){
+    //     console.log("created")
+    //     iFrame.contentDocument.getElementById("s0").style["margin-top"]="10px"
+    // }, 500)
+    waitForElement("#s1", function(){
+        console.log("created")
+        iFrame.contentDocument.getElementById("s0").style["margin-top"]="1.5em"
+        iFrame.contentDocument.getElementById("s1").parentElement.style["margin-bottom"]="2em"
+    }, 500)
+
+</script>
+<!-- <script>
     var iframeC = document.getElementById('simulationC')
     iframeC.onload = function(){            
         graphC = iframeC.contentWindow.document.getElementsByClassName('glowscript-canvas-wrapper ui-resizable')[0]
@@ -149,6 +186,6 @@
         t_vel.style.display = "inline"
         iframeC.style.height = iframeC.contentWindow.document.body.scrollHeight+'px'
     }
-</script>
+</script> -->
 </body>
 </html>
