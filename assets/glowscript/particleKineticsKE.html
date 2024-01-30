@@ -790,13 +790,14 @@
                 "339";
                 gg.remove();
                 "340";
-                ρσ_getitem(Atoms, 0).clear_trail();
-                "341";
                 pavg = sqrt(2["*"](mass)["*"](1.5)["*"](k)["*"](T));
-                "342";
+                "341";
                 for (var ρσ_Index12 = 0; ρσ_Index12["<"](Natoms); ρσ_Index12++) {
                     i = ρσ_Index12;
+                    "342";
+                    ρσ_getitem(Atoms, i).clear_trail();
                     "343";
+                    ρσ_getitem(Atoms, i).make_trail = false;
                     xi = i["%"](aps);
                     "344";
                     yi = Math.floor(i["/"](aps))["-"](1["*"](aps)["*"](Math.floor(i["/"](Math.pow(aps, 2)))));
